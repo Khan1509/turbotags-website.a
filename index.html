@@ -1371,21 +1371,28 @@
             }
 
         } else {
-            // Fallback for local development or non-Canvas environments
-            // --- UPDATED FIREBASE CONFIG WITH USER-PROVIDED VALUES ---
-            firebaseConfig = {
-                apiKey: "AIzaSyCdQdG1cqcmUDwSSUlFVrP9arOV3qvdCpE",
-                authDomain: "turbotags-b4ca1.firebaseapp.com",
-                projectId: "turbotags-b4ca1",
-                storageBucket: "turbotags-b4ca1.firebasestorage.app",
-                messagingSenderId: "766845880079",
-                appId: "1:766845880079:web:6de73355da50bf0531607a",
-                measurementId: "G-MP18L879VZ"
-            };
-            console.warn("Firebase: Not in Canvas environment. Using provided Firebase config.");
-
-            currentAppId = firebaseConfig.appId || 'turbotags-default-app';
-            console.log("Using App ID for collection path (non-Canvas):", currentAppId);
+            console.log("Firebase: Not in Canvas environment. Fetching config from Vercel API.");
+            try {
+                const response = await fetch('/api/firebase-config');
+                if (!response.ok) {
+                    throw new Error(`Failed to fetch Firebase config: ${response.status} ${response.statusText}`);
+                }
+                firebaseConfig = await response.json();
+                console.log("Firebase config fetched from Vercel API.");
+                currentAppId = firebaseConfig.appId || 'turbotags-default-app';
+                console.log("Using App ID for collection path (non-Canvas):", currentAppId);
+            } catch (e) {
+                console.error("Firebase: Error fetching config from Vercel API. Using dummy config. Error:", e);
+                firebaseConfig = {
+                    apiKey: "dummy-api-key-from-vercel-fetch-error",
+                    authDomain: "dummy-auth-domain.firebaseapp.com",
+                    projectId: "dummy-project-id",
+                    storageBucket: "dummy-storage-bucket",
+                    messagingSenderId: "dummy-sender-id",
+                    appId: "dummy-app-id",
+                    measurementId: "G-DUMMY"
+                };
+            }
         }
 
         // Initialize Firebase app if a valid API key is present
