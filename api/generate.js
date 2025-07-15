@@ -1,13 +1,10 @@
 // api/generate.js
 // This Vercel Serverless Function handles AI content generation.
 // It attempts to use Mistral via OpenRouter first,
-// then falls back to Google Gemini 1.5 Flash,
+// then falls back to Google Gemini 1.5 Flash via OpenRouter,
 // and finally provides a hardcoded JSON fallback if all APIs fail.
 
-// Import necessary libraries.
-// For OpenRouter, we'll use a standard fetch.
-// For Gemini, we'll use the official @google/generative-ai SDK.
-import { GoogleGenerativeAI } from '@google/generative-ai';
+// No direct GoogleGenerativeAI import needed as all calls go through OpenRouter.
 
 export default async function handler(req, res) {
     // Ensure the request method is POST for security and proper handling.
@@ -22,11 +19,11 @@ export default async function handler(req, res) {
         return res.status(400).json({ error: 'Bad Request', message: 'A valid prompt is required for AI generation.' });
     }
 
-    // --- API Keys from Vercel Environment Variables ---
-    // These keys MUST be set in your Vercel project settings.
+    // --- API Key from Vercel Environment Variables ---
+    // The OpenRouter API key is now the primary key for all external LLM calls.
+    // This key MUST be set in your Vercel project settings.
     // Go to Project Settings -> Environment Variables.
     const openRouterApiKey = process.env.OPENROUTER_API_KEY;
-    const geminiApiKey = process.env.GEMINI_API_KEY;
 
     // Hardcoded fallback data in case all API calls fail.
     const fallbackData = {
@@ -37,76 +34,94 @@ export default async function handler(req, res) {
     let apiUsed = 'none';
     let errorDetails = {};
 
+    // Check if OpenRouter API key is available
+    if (!openRouterApiKey) {
+        console.warn("OPENROUTER_API_KEY is not set. Skipping all OpenRouter API calls.");
+        errorDetails.openrouter = "API key not configured for OpenRouter.";
+        // Proceed directly to fallback if no OpenRouter key
+        return res.status(200).json({
+            text: fallbackData.text,
+            apiUsed: 'fallback-json',
+            warning: "AI generation failed. Using fallback data because OpenRouter API key is missing. Check server logs for details.",
+            errors: errorDetails
+        });
+    }
+
     // --- Attempt 1: Mistral via OpenRouter ---
-    if (openRouterApiKey) {
+    try {
+        console.log("Attempting AI generation via OpenRouter (Mistral)...");
+        const openRouterMistralResponse = await fetch("https://openrouter.ai/api/v1/chat/completions", {
+            method: "POST",
+            headers: {
+                "Authorization": `Bearer ${openRouterApiKey}`,
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                "model": "mistralai/mistral-7b-instruct-v0.2", // Specific Mistral model
+                "messages": [
+                    { "role": "user", "content": prompt }
+                ]
+            })
+        });
+
+        if (!openRouterMistralResponse.ok) {
+            const errorBody = await openRouterMistralResponse.json();
+            throw new Error(`OpenRouter (Mistral) API error: ${openRouterMistralResponse.status} ${openRouterMistralResponse.statusText} - ${errorBody.message || JSON.stringify(errorBody)}`);
+        }
+
+        const openRouterMistralResult = await openRouterMistralResponse.json();
+        if (openRouterMistralResult.choices && openRouterMistralResult.choices.length > 0 && openRouterMistralResult.choices[0].message) {
+            generatedText = openRouterMistralResult.choices[0].message.content;
+            apiUsed = 'openrouter-mistral';
+            console.log("OpenRouter (Mistral) API call successful.");
+        } else {
+            throw new Error("OpenRouter (Mistral) response missing expected content.");
+        }
+    } catch (error) {
+        console.error('Error from OpenRouter (Mistral) API:', error);
+        errorDetails.openrouter_mistral = error.message;
+    }
+
+    // --- Attempt 2: Google Gemini 1.5 Flash via OpenRouter (if Mistral failed) ---
+    if (!generatedText) {
         try {
-            console.log("Attempting AI generation via OpenRouter (Mistral)...");
-            const openRouterResponse = await fetch("https://openrouter.ai/api/v1/chat/completions", {
+            console.log("Mistral via OpenRouter failed. Attempting AI generation via OpenRouter (Gemini 1.5 Flash)...");
+            const openRouterGeminiResponse = await fetch("https://openrouter.ai/api/v1/chat/completions", {
                 method: "POST",
                 headers: {
                     "Authorization": `Bearer ${openRouterApiKey}`,
                     "Content-Type": "application/json"
                 },
                 body: JSON.stringify({
-                    "model": "mistralai/mistral-7b-instruct-v0.2", // Specific Mistral model
+                    "model": "google/gemini-1.5-flash", // Specify Gemini 1.5 Flash model through OpenRouter
                     "messages": [
                         { "role": "user", "content": prompt }
                     ]
                 })
             });
 
-            if (!openRouterResponse.ok) {
-                const errorBody = await openRouterResponse.json();
-                throw new Error(`OpenRouter API error: ${openRouterResponse.status} ${openRouterResponse.statusText} - ${errorBody.message || JSON.stringify(errorBody)}`);
+            if (!openRouterGeminiResponse.ok) {
+                const errorBody = await openRouterGeminiResponse.json();
+                throw new Error(`OpenRouter (Gemini) API error: ${openRouterGeminiResponse.status} ${openRouterGeminiResponse.statusText} - ${errorBody.message || JSON.stringify(errorBody)}`);
             }
 
-            const openRouterResult = await openRouterResponse.json();
-            if (openRouterResult.choices && openRouterResult.choices.length > 0 && openRouterResult.choices[0].message) {
-                generatedText = openRouterResult.choices[0].message.content;
-                apiUsed = 'openrouter-mistral';
-                console.log("OpenRouter (Mistral) API call successful.");
+            const openRouterGeminiResult = await openRouterGeminiResponse.json();
+            if (openRouterGeminiResult.choices && openRouterGeminiResult.choices.length > 0 && openRouterGeminiResult.choices[0].message) {
+                generatedText = openRouterGeminiResult.choices[0].message.content;
+                apiUsed = 'openrouter-gemini-flash';
+                console.log("OpenRouter (Gemini 1.5 Flash) API call successful.");
             } else {
-                throw new Error("OpenRouter response missing expected content.");
+                throw new Error("OpenRouter (Gemini) response missing expected content.");
             }
         } catch (error) {
-            console.error('Error from OpenRouter (Mistral) API:', error);
-            errorDetails.openrouter = error.message;
+            console.error('Error from OpenRouter (Gemini 1.5 Flash) API:', error);
+            errorDetails.openrouter_gemini = error.message;
         }
-    } else {
-        console.warn("OPENROUTER_API_KEY is not set. Skipping OpenRouter (Mistral) API call.");
-        errorDetails.openrouter = "API key not configured.";
-    }
-
-    // --- Attempt 2: Google Gemini 1.5 Flash (if Mistral failed or key missing) ---
-    if (!generatedText && geminiApiKey) {
-        try {
-            console.log("OpenRouter failed or key missing. Attempting AI generation via Google Gemini 1.5 Flash...");
-            const genAI = new GoogleGenerativeAI(geminiApiKey);
-            const model = genAI.getGenerativeModel({ model: 'gemini-1.5-flash' });
-
-            const result = await model.generateContent(prompt);
-            const response = await result.response;
-            const text = response.text();
-
-            if (text) {
-                generatedText = text;
-                apiUsed = 'gemini-1.5-flash';
-                console.log("Google Gemini 1.5 Flash API call successful.");
-            } else {
-                throw new Error("Gemini API response missing text.");
-            }
-        } catch (error) {
-            console.error('Error from Google Gemini 1.5 Flash API:', error);
-            errorDetails.gemini = error.message;
-        }
-    } else if (!geminiApiKey) {
-        console.warn("GEMINI_API_KEY is not set. Skipping Google Gemini API call.");
-        errorDetails.gemini = "API key not configured.";
     }
 
     // --- Final Fallback: Hardcoded JSON ---
     if (!generatedText) {
-        console.warn("Both OpenRouter and Gemini APIs failed or keys missing. Using hardcoded fallback data.");
+        console.warn("Both OpenRouter (Mistral) and OpenRouter (Gemini) APIs failed. Using hardcoded fallback data.");
         generatedText = fallbackData.text;
         apiUsed = 'fallback-json';
         return res.status(200).json({
