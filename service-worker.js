@@ -16,7 +16,7 @@ const urlsToCache = [
     '/SEO_ENHANCEMENT_SUMMARY.md',
     '/turbotags-roadmap',
 
-    // Favicons and Icons
+    // Favicons and Icons - ENSURE THESE FILES EXIST AT THESE EXACT PATHS
     '/favicon.ico',
     '/favicon.png',
     '/favicon.svg',
