@@ -330,6 +330,7 @@
             margin-bottom: 0.5rem;
             box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
             transition: all 0.2s ease-in-out;
+            border: 1px solid #151440; /* Added border */
         }
         .tag-item:hover {
             transform: translateX(5px);
@@ -431,7 +432,7 @@
             padding: 2rem;
             box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
             transition: all 0.3s ease;
-            border: 1px solid #d1d5db;
+            border: 2px solid #151440; /* Changed border color and thickness */
         }
 
         .feature-card:hover {
@@ -447,6 +448,7 @@
             padding: 1.5rem;
             text-align: center;
             box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+            border: 1px solid #151440; /* Added border */
         }
 
         /* Premium/Coming Soon Cards */
@@ -456,7 +458,7 @@
             padding: 1.5rem;
             box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
             transition: all 0.3s ease;
-            border: 1px solid #d1d5db;
+            border: 2px solid #151440; /* Changed border color and thickness */
         }
 
         .premium-card:hover {
@@ -471,7 +473,7 @@
             padding: 1rem;
             box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
             text-align: center;
-            border: 1px solid #d1d5db;
+            border: 1px solid #151440; /* Changed border color */
         }
 
         /* FAQ Accordion */
@@ -602,13 +604,14 @@
 
         /* Mobile-specific styles */
         @media (max-width: 768px) {
+            /* Adjust padding and font sizes for smaller screens */
             .btn-primary, .btn-secondary {
                 padding: 1rem 1.5rem;
                 font-size: 0.9rem;
             }
 
             .tab-button {
-                padding: 1rem;
+                padding: 1rem; /* Reduced padding for tabs */
                 font-size: 0.9rem;
             }
 
@@ -641,6 +644,59 @@
                 padding: 0.5rem 1rem;
                 font-size: 0.8rem;
             }
+
+            /* Ensure main container padding is responsive */
+            .max-w-6xl.w-full {
+                padding: 1.5rem; /* Adjusted padding for main container on mobile */
+            }
+
+            /* Adjust header elements for smaller screens */
+            header .flex.justify-between {
+                flex-direction: column;
+                align-items: center;
+                text-align: center;
+            }
+            header .flex.items-center {
+                margin-bottom: 1rem;
+            }
+            header .text-5xl {
+                font-size: 3rem; /* Smaller heading on mobile */
+            }
+            header .text-xl {
+                font-size: 1rem; /* Smaller sub-heading on mobile */
+            }
+            header .mt-4.flex.justify-center {
+                flex-wrap: wrap; /* Allow tags to wrap */
+                gap: 0.5rem; /* Smaller gap */
+            }
+
+            /* Adjust tab button layout for very small screens if needed, though flex:1 should handle it */
+            .flex.border-b.mb-6.bg-gray-50 {
+                flex-wrap: wrap; /* Allow tabs to wrap if they get too wide */
+            }
+            .tab-button {
+                min-width: unset; /* Remove fixed min-width if any */
+                padding: 1rem 0.5rem; /* Adjust padding further for very small screens */
+            }
+
+            /* Ensure buttons stack or wrap appropriately */
+            .flex.flex-col.sm:flex-row.justify-center.gap-4 {
+                flex-direction: column;
+                align-items: center;
+                gap: 1rem; /* Adjust gap for stacked buttons */
+            }
+            .flex.flex-col.sm:flex-row.justify-center.gap-4 button {
+                width: 100%; /* Make buttons full width when stacked */
+                max-width: 300px; /* Limit max width for stacked buttons */
+            }
+
+            /* Grid adjustments for feature and premium cards */
+            .grid.grid-cols-1.md:grid-cols-2.lg:grid-cols-3 {
+                grid-template-columns: 1fr; /* Stack all cards on mobile */
+            }
+            .grid.grid-cols-2.md:grid-cols-4 {
+                grid-template-columns: 1fr 1fr; /* Two columns for stats on mobile */
+            }
         }
     </style>
 </head>
@@ -670,12 +726,12 @@
     <div id="messageBox" class="message-box" role="status" aria-live="polite"></div>
 
     <!-- Main Container -->
-    <div class="max-w-6xl w-full bg-white rounded-3xl shadow-xl p-8 md:p-12 space-y-10 border border-gray-300">
+    <div class="max-w-6xl w-full bg-white rounded-3xl shadow-xl p-8 md:p-12 space-y-10 border border-[#151440]"> <!-- Changed border color -->
 
         <!-- Header Section -->
         <header class="text-center">
-            <div class="flex justify-between items-center px-4 md:px-8">
-                <div class="flex items-center">
+            <div class="flex flex-col sm:flex-row justify-between items-center px-4 md:px-8">
+                <div class="flex items-center mb-4 sm:mb-0">
                     <!-- Thunder Icon (Top) -->
                     <svg class="w-12 h-12 mr-3" fill="#151440" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
                         <path d="M13 2L6 14h5l-1 8 8-10h-5l2-8z"/>
@@ -692,7 +748,7 @@
             <p class="text-xl md:text-2xl text-gray-600 font-semibold mt-2">
                 AI-Powered Tags & Hashtags. Smarter Reach. Faster Growth. 🚀
             </p>
-            <div class="mt-4 flex justify-center space-x-4">
+            <div class="mt-4 flex flex-wrap justify-center gap-2 sm:gap-4"> <!-- Added flex-wrap and gap -->
                 <span class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-green-100 text-green-800">
                     <span class="w-2 h-2 bg-green-400 rounded-full mr-2" aria-hidden="true"></span>
                     Free to Use
@@ -709,11 +765,11 @@
         </header>
 
         <!-- Tag Generation Section -->
-        <section class="bg-white p-8 rounded-2xl shadow-lg border border-gray-300" id="tag-generator">
+        <section class="bg-white p-8 rounded-2xl shadow-lg border border-[#151440]" id="tag-generator"> <!-- Changed border color -->
             <h2 class="text-3xl font-bold text-gray-800 mb-6 text-center">Generate Your Tags & Hashtags</h2>
 
             <!-- Platform Tabs -->
-            <div class="flex border-b border-gray-200 mb-6 bg-gray-50 rounded-t-lg overflow-hidden" role="tablist">
+            <div class="flex flex-wrap border-b border-gray-200 mb-6 bg-gray-50 rounded-t-lg overflow-hidden" role="tablist"> <!-- Added flex-wrap -->
                 <button id="youtubeTabBtn" class="tab-button active" data-tab="youtube" role="tab" aria-selected="true" aria-controls="youtubeTabContent">
                     <i class="fab fa-youtube text-red-500" aria-hidden="true"></i>
                     <span>YouTube</span>
@@ -788,7 +844,7 @@
                 <!-- Tags Section -->
                 <div id="tagsSection">
                     <h3 class="text-xl font-bold text-gray-800 mb-4 text-center">Tags: <span id="tagsCount">(0)</span></h3>
-                    <div id="tagList" class="min-h-[100px] border border-gray-200 rounded-lg p-4 bg-gray-200" aria-live="polite">
+                    <div id="tagList" class="min-h-[100px] border border-[#151440] rounded-lg p-4 bg-gray-200" aria-live="polite"> <!-- Changed border color -->
                         <!-- Tags will be injected here -->
                     </div>
                     <div class="mt-4 text-center">
@@ -800,7 +856,7 @@
                 <!-- Hashtags Section -->
                 <div id="hashtagsSection">
                     <h3 class="text-xl font-bold text-gray-800 mb-4 text-center">#Tags: <span id="hashtagsCount">(0)</span></h3>
-                    <div id="hashtagList" class="min-h-[100px] border border-gray-200 rounded-lg p-4 bg-gray-200" aria-live="polite">
+                    <div id="hashtagList" class="min-h-[100px] border border-[#151440] rounded-lg p-4 bg-gray-200" aria-live="polite"> <!-- Changed border color -->
                         <!-- Hashtags will be injected here -->
                     </div>
                     <div class="mt-4 text-center">
@@ -818,7 +874,7 @@
             </div>
 
             <!-- YouTube Optimization Tips Section (New Highlighted Box) -->
-            <div class="bg-purple-50 p-6 rounded-xl shadow-sm mt-10 border border-gray-300">
+            <div class="bg-purple-50 p-6 rounded-xl shadow-sm mt-10 border border-[#151440]"> <!-- Changed border color -->
                 <h3 class="text-xl font-bold mb-3 flex items-center">
                     <i class="fas fa-lightbulb text-violet-600 mr-3" aria-hidden="true"></i> YouTube Optimization Tips
                 </h3>
@@ -833,14 +889,14 @@
         </section>
 
         <!-- Why Choose TurboTags Section -->
-        <section class="bg-gradient-to-br from-violet-50 to-indigo-50 p-8 rounded-2xl shadow-lg border border-gray-300">
+        <section class="bg-gradient-to-br from-violet-50 to-indigo-50 p-8 rounded-2xl shadow-lg border border-[#151440]"> <!-- Changed border color -->
             <div class="text-center mb-10">
                 <h2 class="text-4xl font-extrabold gradient-text mb-4">Why Choose TurboTags?</h2>
                 <p class="text-xl text-gray-700 max-w-3xl mx-auto">
                     The ultimate AI-powered solution to skyrocket your content reach across YouTube, Instagram, and TikTok.
                     Join 50,000+ creators who trust TurboTags for viral growth!
                 </p>
-                <div class="mt-6 flex justify-center space-x-4">
+                <div class="mt-6 flex flex-wrap justify-center gap-2 sm:gap-4"> <!-- Added flex-wrap and gap -->
                     <span class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-green-100 text-green-800">
                         <span class="w-2 h-2 bg-green-400 rounded-full mr-2" aria-hidden="true"></span>
                         Free to Use
@@ -984,7 +1040,7 @@
         </section>
 
         <!-- Coming Soon Features -->
-        <section class="bg-white p-8 rounded-2xl shadow-lg border border-gray-300">
+        <section class="bg-white p-8 rounded-2xl shadow-lg border border-[#151440]"> <!-- Changed border color -->
             <h2 class="text-3xl font-bold text-gray-800 mb-6 text-center">Coming Soon Features</h2>
             <p class="text-center text-gray-600 mb-8">
                 Exciting new features are in development to make TurboTags even more powerful
@@ -1037,7 +1093,7 @@
         </section>
 
         <!-- About Section -->
-        <section class="bg-white p-8 rounded-2xl shadow-lg border border-gray-300">
+        <section class="bg-white p-8 rounded-2xl shadow-lg border border-[#151440]"> <!-- Changed border color -->
             <h2 class="text-3xl font-bold text-gray-800 mb-6">About TurboTags</h2>
             <p class="text-gray-600 leading-relaxed mb-6">
                 TurboTags is your ultimate AI-powered companion for content creators. We understand the struggle of getting your content discovered in a crowded digital landscape. That's why we've built a smart, intuitive tool to help you generate highly effective, SEO-friendly tags and hashtags for all major platforms.
@@ -1064,7 +1120,7 @@
         </section>
 
         <!-- FAQ Section -->
-        <section class="bg-white p-8 rounded-2xl shadow-lg border border-gray-300" id="faq">
+        <section class="bg-white p-8 rounded-2xl shadow-lg border border-[#151440]" id="faq"> <!-- Changed border color -->
             <h2 class="text-3xl font-bold text-gray-800 mb-6 text-center">Frequently Asked Questions</h2>
             <div class="max-w-3xl mx-auto">
                 <!-- FAQ Item 1 -->
@@ -1135,7 +1191,7 @@
         </section>
 
         <!-- Sponsored Content Section -->
-        <section class="bg-white p-8 rounded-2xl shadow-lg border border-gray-300">
+        <section class="bg-white p-8 rounded-2xl shadow-lg border border-[#151440]"> <!-- Changed border color -->
             <h2 class="text-3xl font-bold text-gray-800 mb-6 text-center">Sponsored Content</h2>
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
                 <!-- 15 placeholders for Google Ads -->
@@ -1439,7 +1495,7 @@
 
         const generateYoutubeContentBtn = document.getElementById('generateYoutubeContentBtn');
         const generateInstagramHashtagsBtn = document.getElementById('generateInstagramHashtagsBtn');
-        const generateTiktokHashtagsBtn = document.getElementById('tiktokHashtagsBtn'); // Corrected ID
+        const generateTiktokHashtagsBtn = document.getElementById('generateTiktokHashtagsBtn'); // Corrected ID
         const resetBtn = document.getElementById('resetBtn');
         const resetInstagramBtn = document.getElementById('resetInstagramBtn');
         const resetTiktokBtn = document.getElementById('resetTiktokBtn');
