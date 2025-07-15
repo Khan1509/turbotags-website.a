@@ -11,14 +11,33 @@ const urlsToCache = [
     '/manifest.json',
     '/robots.txt',
     '/sitemap.xml',
-    // Add your CSS, JS, and image files here once you have them structured
-    // For example:
-    // '/css/style.css',
-    // '/js/main.js',
-    // '/icons/icon-192x192.svg',
-    // '/icons/youtube-shortcut-96x96.svg',
-    // '/screenshots/mobile-screenshot.png'
-    // Ensure all critical assets are listed for offline access
+    '/BACKLINK_STRATEGY.md', // Cache documentation
+    '/README.md',
+    '/SEO_ENHANCEMENT_SUMMARY.md',
+    '/turbotags-roadmap',
+
+    // Favicons and Icons
+    '/favicon.ico',
+    '/favicon.png',
+    '/favicon.svg',
+    '/favicon_16x16.png',
+    '/favicon_192x192.png',
+    '/favicon_32x32.png',
+    '/favicon_512x512.png',
+    '/icons/icon-144x144.svg',
+    '/icons/icon-192x192.svg',
+    '/icons/icon-512x512.svg',
+    '/icons/icon-72x72.svg',
+    '/icons/icon-96x96.svg',
+    '/icons/instagram-shortcut-96x96.svg',
+    '/icons/tiktok-shortcut-96x96.svg',
+    '/icons/youtube-shortcut-96x96.svg',
+
+    // Note: External CDN resources (like Tailwind CSS, Font Awesome, Firebase SDK)
+    // are generally not cached directly by your service worker due to CORS policies.
+    // For true offline functionality with CDNs, you might need a more advanced
+    // caching strategy or self-host these resources.
+    // For now, we focus on caching your local static assets.
 ];
 
 // Install event: Caches all static assets
