@@ -2,122 +2,16 @@
   "version": 2,
   "builds": [
     {
-      "src": "index.html",
-      "use": "@vercel/static"
+      "src": "api/generate.js",
+      "use": "@vercel/node"
     },
-    {
-      "src": "privacy.html",
-      "use": "@vercel/static"
-    },
-    {
-      "src": "terms.html",
-      "use": "@vercel/static"
-    },
-    {
-      "src": "disclaimer.html",
-      "use": "@vercel/static"
-    },
-    {
-      "src": "robots.txt",
-      "use": "@vercel/static"
-    },
-    {
-      "src": "sitemap.xml",
-      "use": "@vercel/static"
-    },
-    {
-      "src": "manifest.json",
-      "use": "@vercel/static"
-    },
-    {
-      "src": "BACKLINK_STRATEGY.md",
-      "use": "@vercel/static"
-    },
-    {
-      "src": "README.md",
-      "use": "@vercel/static"
-    },
-    {
-      "src": "SEO_ENHANCEMENT_SUMMARY.md",
-      "use": "@vercel/static"
-    },
-    {
-      "src": "turbotags-roadmap",
-      "use": "@vercel/static"
-    },
-    {
-      "src": "favicon.ico",
-      "use": "@vercel/static"
-    },
-    {
-      "src": "favicon.png",
-      "use": "@vercel/static"
-    },
-    {
-      "src": "favicon.svg",
-      "use": "@vercel/static"
-    },
-    {
-      "src": "favicon_16x16.png",
-      "use": "@vercel/static"
-    },
-    {
-      "src": "favicon_192x192.png",
-      "use": "@vercel/static"
-    },
-    {
-      "src": "favicon_32x32.png",
-      "use": "@vercel/static"
-    },
-    {
-      "src": "favicon_512x512.png",
-      "use": "@vercel/static"
-    },
-    {
-      "src": "icons/icon-144x144.svg",
-      "use": "@vercel/static"
-    },
-    {
-      "src": "icons/icon-192x192.svg",
-      "use": "@vercel/static"
-    },
-    {
-      "src": "icons/icon-512x512.svg",
-      "use": "@vercel/static"
-    },
-    {
-      "src": "icons/icon-72x72.svg",
-      "use": "@vercel/static"
-    },
-    {
-      "src": "icons/icon-96x96.svg",
-      "use": "@vercel/static"
-    },
-    {
-      "src": "icons/instagram-shortcut-96x96.svg",
-      "use": "@vercel/static"
-    },
-    {
-      "src": "icons/tiktok-shortcut-96x96.svg",
-      "use": "@vercel/static"
-    },
-    {
-      "src": "icons/youtube-shortcut-96x96.svg",
-      "use": "@vercel/static"
-    },
-    {
-      "src": "tests/features/features.html",
-      "use": "@vercel/static"
-    }
+    // Keep all your existing static builds here...
   ],
   "routes": [
     {
       "src": "/api/(.*)",
       "dest": "/api/$1"
     },
-    {
-      "src": "/(.*)",
-      "dest": "/$1"
-    }
+    // Keep your existing routes...
   ]
 }
