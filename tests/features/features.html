@@ -32,6 +32,22 @@ Feature: TurboTags - AI-Powered Tag and Hashtag Generator
     And I should be able to copy all hashtags
     And I should see viral percentages for each suggestion
 
+  Scenario: Generate YouTube video title
+    Given I am on the YouTube tab
+    When I enter a video description "A detailed tutorial on how to bake a perfect sourdough bread at home, covering starter, kneading, proofing, and baking."
+    And I click a "Generate Title" button (new feature)
+    Then I should see a generated YouTube video title
+    And the title should be concise and engaging
+    And I should be able to copy the generated title
+
+  Scenario: Generate YouTube video description
+    Given I am on the YouTube tab
+    When I enter a video description "A detailed tutorial on how to bake a perfect sourdough bread at home, covering starter, kneading, proofing, and baking."
+    And I click a "Generate Description" button (new feature)
+    Then I should see a generated YouTube video description
+    And the description should be comprehensive and include keywords
+    And I should be able to copy the generated description
+
   Scenario: Reset the generator
     Given I have generated tags for a YouTube video
     When I click the "Reset" button
