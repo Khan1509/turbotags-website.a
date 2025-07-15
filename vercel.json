@@ -3,8 +3,7 @@
   "builds": [
     {
       "src": "service-worker.js",
-      "use": "@vercel/static-build",
-      "config": { "distDir": "." }
+      "use": "@vercel/static"
     }
   ],
   "routes": [
