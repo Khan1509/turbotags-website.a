@@ -1,11 +1,5 @@
 {
   "version": 2,
-  "builds": [
-    {
-      "src": "service-worker.js",
-      "use": "@vercel/static"
-    }
-  ],
   "routes": [
     {
       "src": "/api/(.*)",
@@ -22,10 +16,6 @@
     {
       "src": "/disclaimer.html",
       "dest": "/disclaimer.html"
-    },
-    {
-      "src": "/service-worker.js",
-      "dest": "/service-worker.js"
     },
     {
       "src": "/(.*)",
