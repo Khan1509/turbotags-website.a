@@ -1,0 +1,39 @@
+# Node.js dependencies
+node_modules/
+.env
+
+# Logs
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Runtime data
+pids/
+*.pid
+*.seed
+*.pid.lock
+
+# OS system files
+.DS_Store
+Thumbs.db
+
+# IDE/workspace files
+.vscode/
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+
+# Build output
+dist/
+build/
+
+# Optional cache
+.cache/
+.nyc_output/
+
+# Vercel/Deployment settings (if using custom setup)
+.vercel/
