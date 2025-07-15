@@ -136,7 +136,6 @@
             "AI-powered tag generation",
             "Multi-platform support (YouTube, Instagram, TikTok)",
             "Real-time trending analysis",
-            "SEO optimization",
             "One-click copy functionality",
             "Search history tracking",
             "Free to use",
@@ -1371,28 +1370,21 @@
             }
 
         } else {
-            console.log("Firebase: Not in Canvas environment. Fetching config from Vercel API.");
-            try {
-                const response = await fetch('/api/firebase-config');
-                if (!response.ok) {
-                    throw new Error(`Failed to fetch Firebase config: ${response.status} ${response.statusText}`);
-                }
-                firebaseConfig = await response.json();
-                console.log("Firebase config fetched from Vercel API.");
-                currentAppId = firebaseConfig.appId || 'turbotags-default-app';
-                console.log("Using App ID for collection path (non-Canvas):", currentAppId);
-            } catch (e) {
-                console.error("Firebase: Error fetching config from Vercel API. Using dummy config. Error:", e);
-                firebaseConfig = {
-                    apiKey: "dummy-api-key-from-vercel-fetch-error",
-                    authDomain: "dummy-auth-domain.firebaseapp.com",
-                    projectId: "dummy-project-id",
-                    storageBucket: "dummy-storage-bucket",
-                    messagingSenderId: "dummy-sender-id",
-                    appId: "dummy-app-id",
-                    measurementId: "G-DUMMY"
-                };
-            }
+            // Fallback for local development or non-Canvas environments
+            // --- HARDCODED FIREBASE CONFIG WITH USER-PROVIDED VALUES ---
+            firebaseConfig = {
+                apiKey: "AIzaSyCdQdG1cqcmUDwSSUlFVrP9arOV3qvdCpE",
+                authDomain: "turbotags-b4ca1.firebaseapp.com",
+                projectId: "turbotags-b4ca1",
+                storageBucket: "turbotags-b4ca1.firebasestorage.app",
+                messagingSenderId: "766845880079",
+                appId: "1:766845880079:web:6de73355da50bf0531607a",
+                measurementId: "G-MP18L879VZ"
+            };
+            console.warn("Firebase: Not in Canvas environment. Using hardcoded Firebase config.");
+
+            currentAppId = firebaseConfig.appId || 'turbotags-default-app';
+            console.log("Using App ID for collection path (non-Canvas):", currentAppId);
         }
 
         // Initialize Firebase app if a valid API key is present
@@ -1446,7 +1438,7 @@
 
         const generateYoutubeContentBtn = document.getElementById('generateYoutubeContentBtn');
         const generateInstagramHashtagsBtn = document.getElementById('generateInstagramHashtagsBtn');
-        const generateTiktokHashtagsBtn = document.getElementById('generateTiktokHashtagsBtn');
+        const generateTiktokHashtagsBtn = document.getElementById('tiktokHashtagsBtn'); // Corrected ID
         const resetBtn = document.getElementById('resetBtn');
         const resetInstagramBtn = document.getElementById('resetInstagramBtn');
         const resetTiktokBtn = document.getElementById('resetTiktokBtn');
@@ -1455,6 +1447,7 @@
         const tagsSection = document.getElementById('tagsSection');
         const hashtagList = document.getElementById('hashtagList');
         const tagList = document.getElementById('tagList');
+        const tagsCount = document.getElementById('tagsCount'); // Corrected ID
         const hashtagsCount = document.getElementById('hashtagsCount');
         const copyAllTagsBtn = document.getElementById('copyAllTagsBtn');
         const copyAllHashtagsBtn = document.getElementById('copyAllHashtagsBtn');
@@ -1734,81 +1727,36 @@
 
         /**
          * Helper function to call AI APIs with a fallback mechanism.
-         * 1. Attempts to call a Vercel serverless function (assumed to use Mistral).
-         * 2. If the Vercel call fails, attempts a direct call to Gemini 2.0 Flash.
-         * 3. If both fail, throws an error to trigger the local fallback data.
+         * 1. Attempts to call a Vercel serverless function (assumed to use Mistral via OpenRouter).
+         * 2. If the Vercel call fails, throws an error to trigger the local fallback data.
          * @param {string} prompt - The text prompt for the AI.
          * @returns {Promise<object>} - The JSON response from the successful AI call, containing a 'text' property.
-         * @throws {Error} If both API calls fail.
+         * @throws {Error} If the API call fails.
          */
         async function callAIAPI(prompt) {
-            let errorFromMistral = null;
-            let errorFromGemini = null;
-
-            // 1. Attempt call to Vercel Serverless Function (Mistral)
             try {
-                console.log("Attempting call to Vercel serverless function (Mistral)..");
+                console.log("Attempting call to Vercel serverless function (OpenRouter for Mistral/Gemini)..");
                 const vercelResponse = await fetch('/api/generate', { // Assumes /api/generate exists on Vercel
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ prompt: prompt, model: 'mistralai/mistral-7b-instruct-v0.2' }) // Pass model to Vercel
+                    body: JSON.stringify({ prompt: prompt }) // Only prompt is needed, model selection is server-side
                 });
 
                 if (!vercelResponse.ok) {
                     const errorData = await vercelResponse.json();
-                    throw new Error(`Vercel Mistral error: ${vercelResponse.status} ${vercelResponse.statusText} - ${errorData.error || 'Unknown error'}`);
+                    throw new Error(`Vercel AI API error: ${vercelResponse.status} ${vercelResponse.statusText} - ${errorData.message || errorData.error || 'Unknown error'}`);
                 }
                 const result = await vercelResponse.json();
                 if (result && result.text) {
-                    console.log("Mistral API call successful.");
-                    return result; // Success from Mistral
+                    console.log(`AI API call successful. API Used: ${result.apiUsed}`);
+                    return result; // Success from serverless function
                 } else {
-                    throw new Error("Mistral API response missing text.");
+                    throw new Error("Vercel AI API response missing expected content.");
                 }
             } catch (error) {
-                console.error('Error from Vercel Mistral API:', error);
-                errorFromMistral = error;
+                console.error('Error from Vercel AI API:', error);
+                throw error; // Re-throw to trigger local fallback
             }
-
-            // 2. If Mistral fails, attempt direct call to Gemini Flash
-            try {
-                console.log("Mistral failed, attempting direct call to Gemini Flash..");
-                let chatHistory = [];
-                chatHistory.push({ role: "user", parts: [{ text: prompt }] });
-                const payload = { contents: chatHistory };
-                const apiKey = ""; // Canvas will automatically provide the API key
-                const geminiApiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`;
-
-                const geminiResponse = await fetch(geminiApiUrl, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify(payload)
-                });
-
-                if (!geminiResponse.ok) {
-                    const errorData = await geminiResponse.json();
-                    throw new Error(`Gemini API error: ${geminiResponse.status} ${geminiResponse.statusText} - ${errorData.error || 'Unknown error'}`);
-                }
-
-                const geminiResult = await geminiResponse.json();
-                if (geminiResult.candidates && geminiResult.candidates.length > 0 &&
-                    geminiResult.candidates[0].content && geminiResult.candidates[0].content.parts &&
-                    geminiResult.candidates[0].content.parts.length > 0) {
-                    const text = geminiResult.candidates[0].content.parts[0].text;
-                    console.log("Gemini API call successful.");
-                    return { text: text }; // Success from Gemini
-                } else {
-                    throw new Error("Gemini API response missing text.");
-                }
-            } catch (error) {
-                console.error('Error from Gemini Flash API:', error);
-                errorFromGemini = error;
-            }
-
-            // If both fail, throw a comprehensive error
-            throw new Error(`AI generation failed after multiple attempts.
-                Mistral attempt error: ${errorFromMistral ? errorFromMistral.message : 'No attempt made'}.
-                Gemini attempt error: ${errorFromGemini ? errorFromGemini.message : 'No attempt made'}.`);
         }
 
         /**
