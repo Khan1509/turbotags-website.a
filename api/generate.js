@@ -4,28 +4,19 @@
 // then falls back to Google Gemini 1.5 Flash via OpenRouter,
 // and finally provides a hardcoded JSON fallback if all APIs fail.
 
-// No direct GoogleGenerativeAI import needed as all calls go through OpenRouter.
-
 export default async function handler(req, res) {
-    // Ensure the request method is POST for security and proper handling.
     if (req.method !== 'POST') {
         return res.status(405).json({ error: 'Method Not Allowed', message: 'Only POST requests are accepted for AI generation.' });
     }
 
-    const { prompt } = req.body; // Extract the prompt from the request body.
+    const { prompt } = req.body;
 
-    // Validate if the prompt is provided.
     if (!prompt || typeof prompt !== 'string' || prompt.trim() === '') {
         return res.status(400).json({ error: 'Bad Request', message: 'A valid prompt is required for AI generation.' });
     }
 
-    // --- API Key from Vercel Environment Variables ---
-    // The OpenRouter API key is now the primary key for all external LLM calls.
-    // This key MUST be set in your Vercel project settings.
-    // Go to Project Settings -> Environment Variables.
     const openRouterApiKey = process.env.OPENROUTER_API_KEY;
 
-    // Hardcoded fallback data in case all API calls fail.
     const fallbackData = {
         text: "Could not generate content from AI services. Here is some fallback data: tag1, tag2, tag3, #hashtag1, #hashtag2, #hashtag3. Please try again later."
     };
@@ -34,11 +25,9 @@ export default async function handler(req, res) {
     let apiUsed = 'none';
     let errorDetails = {};
 
-    // Check if OpenRouter API key is available
     if (!openRouterApiKey) {
         console.warn("OPENROUTER_API_KEY is not set. Skipping all OpenRouter API calls.");
         errorDetails.openrouter = "API key not configured for OpenRouter.";
-        // Proceed directly to fallback if no OpenRouter key
         return res.status(200).json({
             text: fallbackData.text,
             apiUsed: 'fallback-json',
@@ -57,7 +46,7 @@ export default async function handler(req, res) {
                 "Content-Type": "application/json"
             },
             body: JSON.stringify({
-                "model": "mistralai/mistral-7b-instruct-v0.2", // Specific Mistral model
+                "model": "mistralai/mistral-7b-instruct-v0.2",
                 "messages": [
                     { "role": "user", "content": prompt }
                 ]
@@ -93,7 +82,7 @@ export default async function handler(req, res) {
                     "Content-Type": "application/json"
                 },
                 body: JSON.stringify({
-                    "model": "google/gemini-1.5-flash", // Specify Gemini 1.5 Flash model through OpenRouter
+                    "model": "google/gemini-1.5-flash",
                     "messages": [
                         { "role": "user", "content": prompt }
                     ]
@@ -132,7 +121,6 @@ export default async function handler(req, res) {
         });
     }
 
-    // Send successful response
     res.status(200).json({
         text: generatedText,
         apiUsed: apiUsed
