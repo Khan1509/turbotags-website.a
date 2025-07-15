@@ -2,6 +2,7 @@
   "name": "turbotags-website",
   "version": "1.0.0",
   "description": "AI-Powered Tags & Hashtags Generator for YouTube, Instagram & TikTok",
+  "type": "module",
   "dependencies": {
     "@google/generative-ai": "^0.1.0"
   }
