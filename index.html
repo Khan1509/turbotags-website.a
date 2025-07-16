@@ -9,12 +9,7 @@
     <!-- In a real production environment, you would host these files and link them directly. -->
     <link rel="icon" href="https://placehold.co/32x32/151440/ffffff?text=TT" type="image/png">
     <link rel="apple-touch-icon" href="https://placehold.co/180x180/151440/ffffff?text=TT">
-    <!-- PWA Manifest - Removed as it's causing 404s and is not provided in this environment. -->
-    <!-- <link rel="manifest" href="/manifest.json"> -->
-    <!-- Apple Touch Startup Image (Example - adjust sizes and paths as needed) -->
-    <!-- Removed as it's causing 404s and is not provided in this environment. -->
-    <!-- <link rel="apple-touch-startup-image" href="/icon-512x512.png" media="(device-width: 320px) and (device-height: 568px) and (-webkit-device-pixel-ratio: 2) and (orientation: portrait)"> -->
-
+    <!-- PWA Manifest link removed to avoid 404 errors in a single-file setup -->
 
     <!-- Enhanced Global SEO Meta Tags -->
     <meta name="description" content="TurboTags: Free AI-powered hashtag and tag generator for YouTube, Instagram, TikTok. Create viral content with SEO-optimized tags. Boost reach, grow followers, increase engagement worldwide. 100% free tool for content creators, influencers, marketers.">
@@ -64,26 +59,22 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="preconnect" href="https://cdnjs.cloudflare.com">
     <link rel="dns-prefetch" href="https://www.gstatic.com">
-    <!-- Preload critical fonts for faster FCP -->
-    <!-- Removed explicit preload for woff2 to avoid 404, relying on @import url in CSS -->
-    <!-- <link rel="preload" href="https://fonts.gstatic.com/s/inter/v13/UcC73FpYVgNFn8ImR-H_zQ.woff2" as="font" type="font/woff2" crossorigin> -->
 
-
-    <!-- Open Graph / Facebook - ALL UPDATED TO turbotags.app, using actual image paths -->
+    <!-- Open Graph / Facebook - ALL UPDATED TO turbotags.app, using WebP image paths -->
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://turbotags.app/">
     <meta property="og:title" content="TurboTags - AI-Powered Tags & Hashtags Generator">
     <meta property="og:description" content="Generate AI-powered, SEO-optimized tags and hashtags for YouTube, Instagram, and TikTok. Boost your content reach and grow your audience instantly.">
-    <meta property="og:image" content="social-share-1200x630.png">
+    <meta property="og:image" content="social-share-1200x630.webp">
 
-    <!-- Twitter - ALL UPDATED TO turbotags.app, using actual image paths -->
+    <!-- Twitter - ALL UPDATED TO turbotags.app, using WebP image paths -->
     <meta property="twitter:card" content="summary_large_image">
     <meta property="twitter:url" content="https://turbotags.app/">
     <meta property="twitter:title" content="TurboTags - AI-Powered Tags & Hashtags Generator">
     <meta property="twitter:description" content="Generate AI-powered, SEO-optimized tags and hashtags for YouTube, Instagram, and TikTok. Boost your content reach and grow your audience instantly.">
-    <meta property="twitter:image" content="social-share-1200x675.png">
+    <meta property="twitter:image" content="social-share-1200x675.webp">
 
-    <!-- Enhanced Schema.org JSON-LD for Global SEO - ALL UPDATED TO turbotags.app, using actual image paths -->
+    <!-- Enhanced Schema.org JSON-LD for Global SEO - ALL UPDATED TO turbotags.app, using WebP image paths -->
     <script type="application/ld+json">
     {
         "@context": "https://schema.org",
@@ -160,12 +151,12 @@
         },
         "usageInfo": "https://turbotags.app/#faq",
         "softwareHelp": "https://turbotags.app/#faq",
-        "screenshot": "desktop-screenshot.png",
+        "screenshot": "desktop-screenshot.webp",
         "video": {
             "@type": "VideoObject",
             "name": "How to Use TurboTags",
             "description": "Learn how to Generate AI-powered tags and hashtags with TurboTags",
-            "thumbnailUrl": "video-thumbnail.jpg",
+            "thumbnailUrl": "video-thumbnail.webp",
             "uploadDate": "2025-01-01"
         }
     }
@@ -178,7 +169,7 @@
         "@type": "Organization",
         "name": "TurboTags",
         "url": "https://turbotags.app",
-        "logo": "/logo.png",
+        "logo": "/logo.webp",
         "description": "Leading AI-powered social media optimization tools for content creators worldwide",
         "sameAs": [
             "https://twitter.com/turbotags",
@@ -237,7 +228,7 @@
       gtag('config', 'G-MP18L879VZ');
     </script>
 
-    <!-- Tailwind CSS CDN -->
+    <!-- Tailwind CSS CDN - Note: For production, it's recommended to install Tailwind CSS as a PostCSS plugin or use the Tailwind CLI to purge unused styles and optimize performance. -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- Font Awesome for icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
@@ -562,13 +553,29 @@
             text-align: center;
         }
         #confirmModal .modal-content button {
-            @apply px-4 py-2 rounded-md font-semibold transition duration-200;
+            /* These are Tailwind classes that would be compiled into the CSS */
+            /* @apply px-4 py-2 rounded-md font-semibold transition duration-200; */
+            padding: 0.5rem 1rem;
+            border-radius: 0.375rem;
+            font-weight: 600;
+            transition-property: all;
+            transition-duration: 200ms;
         }
         #confirmModal .modal-content .confirm-yes {
-            @apply bg-red-500 text-white hover:bg-red-600;
+            /* @apply bg-red-500 text-white hover:bg-red-600; */
+            background-color: #ef4444;
+            color: white;
+        }
+        #confirmModal .modal-content .confirm-yes:hover {
+            background-color: #dc2626;
         }
         #confirmModal .modal-content .confirm-no {
-            @apply bg-gray-200 text-gray-800 hover:bg-gray-300;
+            /* @apply bg-gray-200 text-gray-800 hover:bg-gray-300; */
+            background-color: #e5e7eb;
+            color: #1f2937;
+        }
+        #confirmModal .modal-content .confirm-no:hover {
+            background-color: #d1d5db;
         }
 
         /* Scroll to Top Button */
@@ -711,17 +718,17 @@
                 <button id="youtubeTabBtn" class="tab-button active" data-tab="youtube" role="tab" aria-selected="true" aria-controls="youtubeTabContent">
                     <i class="fab fa-youtube text-red-500" aria-hidden="true"></i>
                     <span>YouTube</span>
-                    <span class="text-xs text-gray-500 mt-1">Tags & #Tags</span>
+                    <span class="text-xs text-gray-700 mt-1">Tags & #Tags</span>
                 </button>
                 <button id="instagramTabBtn" class="tab-button" data-tab="instagram" role="tab" aria-selected="false" aria-controls="instagramTabContent">
                     <i class="fab fa-instagram text-pink-500" aria-hidden="true"></i>
                     <span>Instagram</span>
-                    <span class="text-xs text-gray-500 mt-1">#Hashtags</span>
+                    <span class="text-xs text-gray-700 mt-1">#Hashtags</span>
                 </button>
                 <button id="tiktokTabBtn" class="tab-button" data-tab="tiktok" role="tab" aria-selected="false" aria-controls="tiktokTabContent">
                     <i class="fab fa-tiktok text-black" aria-hidden="true"></i>
                     <span>TikTok</span>
-                    <span class="text-xs text-gray-500 mt-1">#Hashtags</span>
+                    <span class="text-xs text-gray-700 mt-1">#Hashtags</span>
                 </button>
             </div>
 
@@ -992,10 +999,10 @@
                         <i class="fas fa-heading text-2xl" aria-hidden="true"></i>
                     </div>
                     <h3 class="text-xl font-bold text-center mb-2">YouTube Title Generator</h3>
-                    <p class="text-gray-600 text-center text-sm mb-4">
+                    <p class="text-gray-700 text-center text-sm mb-4">
                         AI-powered YouTube title generation for maximum click-through rates.
                     </p>
-                    <div class="text-center text-gray-500 text-sm">
+                    <div class="text-center text-gray-700 text-sm">
                         <i class="fas fa-clock mr-1" aria-hidden="true"></i> Coming Soon
                     </div>
                 </div>
@@ -1006,10 +1013,10 @@
                         <i class="fas fa-file-alt text-2xl" aria-hidden="true"></i>
                     </div>
                     <h3 class="text-xl font-bold text-center mb-2">YouTube Description Generator</h3>
-                    <p class="text-gray-600 text-center text-sm mb-4">
+                    <p class="text-gray-700 text-center text-sm mb-4">
                         Create compelling YouTube descriptions that boost engagement and SEO.
                     </p>
-                    <div class="text-center text-gray-500 text-sm">
+                    <div class="text-center text-gray-700 text-sm">
                         <i class="fas fa-clock mr-1" aria-hidden="true"></i> Coming Soon
                     </div>
                 </div>
@@ -1020,10 +1027,10 @@
                         <i class="fas fa-image text-2xl" aria-hidden="true"></i>
                     </div>
                     <h3 class="text-xl font-bold text-center mb-2">YouTube Thumbnail Generator</h3>
-                    <p class="text-gray-600 text-center text-sm mb-4">
+                    <p class="text-gray-700 text-center text-sm mb-4">
                         AI-generated thumbnails that attract viewers and increase click rates.
                     </p>
-                    <div class="text-center text-gray-500 text-sm">
+                    <div class="text-center text-gray-700 text-sm">
                         <i class="fas fa-clock mr-1" aria-hidden="true"></i> Coming Soon
                     </div>
                 </div>
@@ -1135,92 +1142,92 @@
                 <!-- 15 placeholders for Google Ads -->
                 <div class="ad-placeholder">
                     <p class="font-bold">Boost Your Social Media</p>
-                    <p class="text-sm text-gray-500">Get more views with our social media tools</p>
-                    <span class="text-xs text-gray-400 mt-2 block">Ad</span>
+                    <p class="text-sm text-gray-700">Get more views with our social media tools</p>
+                    <span class="text-xs text-gray-600 mt-2 block">Ad</span>
                 </div>
 
                 <div class="ad-placeholder">
                     <p class="font-bold">Content Creation Made Easy</p>
-                    <p class="text-sm text-gray-500">Discover tools to streamline your workflow</p>
-                    <span class="text-xs text-gray-400 mt-2 block">Ad</span>
+                    <p class="text-sm text-gray-700">Discover tools to streamline your workflow</p>
+                    <span class="text-xs text-gray-600 mt-2 block">Ad</span>
                 </div>
 
                 <div class="ad-placeholder">
                     <p class="font-bold">Grow Your Audience Fast</p>
-                    <p class="text-sm text-gray-500">Strategies for rapid channel growth</p>
-                    <span class="text-xs text-gray-400 mt-2 block">Ad</span>
+                    <p class="text-sm text-gray-700">Strategies for rapid channel growth</p>
+                    <span class="text-xs text-gray-600 mt-2 block">Ad</span>
                 </div>
 
                 <div class="ad-placeholder">
                     <p class="font-bold">Master YouTube SEO</p>
-                    <p class="text-sm text-gray-500">Unlock the secrets to higher rankings</p>
-                    <span class="text-xs text-gray-400 mt-2 block">Ad</span>
+                    <p class="text-sm text-gray-700">Unlock the secrets to higher rankings</p>
+                    <span class="text-xs text-gray-600 mt-2 block">Ad</span>
                 </div>
 
                 <div class="ad-placeholder">
                     <p class="font-bold">Premium Video Editing Software</p>
-                    <p class="text-sm text-gray-500">Create stunning videos with ease</p>
-                    <span class="text-xs text-gray-400 mt-2 block">Ad</span>
+                    <p class="text-sm text-gray-700">Create stunning videos with ease</p>
+                    <span class="text-xs text-gray-600 mt-2 block">Ad</span>
                 </div>
 
                 <div class="ad-placeholder">
                     <p class="font-bold">Affiliate Marketing Guide</p>
-                    <p class="text-sm text-gray-500">Monetize your content effectively</p>
-                    <span class="text-xs text-gray-400 mt-2 block">Ad</span>
+                    <p class="text-sm text-gray-700">Monetize your content effectively</p>
+                    <span class="text-xs text-gray-600 mt-2 block">Ad</span>
                 </div>
 
                 <div class="ad-placeholder">
                     <p class="font-bold">Learn Digital Marketing</p>
-                    <p class="text-sm text-gray-500">Courses for online success</p>
-                    <span class="text-xs text-gray-400 mt-2 block">Ad</span>
+                    <p class="text-sm text-gray-700">Courses for online success</p>
+                    <span class="text-xs text-gray-600 mt-2 block">Ad</span>
                 </div>
 
                 <div class="ad-placeholder">
                     <p class="font-bold">Best Cameras for Vlogging</p>
-                    <p class="text-sm text-gray-500">Find your perfect gear</p>
-                    <span class="text-xs text-gray-400 mt-2 block">Ad</span>
+                    <p class="text-sm text-gray-700">Find your perfect gear</p>
+                    <span class="text-xs text-gray-600 mt-2 block">Ad</span>
                 </div>
 
                 <div class="ad-placeholder">
                     <p class="font-bold">Music for Your Videos</p>
-                    <p class="text-sm text-gray-500">Royalty-free tracks for creators</p>
-                    <span class="text-xs text-gray-400 mt-2 block">Ad</span>
+                    <p class="text-sm text-gray-700">Royalty-free tracks for creators</p>
+                    <span class="text-xs text-gray-600 mt-2 block">Ad</span>
                 </div>
 
                 <div class="ad-placeholder">
                     <p class="font-bold">Social Media Management Tools</p>
-                    <p class="text-sm text-gray-500">Schedule and analyze your posts</p>
-                    <span class="text-xs text-gray-400 mt-2 block">Ad</span>
+                    <p class="text-sm text-gray-700">Schedule and analyze your posts</p>
+                    <span class="text-xs text-gray-600 mt-2 block">Ad</span>
                 </div>
 
                 <div class="ad-placeholder">
                     <p class="font-bold">Graphic Design for Creators</p>
-                    <p class="text-sm text-gray-500">Create stunning thumbnails and banners</p>
-                    <span class="text-xs text-gray-400 mt-2 block">Ad</span>
+                    <p class="text-sm text-gray-700">Create stunning thumbnails and banners</p>
+                    <span class="text-xs text-gray-600 mt-2 block">Ad</span>
                 </div>
 
                 <div class="ad-placeholder">
                     <p class="font-bold">Online Course Platforms</p>
-                    <p class="text-sm text-gray-500">Share your knowledge and earn</p>
-                    <span class="text-xs text-gray-400 mt-2 block">Ad</span>
+                    <p class="text-sm text-gray-700">Share your knowledge and earn</p>
+                    <span class="text-xs text-gray-600 mt-2 block">Ad</span>
                 </div>
 
                 <div class="ad-placeholder">
                     <p class="font-bold">Podcast Hosting Solutions</p>
-                    <p class="text-sm text-gray-500">Launch and grow your podcast</p>
-                    <span class="text-xs text-gray-400 mt-2 block">Ad</span>
+                    <p class="text-sm text-gray-700">Launch and grow your podcast</p>
+                    <span class="text-xs text-gray-600 mt-2 block">Ad</span>
                 </div>
 
                 <div class="ad-placeholder">
                     <p class="font-bold">Email Marketing for Influencers</p>
-                    <p class="text-sm text-gray-500">Build a loyal audience</p>
-                    <span class="text-xs text-gray-400 mt-2 block">Ad</span>
+                    <p class="text-sm text-gray-700">Build a loyal audience</p>
+                    <span class="text-xs text-gray-600 mt-2 block">Ad</span>
                 </div>
 
                 <div class="ad-placeholder">
                     <p class="font-bold">Webinar Software</p>
-                    <p class="text-sm text-gray-500">Engage with your audience live</p>
-                    <span class="text-xs text-gray-400 mt-2 block">Ad</span>
+                    <p class="text-sm text-gray-700">Engage with your audience live</p>
+                    <span class="text-xs text-gray-600 mt-2 block">Ad</span>
                 </div>
             </div>
         </section>
@@ -1235,7 +1242,7 @@
                         </svg>
                         TurboTags
                     </h3>
-                    <p class="text-xs text-gray-500 leading-relaxed">
+                    <p class="text-xs text-gray-700 leading-relaxed">
                         AI-powered tags and hashtags generator for content creators. Boost your reach on YouTube, Instagram, and TikTok.
                     </p>
                 </div>
@@ -1261,7 +1268,7 @@
 
             <div class="border-t border-gray-200 pt-6">
                 <p class="mb-2">&copy; 2025 TurboTags. All rights reserved.</p>
-                <p class="text-xs text-gray-500">
+                <p class="text-xs text-gray-700">
                     Built with ❤️ for content creators worldwide.
                     <span class="mx-2">•</span>
                     <a href="disclaimer.html" class="hover:text-violet-600 transition" aria-label="Read our legal disclaimer">Legal Disclaimer</a>
@@ -1287,20 +1294,21 @@
         <i class="fas fa-arrow-up" aria-hidden="true"></i>
     </button>
 
-    <!-- Firebase CDN -->
-    <script type="module">
+    <!-- Main Application Script (including Firebase initialization) -->
+    <script type="module" defer>
+        // Import Firebase functions from CDN
         import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
         import { getAuth, signInAnonymously, signInWithCustomToken, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
         import { getFirestore, collection, addDoc, query, onSnapshot, serverTimestamp, deleteDoc, doc, getDocs } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
-        import { getAnalytics } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-analytics.js"; // Import getAnalytics
+        import { getAnalytics } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-analytics.js";
 
         // Global Firebase variables
         window.firebaseApp = null;
         window.db = null;
         window.auth = null;
-        window.analytics = null; // Add analytics to global scope
+        window.analytics = null;
         window.userId = null;
-        window.isAuthReady = false; // Flag to indicate if auth state is ready
+        window.isAuthReady = false;
         let firebaseAuthReadyPromiseResolve;
         window.firebaseAuthReadyPromise = new Promise(resolve => {
             firebaseAuthReadyPromiseResolve = resolve;
@@ -1310,7 +1318,7 @@
         window.firebase = {
             db: () => window.db,
             auth: () => window.auth,
-            analytics: () => window.analytics, // Expose analytics
+            analytics: () => window.analytics,
             userId: () => window.userId,
             isAuthReady: () => window.isAuthReady,
             collection, addDoc, query, onSnapshot, serverTimestamp, deleteDoc, doc, getDocs
@@ -1415,12 +1423,6 @@
             window.isAuthReady = true;
             firebaseAuthReadyPromiseResolve();
         }
-    </script>
-
-    <!-- Main Application Script -->
-    <script type="module" defer>
-        // Import Firebase functions from the global window object (initialized in the script tag above)
-        const { db, auth, userId, isAuthReady, collection, addDoc, query, onSnapshot, serverTimestamp, deleteDoc, doc, getDocs, analytics } = window.firebase; // Destructure analytics
 
         // DOM Elements for Tag/Hashtag Generation
         const youtubeTabBtn = document.getElementById('youtubeTabBtn');
@@ -1446,8 +1448,6 @@
         const tagsSection = document.getElementById('tagsSection');
         const hashtagList = document.getElementById('hashtagList');
         const tagList = document.getElementById('tagList');
-        const hashtagsSection = document.getElementById('hashtagsSection');
-        const tagsCount = document.getElementById('tagsCount');
         const hashtagsCount = document.getElementById('hashtagsCount');
         const copyAllTagsBtn = document.getElementById('copyAllTagsBtn');
         const copyAllHashtagsBtn = document.getElementById('copyAllHashtagsBtn');
@@ -1481,7 +1481,7 @@
             'youtube-hashtags': [
                 '#YouTubeTips', '#VideoMarketing', '#ContentCreator', '#GrowYourChannel', '#SEOTips',
                 '#YouTubeSEO', '#DigitalMarketing', '#OnlineVideo', '#CreatorLife', '#YouTubeGrowth',
-                '#VideoStrategy', '#ChannelGrowth', '#YouTubeCommunity', '#VideoEditing', '#YouTubeHelp'
+                '#VideoStrategy', '#ChannelGrowth', '##YouTubeCommunity', '#VideoEditing', '#YouTubeHelp'
             ],
             'instagram-hashtags': [
                 '#InstagramTips', '#InstaGrowth', '#SocialMediaMarketing', '#ContentStrategy', '#VisualContent',
@@ -2241,7 +2241,8 @@
                             confirmActionResolve(false); // Resolve with false if modal is closed by Escape
                         }
                     }
-                });
+                }
+                );
             }
         });
 
@@ -2278,6 +2279,7 @@
 
         // Initialize enhanced features when DOM is loaded
         document.addEventListener('DOMContentLoaded', function() {
+            selectTab('youtube'); // Initialize the default tab on DOMContentLoaded
             showCookieConsent();
 
             if (acceptCookiesBtn) {
@@ -2332,28 +2334,6 @@
                     showMessageBox('An unexpected error occurred. Please refresh the page.', true);
                 }
             });
-
-            // Register Service Worker for PWA capabilities
-            if ('serviceWorker' in navigator && (location.protocol === 'http:' || location.protocol === 'https:')) {
-                window.addEventListener('load', () => {
-                    try {
-                        navigator.serviceWorker.register('/sw.js')
-                            .then(registration => {
-                                console.log('Service Worker registered with scope:', registration.scope);
-                            })
-                            .catch(error => {
-                                console.error('Service Worker registration failed:', error);
-                                showMessageBox('Service Worker could not be registered. Offline features may be limited.', true);
-                            });
-                    } catch (e) {
-                        console.error('Service Worker registration attempt failed due to browser/environment limitations:', e);
-                        showMessageBox('Service Worker registration failed. Offline features may be limited due to browser or environment restrictions.', true);
-                    }
-                });
-            } else {
-                console.warn('Service Worker not supported in this environment (protocol must be HTTP or HTTPS).');
-                showMessageBox('Service Worker not supported in this environment. Offline features will be unavailable.', true);
-            }
         });
 
         // Performance monitoring
@@ -2377,13 +2357,14 @@
         async function saveSearch(queryText, platform, generatedTags, generatedHashtags) {
             await window.firebaseAuthReadyPromise; // Ensure Firebase auth is ready
 
-            if (!isAuthReady() || !userId() || !db()) {
+            // Corrected: Call isAuthReady, userId, and db as properties/functions from the window.firebase object
+            if (!window.firebase.isAuthReady() || !window.firebase.userId() || !window.firebase.db()) {
                 console.warn("Firebase not ready or user not authenticated. Cannot save search for internal use.");
                 return;
             }
 
             // Get the current app ID from the Firebase app instance
-            const appId = db().app.options.appId;
+            const appId = window.firebaseApp.options.appId; // Access appId from window.firebaseApp
 
             // Check for dummy or missing app ID
             if (!appId || appId === "dummy-app-id" || appId.includes("YOUR_FIREBASE_APP_ID_HERE")) {
@@ -2393,9 +2374,9 @@
 
             try {
                 // Use the public data path for AI improvement data
-                const searchesCollectionRef = collection(db(), `artifacts/${appId}/public/data/searches_for_ai`);
+                const searchesCollectionRef = collection(window.firebase.db(), `artifacts/${appId}/public/data/searches_for_ai`);
                 await addDoc(searchesCollectionRef, {
-                    userId: userId(),
+                    userId: window.firebase.userId(),
                     queryText: queryText,
                     platform: platform,
                     generatedTags: generatedTags,
@@ -2406,23 +2387,6 @@
             } catch (e) {
                 console.error("Error adding document for AI improvement: ", e);
             }
-        }
-
-        // Define a global function that Firebase init can call when ready
-        window.onFirebaseAndDOMReady = () => {
-            if (window.isAuthReady && document.readyState === 'complete') {
-                console.log("Firebase and DOM ready for internal operations.");
-            }
-        };
-
-        if (document.readyState === 'complete' && window.isAuthReady) {
-            window.onFirebaseAndDOMReady();
-        } else {
-            document.addEventListener('DOMContentLoaded', () => {
-                if (window.isAuthReady) {
-                    window.onFirebaseAndDOMReady();
-                }
-            });
         }
     </script>
 </body>
