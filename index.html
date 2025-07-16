@@ -1358,7 +1358,8 @@
         import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
         import { getAuth, signInAnonymously, signInWithCustomToken, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
         import { getFirestore, collection, addDoc, query, onSnapshot, serverTimestamp, deleteDoc, doc, getDocs } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
-        import { getAnalytics } from "https://www.googletagmanager.com/gtag/js?id=G-MP18L879VZ"; // Corrected GA4 import
+        // CORRECTED: Import getAnalytics from the correct Firebase Analytics CDN path
+        import { getAnalytics } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-analytics.js";
 
         // Global Firebase variables
         window.firebaseApp = null;
@@ -1399,8 +1400,7 @@
             window.firebaseApp = initializeApp(firebaseConfig);
             window.db = getFirestore(window.firebaseApp);
             window.auth = getAuth(window.firebaseApp);
-            // Analytics is initialized via gtag script tag in HTML head, not directly here.
-            // window.analytics = getAnalytics(window.firebaseApp); // Removed direct initialization
+            window.analytics = getAnalytics(window.firebaseApp); // Initialize Analytics
             
             // Listen for auth state changes and sign in
             onAuthStateChanged(window.auth, async (user) => {
