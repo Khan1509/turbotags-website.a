@@ -5,12 +5,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>TurboTags - AI-Powered Tags & Hashtags Generator for YouTube, Instagram & TikTok | Free SEO Tool</title>
 
-    <!-- Favicon links - Using generic placeholders to avoid 404s in this environment. -->
-    <!-- In a real production environment, you would host these files and link them directly. -->
-    <link rel="icon" href="/icons/icon-32x32.png" type="image/png">
-    <link rel="apple-touch-icon" href="/icons/apple-touch-icon.png">
-    <!-- PWA Manifest link -->
+    <!-- Favicon links - Optimized for Vercel deployment by pointing to root -->
+    <!-- Preload primary favicon for faster rendering -->
+    <link rel="preload" href="/favicon.svg" as="image" type="image/svg+xml">
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+    <link rel="icon" href="/favicon.png" type="image/png">
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png"> <!-- Assuming this is also in root or public -->
     <link rel="manifest" href="/manifest.json">
+
+    <!-- Preload Inter font for faster text rendering -->
+    <link rel="preload" href="https://fonts.gstatic.com/s/inter/v13/UcC73FpYVgNFn8ImR-H_zQ.woff2" as="font" type="font/woff2" crossorigin>
 
     <!-- Enhanced Global SEO Meta Tags -->
     <meta name="description" content="TurboTags: Free AI-powered hashtag and tag generator for YouTube, Instagram, TikTok. Create viral content with SEO-optimized tags. Boost reach, grow followers, increase engagement worldwide. 100% free tool for content creators, influencers, marketers.">
@@ -229,7 +233,7 @@
       gtag('config', 'G-MP18L879VZ');
     </script>
 
-    <!-- Tailwind CSS CDN - Note: For production, it's recommended to install Tailwind CSS as a PostCSS plugin or use the Tailwind CLI to purge unused styles and optimize performance. -->
+    <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- Font Awesome for icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
@@ -1669,7 +1673,7 @@
             tagsOutput.classList.add('hidden');
             hideErrorMessage();
 
-            let prompt = `Generate 15-20 relevant and SEO-friendly `;
+            let prompt = `Generate 20 relevant and SEO-friendly `; // Request up to 20 for flexibility
             if (platformType === 'instagram-hashtags') {
                 prompt += `hashtags for an Instagram post about "${topic}". Provide them as a comma-separated list, starting each with '#'.`;
             } else if (platformType === 'tiktok-hashtags') {
@@ -1748,7 +1752,7 @@
 
             // Generate YouTube Tags
             try {
-                const tagsPrompt = `Generate 15-20 relevant and SEO-friendly tags for a YouTube video about "${topic}". Provide them as a comma-separated list.`;
+                const tagsPrompt = `Generate 20 relevant and SEO-friendly tags for a YouTube video about "${topic}". Provide them as a comma-separated list.`; // Request up to 20
                 const tagsResponse = await callAIAPI(tagsPrompt); // Call the API endpoint
                 if (tagsResponse && tagsResponse.text) {
                     generatedTags = tagsResponse.text;
@@ -1764,7 +1768,7 @@
 
             // Generate YouTube Hashtags
             try {
-                const hashtagsPrompt = `Generate 15-20 relevant and SEO-friendly hashtags for a YouTube video about "${topic}". Provide them as a comma-separated list, starting each with '#'.`;
+                const hashtagsPrompt = `Generate 20 relevant and SEO-friendly hashtags for a YouTube video about "${topic}". Provide them as a comma-separated list, starting each with '#'.`; // Request up to 20
                 const hashtagsResponse = await callAIAPI(hashtagsPrompt); // Call the API endpoint
                 if (hashtagsResponse && hashtagsResponse.text) {
                     generatedHashtags = hashtagsResponse.text;
@@ -1840,7 +1844,7 @@
         }
 
         /**
-         * Displays the generated tags/hashtags in the output area.
+         * Displays the generated tags/hashtags in the output area, applying limits.
          * @param {string} tagsString - A comma-separated string of tags.
          * @param {string} hashtagsString - A comma-separated string of hashtags.
          * @param {string} platformType - The type of content generated (e.g., 'youtube-combined', 'instagram-hashtags').
@@ -1851,10 +1855,14 @@
             tagsCount.textContent = '(0)';
             hashtagsCount.textContent = '(0)';
 
-            const tags = tagsString.split(',').map(tag => tag.trim()).filter(tag => tag !== '');
-            const hashtags = hashtagsString.split(',').map(hashtag => hashtag.trim()).filter(hashtag => hashtag !== '');
+            let tags = tagsString.split(',').map(tag => tag.trim()).filter(tag => tag !== '');
+            let hashtags = hashtagsString.split(',').map(hashtag => hashtag.trim()).filter(hashtag => hashtag !== '');
 
+            // Apply limits based on platform
             if (platformType === 'youtube-combined') {
+                tags = tags.slice(0, 20); // Limit YouTube tags to max 20
+                hashtags = hashtags.slice(0, 20); // Limit YouTube hashtags to max 20
+
                 tagsSection.classList.remove('hidden');
                 tagsOutput.classList.remove('grid-cols-1');
                 tagsOutput.classList.add('md:grid-cols-2');
@@ -1876,6 +1884,10 @@
                 tagsSection.classList.add('hidden');
                 tagsOutput.classList.remove('md:grid-cols-2');
                 tagsOutput.classList.add('grid-cols-1');
+            }
+
+            if (platformType === 'instagram-hashtags' || platformType === 'tiktok-hashtags') {
+                hashtags = hashtags.slice(0, 20); // Limit Instagram/TikTok hashtags to max 20
             }
 
             hashtags.forEach(hashtag => {
@@ -1908,14 +1920,14 @@
          */
         function displayTagsAndHashtagsFromFallback(platformType) {
             if (platformType === 'youtube-combined') {
-                const tags = fallbackData['youtube-tags'] || [];
-                const hashtags = fallbackData['youtube-hashtags'] || [];
+                const tags = fallbackData['youtube-tags'] ? fallbackData['youtube-tags'].slice(0, 20) : [];
+                const hashtags = fallbackData['youtube-hashtags'] ? fallbackData['youtube-hashtags'].slice(0, 20) : [];
                 displayTagsAndHashtags(tags.join(', '), hashtags.join(', '), platformType);
             } else if (platformType === 'instagram-hashtags') {
-                const hashtags = fallbackData['instagram-hashtags'] || [];
+                const hashtags = fallbackData['instagram-hashtags'] ? fallbackData['instagram-hashtags'].slice(0, 20) : [];
                 displayTagsAndHashtags('', hashtags.join(', '), platformType);
             } else if (platformType === 'tiktok-hashtags') {
-                const hashtags = fallbackData['tiktok-hashtags'] || [];
+                const hashtags = fallbackData['tiktok-hashtags'] ? fallbackData['tiktok-hashtags'].slice(0, 20) : [];
                 displayTagsAndHashtags('', hashtags.join(', '), platformType);
             }
         }
