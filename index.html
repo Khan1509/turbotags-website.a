@@ -1358,7 +1358,6 @@
         import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
         import { getAuth, signInAnonymously, signInWithCustomToken, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
         import { getFirestore, collection, addDoc, query, onSnapshot, serverTimestamp, deleteDoc, doc, getDocs } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
-        // CORRECTED: Import getAnalytics from the correct Firebase Analytics CDN path
         import { getAnalytics } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-analytics.js";
 
         // Global Firebase variables
@@ -1401,7 +1400,7 @@
             window.db = getFirestore(window.firebaseApp);
             window.auth = getAuth(window.firebaseApp);
             window.analytics = getAnalytics(window.firebaseApp); // Initialize Analytics
-            
+
             // Listen for auth state changes and sign in
             onAuthStateChanged(window.auth, async (user) => {
                 if (user) {
@@ -1434,8 +1433,7 @@
         // Register Service Worker
         if ('serviceWorker' in navigator) {
             window.addEventListener('load', () => {
-                // Changed from '/service-worker.js' to '/sw.js' as per user's request
-                navigator.serviceWorker.register('/sw.js')
+                navigator.serviceWorker.register('sw.js', { scope: '/' })
                     .then(registration => {
                         console.log('Service Worker registered with scope:', registration.scope);
                     })
@@ -1789,8 +1787,10 @@
             }
 
             // 2. If Mistral fails, attempt direct call to Gemini Flash
-            // The 'generatedText' variable was causing an issue here as it's not defined in this scope.
-            // Removed the conditional check to ensure Gemini fallback always attempts if Mistral fails.
+            // The 'generatedText' variable is defined within the scope of this function.
+            // It will be null if the Mistral call failed or didn't produce text.
+            // This 'generatedText' check was causing an issue because it's not defined
+            // at this scope. Removed it to ensure Gemini fallback always attempts if Mistral fails.
             try {
                 console.log("Mistral failed, attempting direct call to Gemini Flash..");
                 let chatHistory = [];
