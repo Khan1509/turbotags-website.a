@@ -1,8 +1,12 @@
-// For CommonJS (more compatible with Vercel)
-const localFallbackTags = require('./fallback.json');
+// Use dynamic import() for JSON to work in Vercel Edge Functions
+const localFallbackTags = {
+  youtube: ["trending", "viral", "shorts", "subscribe", "youtuber"],
+  instagram: ["love", "instadaily", "photooftheday", "instagood", "fashion"],
+  tiktok: ["fyp", "foryoupage", "viralvideo", "trending", "tiktoker"]
+};
 
 export default async function handler(req, res) {
-  // Set headers first
+  // Set headers first - critical for Edge Functions
   res.setHeader('Content-Type', 'application/json');
   res.setHeader('Cache-Control', 'no-cache');
 
@@ -16,47 +20,81 @@ export default async function handler(req, res) {
 
   try {
     const { prompt, platform = 'youtube' } = req.body;
-    if (!prompt) throw new Error("Missing prompt");
+    
+    if (!prompt) {
+      return res.status(400).json({
+        error: 'Bad Request',
+        message: 'Missing prompt in request body'
+      });
+    }
 
     // 1. Primary: Mistral 7B
-    const mistralTags = await tryModel({
-      model: "mistralai/mistral-7b-instruct-v0.2",
-      prompt: `Generate 10 trending ${platform} tags for: "${prompt}". 
-              Return ONLY comma-separated tags, no sentences.`,
-      max_tokens: 100
-    });
-
-    if (mistralTags) {
-      return res.status(200).json({
-        tags: formatTags(mistralTags),
-        model: "mistral-7b"
+    let tags, model;
+    
+    try {
+      const mistralResponse = await fetch("https://openrouter.ai/api/v1/chat/completions", {
+        method: 'POST',
+        headers: {
+          'Authorization': `Bearer ${process.env.OPENROUTER_API_KEY}`,
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          model: "mistralai/mistral-7b-instruct-v0.2",
+          messages: [{
+            role: "user",
+            content: `Generate 10 ${platform} tags for: "${prompt}". Return ONLY comma-separated tags. Example: tag1,tag2,tag3`
+          }],
+          max_tokens: 100
+        }),
+        timeout: 8000
       });
-    }
+
+      if (mistralResponse.ok) {
+        const data = await mistralResponse.json();
+        tags = formatTags(data?.choices?.[0]?.message?.content);
+        model = "mistral-7b";
+      }
+    } catch (e) {} // Silent fallthrough
 
     // 2. Secondary: Gemini Flash
-    const geminiTags = await tryModel({
-      model: "google/gemini-flash-1.5",
-      prompt: `Generate 10 ${platform} tags for: "${prompt}".
-              Strictly use ONLY commas to separate tags. Example: tag1,tag2,tag3`,
-      max_tokens: 80
-    });
+    if (!tags) {
+      try {
+        const geminiResponse = await fetch("https://openrouter.ai/api/v1/chat/completions", {
+          method: 'POST',
+          headers: {
+            'Authorization': `Bearer ${process.env.OPENROUTER_API_KEY}`,
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            model: "google/gemini-flash-1.5",
+            messages: [{
+              role: "user",
+              content: `Generate EXACTLY 10 ${platform} tags for: "${prompt}". Separate ONLY by commas. No sentences.`
+            }],
+            max_tokens: 80
+          }),
+          timeout: 8000
+        });
 
-    if (geminiTags) {
-      return res.status(200).json({
-        tags: formatTags(geminiTags),
-        model: "gemini-flash"
-      });
+        if (geminiResponse.ok) {
+          const data = await geminiResponse.json();
+          tags = formatTags(data?.choices?.[0]?.message?.content);
+          model = "gemini-flash";
+        }
+      } catch (e) {} // Silent fallthrough
     }
 
-    // 3. Final: Local JSON Fallback
-    const fallbackTags = getLocalFallback(platform, prompt);
-    return res.status(200).json({
-      tags: fallbackTags,
-      model: "local-fallback"
-    });
+    // 3. Local Fallback
+    if (!tags) {
+      tags = getLocalFallback(platform, prompt);
+      model = "local-fallback";
+    }
+
+    // Final response (always succeeds)
+    return res.status(200).json({ tags, model });
 
   } catch (error) {
-    // Ultimate safety net
+    // Ultimate fallback
     return res.status(200).json({
       tags: ["viral", "trending", "fyp"],
       model: "emergency-fallback"
@@ -64,51 +102,20 @@ export default async function handler(req, res) {
   }
 }
 
-// Helper: Universal model caller
-async function tryModel({ model, prompt, max_tokens = 100 }) {
-  try {
-    const response = await fetch("https://openrouter.ai/api/v1/chat/completions", {
-      method: 'POST',
-      headers: {
-        'Authorization': `Bearer ${process.env.OPENROUTER_API_KEY}`,
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({
-        model,
-        messages: [{ role: "user", content: prompt }],
-        max_tokens
-      }),
-      timeout: 10000 // 10s timeout
-    });
-
-    if (!response.ok) return null;
-    const data = await response.json();
-    return data?.choices?.[0]?.message?.content;
-  } catch {
-    return null; // Silent fail → triggers next fallback
-  }
-}
-
-// Helper: Format tags consistently
+// Formatting helper
 function formatTags(rawText) {
   if (!rawText) return [];
   return String(rawText)
     .split(',')
     .map(tag => tag.trim().replace(/^[#.]/, ''))
     .filter(tag => tag.length > 0)
-    .slice(0, 10); // Ensure max 10 tags
+    .slice(0, 10);
 }
 
-// Helper: Smart local fallback
+// Local fallback logic
 function getLocalFallback(platform, prompt) {
-  // Try to match prompt keywords first
-  const keywords = prompt.toLowerCase().split(/\s+/);
   const platformTags = localFallbackTags[platform] || localFallbackTags.youtube;
+  const promptKeywords = prompt.toLowerCase().split(/\s+/).filter(k => k.length > 2);
   
-  return [
-    ...new Set([ // Remove duplicates
-      ...keywords.filter(k => k.length > 2),
-      ...platformTags
-    ])
-  ].slice(0, 10);
+  return [...new Set([...promptKeywords, ...platformTags])].slice(0, 10);
 }
