@@ -1613,7 +1613,7 @@
 
         /**
          * Helper function to call the OpenRouter API.
-         * @param {string} model - The OpenRouter model to use (e.g., "mistralai/mistral-7b-instruct", "google/gemini-1.5-flash-pro").
+         * @param {string} model - The OpenRouter model to use (e.g., "mistralai/mistral-7b-instruct", "google/gemini-1.5-flash").
          * @param {string} prompt - The text prompt for the AI.
          * @returns {Promise<object>} - The JSON response from the OpenRouter API call, containing a 'text' property.
          * @throws {Error} If the API call fails.
@@ -1621,9 +1621,9 @@
         async function callOpenRouterAPI(model, prompt) {
             console.log(`Attempting call to OpenRouter with model: ${model}`);
             const openRouterApiUrl = "https://openrouter.ai/api/v1/chat/completions";
-            // The OpenRouter API key should be handled by your Vercel environment variables.
-            // For this Canvas environment, we leave it as an empty string, assuming it's injected.
-            const openRouterApiKey = ""; 
+            // Use __open_router_api_key if provided by the environment, otherwise keep it empty.
+            // This key needs to be securely configured in your deployment environment (e.g., Vercel environment variables).
+            const openRouterApiKey = typeof __open_router_api_key !== 'undefined' ? __open_router_api_key : ''; 
 
             const payload = {
                 model: model,
@@ -1667,8 +1667,8 @@
             } catch (mistralError) {
                 console.warn('Mistral 7B failed on OpenRouter, attempting Gemini 1.5 Flash via OpenRouter:', mistralError);
                 try {
-                    // 2. Attempt OpenRouter with Google Gemini 1.5 Flash
-                    return await callOpenRouterAPI("google/gemini-1.5-flash-pro", prompt);
+                    // 2. Attempt OpenRouter with Google Gemini 1.5 Flash (corrected model name)
+                    return await callOpenRouterAPI("google/gemini-1.5-flash", prompt);
                 } catch (geminiOpenRouterError) {
                     console.error('OpenRouter Gemini 1.5 Flash failed, falling back to local JSON data:', geminiOpenRouterError);
                     // 3. Final Fallback to local JSON data
