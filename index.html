@@ -5,11 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>TurboTags - AI-Powered Tags & Hashtags Generator for YouTube, Instagram & TikTok | Free SEO Tool</title>
 
-    <!-- Favicon links - Using generic placeholders to avoid 404s in this environment. -->
-    <!-- In a real production environment, you would host these files and link them directly. -->
-    <link rel="icon" href="/icons/icon-32x32.png" type="image/png">
-    <link rel="apple-touch-icon" href="/icons/apple-touch-icon.png">
-    <!-- PWA Manifest link -->
+    <!-- Favicon links - Using inline SVG for robustness -->
+    <!-- For a production environment, you would typically use external .ico, .png, .svg files. -->
+    <!-- The thunderbolt emoji is a fallback for environments that might not render SVG favicons. -->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><path fill='%23151440' d='M13 2L6 14h5l-1 8 8-10h-5l2-8z'/></svg>" type="image/svg+xml">
+    <link rel="apple-touch-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><path fill='%23151440' d='M13 2L6 14h5l-1 8 8-10h-5l2-8z'/></svg>">
+    <!-- PWA Manifest link (still points to external manifest.json) -->
     <link rel="manifest" href="/manifest.json">
 
     <!-- Enhanced Global SEO Meta Tags -->
@@ -54,7 +55,7 @@
 
     <!-- Performance & Security -->
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="referrer" content="strict-origin-when-cross-origin">
+    <meta name="referrer" content="origin-when-cross-origin">
     <!-- Preconnect to improve loading of external resources -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -1133,7 +1134,7 @@
                     </div>
                     <div class="faq-answer">
                         <p class="text-gray-600 mt-2">
-                            TurboTags uses advanced AI algorithms powered by OpenRouter (Mistral 7B Instruct primary, Google Gemini Flash fallback) to analyze your content description and generate relevant, SEO-optimized tags and hashtags. Our system considers current trends, search volume, and platform-specific optimization strategies."
+                            TurboTags uses advanced AI algorithms powered by Google Gemini Flash to analyze your content description and generate relevant, SEO-optimized tags and hashtags. Our system considers current trends, search volume, and platform-specific optimization strategies."
                         </p>
                     </div>
                 </div>
@@ -1353,7 +1354,7 @@
     </button>
 
     <!-- Main Application Script (including Firebase initialization) -->
-    <script type="module" defer>
+    <script type="module">
         // Import Firebase functions from CDN
         import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
         import { getAuth, signInAnonymously, signInWithCustomToken, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
@@ -1383,64 +1384,65 @@
         };
 
         // Initialize Firebase
-        let firebaseConfig = {
-            apiKey: "YOUR_FIREBASE_API_KEY_HERE",
-            authDomain: "YOUR_FIREBASE_AUTH_DOMAIN_HERE",
-            projectId: "YOUR_FIREBASE_PROJECT_ID_HERE",
-            storageBucket: "YOUR_FIREBASE_STORAGE_BUCKET_HERE",
-            messagingSenderId: "YOUR_FIREBASE_MESSAGING_SENDER_ID_HERE",
-            appId: "YOUR_FIREBASE_APP_ID_HERE",
-            measurementId: "G-YOUR_MEASUREMENT_ID_HERE"
+        const firebaseConfig = {
+            apiKey: "AIzaSyCdQdG1cqcmUDwSSUlFVrP9arOV3qvdCpE",
+            authDomain: "turbotags-b4ca1.firebaseapp.com",
+            projectId: "turbotags-b4ca1",
+            storageBucket: "turbotags-b4ca1.firebasestorage.app",
+            messagingSenderId: "766845880079",
+            appId: "1:766845880079:web:6de73355da50bf0531607a",
+            measurementId: "G-MP18L879VZ"
         };
-        let currentAppId = firebaseConfig.appId || 'turbotags-default-app'; // Default APP_ID for internal data storage.
 
-        // Initialize Firebase app if a valid API key is present
-        if (Object.keys(firebaseConfig).length > 0 && firebaseConfig.apiKey && !firebaseConfig.apiKey.includes("dummy-api-key") && !firebaseConfig.apiKey.includes("YOUR_FIREBASE_API_KEY_HERE")) {
+        // Check if Firebase config is valid before initializing
+        if (firebaseConfig.apiKey && firebaseConfig.projectId && firebaseConfig.appId &&
+            !firebaseConfig.apiKey.includes("YOUR_FIREBASE_API_KEY_HERE")) {
             window.firebaseApp = initializeApp(firebaseConfig);
             window.db = getFirestore(window.firebaseApp);
             window.auth = getAuth(window.firebaseApp);
-            window.analytics = getAnalytics(window.firebaseApp); // Initialize Analytics
-
-            // Listen for auth state changes and sign in
+            window.analytics = getAnalytics(window.firebaseApp);
+            
             onAuthStateChanged(window.auth, async (user) => {
                 if (user) {
                     window.userId = user.uid;
+                    console.log("Firebase Auth Ready. User ID (existing user):", window.userId);
                 } else {
+                    // No user signed in, attempt to sign in
                     try {
                         const initialAuthToken = typeof __initial_auth_token !== 'undefined' ? __initial_auth_token : null;
                         if (initialAuthToken) {
+                            // Attempt custom token sign-in first
                             await signInWithCustomToken(window.auth, initialAuthToken);
+                            window.userId = window.auth.currentUser.uid;
+                            console.log("Firebase Auth Ready. User ID (custom token):", window.userId);
                         } else {
+                            // If no custom token, sign in anonymously
                             await signInAnonymously(window.auth);
+                            window.userId = window.auth.currentUser.uid;
+                            console.log("Firebase Auth Ready. User ID (anonymous):", window.userId);
                         }
-                        window.userId = window.auth.currentUser.uid;
                     } catch (error) {
-                        console.error("Error signing in anonymously:", error);
-                        window.userId = crypto.randomUUID(); // Fallback to random UUID if sign-in fails
+                        // If custom token sign-in fails, or initial anonymous sign-in fails, try anonymous as a fallback
+                        console.warn("Error during Firebase sign-in process (attempting anonymous fallback):", error); // Changed to console.warn
+                        try {
+                            await signInAnonymously(window.auth);
+                            window.userId = window.auth.currentUser.uid;
+                            console.log("Firebase Auth Ready. User ID (anonymous fallback):", window.userId);
+                        } catch (anonError) {
+                            console.error("Error signing in anonymously as final fallback:", anonError);
+                            window.userId = crypto.randomUUID(); // Fallback to random UUID if all sign-in fails
+                            console.log("Firebase Auth Ready. User ID (random UUID fallback):", window.userId);
+                        }
                     }
                 }
                 window.isAuthReady = true;
-                console.log("Firebase Auth Ready. User ID:", window.userId);
                 firebaseAuthReadyPromiseResolve();
             });
         } else {
-            console.warn("Firebase: Real Firebase initialization skipped. Features dependent on it will not work.");
+            console.warn("Firebase: Real Firebase initialization skipped (missing/dummy config). Features dependent on it will not work.");
             window.userId = crypto.randomUUID(); // Generate a random UUID if Firebase is not initialized
             window.isAuthReady = true;
-            firebaseAuthReadyPromiseResolve();
-        }
-
-        // Register Service Worker
-        if ('serviceWorker' in navigator) {
-            window.addEventListener('load', () => {
-                navigator.serviceWorker.register('sw.js', { scope: '/' })
-                    .then(registration => {
-                        console.log('Service Worker registered with scope:', registration.scope);
-                    })
-                    .catch(error => {
-                        console.error('Service Worker registration failed:', error);
-                    });
-            });
+            firebaseAuthReadyPromiseResolve(); // Resolve promise even if not fully initialized
         }
 
         // DOM Elements for Tag/Hashtag Generation
@@ -1467,7 +1469,7 @@
         const tagsSection = document.getElementById('tagsSection');
         const hashtagList = document.getElementById('hashtagList');
         const tagList = document.getElementById('tagList');
-        const tagsCount = document.getElementById('tagsCount'); // Corrected: Added tagsCount
+        const tagsCount = document.getElementById('tagsCount');
         const hashtagsCount = document.getElementById('hashtagsCount');
         const copyAllTagsBtn = document.getElementById('copyAllTagsBtn');
         const copyAllHashtagsBtn = document.getElementById('copyAllHashtagsBtn');
@@ -1631,7 +1633,7 @@
             try {
                 await window.firebaseAuthReadyPromise; // Ensure Firebase auth is ready
 
-                const result = await callAIAPI(prompt); // Use the new multi-fallback AI call
+                const result = await callGeminiAPI(prompt); // Direct call to Gemini API
 
                 let generatedText = '';
                 if (result && result.text) {
@@ -1647,8 +1649,6 @@
                         timestamp: new Date().toISOString()
                     });
                 } else {
-                    // This block should ideally not be reached if callAIAPI throws an error
-                    // but as a safeguard, if it returns an empty/invalid result, use fallback
                     displayTagsAndHashtagsFromFallback(platformType);
                     showMessageBox('Could not generate tags. Using fallback data.', true);
 
@@ -1664,7 +1664,7 @@
             } catch (error) {
                 console.error('Error generating tags:', error);
                 displayTagsAndHashtagsFromFallback(platformType);
-                showMessageBox('Failed to connect to the tag generation service. Using fallback data.', true);
+                showMessageBox('Failed to generate tags. Using fallback data.', true);
 
                 trackEvent('tag_generation_error', {
                     platform: platformType.split('-')[0],
@@ -1700,7 +1700,7 @@
             // Generate YouTube Tags
             try {
                 const tagsPrompt = `Generate 15-20 relevant and SEO-friendly tags for a YouTube video about "${topic}". Provide them as a comma-separated list.`;
-                const tagsResponse = await callAIAPI(tagsPrompt); // Use the new multi-fallback AI call
+                const tagsResponse = await callGeminiAPI(tagsPrompt); // Direct call to Gemini API
                 if (tagsResponse && tagsResponse.text) {
                     generatedTags = tagsResponse.text;
                 } else {
@@ -1716,7 +1716,7 @@
             // Generate YouTube Hashtags
             try {
                 const hashtagsPrompt = `Generate 15-20 relevant and SEO-friendly hashtags for a YouTube video about "${topic}". Provide them as a comma-separated list, starting each with '#'.`;
-                const hashtagsResponse = await callAIAPI(hashtagsPrompt); // Use the new multi-fallback AI call
+                const hashtagsResponse = await callGeminiAPI(hashtagsPrompt); // Direct call to Gemini API
                 if (hashtagsResponse && hashtagsResponse.text) {
                     generatedHashtags = hashtagsResponse.text;
                 } else {
@@ -1748,55 +1748,19 @@
         }
 
         /**
-         * Helper function to call AI APIs with a fallback mechanism.
-         * 1. Attempts to call a Vercel serverless function (assumed to use Mistral).
-         * 2. If the Vercel call fails, attempts a direct call to Gemini 2.0 Flash.
-         * 3. If both fail, throws an error to trigger the local fallback data.
+         * Helper function to call the Gemini API directly.
          * @param {string} prompt - The text prompt for the AI.
-         * @returns {Promise<object>} - The JSON response from the successful AI call, containing a 'text' property.
-         * @throws {Error} If both API calls fail.
+         * @returns {Promise<object>} - The JSON response from the Gemini API call, containing a 'text' property.
+         * @throws {Error} If the API call fails.
          */
-        async function callAIAPI(prompt) {
-            let errorFromMistral = null;
-            let errorFromGemini = null;
-
-            // 1. Attempt call to Vercel Serverless Function (Mistral)
+        async function callGeminiAPI(prompt) {
             try {
-                console.log("Attempting call to Vercel serverless function (Mistral)..");
-                const vercelResponse = await fetch('https://turbotags.app/api/generate', { // Explicitly using turbotags.app
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ prompt: prompt, model: 'mistralai/mistral-7b-instruct-v0.2' }) // Pass model to Vercel
-                });
-
-                if (!vercelResponse.ok) {
-                    const errorBody = await vercelResponse.json();
-                    throw new Error(`Vercel Mistral error: ${vercelResponse.status} ${vercelResponse.statusText} - ${errorBody.message || JSON.stringify(errorBody)}`);
-                }
-
-                const result = await vercelResponse.json();
-                if (result && result.text) {
-                    console.log("Mistral API call successful.");
-                    return result; // Success from Mistral
-                } else {
-                    throw new Error("Mistral API response missing expected content.");
-                }
-            } catch (error) {
-                console.error('Error from Vercel Mistral API:', error);
-                errorFromMistral = error;
-            }
-
-            // 2. If Mistral fails, attempt direct call to Gemini Flash
-            // The 'generatedText' variable is defined within the scope of this function.
-            // It will be null if the Mistral call failed or didn't produce text.
-            // This 'generatedText' check was causing an issue because it's not defined
-            // at this scope. Removed it to ensure Gemini fallback always attempts if Mistral fails.
-            try {
-                console.log("Mistral failed, attempting direct call to Gemini Flash..");
+                console.log("Attempting direct call to Gemini Flash..");
                 let chatHistory = [];
                 chatHistory.push({ role: "user", parts: [{ text: prompt }] });
                 const payload = { contents: chatHistory };
-                const apiKey = ""; // Canvas will automatically provide the API key
+                // The API key is automatically provided by the Canvas environment when apiKey is an empty string.
+                const apiKey = ""; 
                 const geminiApiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`;
 
                 const geminiResponse = await fetch(geminiApiUrl, {
@@ -1816,20 +1780,14 @@
                     geminiResult.candidates[0].content.parts.length > 0) {
                     const text = geminiResult.candidates[0].content.parts[0].text;
                     console.log("Gemini API call successful.");
-                    return { text: text }; // Success from Gemini
+                    return { text: text };
                 } else {
                     throw new Error("Gemini API response missing text.");
                 }
             } catch (error) {
                 console.error('Error from Gemini Flash API:', error);
-                errorFromGemini = error;
+                throw new Error(`Gemini API call failed: ${error.message}`);
             }
-
-
-            // If both fail, throw a comprehensive error
-            throw new Error(`AI generation failed after multiple attempts.
-                Mistral attempt error: ${errorFromMistral ? errorFromMistral.message : 'No attempt made'}.
-                Gemini attempt error: ${errorFromGemini ? errorFromGemini.message : 'No attempt made'}.`);
         }
 
         /**
@@ -2165,6 +2123,9 @@
 
         // Modal Management - Redirect to separate pages for legal documents
         function openModal(modalId) {
+            // For a single HTML file, these would ideally be sections within the same file
+            // or dynamic content loaded into the modal. For now, they link to external files
+            // as per your original structure, assuming they exist.
             if (modalId === 'privacyModal') {
                 window.open('privacy.html', '_blank'); // Open in new tab
             } else if (modalId === 'termsModal') {
@@ -2392,7 +2353,8 @@
             }
 
             // Get the current app ID from the Firebase app instance
-            const appId = window.firebaseApp.options.appId; // Access appId from window.firebaseApp
+            // Use the __app_id global variable provided by the Canvas environment, or a default
+            const appId = typeof __app_id !== 'undefined' ? __app_id : 'turbotags-default-app';
 
             // Check for dummy or missing app ID
             if (!appId || appId === "dummy-app-id" || appId.includes("YOUR_FIREBASE_APP_ID_HERE")) {
