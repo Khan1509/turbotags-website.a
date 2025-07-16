@@ -5,13 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>TurboTags - AI-Powered Tags & Hashtags Generator for YouTube, Instagram & TikTok | Free SEO Tool</title>
 
-    <!-- Favicon links - Using inline SVG for robustness -->
-    <!-- For a production environment, you would typically use external .ico, .png, .svg files. -->
-    <!-- The thunderbolt emoji is a fallback for environments that might not render SVG favicons. -->
-    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><path fill='%23151440' d='M13 2L6 14h5l-1 8 8-10h-5l2-8z'/></svg>" type="image/svg+xml">
-    <link rel="apple-touch-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><path fill='%23151440' d='M13 2L6 14h5l-1 8 8-10h-5l2-8z'/></svg>">
-    <!-- PWA Manifest link (still points to external manifest.json) -->
-    <link rel="manifest" href="/manifest.json">
+    <!-- Favicon links -->
+    <link rel="icon" href="https://placehold.co/32x32/151440/ffffff?text=TT" type="image/png">
+    <link rel="apple-touch-icon" href="https://placehold.co/180x180/151440/ffffff?text=TT">
 
     <!-- Enhanced Global SEO Meta Tags -->
     <meta name="description" content="TurboTags: Free AI-powered hashtag and tag generator for YouTube, Instagram, TikTok. Create viral content with SEO-optimized tags. Boost reach, grow followers, increase engagement worldwide. 100% free tool for content creators, influencers, marketers.">
@@ -27,10 +23,10 @@
     <meta name="rating" content="general">
     <meta name="referrer" content="origin-when-cross-origin">
 
-    <!-- Canonical URL to prevent duplicate content issues -->
+    <!-- Canonical URL -->
     <link rel="canonical" href="https://turbotags.app/">
 
-    <!-- International SEO - ALL UPDATED TO turbotags.app -->
+    <!-- International SEO -->
     <link rel="alternate" hreflang="en" href="https://turbotags.app/">
     <link rel="alternate" hreflang="en-us" href="https://turbotags.app/">
     <link rel="alternate" hreflang="en-gb" href="https://turbotags.app/">
@@ -55,28 +51,27 @@
 
     <!-- Performance & Security -->
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="referrer" content="origin-when-cross-origin">
-    <!-- Preconnect to improve loading of external resources -->
+    <meta name="referrer" content="strict-origin-when-cross-origin">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="preconnect" href="https://cdnjs.cloudflare.com">
     <link rel="dns-prefetch" href="https://www.gstatic.com">
 
-    <!-- Open Graph / Facebook - ALL UPDATED TO turbotags.app, using WebP image paths -->
+    <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://turbotags.app/">
     <meta property="og:title" content="TurboTags - AI-Powered Tags & Hashtags Generator">
     <meta property="og:description" content="Generate AI-powered, SEO-optimized tags and hashtags for YouTube, Instagram, and TikTok. Boost your content reach and grow your audience instantly.">
     <meta property="og:image" content="social-share-1200x630.webp">
 
-    <!-- Twitter - ALL UPDATED TO turbotags.app, using WebP image paths -->
+    <!-- Twitter -->
     <meta property="twitter:card" content="summary_large_image">
     <meta property="twitter:url" content="https://turbotags.app/">
     <meta property="twitter:title" content="TurboTags - AI-Powered Tags & Hashtags Generator">
     <meta property="twitter:description" content="Generate AI-powered, SEO-optimized tags and hashtags for YouTube, Instagram, and TikTok. Boost your content reach and grow your audience instantly.">
     <meta property="twitter:image" content="social-share-1200x675.webp">
 
-    <!-- Enhanced Schema.org JSON-LD for Global SEO - ALL UPDATED TO turbotags.app, using WebP image paths -->
+    <!-- Enhanced Schema.org JSON-LD for Global SEO -->
     <script type="application/ld+json">
     {
         "@context": "https://schema.org",
@@ -164,7 +159,7 @@
     }
     </script>
 
-    <!-- Additional SEO Schema for Organization - ALL UPDATED TO turbotags.app -->
+    <!-- Additional SEO Schema for Organization -->
     <script type="application/ld+json">
     {
         "@context": "https://schema.org",
@@ -230,7 +225,7 @@
       gtag('config', 'G-MP18L879VZ');
     </script>
 
-    <!-- Tailwind CSS CDN - Note: For production, it's recommended to install Tailwind CSS as a PostCSS plugin or use the Tailwind CLI to purge unused styles and optimize performance. -->
+    <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- Font Awesome for icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
@@ -240,15 +235,14 @@
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
         body {
             font-family: 'Inter', sans-serif;
-            background-color: #F2EEB6; /* Light yellow background */
+            background-color: #F2EEB6;
         }
 
-        /* Ensure font loads with swap for better FCP */
         @font-face {
             font-family: 'Inter';
-            src: url('https://fonts.gstatic.com/s/inter/v13/UcC73FpYVgNFn8ImR-H_zQ.woff2') format('woff2'); /* Example woff2 */
+            src: url('https://fonts.gstatic.com/s/inter/v13/UcC73FpYVgNFn8ImR-H_zQ.woff2') format('woff2');
             font-weight: 400 800;
-            font-display: swap; /* Add font-display: swap */
+            font-display: swap;
         }
 
         .gradient-text {
@@ -257,14 +251,12 @@
             -webkit-text-fill-color: transparent;
         }
 
-        /* TurboTags Heading Animation */
         .turbotags-heading:hover {
             transform: scale(1.02);
             text-shadow: 0 0 15px rgba(122, 125, 191, 0.6);
             transition: all 0.3s ease-in-out;
         }
 
-        /* Buttons */
         .btn-primary {
             background: linear-gradient(135deg, #151440 0%, #7A7EBF 50%, #9E99BF 100%);
             color: white;
@@ -296,12 +288,11 @@
             background-color: #d1d5db;
         }
 
-        /* Tab Buttons - Improved Contrast */
         .tab-button {
             flex: 1;
             padding: 2rem;
             text-align: center;
-            color: #374151; /* Darker grey for better contrast */
+            color: #374151;
             font-weight: bold;
             border-bottom: 4px solid transparent;
             transition: all 0.3s ease;
@@ -322,7 +313,6 @@
             margin-bottom: 0.5rem;
         }
 
-        /* Tag Item Styling */
         .tag-item {
             display: flex;
             align-items: center;
@@ -333,7 +323,6 @@
             margin-bottom: 0.5rem;
             box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
             transition: all 0.2s ease-in-out;
-            border: 1px solid #151440; /* Added border */
         }
         .tag-item:hover {
             transform: translateX(5px);
@@ -342,12 +331,11 @@
 
         .tag-item .trend-percentage {
             font-size: 0.875rem;
-            color: #4b5563; /* Darker for better contrast */
+            color: #4b5563;
             margin-left: 0.75rem;
             font-weight: normal;
         }
 
-        /* Cookie Consent Banner */
         .cookie-consent {
             position: fixed;
             bottom: 0;
@@ -367,7 +355,6 @@
             opacity: 1;
         }
 
-        /* Message Box */
         .message-box {
             position: fixed;
             top: 20px;
@@ -393,7 +380,6 @@
             background-color: #f44336;
         }
 
-        /* Loader */
         .loader {
             border: 4px solid #f3f3f3;
             border-top: 4px solid #151440;
@@ -408,7 +394,6 @@
             100% { transform: rotate(360deg); }
         }
 
-        /* Fade-in Animation */
         .animate-fade-in {
             animation: fadeIn 0.5s ease-out forwards;
         }
@@ -418,7 +403,6 @@
             to { opacity: 1; transform: translateY(0); }
         }
 
-        /* Section Hover Effect */
         section.bg-white, section.bg-gradient-to-br {
             transition: transform 0.3s ease, box-shadow 0.3s ease;
         }
@@ -428,14 +412,13 @@
             box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
         }
 
-        /* Feature Cards */
         .feature-card {
             background: white;
             border-radius: 1.5rem;
             padding: 2rem;
             box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
             transition: all 0.3s ease;
-            border: 2px solid #151440; /* Changed border color and thickness */
+            border: 1px solid #d1d5db;
         }
 
         .feature-card:hover {
@@ -443,7 +426,6 @@
             box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
         }
 
-        /* Stats Cards */
         .stats-card {
             background: linear-gradient(135deg, #151440 0%, #7A7EBF 100%);
             color: white;
@@ -451,17 +433,15 @@
             padding: 1.5rem;
             text-align: center;
             box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
-            border: 1px solid #151440; /* Added border */
         }
 
-        /* Premium/Coming Soon Cards */
         .premium-card {
             background: white;
             border-radius: 1.rem;
             padding: 1.5rem;
             box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
             transition: all 0.3s ease;
-            border: 2px solid #151440; /* Changed border color and thickness */
+            border: 1px solid #d1d5db;
         }
 
         .premium-card:hover {
@@ -469,17 +449,15 @@
             box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
         }
 
-        /* Ad Placeholder */
         .ad-placeholder {
             background: white;
             border-radius: 0.5rem;
             padding: 1rem;
             box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
             text-align: center;
-            border: 1px solid #151440; /* Changed border color */
+            border: 1px solid #d1d5db;
         }
 
-        /* FAQ Accordion */
         .faq-item {
             border-bottom: 1px solid #e5e7eb;
             padding: 1rem 0;
@@ -500,11 +478,10 @@
         }
 
         .faq-answer.open {
-            max-height: 500px; /* Sufficient height to reveal content */
+            max-height: 500px;
             padding-top: 1rem;
         }
 
-        /* Modal Styles */
         .modal {
             display: none;
             position: fixed;
@@ -551,14 +528,11 @@
             text-decoration: none;
             cursor: pointer;
         }
-        /* Custom Confirmation Modal Styling */
         #confirmModal .modal-content {
             max-width: 400px;
             text-align: center;
         }
         #confirmModal .modal-content button {
-            /* These are Tailwind classes that would be compiled into the CSS */
-            /* @apply px-4 py-2 rounded-md font-semibold transition duration-200; */
             padding: 0.5rem 1rem;
             border-radius: 0.375rem;
             font-weight: 600;
@@ -566,7 +540,6 @@
             transition-duration: 200ms;
         }
         #confirmModal .modal-content .confirm-yes {
-            /* @apply bg-red-500 text-white hover:bg-red-600; */
             background-color: #ef4444;
             color: white;
         }
@@ -574,7 +547,6 @@
             background-color: #dc2626;
         }
         #confirmModal .modal-content .confirm-no {
-            /* @apply bg-gray-200 text-gray-800 hover:bg-gray-300; */
             background-color: #e5e7eb;
             color: #1f2937;
         }
@@ -582,7 +554,6 @@
             background-color: #d1d5db;
         }
 
-        /* Scroll to Top Button */
         #scrollToTopBtn {
             display: none;
             position: fixed;
@@ -605,16 +576,14 @@
             transform: translateY(-2px);
         }
 
-        /* Mobile-specific styles */
         @media (max-width: 768px) {
-            /* Adjust padding and font sizes for smaller screens */
             .btn-primary, .btn-secondary {
                 padding: 1rem 1.5rem;
                 font-size: 0.9rem;
             }
 
             .tab-button {
-                padding: 1rem; /* Reduced padding for tabs */
+                padding: 1rem;
                 font-size: 0.9rem;
             }
 
@@ -647,59 +616,6 @@
                 padding: 0.5rem 1rem;
                 font-size: 0.8rem;
             }
-
-            /* Ensure main container padding is responsive */
-            .max-w-6xl.w-full {
-                padding: 1.5rem; /* Adjusted padding for main container on mobile */
-            }
-
-            /* Adjust header elements for smaller screens */
-            header .flex.justify-between {
-                flex-direction: column;
-                align-items: center;
-                text-align: center;
-            }
-            header .flex.items-center {
-                margin-bottom: 1rem;
-            }
-            header .text-5xl {
-                font-size: 3rem; /* Smaller heading on mobile */
-            }
-            header .text-xl {
-                font-size: 1rem; /* Smaller sub-heading on mobile */
-            }
-            header .mt-4.flex.justify-center {
-                flex-wrap: wrap; /* Allow tags to wrap */
-                gap: 0.5rem; /* Smaller gap */
-            }
-
-            /* Adjust tab button layout for very small screens if needed, though flex:1 should handle it */
-            .flex.border-b.mb-6.bg-gray-50 {
-                flex-wrap: wrap; /* Allow tabs to wrap if they get too wide */
-            }
-            .tab-button {
-                min-width: unset; /* Remove fixed min-width if any */
-                padding: 1rem 0.5rem; /* Adjust padding further for very small screens */
-            }
-
-            /* Ensure buttons stack or wrap appropriately */
-            .flex.flex-col.sm:flex-row.justify-center.gap-4 {
-                flex-direction: column;
-                align-items: center;
-                gap: 1rem; /* Adjust gap for stacked buttons */
-            }
-            .flex.flex-col.sm:flex-row.justify-center.gap-4 button {
-                width: 100%; /* Make buttons full width when stacked */
-                max-width: 300px; /* Limit max width for stacked buttons */
-            }
-
-            /* Grid adjustments for feature and premium cards */
-            .grid.grid-cols-1.md:grid-cols-2.lg:grid-cols-3 {
-                grid-template-columns: 1fr; /* Stack all cards on mobile */
-            }
-            .grid.grid-cols-2.md:grid-cols-4 {
-                grid-template-columns: 1fr 1fr; /* Two columns for stats on mobile */
-            }
         }
     </style>
 </head>
@@ -729,14 +645,14 @@
     <div id="messageBox" class="message-box" role="status" aria-live="polite"></div>
 
     <!-- Main Container -->
-    <div class="max-w-6xl w-full bg-white rounded-3xl shadow-xl p-8 md:p-12 space-y-10 border border-[#151440]"> <!-- Changed border color -->
+    <div class="max-w-6xl w-full bg-white rounded-3xl shadow-xl p-8 md:p-12 space-y-10 border border-gray-300">
 
         <!-- Header Section -->
         <header class="text-center">
-            <div class="flex flex-col sm:flex-row justify-between items-center px-4 md:px-8">
-                <div class="flex items-center mb-4 sm:mb-0">
-                    <!-- Thunder Icon (Top) -->
-                    <svg class="w-12 h-12 mr-3" fill="#151440" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+            <div class="flex justify-between items-center px-4 md:px-8">
+                <div class="flex items-center">
+                    <!-- Thunder Icon -->
+                    <svg class="w-12 h-12 mr-3 text-violet-600" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
                         <path d="M13 2L6 14h5l-1 8 8-10h-5l2-8z"/>
                     </svg>
                     <h1 class="text-5xl md:text-6xl font-extrabold gradient-text leading-tight turbotags-heading">
@@ -744,14 +660,14 @@
                     </h1>
                 </div>
                 <!-- Ko-fi Support Button -->
-                <a href="https://ko-fi.com/ytseo1509" target="_blank" rel="noopener noreferrer" class="bg-[#151440] text-white px-4 py-2 rounded-lg flex items-center hover:bg-[#0F0E33] transition" aria-label="Support us on Ko-fi">
+                <a href="https://ko-fi.com/ytseo1509" target="_blank" rel="noopener noreferrer" class="bg-amber-500 text-white px-4 py-2 rounded-lg flex items-center hover:bg-amber-600 transition" aria-label="Support us on Ko-fi">
                     <i class="fas fa-mug-hot mr-2" aria-hidden="true"></i> Support Us
                 </a>
             </div>
             <p class="text-xl md:text-2xl text-gray-600 font-semibold mt-2">
                 AI-Powered Tags & Hashtags. Smarter Reach. Faster Growth. 🚀
             </p>
-            <div class="mt-4 flex flex-wrap justify-center gap-2 sm:gap-4"> <!-- Added flex-wrap and gap -->
+            <div class="mt-4 flex justify-center space-x-4">
                 <span class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-green-100 text-green-800">
                     <span class="w-2 h-2 bg-green-400 rounded-full mr-2" aria-hidden="true"></span>
                     Free to Use
@@ -761,18 +677,18 @@
                     AI-Powered
                 </span>
                 <span class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-purple-100 text-purple-800">
-                        <i class="fas fa-chart-line mr-2" aria-hidden="true"></i>
-                        SEO Optimized
-                    </span>
+                    <i class="fas fa-chart-line mr-2" aria-hidden="true"></i>
+                    SEO Optimized
+                </span>
             </div>
         </header>
 
         <!-- Tag Generation Section -->
-        <section class="bg-white p-8 rounded-2xl shadow-lg border border-[#151440]" id="tag-generator"> <!-- Changed border color -->
+        <section class="bg-white p-8 rounded-2xl shadow-lg border border-gray-300" id="tag-generator">
             <h2 class="text-3xl font-bold text-gray-800 mb-6 text-center">Generate Your Tags & Hashtags</h2>
 
             <!-- Platform Tabs -->
-            <div class="flex flex-wrap border-b border-gray-200 mb-6 bg-gray-50 rounded-t-lg overflow-hidden" role="tablist"> <!-- Added flex-wrap -->
+            <div class="flex border-b border-gray-200 mb-6 bg-gray-50 rounded-t-lg overflow-hidden" role="tablist">
                 <button id="youtubeTabBtn" class="tab-button active" data-tab="youtube" role="tab" aria-selected="true" aria-controls="youtubeTabContent">
                     <i class="fab fa-youtube text-red-500" aria-hidden="true"></i>
                     <span>YouTube</span>
@@ -847,7 +763,7 @@
                 <!-- Tags Section -->
                 <div id="tagsSection">
                     <h3 class="text-xl font-bold text-gray-800 mb-4 text-center">Tags: <span id="tagsCount">(0)</span></h3>
-                    <div id="tagList" class="min-h-[100px] border border-[#151440] rounded-lg p-4 bg-gray-200" aria-live="polite"> <!-- Changed border color -->
+                    <div id="tagList" class="min-h-[100px] border border-gray-200 rounded-lg p-4 bg-gray-200" aria-live="polite">
                         <!-- Tags will be injected here -->
                     </div>
                     <div class="mt-4 text-center">
@@ -859,7 +775,7 @@
                 <!-- Hashtags Section -->
                 <div id="hashtagsSection">
                     <h3 class="text-xl font-bold text-gray-800 mb-4 text-center">#Tags: <span id="hashtagsCount">(0)</span></h3>
-                    <div id="hashtagList" class="min-h-[100px] border border-[#151440] rounded-lg p-4 bg-gray-200" aria-live="polite"> <!-- Changed border color -->
+                    <div id="hashtagList" class="min-h-[100px] border border-gray-200 rounded-lg p-4 bg-gray-200" aria-live="polite">
                         <!-- Hashtags will be injected here -->
                     </div>
                     <div class="mt-4 text-center">
@@ -876,8 +792,8 @@
                 <span class="block sm:inline" id="errorText">Something went wrong. Please try again.</span>
             </div>
 
-            <!-- YouTube Optimization Tips Section (New Highlighted Box) -->
-            <div class="bg-purple-50 p-6 rounded-xl shadow-sm mt-10 border border-[#151440]"> <!-- Changed border color -->
+            <!-- YouTube Optimization Tips Section -->
+            <div class="bg-purple-50 p-6 rounded-xl shadow-sm mt-10 border border-gray-300">
                 <h3 class="text-xl font-bold mb-3 flex items-center">
                     <i class="fas fa-lightbulb text-violet-600 mr-3" aria-hidden="true"></i> YouTube Optimization Tips
                 </h3>
@@ -892,14 +808,14 @@
         </section>
 
         <!-- Why Choose TurboTags Section -->
-        <section class="bg-gradient-to-br from-violet-50 to-indigo-50 p-8 rounded-2xl shadow-lg border border-[#151440]"> <!-- Changed border color -->
+        <section class="bg-gradient-to-br from-violet-50 to-indigo-50 p-8 rounded-2xl shadow-lg border border-gray-300">
             <div class="text-center mb-10">
                 <h2 class="text-4xl font-extrabold gradient-text mb-4">Why Choose TurboTags?</h2>
                 <p class="text-xl text-gray-700 max-w-3xl mx-auto">
                     The ultimate AI-powered solution to skyrocket your content reach across YouTube, Instagram, and TikTok.
                     Join 50,000+ creators who trust TurboTags for viral growth!
                 </p>
-                <div class="mt-6 flex flex-wrap justify-center gap-2 sm:gap-4"> <!-- Added flex-wrap and gap -->
+                <div class="mt-6 flex justify-center space-x-4">
                     <span class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-green-100 text-green-800">
                         <span class="w-2 h-2 bg-green-400 rounded-full mr-2" aria-hidden="true"></span>
                         Free to Use
@@ -1043,13 +959,12 @@
         </section>
 
         <!-- Coming Soon Features -->
-        <section class="bg-white p-8 rounded-2xl shadow-lg border border-[#151440]"> <!-- Changed border color -->
+        <section class="bg-white p-8 rounded-2xl shadow-lg border border-gray-300">
             <h2 class="text-3xl font-bold text-gray-800 mb-6 text-center">Coming Soon Features</h2>
             <p class="text-center text-gray-600 mb-8">
                 Exciting new features are in development to make TurboTags even more powerful
             </p>
 
-            <!-- Adjusted grid for 3 items to fill space -->
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                 <!-- Feature 1 -->
                 <div class="premium-card">
@@ -1096,7 +1011,7 @@
         </section>
 
         <!-- About Section -->
-        <section class="bg-white p-8 rounded-2xl shadow-lg border border-[#151440]"> <!-- Changed border color -->
+        <section class="bg-white p-8 rounded-2xl shadow-lg border border-gray-300">
             <h2 class="text-3xl font-bold text-gray-800 mb-6">About TurboTags</h2>
             <p class="text-gray-600 leading-relaxed mb-6">
                 TurboTags is your ultimate AI-powered companion for content creators. We understand the struggle of getting your content discovered in a crowded digital landscape. That's why we've built a smart, intuitive tool to help you generate highly effective, SEO-friendly tags and hashtags for all major platforms.
@@ -1123,7 +1038,7 @@
         </section>
 
         <!-- FAQ Section -->
-        <section class="bg-white p-8 rounded-2xl shadow-lg border border-[#151440]" id="faq"> <!-- Changed border color -->
+        <section class="bg-white p-8 rounded-2xl shadow-lg border border-gray-300" id="faq">
             <h2 class="text-3xl font-bold text-gray-800 mb-6 text-center">Frequently Asked Questions</h2>
             <div class="max-w-3xl mx-auto">
                 <!-- FAQ Item 1 -->
@@ -1134,7 +1049,7 @@
                     </div>
                     <div class="faq-answer">
                         <p class="text-gray-600 mt-2">
-                            TurboTags uses advanced AI algorithms powered by Google Gemini Flash to analyze your content description and generate relevant, SEO-optimized tags and hashtags. Our system considers current trends, search volume, and platform-specific optimization strategies."
+                            TurboTags uses advanced AI algorithms powered by OpenRouter (Mistral 7B Instruct primary, Google Gemini Flash fallback) to analyze your content description and generate relevant, SEO-optimized tags and hashtags. Our system considers current trends, search volume, and platform-specific optimization strategies."
                         </p>
                     </div>
                 </div>
@@ -1175,7 +1090,6 @@
                         <p class="text-gray-600 mt-2">
                             TurboTags typically generates 15-20 tags and hashtags per request, which is optimal for most platforms. YouTube allows up to 500 characters in tags, while Instagram and TikTok have their own best practices that our system follows automatically.
                         </p>
-                    </p>
                     </div>
                 </div>
 
@@ -1195,7 +1109,7 @@
         </section>
 
         <!-- Sponsored Content Section -->
-        <section class="bg-white p-8 rounded-2xl shadow-lg border border-[#151440]"> <!-- Changed border color -->
+        <section class="bg-white p-8 rounded-2xl shadow-lg border border-gray-300">
             <h2 class="text-3xl font-bold text-gray-800 mb-6 text-center">Sponsored Content</h2>
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
                 <!-- 15 placeholders for Google Ads -->
@@ -1296,7 +1210,7 @@
             <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8 text-left">
                 <div>
                     <h3 class="font-bold text-gray-800 mb-4 flex items-center">
-                        <svg class="w-6 h-6 mr-2" fill="#151440" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                        <svg class="w-6 h-6 mr-2 text-violet-600" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
                             <path d="M13 2L6 14h5l-1 8 8-10h-5l2-8z"/>
                         </svg>
                         TurboTags
@@ -1354,36 +1268,14 @@
     </button>
 
     <!-- Main Application Script (including Firebase initialization) -->
-    <script type="module">
+    <script type="module" defer>
         // Import Firebase functions from CDN
         import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
         import { getAuth, signInAnonymously, signInWithCustomToken, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
         import { getFirestore, collection, addDoc, query, onSnapshot, serverTimestamp, deleteDoc, doc, getDocs } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
         import { getAnalytics } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-analytics.js";
 
-        // Global Firebase variables
-        window.firebaseApp = null;
-        window.db = null;
-        window.auth = null;
-        window.analytics = null;
-        window.userId = null;
-        window.isAuthReady = false;
-        let firebaseAuthReadyPromiseResolve;
-        window.firebaseAuthReadyPromise = new Promise(resolve => {
-            firebaseAuthReadyPromiseResolve = resolve;
-        });
-
-        // Expose Firebase functions globally for use in the main script
-        window.firebase = {
-            db: () => window.db,
-            auth: () => window.auth,
-            analytics: () => window.analytics,
-            userId: () => window.userId,
-            isAuthReady: () => window.isAuthReady,
-            collection, addDoc, query, onSnapshot, serverTimestamp, deleteDoc, doc, getDocs
-        };
-
-        // Initialize Firebase
+        // Firebase configuration
         const firebaseConfig = {
             apiKey: "AIzaSyCdQdG1cqcmUDwSSUlFVrP9arOV3qvdCpE",
             authDomain: "turbotags-b4ca1.firebaseapp.com",
@@ -1394,56 +1286,51 @@
             measurementId: "G-MP18L879VZ"
         };
 
-        // Check if Firebase config is valid before initializing
-        if (firebaseConfig.apiKey && firebaseConfig.projectId && firebaseConfig.appId &&
-            !firebaseConfig.apiKey.includes("YOUR_FIREBASE_API_KEY_HERE")) {
-            window.firebaseApp = initializeApp(firebaseConfig);
-            window.db = getFirestore(window.firebaseApp);
-            window.auth = getAuth(window.firebaseApp);
-            window.analytics = getAnalytics(window.firebaseApp);
-            
-            onAuthStateChanged(window.auth, async (user) => {
-                if (user) {
-                    window.userId = user.uid;
-                    console.log("Firebase Auth Ready. User ID (existing user):", window.userId);
-                } else {
-                    // No user signed in, attempt to sign in
-                    try {
-                        const initialAuthToken = typeof __initial_auth_token !== 'undefined' ? __initial_auth_token : null;
-                        if (initialAuthToken) {
-                            // Attempt custom token sign-in first
-                            await signInWithCustomToken(window.auth, initialAuthToken);
-                            window.userId = window.auth.currentUser.uid;
-                            console.log("Firebase Auth Ready. User ID (custom token):", window.userId);
-                        } else {
-                            // If no custom token, sign in anonymously
-                            await signInAnonymously(window.auth);
-                            window.userId = window.auth.currentUser.uid;
-                            console.log("Firebase Auth Ready. User ID (anonymous):", window.userId);
-                        }
-                    } catch (error) {
-                        // If custom token sign-in fails, or initial anonymous sign-in fails, try anonymous as a fallback
-                        console.warn("Error during Firebase sign-in process (attempting anonymous fallback):", error); // Changed to console.warn
-                        try {
-                            await signInAnonymously(window.auth);
-                            window.userId = window.auth.currentUser.uid;
-                            console.log("Firebase Auth Ready. User ID (anonymous fallback):", window.userId);
-                        } catch (anonError) {
-                            console.error("Error signing in anonymously as final fallback:", anonError);
-                            window.userId = crypto.randomUUID(); // Fallback to random UUID if all sign-in fails
-                            console.log("Firebase Auth Ready. User ID (random UUID fallback):", window.userId);
-                        }
+        // Initialize Firebase
+        window.firebaseApp = initializeApp(firebaseConfig);
+        window.db = getFirestore(window.firebaseApp);
+        window.auth = getAuth(window.firebaseApp);
+        window.analytics = getAnalytics(window.firebaseApp);
+        window.userId = null;
+        window.isAuthReady = false;
+        
+        let firebaseAuthReadyPromiseResolve;
+        window.firebaseAuthReadyPromise = new Promise(resolve => {
+            firebaseAuthReadyPromiseResolve = resolve;
+        });
+
+        // Expose Firebase functions globally
+        window.firebase = {
+            db: () => window.db,
+            auth: () => window.auth,
+            analytics: () => window.analytics,
+            userId: () => window.userId,
+            isAuthReady: () => window.isAuthReady,
+            collection, addDoc, query, onSnapshot, serverTimestamp, deleteDoc, doc, getDocs
+        };
+
+        // Listen for auth state changes and sign in
+        onAuthStateChanged(window.auth, async (user) => {
+            if (user) {
+                window.userId = user.uid;
+            } else {
+                try {
+                    const initialAuthToken = typeof __initial_auth_token !== 'undefined' ? __initial_auth_token : null;
+                    if (initialAuthToken) {
+                        await signInWithCustomToken(window.auth, initialAuthToken);
+                    } else {
+                        await signInAnonymously(window.auth);
                     }
+                    window.userId = window.auth.currentUser.uid;
+                } catch (error) {
+                    console.error("Error signing in anonymously:", error);
+                    window.userId = crypto.randomUUID(); // Fallback to random UUID if sign-in fails
                 }
-                window.isAuthReady = true;
-                firebaseAuthReadyPromiseResolve();
-            });
-        } else {
-            console.warn("Firebase: Real Firebase initialization skipped (missing/dummy config). Features dependent on it will not work.");
-            window.userId = crypto.randomUUID(); // Generate a random UUID if Firebase is not initialized
+            }
             window.isAuthReady = true;
-            firebaseAuthReadyPromiseResolve(); // Resolve promise even if not fully initialized
-        }
+            console.log("Firebase Auth Ready. User ID:", window.userId);
+            firebaseAuthReadyPromiseResolve();
+        });
 
         // DOM Elements for Tag/Hashtag Generation
         const youtubeTabBtn = document.getElementById('youtubeTabBtn');
@@ -1469,7 +1356,6 @@
         const tagsSection = document.getElementById('tagsSection');
         const hashtagList = document.getElementById('hashtagList');
         const tagList = document.getElementById('tagList');
-        const tagsCount = document.getElementById('tagsCount');
         const hashtagsCount = document.getElementById('hashtagsCount');
         const copyAllTagsBtn = document.getElementById('copyAllTagsBtn');
         const copyAllHashtagsBtn = document.getElementById('copyAllHashtagsBtn');
@@ -1514,9 +1400,7 @@
                 '#TikTokTips', '#ForYouPage', '#ViralVideo', '#TikTokGrowth', '#ShortFormVideo',
                 '#TikTokDance', '#CreativeContent', '#ChallengeAccepted', '#TrendAlert', '#TikTokMarketing',
                 '#ContentCreation', '#FYP', '#TikTokCreator', '#VideoIdeas', '#SocialMediaTips'
-            ],
-            'youtube-title': 'How to Optimize Your YouTube Videos for More Views',
-            'youtube-description': 'Learn the best strategies for YouTube SEO, including keyword research, tag optimization, and engaging descriptions to grow your channel and get more subscribers. This comprehensive guide covers everything from video creation to promotion.'
+            ]
         };
 
         // Initialize tabs
@@ -1633,7 +1517,7 @@
             try {
                 await window.firebaseAuthReadyPromise; // Ensure Firebase auth is ready
 
-                const result = await callGeminiAPI(prompt); // Direct call to Gemini API
+                const result = await callAIAPI(prompt); // Use the new multi-fallback AI call
 
                 let generatedText = '';
                 if (result && result.text) {
@@ -1649,6 +1533,8 @@
                         timestamp: new Date().toISOString()
                     });
                 } else {
+                    // This block should ideally not be reached if callAIAPI throws an error
+                    // but as a safeguard, if it returns an empty/invalid result, use fallback
                     displayTagsAndHashtagsFromFallback(platformType);
                     showMessageBox('Could not generate tags. Using fallback data.', true);
 
@@ -1664,7 +1550,7 @@
             } catch (error) {
                 console.error('Error generating tags:', error);
                 displayTagsAndHashtagsFromFallback(platformType);
-                showMessageBox('Failed to generate tags. Using fallback data.', true);
+                showMessageBox('Failed to connect to the tag generation service. Using fallback data.', true);
 
                 trackEvent('tag_generation_error', {
                     platform: platformType.split('-')[0],
@@ -1700,7 +1586,7 @@
             // Generate YouTube Tags
             try {
                 const tagsPrompt = `Generate 15-20 relevant and SEO-friendly tags for a YouTube video about "${topic}". Provide them as a comma-separated list.`;
-                const tagsResponse = await callGeminiAPI(tagsPrompt); // Direct call to Gemini API
+                const tagsResponse = await callAIAPI(tagsPrompt); // Use the new multi-fallback AI call
                 if (tagsResponse && tagsResponse.text) {
                     generatedTags = tagsResponse.text;
                 } else {
@@ -1716,7 +1602,7 @@
             // Generate YouTube Hashtags
             try {
                 const hashtagsPrompt = `Generate 15-20 relevant and SEO-friendly hashtags for a YouTube video about "${topic}". Provide them as a comma-separated list, starting each with '#'.`;
-                const hashtagsResponse = await callGeminiAPI(hashtagsPrompt); // Direct call to Gemini API
+                const hashtagsResponse = await callAIAPI(hashtagsPrompt); // Use the new multi-fallback AI call
                 if (hashtagsResponse && hashtagsResponse.text) {
                     generatedHashtags = hashtagsResponse.text;
                 } else {
@@ -1748,19 +1634,50 @@
         }
 
         /**
-         * Helper function to call the Gemini API directly.
+         * Helper function to call AI APIs with a fallback mechanism.
+         * 1. Attempts to call a Vercel serverless function (assumed to use Mistral).
+         * 2. If the Vercel call fails, attempts a direct call to Gemini 2.0 Flash.
+         * 3. If both fail, throws an error to trigger the local fallback data.
          * @param {string} prompt - The text prompt for the AI.
-         * @returns {Promise<object>} - The JSON response from the Gemini API call, containing a 'text' property.
-         * @throws {Error} If the API call fails.
+         * @returns {Promise<object>} - The JSON response from the successful AI call, containing a 'text' property.
+         * @throws {Error} If both API calls fail.
          */
-        async function callGeminiAPI(prompt) {
+        async function callAIAPI(prompt) {
+            let errorFromMistral = null;
+            let errorFromGemini = null;
+
+            // 1. Attempt call to Vercel Serverless Function (Mistral)
             try {
-                console.log("Attempting direct call to Gemini Flash..");
+                console.log("Attempting call to Vercel serverless function (Mistral)..");
+                const vercelResponse = await fetch('/api/generate', { // Assumes /api/generate exists on Vercel
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ prompt: prompt, model: 'mistralai/mistral-7b-instruct-v0.2' }) // Pass model to Vercel
+                });
+
+                if (!vercelResponse.ok) {
+                    const errorData = await vercelResponse.json();
+                    throw new Error(`Vercel Mistral error: ${vercelResponse.status} ${vercelResponse.statusText} - ${errorData.error || 'Unknown error'}`);
+                }
+                const result = await vercelResponse.json();
+                if (result && result.text) {
+                    console.log("Mistral API call successful.");
+                    return result; // Success from Mistral
+                } else {
+                    throw new Error("Mistral API response missing text.");
+                }
+            } catch (error) {
+                console.error('Error from Vercel Mistral API:', error);
+                errorFromMistral = error;
+            }
+
+            // 2. If Mistral fails, attempt direct call to Gemini Flash
+            try {
+                console.log("Mistral failed, attempting direct call to Gemini Flash..");
                 let chatHistory = [];
                 chatHistory.push({ role: "user", parts: [{ text: prompt }] });
                 const payload = { contents: chatHistory };
-                // The API key is automatically provided by the Canvas environment when apiKey is an empty string.
-                const apiKey = ""; 
+                const apiKey = ""; // Canvas will automatically provide the API key
                 const geminiApiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`;
 
                 const geminiResponse = await fetch(geminiApiUrl, {
@@ -1780,14 +1697,19 @@
                     geminiResult.candidates[0].content.parts.length > 0) {
                     const text = geminiResult.candidates[0].content.parts[0].text;
                     console.log("Gemini API call successful.");
-                    return { text: text };
+                    return { text: text }; // Success from Gemini
                 } else {
                     throw new Error("Gemini API response missing text.");
                 }
             } catch (error) {
                 console.error('Error from Gemini Flash API:', error);
-                throw new Error(`Gemini API call failed: ${error.message}`);
+                errorFromGemini = error;
             }
+
+            // If both fail, throw a comprehensive error
+            throw new Error(`AI generation failed after multiple attempts.
+                Mistral attempt error: ${errorFromMistral ? errorFromMistral.message : 'No attempt made'}.
+                Gemini attempt error: ${errorFromGemini ? errorFromGemini.message : 'No attempt made'}.`);
         }
 
         /**
@@ -2123,9 +2045,6 @@
 
         // Modal Management - Redirect to separate pages for legal documents
         function openModal(modalId) {
-            // For a single HTML file, these would ideally be sections within the same file
-            // or dynamic content loaded into the modal. For now, they link to external files
-            // as per your original structure, assuming they exist.
             if (modalId === 'privacyModal') {
                 window.open('privacy.html', '_blank'); // Open in new tab
             } else if (modalId === 'termsModal') {
@@ -2346,24 +2265,19 @@
         async function saveSearch(queryText, platform, generatedTags, generatedHashtags) {
             await window.firebaseAuthReadyPromise; // Ensure Firebase auth is ready
 
-            // Corrected: Call isAuthReady, userId, and db as properties/functions from the window.firebase object
             if (!window.firebase.isAuthReady() || !window.firebase.userId() || !window.firebase.db()) {
                 console.warn("Firebase not ready or user not authenticated. Cannot save search for internal use.");
                 return;
             }
 
-            // Get the current app ID from the Firebase app instance
-            // Use the __app_id global variable provided by the Canvas environment, or a default
-            const appId = typeof __app_id !== 'undefined' ? __app_id : 'turbotags-default-app';
+            const appId = window.firebaseApp.options.appId;
 
-            // Check for dummy or missing app ID
             if (!appId || appId === "dummy-app-id" || appId.includes("YOUR_FIREBASE_APP_ID_HERE")) {
                 console.warn("Firebase App ID is dummy or missing. Cannot save search for internal use.");
                 return;
             }
 
             try {
-                // Use the public data path for AI improvement data
                 const searchesCollectionRef = collection(window.firebase.db(), `artifacts/${appId}/public/data/searches_for_ai`);
                 await addDoc(searchesCollectionRef, {
                     userId: window.firebase.userId(),
