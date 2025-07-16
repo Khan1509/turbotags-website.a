@@ -3,105 +3,38 @@
   "builds": [
     {
       "src": "api/generate.js",
-      "use": "@vercel/node"
+      "use": "@vercel/node@2.0.0",
+      "config": {
+        "runtime": "nodejs22.x",
+        "includeFiles": ["api/**"]
+      }
     },
     {
-      "src": "index.html",
+      "src": "*.{html,txt,xml,json,ico}",
       "use": "@vercel/static"
     },
     {
-      "src": "privacy.html",
-      "use": "@vercel/static"
-    },
-    {
-      "src": "terms.html",
-      "use": "@vercel/static"
-    },
-    {
-      "src": "disclaimer.html",
-      "use": "@vercel/static"
-    },
-    {
-      "src": "robots.txt",
-      "use": "@vercel/static"
-    },
-    {
-      "src": "sitemap.xml",
-      "use": "@vercel/static"
-    },
-    {
-      "src": "manifest.json",
-      "use": "@vercel/static"
-    },
-    {
-      "src": "favicon.ico",
-      "use": "@vercel/static"
-    },
-    {
-      "src": "favicon.png",
-      "use": "@vercel/static"
-    },
-    {
-      "src": "favicon.svg",
-      "use": "@vercel/static"
-    },
-    {
-      "src": "favicon_16x16.png",
-      "use": "@vercel/static"
-    },
-    {
-      "src": "favicon_192x192.png",
-      "use": "@vercel/static"
-    },
-    {
-      "src": "favicon_32x32.png",
-      "use": "@vercel/static"
-    },
-    {
-      "src": "favicon_512x512.png",
-      "use": "@vercel/static"
-    },
-    {
-      "src": "icons/icon-144x144.svg",
-      "use": "@vercel/static"
-    },
-    {
-      "src": "icons/icon-192x192.svg",
-      "use": "@vercel/static"
-    },
-    {
-      "src": "icons/icon-512x512.svg",
-      "use": "@vercel/static"
-    },
-    {
-      "src": "icons/icon-72x72.svg",
-      "use": "@vercel/static"
-    },
-    {
-      "src": "icons/icon-96x96.svg",
-      "use": "@vercel/static"
-    },
-    {
-      "src": "icons/instagram-shortcut-96x96.svg",
-      "use": "@vercel/static"
-    },
-    {
-      "src": "icons/tiktok-shortcut-96x96.svg",
-      "use": "@vercel/static"
-    },
-    {
-      "src": "icons/youtube-shortcut-96x96.svg",
+      "src": "icons/**",
       "use": "@vercel/static"
     }
   ],
   "routes": [
     {
       "src": "/api/(.*)",
-      "dest": "/api/$1"
+      "dest": "/api/$1",
+      "headers": {
+        "Cache-Control": "no-store"
+      }
     },
     {
       "src": "/(.*)",
-      "dest": "/$1"
+      "dest": "/$1",
+      "headers": {
+        "Cache-Control": "public, max-age=3600"
+      }
     }
-  ]
+  ],
+  "env": {
+    "NODE_ENV": "production"
+  }
 }
