@@ -1,0 +1,39 @@
+{
+  "youtube": {
+    "plain_tags": [
+      "viral2025", "trendingnow", "shorts25", "youtubestrategy", "algorithmhacks",
+      "watchtimeboost", "creatorconomy", "videoseo", "contentmastery", "engagementtips",
+      "youtubemonetization", "videoviral", "trendjacking", "aivideo", "metaversecontent",
+      "shortformking", "youtubepartner", "100kjourney", "1mviews", "viralhacks",
+      "contentmachine", "videotrends", "creatorcode", "youtubedominance", "videostorm"
+    ],
+    "hashtags": [
+      "#YT2025", "#ShortsDomination", "#ViralBlueprint", "#AlgorithmSecrets", "#MillionViewClub",
+      "#ContentGold", "#TrendRider", "#WatchTimeWizard", "#ShortFormPro", "#CreatorEconomy25",
+      "#AIContent", "#MetaverseCreator", "#YouTubeMastery", "#ViralFormula", "#NoFluffGrowth",
+      "#MonetizationPro", "#TrendForecaster", "#ContentAlchemy", "#AudienceBuilder", "#VideoCashCow"
+    ]
+  },
+  
+  "instagram_hashtags": [
+    "#IG2025", "#ReelsDominator", "#VisualMastery", "#InstaAlgo", "#Trendsetter25",
+    "#AestheticVision", "#ContentKing", "#EngagementNinja", "#ViralReels", "#CreatorLife25",
+    "#DigitalArtistry", "#InstaGold", "#AlgorithmWhisperer", "#SocialMediaMaster", "#GrowthHacker25",
+    "#PhotoWizard", "#TrendSurfer", "#InstaFamous", "#ContentSorcery", "#ReelMagic",
+    "#VisualStorytelling", "#InstaTrends", "#CreatorCommunity", "#SocialSelling", "#BrandCollabs"
+  ],
+  
+  "tiktok_hashtags": [
+    "#TT2025", "#FYPGod", "#TrendTakeover", "#ViralBlueprint", "#AlgorithmMaster",
+    "#ContentTsunami", "#ShortFormGod", "#TrendProphet", "#TikTokEconomy", "#Creator25",
+    "#AIViral", "#MetaverseTrends", "#TikTokDomination", "#ViralFormula", "#NoFilterGrowth",
+    "#TikTokMoney", "#TrendForecasting", "#ContentLightning", "#AudienceMagnet", "#CashContent",
+    "#TikTokHacks", "#FYPSecrets", "#TrendJumper", "#ViralWave", "#TikTokAlchemy"
+  ],
+  
+  "platform_core": {
+    "youtube_core": ["#Shorts", "#Viral", "#Trending", "#Subscribe", "#Views"],
+    "instagram_core": ["#Love", "#InstaGood", "#PhotoOfTheDay", "#Follow", "#Like"],
+    "tiktok_core": ["#FYP", "#ForYou", "#Viral", "#Trending", "#Follow"]
+  }
+}
