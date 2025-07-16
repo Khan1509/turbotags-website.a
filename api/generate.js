@@ -1,103 +1,47 @@
-// api/generate.js
 export default async function handler(req, res) {
-  console.log("[API] Request received for OpenRouter with failover logic");
+  // Immediately set JSON content-type
+  res.setHeader('Content-Type', 'application/json');
 
-  // Only allow POST requests
+  // Block non-POST requests
   if (req.method !== 'POST') {
-    res.setHeader('Allow', ['POST']);
     return res.status(405).json({ 
-      error: 'Method Not Allowed', 
+      error: 'Method Not Allowed',
       message: 'Only POST requests are supported' 
     });
   }
 
-  // Validate API key
-  const OPENROUTER_API_KEY = process.env.OPENROUTER_API_KEY;
-  if (!OPENROUTER_API_KEY) {
-    console.error("[API] OPENROUTER_API_KEY not configured");
-    return res.status(500).json({ 
-      error: 'Server Configuration Error', 
-      message: 'OpenRouter API key not configured' 
-    });
-  }
-
-  // Validate request body
-  if (!req.body?.prompt) {
-    return res.status(400).json({ 
-      error: 'Bad Request', 
-      message: 'Missing prompt in request body' 
-    });
-  }
-
-  const { prompt } = req.body;
-  console.log(`[API] Processing prompt (${prompt.length} chars): "${prompt.slice(0, 50)}${prompt.length > 50 ? '...' : ''}"`);
-
-  const OPENROUTER_API_URL = "https://openrouter.ai/api/v1/chat/completions";
-  const MODELS = {
-    PRIMARY: "mistralai/mistral-7b-instruct-v0.2",
-    FALLBACK: "google/gemini-flash-1.5"
-  };
-
-  const headers = {
-    'Authorization': `Bearer ${OPENROUTER_API_KEY}`,
-    'Content-Type': 'application/json',
-    'HTTP-Referer': 'https://your-site.com', // OpenRouter requires this
-    'X-Title': 'Your App Name' // For OpenRouter analytics
-  };
-
-  const requestOptions = {
-    messages: [{ role: "user", content: prompt }],
-    max_tokens: 300, // Increased from 150 for better responses
-    temperature: 0.7,
-  };
-
   try {
-    // Try primary model
-    console.log(`[API] Attempting primary model: ${MODELS.PRIMARY}`);
-    const primaryResponse = await fetch(OPENROUTER_API_URL, {
-      method: 'POST',
-      headers,
-      body: JSON.stringify({ ...requestOptions, model: MODELS.PRIMARY })
-    });
-
-    if (primaryResponse.ok) {
-      const data = await primaryResponse.json();
-      if (data?.choices?.[0]?.message?.content) {
-        return res.status(200).json({ 
-          text: data.choices[0].message.content,
-          modelUsed: MODELS.PRIMARY
-        });
-      }
-    } else {
-      const error = await primaryResponse.json();
-      console.error("[API] Primary model error:", error);
-    }
-
-    // Fallback model attempt
-    console.log(`[API] Trying fallback model: ${MODELS.FALLBACK}`);
-    const fallbackResponse = await fetch(OPENROUTER_API_URL, {
-      method: 'POST',
-      headers,
-      body: JSON.stringify({ ...requestOptions, model: MODELS.FALLBACK })
-    });
-
-    if (fallbackResponse.ok) {
-      const data = await fallbackResponse.json();
-      return res.status(200).json({ 
-        text: data.choices[0].message.content,
-        modelUsed: MODELS.FALLBACK
+    const { prompt } = req.body;
+    
+    if (!prompt) {
+      return res.status(400).json({
+        error: 'Bad Request',
+        message: 'Missing prompt in request body'
       });
-    } else {
-      const error = await fallbackResponse.json();
-      console.error("[API] Fallback model error:", error);
-      throw new Error('Both models failed');
     }
+
+    // Your OpenRouter API logic here
+    const response = await fetch("https://openrouter.ai/api/v1/chat/completions", {
+      method: 'POST',
+      headers: {
+        'Authorization': `Bearer ${process.env.OPENROUTER_API_KEY}`,
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        model: "mistralai/mistral-7b-instruct-v0.2",
+        messages: [{ role: "user", content: prompt }]
+      })
+    });
+
+    const data = await response.json();
+    return res.status(200).json({
+      text: data.choices[0].message.content
+    });
 
   } catch (error) {
-    console.error("[API] Server error:", error);
-    return res.status(500).json({ 
-      error: 'Generation Failed', 
-      message: error.message || 'All models failed to respond' 
+    return res.status(500).json({
+      error: 'Internal Server Error',
+      message: error.message
     });
   }
 }
