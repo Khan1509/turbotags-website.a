@@ -6,6 +6,7 @@
     <title>TurboTags - AI-Powered Tags & Hashtags Generator for YouTube, Instagram & TikTok | Free SEO Tool</title>
 
     <!-- Favicon links - Using external files from your workflow root -->
+    <!-- IMPORTANT: These files (favicon.svg, icon-192x192.svg, etc.) MUST be placed in the 'public' directory of your Vercel project's root for them to be served correctly from the '/' path. -->
     <link rel="icon" href="/favicon.svg" type="image/svg+xml">
     <link rel="apple-touch-icon" href="/icon-192x192.svg">
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon_32x32.png">
@@ -20,8 +21,7 @@
     <link rel="icon" type="image/svg+xml" sizes="512x512" href="/icon-512x512.svg">
 
     <!-- PWA Manifest link -->
-    <!-- IMPORTANT: The manifest.json file and all referenced icon files (e.g., /icon-192x192.svg, /icon-512x512.svg, etc.) -->
-    <!-- MUST be created and deployed separately at the root of your web application for PWA features to work. -->
+    <!-- IMPORTANT: The manifest.json file MUST be placed in the 'public' directory of your Vercel project's root. -->
     <link rel="manifest" href="/manifest.json">
 
     <!-- Enhanced Global SEO Meta Tags -->
@@ -149,7 +149,6 @@
             "AI-powered tag generation",
             "Multi-platform support (YouTube, Instagram, TikTok)",
             "Real-time trending analysis",
-            "SEO optimization",
             "One-click copy functionality",
             "Search history tracking",
             "Free to use",
@@ -1471,7 +1470,6 @@
 
         const generateYoutubeContentBtn = document.getElementById('generateYoutubeContentBtn');
         const generateInstagramHashtagsBtn = document.getElementById('generateInstagramHashtagsBtn');
-        // Declare generateTiktokHashtagsBtn BEFORE its first use
         const generateTiktokHashtagsBtn = document.getElementById('generateTiktokHashtagsBtn'); 
         
         const resetBtn = document.getElementById('resetBtn');
@@ -1543,12 +1541,7 @@
         // Event Listeners for Generate Buttons (Tag/Hashtag)
         generateYoutubeContentBtn.addEventListener('click', () => generateYouTubeTagsAndHashtags());
         generateInstagramHashtagsBtn.addEventListener('click', () => generateTagsOrHashtags('instagram-hashtags'));
-        // Now generateTiktokHashtagsBtn is declared, so this listener can be safely added
-        if (generateTiktokHashtagsBtn) {
-            generateTiktokHashtagsBtn.addEventListener('click', () => generateTagsOrHashtags('tiktok-hashtags'));
-        } else {
-            console.warn("TikTok generate button not found. Functionality might be limited.");
-        }
+        generateTiktokHashtagsBtn.addEventListener('click', () => generateTagsOrHashtags('tiktok-hashtags'));
 
         // Event Listeners for Reset Buttons
         resetBtn.addEventListener('click', resetApp);
@@ -1612,81 +1605,32 @@
         }
 
         /**
-         * Helper function to call the OpenRouter API.
-         * @param {string} model - The OpenRouter model to use (e.g., "mistralai/mistral-7b-instruct", "google/gemini-1.5-flash").
+         * Calls the Vercel serverless function to generate AI content.
+         * This function abstracts the API call to your backend.
          * @param {string} prompt - The text prompt for the AI.
-         * @returns {Promise<object>} - The JSON response from the OpenRouter API call, containing a 'text' property.
-         * @throws {Error} If the API call fails.
+         * @returns {Promise<object>} - The JSON response from your serverless function, containing a 'text' property.
+         * @throws {Error} If the serverless function call fails.
          */
-        async function callOpenRouterAPI(model, prompt) {
-            console.log(`Attempting call to OpenRouter with model: ${model}`);
-            const openRouterApiUrl = "https://openrouter.ai/api/v1/chat/completions";
-            // Use __open_router_api_key if provided by the environment, otherwise keep it empty.
-            // This key needs to be securely configured in your deployment environment (e.g., Vercel environment variables).
-            const openRouterApiKey = typeof __open_router_api_key !== 'undefined' ? __open_router_api_key : ''; 
-
-            const payload = {
-                model: model,
-                messages: [{ role: "user", content: prompt }],
-                stream: false // We need a single, complete response
-            };
-
-            const response = await fetch(openRouterApiUrl, {
-                method: "POST",
+        async function callAIGenerationAPI(prompt) {
+            console.log(`Calling serverless function /api/generate with prompt: "${prompt.substring(0, 50)}..."`);
+            const response = await fetch('/api/generate', {
+                method: 'POST',
                 headers: {
-                    "Authorization": `Bearer ${openRouterApiKey}`,
-                    "Content-Type": "application/json"
+                    'Content-Type': 'application/json',
                 },
-                body: JSON.stringify(payload)
+                body: JSON.stringify({ prompt: prompt }),
             });
 
             if (!response.ok) {
                 const errorData = await response.json();
-                throw new Error(`OpenRouter API error (${model}): ${response.status} ${response.statusText} - ${errorData.message || JSON.stringify(errorData)}`);
+                throw new Error(`Serverless function error: ${response.status} ${response.statusText} - ${errorData.message || JSON.stringify(errorData)}`);
             }
 
             const result = await response.json();
-            if (result.choices && result.choices.length > 0 && result.choices[0].message && result.choices[0].message.content) {
-                return { text: result.choices[0].message.content };
+            if (result && result.text) {
+                return { text: result.text };
             } else {
-                throw new Error(`OpenRouter API response missing text for model: ${model}`);
-            }
-        }
-
-        /**
-         * Generates tags or hashtags based on user input and selected platform using AI.
-         * This function orchestrates calls to OpenRouter (Mistral, then Gemini 1.5) and then falls back to local JSON data.
-         * @param {string} prompt - The text prompt for the AI.
-         * @returns {Promise<object>} - The JSON response from the AI API call, containing a 'text' property.
-         * @throws {Error} If all AI generation attempts fail.
-         */
-        async function callGeminiAPI(prompt) {
-            try {
-                // 1. Attempt OpenRouter with Mistral 7B
-                return await callOpenRouterAPI("mistralai/mistral-7b-instruct", prompt);
-            } catch (mistralError) {
-                console.warn('Mistral 7B failed on OpenRouter, attempting Gemini 1.5 Flash via OpenRouter:', mistralError);
-                try {
-                    // 2. Attempt OpenRouter with Google Gemini 1.5 Flash (corrected model name)
-                    return await callOpenRouterAPI("google/gemini-1.5-flash", prompt);
-                } catch (geminiOpenRouterError) {
-                    console.error('OpenRouter Gemini 1.5 Flash failed, falling back to local JSON data:', geminiOpenRouterError);
-                    // 3. Final Fallback to local JSON data
-                    let fallbackText = '';
-                    // Determine which fallback data to use based on the prompt's likely intent
-                    if (prompt.includes('YouTube video')) {
-                        fallbackText = fallbackData['youtube-tags'].join(', ') + ', ' + fallbackData['youtube-hashtags'].join(', ');
-                    } else if (prompt.includes('Instagram post')) {
-                        fallbackText = fallbackData['instagram-hashtags'].join(', ');
-                    } else if (prompt.includes('TikTok video')) {
-                        fallbackText = fallbackData['tiktok-hashtags'].join(', ');
-                    } else {
-                        // Generic fallback if prompt doesn't clearly indicate platform
-                        fallbackText = fallbackData['youtube-tags'].join(', ') + ', ' + fallbackData['instagram-hashtags'].join(', ');
-                    }
-                    console.log("Using local JSON fallback data.");
-                    return { text: fallbackText }; // Return fallback text in the expected format
-                }
+                throw new Error('Serverless function response missing expected content (text).');
             }
         }
 
@@ -1726,7 +1670,8 @@
             try {
                 await window.firebaseAuthReadyPromise; // Ensure Firebase auth is ready
 
-                const result = await callGeminiAPI(prompt); // Direct call to AI API (now orchestrates OpenRouter/JSON fallback)
+                // Call the serverless function to get AI-generated content
+                const result = await callAIGenerationAPI(prompt); 
 
                 let generatedText = '';
                 if (result && result.text) {
@@ -1742,6 +1687,7 @@
                         timestamp: new Date().toISOString()
                     });
                 } else {
+                    // Fallback to local data if serverless function doesn't return expected text
                     displayTagsAndHashtagsFromFallback(platformType);
                     showMessageBox('Could not generate tags. Using fallback data.', true);
 
@@ -1755,7 +1701,7 @@
                 }
 
             } catch (error) {
-                console.error('Error generating tags:', error);
+                console.error('Error generating tags via serverless function:', error);
                 displayTagsAndHashtagsFromFallback(platformType);
                 showMessageBox('Failed to generate tags. Using fallback data.', true);
 
@@ -1793,7 +1739,7 @@
             // Generate YouTube Tags
             try {
                 const tagsPrompt = `Generate 15-20 relevant and SEO-friendly tags for a YouTube video about "${topic}". Provide them as a comma-separated list.`;
-                const tagsResponse = await callGeminiAPI(tagsPrompt); // Direct call to AI API (now orchestrates OpenRouter/JSON fallback)
+                const tagsResponse = await callAIGenerationAPI(tagsPrompt); // Call serverless function
                 if (tagsResponse && tagsResponse.text) {
                     generatedTags = tagsResponse.text;
                 } else {
@@ -1801,7 +1747,7 @@
                     errorOccurred = true;
                 }
             } catch (error) {
-                console.error('Error generating YouTube tags:', error);
+                console.error('Error generating YouTube tags via serverless function:', error);
                 generatedTags = fallbackData['youtube-tags'].join(', ');
                 errorOccurred = true;
             }
@@ -1809,7 +1755,7 @@
             // Generate YouTube Hashtags
             try {
                 const hashtagsPrompt = `Generate 15-20 relevant and SEO-friendly hashtags for a YouTube video about "${topic}". Provide them as a comma-separated list, starting each with '#'.`;
-                const hashtagsResponse = await callGeminiAPI(hashtagsPrompt); // Direct call to AI API (now orchestrates OpenRouter/JSON fallback)
+                const hashtagsResponse = await callAIGenerationAPI(hashtagsPrompt); // Call serverless function
                 if (hashtagsResponse && hashtagsResponse.text) {
                     generatedHashtags = hashtagsResponse.text;
                 } else {
@@ -1817,7 +1763,7 @@
                     errorOccurred = true;
                 }
             } catch (error) {
-                console.error('Error generating YouTube hashtags:', error);
+                console.error('Error generating YouTube hashtags via serverless function:', error);
                 generatedHashtags = fallbackData['youtube-hashtags'].join(', ');
                 errorOccurred = true;
             }
