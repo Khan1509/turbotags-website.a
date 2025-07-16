@@ -1072,7 +1072,7 @@
                     </div>
                     <div class="faq-answer">
                         <p class="text-gray-800 mt-2">
-                            TurboTags uses advanced AI algorithms powered by Google Gemini Flash to analyze your content description and generate relevant, SEO-optimized tags and hashtags. Our system considers current trends, search volume, and platform-specific optimization strategies."
+                            TurboTags uses advanced AI algorithms powered by OpenRouter (Mistral 7B Instruct primary, Google Gemini Flash fallback) to analyze your content description and generate relevant, SEO-optimized tags and hashtags. Our system considers current trends, search volume, and platform-specific optimization strategies."
                         </p>
                     </div>
                 </div>
@@ -1607,7 +1607,7 @@
             try {
                 await window.firebaseAuthReadyPromise; // Ensure Firebase auth is ready
 
-                const result = await callAIAPI(prompt); // Call the AI directly
+                const result = await callAIAPI(prompt); // Call the AI via the serverless function
 
                 let generatedText = '';
                 if (result && result.text) {
@@ -1676,7 +1676,7 @@
             // Generate YouTube Tags
             try {
                 const tagsPrompt = `Generate 15-20 relevant and SEO-friendly tags for a YouTube video about "${topic}". Provide them as a comma-separated list.`;
-                const tagsResponse = await callAIAPI(tagsPrompt); // Call the AI directly
+                const tagsResponse = await callAIAPI(tagsPrompt); // Call the AI via the serverless function
                 if (tagsResponse && tagsResponse.text) {
                     generatedTags = tagsResponse.text;
                 } else {
@@ -1692,7 +1692,7 @@
             // Generate YouTube Hashtags
             try {
                 const hashtagsPrompt = `Generate 15-20 relevant and SEO-friendly hashtags for a YouTube video about "${topic}". Provide them as a comma-separated list, starting each with '#'.`;
-                const hashtagsResponse = await callAIAPI(hashtagsPrompt); // Call the AI directly
+                const hashtagsResponse = await callAIAPI(hashtagsPrompt); // Call the AI via the serverless function
                 if (hashtagsResponse && hashtagsResponse.text) {
                     generatedHashtags = hashtagsResponse.text;
                 } else {
@@ -1724,43 +1724,34 @@
         }
 
         /**
-         * Helper function to call Google Gemini Flash API directly.
+         * Helper function to call the Vercel Serverless Function.
          * @param {string} prompt - The text prompt for the AI.
          * @returns {Promise<object>} - The JSON response from the successful AI call, containing a 'text' property.
          * @throws {Error} If the API call fails or returns an unexpected structure.
          */
         async function callAIAPI(prompt) {
-            let chatHistory = [];
-            chatHistory.push({ role: "user", parts: [{ text: prompt }] });
-            const payload = { contents: chatHistory };
-            const apiKey = ""; // Canvas will automatically provide the API key
-            const geminiApiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`;
-
             try {
-                console.log("Attempting direct call to Gemini Flash API...");
-                const geminiResponse = await fetch(geminiApiUrl, {
+                console.log("Attempting call to Vercel serverless function at /api/generate...");
+                const response = await fetch('/api/generate', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify(payload)
+                    body: JSON.stringify({ prompt: prompt })
                 });
 
-                if (!geminiResponse.ok) {
-                    const errorData = await geminiResponse.json();
-                    throw new Error(`Gemini API error: ${geminiResponse.status} ${geminiResponse.statusText} - ${errorData.error || 'Unknown error'}`);
+                if (!response.ok) {
+                    const errorData = await response.json();
+                    throw new Error(`API error: ${response.status} ${response.statusText} - ${errorData.error || 'Unknown error'}`);
                 }
 
-                const geminiResult = await geminiResponse.json();
-                if (geminiResult.candidates && geminiResult.candidates.length > 0 &&
-                    geminiResult.candidates[0].content && geminiResult.candidates[0].content.parts &&
-                    geminiResult.candidates[0].content.parts.length > 0) {
-                    const text = geminiResult.candidates[0].content.parts[0].text;
-                    console.log("Gemini API call successful.");
-                    return { text: text }; // Success from Gemini
+                const result = await response.json();
+                if (result && result.text) {
+                    console.log("API call successful.");
+                    return result;
                 } else {
-                    throw new Error("Gemini API response missing text or unexpected structure.");
+                    throw new Error("API response missing text or unexpected structure.");
                 }
             } catch (error) {
-                console.error('Error from Gemini Flash API:', error);
+                console.error('Error calling /api/generate:', error);
                 throw error; // Re-throw to be caught by the calling function for fallback data
             }
         }
