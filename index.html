@@ -758,9 +758,9 @@
                     AI-Powered
                 </span>
                 <span class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-purple-100 text-purple-800">
-                    <i class="fas fa-chart-line mr-2" aria-hidden="true"></i>
-                    SEO Optimized
-                </span>
+                        <i class="fas fa-chart-line mr-2" aria-hidden="true"></i>
+                        SEO Optimized
+                    </span>
             </div>
         </header>
 
@@ -1172,6 +1172,7 @@
                         <p class="text-gray-600 mt-2">
                             TurboTags typically generates 15-20 tags and hashtags per request, which is optimal for most platforms. YouTube allows up to 500 characters in tags, while Instagram and TikTok have their own best practices that our system follows automatically.
                         </p>
+                    </p>
                     </div>
                 </div>
 
@@ -1667,8 +1668,10 @@
             try {
                 await window.firebaseAuthReadyPromise; // Ensure Firebase auth is ready
 
-                console.log(`Making API call to: ${window.location.origin}/api/generate`); // Log the full URL
-                const result = await callAIAPI(prompt); // Use the new multi-fallback AI call
+                // Use the hardcoded VERCEL_API_BASE_URL here
+                const apiEndpoint = `${VERCEL_API_BASE_URL}/api/generate`;
+                console.log(`Making API call to: ${apiEndpoint}`);
+                const result = await callAIAPI(prompt, apiEndpoint); // Pass the endpoint
 
                 let generatedText = '';
                 if (result && result.text) {
@@ -1684,8 +1687,6 @@
                         timestamp: new Date().toISOString()
                     });
                 } else {
-                    // This block should ideally not be reached if callAIAPI throws an error
-                    // but as a safeguard, if it returns an empty/invalid result, use fallback
                     displayTagsAndHashtagsFromFallback(platformType);
                     showMessageBox('Could not generate tags. Using fallback data.', true);
 
@@ -1734,11 +1735,14 @@
 
             await window.firebaseAuthReadyPromise; // Ensure Firebase auth is ready
 
+            // Use the hardcoded VERCEL_API_BASE_URL here
+            const apiEndpoint = `${VERCEL_API_BASE_URL}/api/generate`;
+
             // Generate YouTube Tags
             try {
                 const tagsPrompt = `Generate 15-20 relevant and SEO-friendly tags for a YouTube video about "${topic}". Provide them as a comma-separated list.`;
-                console.log(`Making API call for YouTube tags to: ${window.location.origin}/api/generate`); // Log the full URL
-                const tagsResponse = await callAIAPI(tagsPrompt); // Use the new multi-fallback AI call
+                console.log(`Making API call for YouTube tags to: ${apiEndpoint}`);
+                const tagsResponse = await callAIAPI(tagsPrompt, apiEndpoint); // Pass the endpoint
                 if (tagsResponse && tagsResponse.text) {
                     generatedTags = tagsResponse.text;
                 } else {
@@ -1754,8 +1758,8 @@
             // Generate YouTube Hashtags
             try {
                 const hashtagsPrompt = `Generate 15-20 relevant and SEO-friendly hashtags for a YouTube video about "${topic}". Provide them as a comma-separated list, starting each with '#'.`;
-                console.log(`Making API call for YouTube hashtags to: ${window.location.origin}/api/generate`); // Log the full URL
-                const hashtagsResponse = await callAIAPI(hashtagsPrompt); // Use the new multi-fallback AI call
+                console.log(`Making API call for YouTube hashtags to: ${apiEndpoint}`);
+                const hashtagsResponse = await callAIAPI(hashtagsPrompt, apiEndpoint); // Pass the endpoint
                 if (hashtagsResponse && hashtagsResponse.text) {
                     generatedHashtags = hashtagsResponse.text;
                 } else {
@@ -1786,45 +1790,49 @@
             loadingIndicator.classList.add('hidden');
         }
 
+        // Define the base URL for your Vercel API.
+        // IMPORTANT: Replace 'YOUR_VERCEL_DEPLOYMENT_URL_HERE' with your actual Vercel domain (e.g., 'https://turbotags.app' or 'https://your-project-name-xxxx.vercel.app').
+        const VERCEL_API_BASE_URL = 'YOUR_VERCEL_DEPLOYMENT_URL_HERE'; // <<< YOU MUST UPDATE THIS LINE >>>
+
         /**
          * Helper function to call AI APIs with a fallback mechanism.
          * 1. Attempts to call a Vercel serverless function (assumed to use Mistral via OpenRouter).
          * 2. If the Vercel call fails, throws an error to trigger the local fallback data.
          * @param {string} prompt - The text prompt for the AI.
+         * @param {string} apiEndpoint - The full URL of the API endpoint.
          * @returns {Promise<object>} - The JSON response from the successful AI call, containing a 'text' property.
          * @throws {Error} If the API call fails.
          */
-        async function callAIAPI(prompt) {
+        async function callAIAPI(prompt, apiEndpoint) {
             try {
                 console.log("Attempting call to Vercel serverless function (OpenRouter for Mistral/Gemini)..");
-                const vercelResponse = await fetch('/api/generate', { // Assumes /api/generate exists on Vercel
+                const vercelResponse = await fetch(apiEndpoint, { // Use the provided apiEndpoint
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ prompt: prompt }) // Only prompt is needed, model selection is server-side
                 });
 
                 if (!vercelResponse.ok) {
-                    // If response is not OK, try to read as text first to see the raw error page content
                     const errorTextResponse = await vercelResponse.text();
                     let errorData;
                     try {
-                        errorData = JSON.parse(errorTextResponse); // Try parsing as JSON if it's valid
+                        errorData = JSON.parse(errorTextResponse);
                     } catch (jsonError) {
-                        errorData = { message: `Non-JSON error response: ${errorTextResponse.substring(0, 200)}...` }; // Truncate for log
+                        errorData = { message: `Non-JSON error response: ${errorTextResponse.substring(0, 200)}...` };
                     }
-                    console.error('Raw Vercel API Error Response:', errorTextResponse); // Log raw response
+                    console.error('Raw Vercel API Error Response:', errorTextResponse);
                     throw new Error(`Vercel AI API error: ${vercelResponse.status} ${vercelResponse.statusText} - ${errorData.message || errorData.error || 'Unknown error'}`);
                 }
                 const result = await vercelResponse.json();
                 if (result && result.text) {
                     console.log(`AI API call successful. API Used: ${result.apiUsed}`);
-                    return result; // Success from serverless function
+                    return result;
                 } else {
                     throw new Error("Vercel AI API response missing expected content.");
                 }
             } catch (error) {
                 console.error('Error from Vercel AI API:', error);
-                throw error; // Re-throw to trigger local fallback
+                throw error;
             }
         }
 
