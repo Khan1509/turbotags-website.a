@@ -1439,7 +1439,7 @@
 
         const generateYoutubeContentBtn = document.getElementById('generateYoutubeContentBtn');
         const generateInstagramHashtagsBtn = document.getElementById('generateInstagramHashtagsBtn');
-        const generateTiktokHashtagsBtn = document.getElementById('tiktokHashtagsBtn'); // Corrected ID
+        const generateTiktokHashtagsBtn = document.getElementById('generateTiktokHashtagsBtn');
         const resetBtn = document.getElementById('resetBtn');
         const resetInstagramBtn = document.getElementById('resetInstagramBtn');
         const resetTiktokBtn = document.getElementById('resetTiktokBtn');
@@ -1448,7 +1448,7 @@
         const tagsSection = document.getElementById('tagsSection');
         const hashtagList = document.getElementById('hashtagList');
         const tagList = document.getElementById('tagList');
-        const tagsCount = document.getElementById('tagsCount'); // Corrected ID
+        const tagsCount = document.getElementById('tagsCount');
         const hashtagsCount = document.getElementById('hashtagsCount');
         const copyAllTagsBtn = document.getElementById('copyAllTagsBtn');
         const copyAllHashtagsBtn = document.getElementById('copyAllHashtagsBtn');
@@ -1507,11 +1507,7 @@
         // Event Listeners for Generate Buttons (Tag/Hashtag)
         generateYoutubeContentBtn.addEventListener('click', () => generateYouTubeTagsAndHashtags());
         generateInstagramHashtagsBtn.addEventListener('click', () => generateTagsOrHashtags('instagram-hashtags'));
-        if (generateTiktokHashtagsBtn) {
-            generateTiktokHashtagsBtn.addEventListener('click', () => generateTagsOrHashtags('tiktok-hashtags'));
-        } else {
-            console.warn("TikTok generate button not found. Functionality might be limited.");
-        }
+        generateTiktokHashtagsBtn.addEventListener('click', () => generateTagsOrHashtags('tiktok-hashtags'));
 
         // Event Listeners for Reset Buttons
         resetBtn.addEventListener('click', resetApp);
@@ -1737,25 +1733,34 @@
         async function callAIAPI(prompt) {
             try {
                 console.log("Attempting call to Vercel serverless function (OpenRouter for Mistral/Gemini)..");
-                const vercelResponse = await fetch('/api/generate', { // Assumes /api/generate exists on Vercel
+                const vercelResponse = await fetch('https://api.openrouter.ai/api/v1/chat/completions', {
                     method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ prompt: prompt }) // Only prompt is needed, model selection is server-side
+                    headers: { 
+                        'Content-Type': 'application/json',
+                        'Authorization': 'Bearer sk-or-v1-5d2a7a9c3c5b4e5f6g7h8i9j0k1l2m3n4o5p6q7r8s9t0u1v2w3x4y5z6'
+                    },
+                    body: JSON.stringify({ 
+                        model: "mistralai/mistral-7b-instruct",
+                        messages: [
+                            {
+                                role: "user",
+                                content: prompt
+                            }
+                        ]
+                    })
                 });
 
                 if (!vercelResponse.ok) {
-                    const errorData = await vercelResponse.json();
-                    throw new Error(`Vercel AI API error: ${vercelResponse.status} ${vercelResponse.statusText} - ${errorData.message || errorData.error || 'Unknown error'}`);
+                    throw new Error(`OpenRouter API error: ${vercelResponse.status} ${vercelResponse.statusText}`);
                 }
                 const result = await vercelResponse.json();
-                if (result && result.text) {
-                    console.log(`AI API call successful. API Used: ${result.apiUsed}`);
-                    return result; // Success from serverless function
+                if (result && result.choices && result.choices[0] && result.choices[0].message) {
+                    return { text: result.choices[0].message.content };
                 } else {
-                    throw new Error("Vercel AI API response missing expected content.");
+                    throw new Error("OpenRouter API response missing expected content.");
                 }
             } catch (error) {
-                console.error('Error from Vercel AI API:', error);
+                console.error('Error from OpenRouter API:', error);
                 throw error; // Re-throw to trigger local fallback
             }
         }
