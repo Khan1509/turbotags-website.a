@@ -3,7 +3,14 @@
   "version": "1.0.0",
   "description": "AI-Powered Tags & Hashtags Generator for YouTube, Instagram & TikTok",
   "type": "module",
+  "engines": {
+    "node": ">=22.0.0"
+  },
   "dependencies": {
     "@google/generative-ai": "^0.1.0"
+  },
+  "scripts": {
+    "dev": "vercel dev",
+    "deploy": "vercel --prod"
   }
 }
