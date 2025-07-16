@@ -7,9 +7,10 @@
 
     <!-- Favicon links - Using generic placeholders to avoid 404s in this environment. -->
     <!-- In a real production environment, you would host these files and link them directly. -->
-    <link rel="icon" href="https://placehold.co/32x32/151440/ffffff?text=TT" type="image/png">
-    <link rel="apple-touch-icon" href="https://placehold.co/180x180/151440/ffffff?text=TT">
-    <!-- PWA Manifest link removed to avoid 404 errors in a single-file setup -->
+    <link rel="icon" href="/icons/icon-32x32.png" type="image/png">
+    <link rel="apple-touch-icon" href="/icons/apple-touch-icon.png">
+    <!-- PWA Manifest link -->
+    <link rel="manifest" href="/manifest.json">
 
     <!-- Enhanced Global SEO Meta Tags -->
     <meta name="description" content="TurboTags: Free AI-powered hashtag and tag generator for YouTube, Instagram, TikTok. Create viral content with SEO-optimized tags. Boost reach, grow followers, increase engagement worldwide. 100% free tool for content creators, influencers, marketers.">
@@ -136,6 +137,7 @@
             "AI-powered tag generation",
             "Multi-platform support (YouTube, Instagram, TikTok)",
             "Real-time trending analysis",
+            "SEO optimization",
             "One-click copy functionality",
             "Search history tracking",
             "Free to use",
@@ -1293,7 +1295,6 @@
             <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8 text-left">
                 <div>
                     <h3 class="font-bold text-gray-800 mb-4 flex items-center">
-                        <!-- Thunder Icon (Bottom) -->
                         <svg class="w-6 h-6 mr-2" fill="#151440" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
                             <path d="M13 2L6 14h5l-1 8 8-10h-5l2-8z"/>
                         </svg>
@@ -1357,7 +1358,7 @@
         import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
         import { getAuth, signInAnonymously, signInWithCustomToken, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
         import { getFirestore, collection, addDoc, query, onSnapshot, serverTimestamp, deleteDoc, doc, getDocs } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
-        import { getAnalytics } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-analytics.js";
+        import { getAnalytics } from "https://www.googletagmanager.com/gtag/js?id=G-MP18L879VZ"; // Corrected GA4 import
 
         // Global Firebase variables
         window.firebaseApp = null;
@@ -1382,76 +1383,25 @@
         };
 
         // Initialize Firebase
-        let firebaseConfig = {};
-        let currentAppId = 'turbotags-default-app'; // Default APP_ID for internal data storage.
-
-        // Check if running in the Canvas environment
-        const isCanvasEnvironment = typeof __firebase_config !== 'undefined' && typeof __app_id !== 'undefined';
-
-        if (isCanvasEnvironment) {
-            try {
-                const rawConfig = __firebase_config;
-                const parsedConfig = JSON.parse(rawConfig);
-                if (parsedConfig && Object.keys(parsedConfig).length > 0) {
-                    firebaseConfig = parsedConfig;
-                    console.log("Firebase: Initializing with Canvas-injected config.");
-                } else {
-                    console.warn("Firebase: Canvas __firebase_config is empty or incomplete. Using dummy config for initialization. Firebase features will NOT work.");
-                    firebaseConfig = {
-                        apiKey: "dummy-api-key-for-canvas",
-                        authDomain: "dummy-auth-domain.firebaseapp.com",
-                        projectId: "dummy-project-id",
-                        storageBucket: "dummy-storage-bucket",
-                        messagingSenderId: "dummy-sender-id",
-                        appId: "dummy-app-id",
-                        measurementId: "G-DUMMY"
-                    };
-                }
-            } catch (e) {
-                console.error("Firebase: Error parsing __firebase_config. Using dummy config. Error:", e);
-                firebaseConfig = {
-                    apiKey: "dummy-api-key-for-canvas",
-                    authDomain: "dummy-auth-domain.firebaseapp.com",
-                    projectId: "dummy-project-id",
-                    storageBucket: "dummy-storage-bucket",
-                    messagingSenderId: "dummy-sender-id",
-                    appId: "dummy-app-id",
-                    measurementId: "G-DUMMY"
-                };
-            }
-
-            if (__app_id) {
-                currentAppId = __app_id;
-                console.log("Canvas: Using __app_id for internal data storage:", currentAppId);
-            } else {
-                console.warn("Canvas: __app_id not found or empty. Using default APP_ID for internal data storage:", currentAppId);
-            }
-
-        } else {
-            // Fallback for local development or non-Canvas environments
-            // --- HARDCODED FIREBASE CONFIG WITH USER-PROVIDED VALUES ---
-            firebaseConfig = {
-                apiKey: "AIzaSyCdQdG1cqcmUDwSSUlFVrP9arOV3qvdCpE",
-                authDomain: "turbotags-b4ca1.firebaseapp.com",
-                projectId: "turbotags-b4ca1",
-                storageBucket: "turbotags-b4ca1.firebasestorage.app",
-                messagingSenderId: "766845880079",
-                appId: "1:766845880079:web:6de73355da50bf0531607a",
-                measurementId: "G-MP18L879VZ"
-            };
-            console.warn("Firebase: Not in Canvas environment. Using hardcoded Firebase config.");
-
-            currentAppId = firebaseConfig.appId || 'turbotags-default-app';
-            console.log("Using App ID for collection path (non-Canvas):", currentAppId);
-        }
+        let firebaseConfig = {
+            apiKey: "YOUR_FIREBASE_API_KEY_HERE",
+            authDomain: "YOUR_FIREBASE_AUTH_DOMAIN_HERE",
+            projectId: "YOUR_FIREBASE_PROJECT_ID_HERE",
+            storageBucket: "YOUR_FIREBASE_STORAGE_BUCKET_HERE",
+            messagingSenderId: "YOUR_FIREBASE_MESSAGING_SENDER_ID_HERE",
+            appId: "YOUR_FIREBASE_APP_ID_HERE",
+            measurementId: "G-YOUR_MEASUREMENT_ID_HERE"
+        };
+        let currentAppId = firebaseConfig.appId || 'turbotags-default-app'; // Default APP_ID for internal data storage.
 
         // Initialize Firebase app if a valid API key is present
         if (Object.keys(firebaseConfig).length > 0 && firebaseConfig.apiKey && !firebaseConfig.apiKey.includes("dummy-api-key") && !firebaseConfig.apiKey.includes("YOUR_FIREBASE_API_KEY_HERE")) {
             window.firebaseApp = initializeApp(firebaseConfig);
             window.db = getFirestore(window.firebaseApp);
             window.auth = getAuth(window.firebaseApp);
-            window.analytics = getAnalytics(window.firebaseApp); // Initialize Analytics
-
+            // Analytics is initialized via gtag script tag in HTML head, not directly here.
+            // window.analytics = getAnalytics(window.firebaseApp); // Removed direct initialization
+            
             // Listen for auth state changes and sign in
             onAuthStateChanged(window.auth, async (user) => {
                 if (user) {
@@ -1481,6 +1431,20 @@
             firebaseAuthReadyPromiseResolve();
         }
 
+        // Register Service Worker
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                // Changed from '/service-worker.js' to '/sw.js' as per user's request
+                navigator.serviceWorker.register('/sw.js')
+                    .then(registration => {
+                        console.log('Service Worker registered with scope:', registration.scope);
+                    })
+                    .catch(error => {
+                        console.error('Service Worker registration failed:', error);
+                    });
+            });
+        }
+
         // DOM Elements for Tag/Hashtag Generation
         const youtubeTabBtn = document.getElementById('youtubeTabBtn');
         const instagramTabBtn = document.getElementById('instagramTabBtn');
@@ -1496,7 +1460,7 @@
 
         const generateYoutubeContentBtn = document.getElementById('generateYoutubeContentBtn');
         const generateInstagramHashtagsBtn = document.getElementById('generateInstagramHashtagsBtn');
-        const generateTiktokHashtagsBtn = document.getElementById('generateTiktokHashtagsBtn'); // Corrected ID
+        const generateTiktokHashtagsBtn = document.getElementById('generateTiktokHashtagsBtn');
         const resetBtn = document.getElementById('resetBtn');
         const resetInstagramBtn = document.getElementById('resetInstagramBtn');
         const resetTiktokBtn = document.getElementById('resetTiktokBtn');
@@ -1505,7 +1469,7 @@
         const tagsSection = document.getElementById('tagsSection');
         const hashtagList = document.getElementById('hashtagList');
         const tagList = document.getElementById('tagList');
-        const tagsCount = document.getElementById('tagsCount'); // Corrected ID
+        const tagsCount = document.getElementById('tagsCount'); // Corrected: Added tagsCount
         const hashtagsCount = document.getElementById('hashtagsCount');
         const copyAllTagsBtn = document.getElementById('copyAllTagsBtn');
         const copyAllHashtagsBtn = document.getElementById('copyAllHashtagsBtn');
@@ -1550,7 +1514,9 @@
                 '#TikTokTips', '#ForYouPage', '#ViralVideo', '#TikTokGrowth', '#ShortFormVideo',
                 '#TikTokDance', '#CreativeContent', '#ChallengeAccepted', '#TrendAlert', '#TikTokMarketing',
                 '#ContentCreation', '#FYP', '#TikTokCreator', '#VideoIdeas', '#SocialMediaTips'
-            ]
+            ],
+            'youtube-title': 'How to Optimize Your YouTube Videos for More Views',
+            'youtube-description': 'Learn the best strategies for YouTube SEO, including keyword research, tag optimization, and engaging descriptions to grow your channel and get more subscribers. This comprehensive guide covers everything from video creation to promotion.'
         };
 
         // Initialize tabs
@@ -1564,11 +1530,10 @@
         // Event Listeners for Generate Buttons (Tag/Hashtag)
         generateYoutubeContentBtn.addEventListener('click', () => generateYouTubeTagsAndHashtags());
         generateInstagramHashtagsBtn.addEventListener('click', () => generateTagsOrHashtags('instagram-hashtags'));
-        // Ensure generateTiktokHashtagsBtn is correctly referenced
         if (generateTiktokHashtagsBtn) {
             generateTiktokHashtagsBtn.addEventListener('click', () => generateTagsOrHashtags('tiktok-hashtags'));
         } else {
-            console.warn("TikTok generate button not found. Functionality might be limited. (ID: generateTiktokHashtagsBtn)");
+            console.warn("TikTok generate button not found. Functionality might be limited.");
         }
 
         // Event Listeners for Reset Buttons
@@ -1668,10 +1633,7 @@
             try {
                 await window.firebaseAuthReadyPromise; // Ensure Firebase auth is ready
 
-                // Use the hardcoded VERCEL_API_BASE_URL here
-                const apiEndpoint = `${VERCEL_API_BASE_URL}/api/generate`;
-                console.log(`Making API call to: ${apiEndpoint}`);
-                const result = await callAIAPI(prompt, apiEndpoint); // Pass the endpoint
+                const result = await callAIAPI(prompt); // Use the new multi-fallback AI call
 
                 let generatedText = '';
                 if (result && result.text) {
@@ -1687,6 +1649,8 @@
                         timestamp: new Date().toISOString()
                     });
                 } else {
+                    // This block should ideally not be reached if callAIAPI throws an error
+                    // but as a safeguard, if it returns an empty/invalid result, use fallback
                     displayTagsAndHashtagsFromFallback(platformType);
                     showMessageBox('Could not generate tags. Using fallback data.', true);
 
@@ -1735,14 +1699,10 @@
 
             await window.firebaseAuthReadyPromise; // Ensure Firebase auth is ready
 
-            // Use the hardcoded VERCEL_API_BASE_URL here
-            const apiEndpoint = `${VERCEL_API_BASE_URL}/api/generate`;
-
             // Generate YouTube Tags
             try {
                 const tagsPrompt = `Generate 15-20 relevant and SEO-friendly tags for a YouTube video about "${topic}". Provide them as a comma-separated list.`;
-                console.log(`Making API call for YouTube tags to: ${apiEndpoint}`);
-                const tagsResponse = await callAIAPI(tagsPrompt, apiEndpoint); // Pass the endpoint
+                const tagsResponse = await callAIAPI(tagsPrompt); // Use the new multi-fallback AI call
                 if (tagsResponse && tagsResponse.text) {
                     generatedTags = tagsResponse.text;
                 } else {
@@ -1758,8 +1718,7 @@
             // Generate YouTube Hashtags
             try {
                 const hashtagsPrompt = `Generate 15-20 relevant and SEO-friendly hashtags for a YouTube video about "${topic}". Provide them as a comma-separated list, starting each with '#'.`;
-                console.log(`Making API call for YouTube hashtags to: ${apiEndpoint}`);
-                const hashtagsResponse = await callAIAPI(hashtagsPrompt, apiEndpoint); // Pass the endpoint
+                const hashtagsResponse = await callAIAPI(hashtagsPrompt); // Use the new multi-fallback AI call
                 if (hashtagsResponse && hashtagsResponse.text) {
                     generatedHashtags = hashtagsResponse.text;
                 } else {
@@ -1790,50 +1749,87 @@
             loadingIndicator.classList.add('hidden');
         }
 
-        // Define the base URL for your Vercel API.
-        // IMPORTANT: This has been set to your primary production domain.
-        const VERCEL_API_BASE_URL = 'https://turbotags.app';
-
         /**
          * Helper function to call AI APIs with a fallback mechanism.
-         * 1. Attempts to call a Vercel serverless function (assumed to use Mistral via OpenRouter).
-         * 2. If the Vercel call fails, throws an error to trigger the local fallback data.
+         * 1. Attempts to call a Vercel serverless function (assumed to use Mistral).
+         * 2. If the Vercel call fails, attempts a direct call to Gemini 2.0 Flash.
+         * 3. If both fail, throws an error to trigger the local fallback data.
          * @param {string} prompt - The text prompt for the AI.
-         * @param {string} apiEndpoint - The full URL of the API endpoint.
          * @returns {Promise<object>} - The JSON response from the successful AI call, containing a 'text' property.
-         * @throws {Error} If the API call fails.
+         * @throws {Error} If both API calls fail.
          */
-        async function callAIAPI(prompt, apiEndpoint) {
+        async function callAIAPI(prompt) {
+            let errorFromMistral = null;
+            let errorFromGemini = null;
+
+            // 1. Attempt call to Vercel Serverless Function (Mistral)
             try {
-                console.log("Attempting call to Vercel serverless function (OpenRouter for Mistral/Gemini)..");
-                const vercelResponse = await fetch(apiEndpoint, { // Use the provided apiEndpoint
+                console.log("Attempting call to Vercel serverless function (Mistral)..");
+                const vercelResponse = await fetch('https://turbotags.app/api/generate', { // Explicitly using turbotags.app
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ prompt: prompt }) // Only prompt is needed, model selection is server-side
+                    body: JSON.stringify({ prompt: prompt, model: 'mistralai/mistral-7b-instruct-v0.2' }) // Pass model to Vercel
                 });
 
                 if (!vercelResponse.ok) {
-                    const errorTextResponse = await vercelResponse.text();
-                    let errorData;
-                    try {
-                        errorData = JSON.parse(errorTextResponse);
-                    } catch (jsonError) {
-                        errorData = { message: `Non-JSON error response: ${errorTextResponse.substring(0, 200)}...` };
-                    }
-                    console.error('Raw Vercel API Error Response:', errorTextResponse);
-                    throw new Error(`Vercel AI API error: ${vercelResponse.status} ${vercelResponse.statusText} - ${errorData.message || errorData.error || 'Unknown error'}`);
+                    const errorBody = await vercelResponse.json();
+                    throw new Error(`Vercel Mistral error: ${vercelResponse.status} ${vercelResponse.statusText} - ${errorBody.message || JSON.stringify(errorBody)}`);
                 }
+
                 const result = await vercelResponse.json();
                 if (result && result.text) {
-                    console.log(`AI API call successful. API Used: ${result.apiUsed}`);
-                    return result;
+                    console.log("Mistral API call successful.");
+                    return result; // Success from Mistral
                 } else {
-                    throw new Error("Vercel AI API response missing expected content.");
+                    throw new Error("Mistral API response missing expected content.");
                 }
             } catch (error) {
-                console.error('Error from Vercel AI API:', error);
-                throw error;
+                console.error('Error from Vercel Mistral API:', error);
+                errorFromMistral = error;
             }
+
+            // 2. If Mistral fails, attempt direct call to Gemini Flash
+            // The 'generatedText' variable was causing an issue here as it's not defined in this scope.
+            // Removed the conditional check to ensure Gemini fallback always attempts if Mistral fails.
+            try {
+                console.log("Mistral failed, attempting direct call to Gemini Flash..");
+                let chatHistory = [];
+                chatHistory.push({ role: "user", parts: [{ text: prompt }] });
+                const payload = { contents: chatHistory };
+                const apiKey = ""; // Canvas will automatically provide the API key
+                const geminiApiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`;
+
+                const geminiResponse = await fetch(geminiApiUrl, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload)
+                });
+
+                if (!geminiResponse.ok) {
+                    const errorData = await geminiResponse.json();
+                    throw new Error(`Gemini API error: ${geminiResponse.status} ${geminiResponse.statusText} - ${errorData.error || 'Unknown error'}`);
+                }
+
+                const geminiResult = await geminiResponse.json();
+                if (geminiResult.candidates && geminiResult.candidates.length > 0 &&
+                    geminiResult.candidates[0].content && geminiResult.candidates[0].content.parts &&
+                    geminiResult.candidates[0].content.parts.length > 0) {
+                    const text = geminiResult.candidates[0].content.parts[0].text;
+                    console.log("Gemini API call successful.");
+                    return { text: text }; // Success from Gemini
+                } else {
+                    throw new Error("Gemini API response missing text.");
+                }
+            } catch (error) {
+                console.error('Error from Gemini Flash API:', error);
+                errorFromGemini = error;
+            }
+
+
+            // If both fail, throw a comprehensive error
+            throw new Error(`AI generation failed after multiple attempts.
+                Mistral attempt error: ${errorFromMistral ? errorFromMistral.message : 'No attempt made'}.
+                Gemini attempt error: ${errorFromGemini ? errorFromGemini.message : 'No attempt made'}.`);
         }
 
         /**
