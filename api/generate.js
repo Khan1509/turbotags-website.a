@@ -1,128 +1,127 @@
 // api/generate.js
-// This Vercel Serverless Function handles AI content generation.
-// It attempts to use Mistral via OpenRouter first,
-// then falls back to Google Gemini 1.5 Flash via OpenRouter,
-// and finally provides a hardcoded JSON fallback if all APIs fail.
+// This Vercel Serverless Function acts as a proxy to OpenRouter,
+// implementing a failover mechanism: Primary (Mistral 7B Instruct), Fallback (Gemini Flash).
 
 export default async function handler(req, res) {
+    console.log("[Serverless Function Log]: Request received for OpenRouter with failover logic.");
+
+    // Only allow POST requests
     if (req.method !== 'POST') {
-        return res.status(405).json({ error: 'Method Not Allowed', message: 'Only POST requests are accepted for AI generation.' });
+        console.warn(`[Serverless Function Log]: Method Not Allowed: ${req.method}`);
+        return res.status(405).json({ error: 'Method Not Allowed', message: 'Only POST requests are supported.' });
     }
 
+    // Get the OpenRouter API key from Vercel environment variables
+    const OPENROUTER_API_KEY = process.env.OPENROUTER_API_KEY;
+
+    if (!OPENROUTER_API_KEY) {
+        console.error("[Serverless Function Log]: OPENROUTER_API_KEY environment variable is not set.");
+        return res.status(500).json({ error: 'Server Configuration Error', message: 'OpenRouter API key not configured on the server.' });
+    } else {
+        console.log("[Serverless Function Log]: OPENROUTER_API_KEY is set.");
+    }
+
+    // Extract the prompt from the request body
     const { prompt } = req.body;
 
-    if (!prompt || typeof prompt !== 'string' || prompt.trim() === '') {
-        return res.status(400).json({ error: 'Bad Request', message: 'A valid prompt is required for AI generation.' });
+    if (!prompt) {
+        console.error("[Serverless Function Log]: Missing prompt in request body.");
+        return res.status(400).json({ error: 'Bad Request', message: 'Missing prompt in request body.' });
+    } else {
+        console.log(`[Serverless Function Log]: Received prompt: "${prompt.substring(0, 100)}..."`); // Log first 100 chars
     }
 
-    const openRouterApiKey = process.env.OPENROUTER_API_KEY;
+    const openRouterApiUrl = "https://openrouter.ai/api/v1/chat/completions";
+    let generatedText = '';
+    let usedModel = 'none';
 
-    const fallbackData = {
-        text: "Could not generate content from AI services. Here is some fallback data: tag1, tag2, tag3, #hashtag1, #hashtag2, #hashtag3. Please try again later."
-    };
-
-    let generatedText = null;
-    let apiUsed = 'none';
-    let errorDetails = {};
-
-    if (!openRouterApiKey) {
-        console.warn("OPENROUTER_API_KEY is not set. Skipping all OpenRouter API calls.");
-        errorDetails.openrouter = "API key not configured for OpenRouter.";
-        return res.status(200).json({
-            text: fallbackData.text,
-            apiUsed: 'fallback-json',
-            warning: "AI generation failed. Using fallback data because OpenRouter API key is missing. Check server logs for details.",
-            errors: errorDetails
-        });
-    }
-
-    // --- Attempt 1: Mistral via OpenRouter ---
     try {
-        console.log("Attempting AI generation via OpenRouter (Mistral)...");
-        const openRouterMistralResponse = await fetch("https://openrouter.ai/api/v1/chat/completions", {
-            method: "POST",
-            headers: {
-                "Authorization": `Bearer ${openRouterApiKey}`,
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify({
-                "model": "mistralai/mistral-7b-instruct-v0.2",
-                "messages": [
-                    { "role": "user", "content": prompt }
-                ]
-            })
-        });
-
-        if (!openRouterMistralResponse.ok) {
-            const errorBody = await openRouterMistralResponse.json();
-            throw new Error(`OpenRouter (Mistral) API error: ${openRouterMistralResponse.status} ${openRouterMistralResponse.statusText} - ${errorBody.message || JSON.stringify(errorBody)}`);
-        }
-
-        const openRouterMistralResult = await openRouterMistralResponse.json();
-        if (openRouterMistralResult.choices && openRouterMistralResult.choices.length > 0 && openRouterMistralResult.choices[0].message) {
-            generatedText = openRouterMistralResult.choices[0].message.content;
-            apiUsed = 'openrouter-mistral';
-            console.log("OpenRouter (Mistral) API call successful.");
-        } else {
-            throw new Error("OpenRouter (Mistral) response missing expected content.");
-        }
-    } catch (error) {
-        console.error('Error from OpenRouter (Mistral) API:', error);
-        errorDetails.openrouter_mistral = error.message;
-    }
-
-    // --- Attempt 2: Google Gemini 1.5 Flash via OpenRouter (if Mistral failed) ---
-    if (!generatedText) {
+        // --- Attempt PRIMARY Model: mistralai/mistral-7b-instruct-v0.2 ---
         try {
-            console.log("Mistral via OpenRouter failed. Attempting AI generation via OpenRouter (Gemini 1.5 Flash)...");
-            const openRouterGeminiResponse = await fetch("https://openrouter.ai/api/v1/chat/completions", {
-                method: "POST",
+            console.log("[Serverless Function Log]: Attempting primary model: mistralai/mistral-7b-instruct-v0.2");
+            const primaryPayload = {
+                model: "mistralai/mistral-7b-instruct-v0.2",
+                messages: [{ role: "user", content: prompt }],
+                max_tokens: 150, // Max tokens for the generated response
+                temperature: 0.7, // Controls randomness of the output
+            };
+
+            const primaryResponse = await fetch(openRouterApiUrl, {
+                method: 'POST',
                 headers: {
-                    "Authorization": `Bearer ${openRouterApiKey}`,
-                    "Content-Type": "application/json"
+                    'Authorization': `Bearer ${OPENROUTER_API_KEY}`,
+                    'Content-Type': 'application/json',
                 },
-                body: JSON.stringify({
-                    "model": "google/gemini-1.5-flash",
-                    "messages": [
-                        { "role": "user", "content": prompt }
-                    ]
-                })
+                body: JSON.stringify(primaryPayload)
             });
 
-            if (!openRouterGeminiResponse.ok) {
-                const errorBody = await openRouterGeminiResponse.json();
-                throw new Error(`OpenRouter (Gemini) API error: ${openRouterGeminiResponse.status} ${openRouterGeminiResponse.statusText} - ${errorBody.message || JSON.stringify(errorBody)}`);
+            if (!primaryResponse.ok) {
+                const errorData = await primaryResponse.json();
+                console.warn(`[Serverless Function Log]: Primary model (Mistral) failed: ${primaryResponse.status} - ${JSON.stringify(errorData)}`);
+                // Throw to move to the fallback logic
+                throw new Error(`Primary model (Mistral) failed with status ${primaryResponse.status}`);
             }
 
-            const openRouterGeminiResult = await openRouterGeminiResponse.json();
-            if (openRouterGeminiResult.choices && openRouterGeminiResult.choices.length > 0 && openRouterGeminiResult.choices[0].message) {
-                generatedText = openRouterGeminiResult.choices[0].message.content;
-                apiUsed = 'openrouter-gemini-flash';
-                console.log("OpenRouter (Gemini 1.5 Flash) API call successful.");
+            const primaryResult = await primaryResponse.json();
+            if (primaryResult.choices && primaryResult.choices.length > 0 && primaryResult.choices[0].message) {
+                generatedText = primaryResult.choices[0].message.content;
+                usedModel = 'mistralai/mistral-7b-instruct-v0.2';
+                console.log("[Serverless Function Log]: Successfully generated text with primary model (Mistral).");
             } else {
-                throw new Error("OpenRouter (Gemini) response missing expected content.");
+                console.warn('[Serverless Function Log]: Primary model (Mistral) response unexpected structure.');
+                throw new Error('Primary model (Mistral) returned unexpected structure.');
             }
-        } catch (error) {
-            console.error('Error from OpenRouter (Gemini 1.5 Flash) API:', error);
-            errorDetails.openrouter_gemini = error.message;
+
+        } catch (primaryError) {
+            console.error(`[Serverless Function Log]: Primary model (Mistral) error: ${primaryError.message}. Attempting fallback to Gemini Flash.`);
+
+            // --- Attempt FALLBACK Model: google/gemini-flash-1.5 ---
+            try {
+                const fallbackPayload = {
+                    model: "google/gemini-flash-1.5", // Your fallback model
+                    messages: [{ role: "user", content: prompt }],
+                    max_tokens: 150, // Max tokens for the generated response
+                    temperature: 0.7, // Controls randomness of the output
+                };
+                const fallbackResponse = await fetch(openRouterApiUrl, {
+                    method: 'POST',
+                    headers: {
+                        'Authorization': `Bearer ${OPENROUTER_API_KEY}`,
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(fallbackPayload)
+                });
+
+                if (!fallbackResponse.ok) {
+                    const errorData = await fallbackResponse.json();
+                    console.error(`[Serverless Function Log]: Fallback model (Gemini Flash) also failed: ${fallbackResponse.status} - ${JSON.stringify(errorData)}`);
+                    throw new Error(`Fallback model (Gemini Flash) failed with status ${fallbackResponse.status}`);
+                }
+
+                const fallbackResult = await fallbackResponse.json();
+                if (fallbackResult.choices && fallbackResult.choices.length > 0 && fallbackResult.choices[0].message) {
+                    generatedText = fallbackResult.choices[0].message.content;
+                    usedModel = 'google/gemini-flash-1.5';
+                    console.log("[Serverless Function Log]: Successfully generated text with fallback model (Gemini Flash).");
+                } else {
+                    console.warn('[Serverless Function Log]: Fallback model (Gemini Flash) response unexpected structure.');
+                    throw new Error('Fallback model (Gemini Flash) returned unexpected structure.');
+                }
+
+            } catch (fallbackError) {
+                console.error(`[Serverless Function Log]: Both primary and fallback models failed: ${fallbackError.message}`);
+                // If both fail, re-throw the error to be caught by the outer catch block
+                throw fallbackError;
+            }
         }
-    }
 
-    // --- Final Fallback: Hardcoded JSON ---
-    if (!generatedText) {
-        console.warn("Both OpenRouter (Mistral) and OpenRouter (Gemini) APIs failed. Using hardcoded fallback data.");
-        generatedText = fallbackData.text;
-        apiUsed = 'fallback-json';
-        return res.status(200).json({
-            text: generatedText,
-            apiUsed: apiUsed,
-            warning: "AI generation failed. Using fallback data. Check server logs for details.",
-            errors: errorDetails
-        });
-    }
+        // If we reached here, at least one model successfully generated text
+        return res.status(200).json({ text: generatedText, modelUsed: usedModel });
 
-    res.status(200).json({
-        text: generatedText,
-        apiUsed: apiUsed
-    });
+    } catch (error) {
+        // This catches errors from both primary and fallback attempts
+        console.error('[Serverless Function Log]: Final serverless function error:', error.message, error.stack);
+        // Provide a generic error message to the client if both models fail
+        return res.status(500).json({ error: 'Internal Server Error', message: 'Failed to generate content after multiple attempts.' });
+    }
 }
