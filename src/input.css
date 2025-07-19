@@ -1,0 +1,30 @@
+/*
+  This is your main input CSS file.
+  It imports Tailwind's base, components, and utilities layers.
+  Any custom global CSS that cannot be expressed with Tailwind classes
+  or configured in tailwind.config.ts can be added here.
+*/
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/*
+  Custom global styles that are not handled by Tailwind utilities.
+  These were previously in your <style> tag in index.html.
+  Ensure 'Inter' font is correctly loaded via a <link> tag in your HTML.
+*/
+body {
+    font-family: 'Inter', sans-serif;
+    margin: 0; /* Remove default body margin */
+    padding: 0; /* Remove default body padding */
+    overflow-x: hidden; /* Prevent horizontal scrolling */
+}
+
+/*
+  You can also add any other custom CSS here, for example:
+  .my-custom-class {
+      color: #ff0000;
+      font-size: 1.2rem;
+  }
+*/
