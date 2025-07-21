@@ -103,8 +103,7 @@
 
         body {
             font-family: 'Inter', sans-serif;
-            /* The inline style on body will take precedence over this, but keep it here for consistency */
-            background-color: white;
+            background-color: white; /* Ensure body is also white */
             margin: 0; /* Remove default body margin */
             padding: 0; /* Remove default body padding */
             overflow-x: hidden; /* Prevent horizontal scrolling */
@@ -943,7 +942,8 @@
                 <!-- Tags Section -->
                 <div id="tagsSection">
                     <h3 class="text-xl font-bold text-gray-800 mb-4 text-center">Tags: <span id="tagsCount">(0)</span></h3>
-                    <div id="tagList" class="min-h-[100px] border border-gray-200 rounded-lg p-4 bg-gray-200" aria-live="polite">
+                    <!-- Added flex-col and space-y-2 to ensure vertical stacking -->
+                    <div id="tagList" class="min-h-[100px] border border-gray-200 rounded-lg p-4 bg-gray-200 flex flex-col space-y-2" aria-live="polite">
                         <!-- Tags will be injected here -->
                     </div>
                     <div class="mt-4 text-center">
@@ -955,7 +955,8 @@
                 <!-- Hashtags Section -->
                 <div id="hashtagsSection">
                     <h3 class="text-xl font-bold text-gray-800 mb-4 text-center">#Tags: <span id="hashtagsCount">(0)</span></h3>
-                    <div id="hashtagList" class="min-h-[100px] border border-gray-200 rounded-lg p-4 bg-gray-200" aria-live="polite">
+                    <!-- Added flex-col and space-y-2 to ensure vertical stacking -->
+                    <div id="hashtagList" class="min-h-[100px] border border-gray-200 rounded-lg p-4 bg-gray-200 flex flex-col space-y-2" aria-live="polite">
                         <!-- Hashtags will be injected here -->
                     </div>
                     <div class="mt-4 text-center">
@@ -1782,11 +1783,11 @@
             tagsOutput.classList.add('hidden');
             hideErrorMessage();
 
-            let prompt = `Generate 15-20 `;
+            let prompt = `Generate 15-20 concise, relevant, and **trending** hashtags for `;
             if (platformType === 'instagram-hashtags') {
-                prompt += `concise, relevant, and trending hashtags for an Instagram post about "${topic}". Provide them as a comma-separated list of single-word or short phrases, each starting with '#'.`;
+                prompt += `an Instagram post about "${topic}". Provide them as a **comma-separated list** of single-word or short phrases, each starting with '#'.`;
             } else if (platformType === 'tiktok-hashtags') {
-                prompt += `concise, relevant, and trending hashtags for a TikTok video about "${topic}". Provide them as a comma-separated list of single-word or short phrases, each starting with '#'.`;
+                prompt += `a TikTok video about "${topic}". Provide them as a **comma-separated list** of single-word or short phrases, each starting with '#'.`;
             }
 
             try {
@@ -1839,7 +1840,7 @@
 
             // Generate YouTube Tags
             try {
-                const tagsPrompt = `Generate 15-20 short, keyword-like, and SEO-friendly tags for a YouTube video about "${topic}". Provide them as a comma-separated list of phrases, each suitable for a YouTube tag field.`;
+                const tagsPrompt = `Generate 15-20 short, keyword-like, and SEO-friendly tags for a YouTube video about "${topic}". Provide them as a comma-separated list of phrases, suitable for YouTube tags.`;
                 const tagsResponse = await callAIAPI(tagsPrompt); // Call the AI via the serverless function
                 if (tagsResponse && tagsResponse.text) {
                     generatedTags = tagsResponse.text;
@@ -1855,7 +1856,7 @@
 
             // Generate YouTube Hashtags
             try {
-                const hashtagsPrompt = `Generate 15-20 concise, relevant, and SEO-friendly hashtags for a YouTube video about "${topic}". Provide them as a comma-separated list of single-word or short phrases, each starting with '#'.`;
+                const hashtagsPrompt = `Generate 15-20 concise, relevant, and **trending** hashtags for a YouTube video about "${topic}". Provide them as a **comma-separated list** of single-word or short phrases, each starting with '#'.`;
                 const hashtagsResponse = await callAIAPI(hashtagsPrompt); // Call the AI via the serverless function
                 if (hashtagsResponse && hashtagsResponse.text) {
                     generatedHashtags = hashtagsResponse.text;
