@@ -7,7 +7,7 @@
 
     <!-- Favicon links - Using generic placeholders to avoid 404s in this environment. -->
     <link rel="icon" href="https://placehold.co/32x32/151440/ffffff?text=TT" type="image/png">
-    <link rel="apple-touch-icon" href="https://placehold.co/180x180/151440/ffffff?text=TT">
+    <link rel="apple-touch-icon" href="https://placehold.co/180x180/151440/ffffff?text=TT">\
 
     <!-- Enhanced Global SEO Meta Tags -->
     <meta name="description" content="TurboTags: Free AI-powered hashtag and tag generator for YouTube, Instagram, TikTok. Create viral content with SEO-optimized tags. Boost reach, grow followers, increase engagement worldwide. Learn how to generate tags for YouTube, how to get more views, how to increase subscribers, how to find trending hashtags for Instagram, how to go viral on TikTok, and more. Your ultimate free SEO tool for content creators, influencers, and marketers globally.">
@@ -1592,7 +1592,7 @@
         const generateInstagramHashtagsBtn = document.getElementById('generateInstagramHashtagsBtn');
         const generateTiktokHashtagsBtn = document.getElementById('generateTiktokHashtagsBtn');
         const resetBtn = document.getElementById('resetBtn');
-        const resetInstagramBtn = document.getElementById('resetInstagramBtn');
+        const resetInstagramBtn = document.getElementById('resetInstagramBtn'); // Corrected line
         const resetTiktokBtn = document.getElementById('resetTiktokBtn');
 
         const tagsOutput = document.getElementById('tagsOutput');
@@ -1776,11 +1776,11 @@
             tagsOutput.classList.add('hidden');
             hideErrorMessage();
 
-            let prompt = `Generate 15-20 relevant and SEO-friendly `;
+            let prompt = `Generate 15-20 `;
             if (platformType === 'instagram-hashtags') {
-                prompt += `hashtags for an Instagram post about "${topic}". Provide them as a comma-separated list, starting each with '#'.`;
+                prompt += `concise, relevant, and trending hashtags for an Instagram post about "${topic}". Provide them as a comma-separated list of single-word or short phrases, each starting with '#'.`;
             } else if (platformType === 'tiktok-hashtags') {
-                prompt += `hashtags for a TikTok video about "${topic}". Provide them as a comma-separated list, starting each with '#'.`;
+                prompt += `concise, relevant, and trending hashtags for a TikTok video about "${topic}". Provide them as a comma-separated list of single-word or short phrases, each starting with '#'.`;
             }
 
             try {
@@ -1833,7 +1833,7 @@
 
             // Generate YouTube Tags
             try {
-                const tagsPrompt = `Generate 15-20 relevant and SEO-friendly tags for a YouTube video about "${topic}". Provide them as a comma-separated list.`;
+                const tagsPrompt = `Generate 15-20 short, keyword-like, and SEO-friendly tags for a YouTube video about "${topic}". Provide them as a comma-separated list of phrases, each suitable for a YouTube tag field.`;
                 const tagsResponse = await callAIAPI(tagsPrompt); // Call the AI via the serverless function
                 if (tagsResponse && tagsResponse.text) {
                     generatedTags = tagsResponse.text;
@@ -1849,7 +1849,7 @@
 
             // Generate YouTube Hashtags
             try {
-                const hashtagsPrompt = `Generate 15-20 relevant and SEO-friendly hashtags for a YouTube video about "${topic}". Provide them as a comma-separated list, starting each with '#'.`;
+                const hashtagsPrompt = `Generate 15-20 concise, relevant, and SEO-friendly hashtags for a YouTube video about "${topic}". Provide them as a comma-separated list of single-word or short phrases, each starting with '#'.`;
                 const hashtagsResponse = await callAIAPI(hashtagsPrompt); // Call the AI via the serverless function
                 if (hashtagsResponse && hashtagsResponse.text) {
                     generatedHashtags = hashtagsResponse.text;
@@ -1939,7 +1939,7 @@
                     const tagDiv = document.createElement('div');
                     tagDiv.className = 'tag-item animate-fade-in';
                     tagDiv.innerHTML = `
-                        <span class="text-gray-800 text-base font-medium break-all">${tag}</span>
+                        <span class="text-gray-800 text-base font-medium flex-grow min-w-0">${tag}</span>
                         <span class="trend-percentage">${trend}%</span>
                         <button class="copy-btn bg-indigo-100 text-indigo-700 px-3 py-1 rounded-md text-sm font-semibold hover:bg-indigo-200 transition duration-200 ease-in-out ml-4" data-tag="${tag}" aria-label="Copy tag: ${tag}">
                             Copy
@@ -1959,7 +1959,7 @@
                 const hashtagDiv = document.createElement('div');
                 hashtagDiv.className = 'tag-item animate-fade-in';
                 hashtagDiv.innerHTML = `
-                    <span class="text-gray-800 text-base font-medium break-all">${hashtag}</span>
+                    <span class="text-gray-800 text-base font-medium flex-grow min-w-0">${hashtag}</span>
                     <span class="trend-percentage">${trend}%</span>
                     <button class="copy-btn bg-indigo-100 text-indigo-700 px-3 py-1 rounded-md text-sm font-semibold hover:bg-indigo-200 transition duration-200 ease-in-out ml-4" data-tag="${hashtag}" aria-label="Copy hashtag: ${hashtag}">
                         Copy
