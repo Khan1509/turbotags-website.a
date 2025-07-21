@@ -10,11 +10,7 @@
       }
     },
     {
-      "src": "*.{html,txt,xml,json,ico}",
-      "use": "@vercel/static"
-    },
-    {
-      "src": "icons/**",
+      "src": "*.{html,txt,xml,json,ico,svg}",   // 👈 ADD `.json` and `.svg`
       "use": "@vercel/static"
     }
   ],
