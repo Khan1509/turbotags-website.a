@@ -1,6 +1,16 @@
 {
-  "name": "TurboTags",
+  "name": "TurboTags - AI-Powered Tag & Hashtag Generator",
   "short_name": "TurboTags",
+  "description": "Instantly generate SEO-friendly tags and hashtags for YouTube, Instagram, and TikTok using AI.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#151440",
+  "orientation": "portrait-primary",
+  "scope": "/",
+  "lang": "en-US",
+  "dir": "ltr",
+  "categories": ["productivity", "social", "tools"],
   "icons": [
     {
       "src": "/icon-72x72.svg",
@@ -28,8 +38,61 @@
       "type": "image/svg+xml"
     }
   ],
-  "start_url": "/",
-  "display": "standalone",
-  "theme_color": "#151440",
-  "background_color": "#ffffff"
+  "screenshots": [
+    {
+      "src": "/screenshots/desktop.png",
+      "sizes": "1280x720",
+      "type": "image/png",
+      "form_factor": "wide",
+      "label": "TurboTags Desktop View"
+    },
+    {
+      "src": "/screenshots/mobile.png",
+      "sizes": "390x844",
+      "type": "image/png",
+      "form_factor": "narrow",
+      "label": "TurboTags Mobile View"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "YouTube Tag Generator",
+      "short_name": "YouTube",
+      "description": "Generate YouTube tags and hashtags",
+      "url": "/#youtube",
+      "icons": [
+        {
+          "src": "/youtube-shortcut-96x96.svg",
+          "sizes": "96x96",
+          "type": "image/svg+xml"
+        }
+      ]
+    },
+    {
+      "name": "Instagram Hashtag Generator",
+      "short_name": "Instagram",
+      "description": "Generate Instagram hashtags",
+      "url": "/#instagram",
+      "icons": [
+        {
+          "src": "/instagram-shortcut-96x96.svg",
+          "sizes": "96x96",
+          "type": "image/svg+xml"
+        }
+      ]
+    },
+    {
+      "name": "TikTok Hashtag Generator",
+      "short_name": "TikTok",
+      "description": "Generate TikTok hashtags",
+      "url": "/#tiktok",
+      "icons": [
+        {
+          "src": "/tiktok-shortcut-96x96.svg",
+          "sizes": "96x96",
+          "type": "image/svg+xml"
+        }
+      ]
+    }
+  ]
 }
