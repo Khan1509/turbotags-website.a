@@ -8,10 +8,6 @@
         "runtime": "nodejs22.x",
         "includeFiles": ["api/**"]
       }
-    },
-    {
-      "src": "*.{html,txt,xml,json,ico,svg}",
-      "use": "@vercel/static"
     }
   ],
   "routes": [
