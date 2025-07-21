@@ -9,6 +9,9 @@
     <link rel="icon" href="https://placehold.co/32x32/151440/ffffff?text=TT" type="image/png">
     <link rel="apple-touch-icon" href="https://placehold.co/180x180/151440/ffffff?text=TT">
 
+    <!-- PWA Manifest Link - NEWLY ADDED -->
+    <link rel="manifest" href="/manifest.json">
+
     <!-- Enhanced Global SEO Meta Tags -->
     <meta name="description" content="TurboTags: Free AI-powered hashtag and tag generator for YouTube, Instagram, TikTok. Create viral content with SEO-optimized tags. Boost reach, grow followers, increase engagement worldwide. Learn how to generate tags for YouTube, how to get more views, how to increase subscribers, how to find trending hashtags for Instagram, how to go viral on TikTok, and more. Your ultimate free SEO tool for content creators, influencers, and marketers globally.">
     <meta name="keywords" content="YouTube tags, Instagram hashtags, TikTok hashtags, AI tag generator, hashtag generator, SEO optimization, content creation, social media growth, video marketing, viral content, free hashtag tool, YouTube SEO, Instagram growth, TikTok viral, content creator tools, influencer marketing, social media optimization, trending hashtags, AI-powered tags, global reach, worldwide content optimization, gaming YouTube tags, viral tags, AI tools for content, how to generate tags for YouTube, how to get more YouTube views, how to increase YouTube subscribers, how to find trending Instagram hashtags, how to get more Instagram followers, how to go viral on TikTok, how to increase TikTok views, best free tag generator, YouTube SEO tips, Instagram growth hacks, TikTok viral strategies">
@@ -52,7 +55,7 @@
 
     <!-- Performance & Security -->
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="referrer" content="strict-origin-when-cross-origin">
+    <meta name="referrer" content="origin-when-cross-origin">
     <!-- Preconnect to improve loading of external resources -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -668,7 +671,7 @@
                 },
                 "reviewRating": {
                     "@type": "Rating",
-                    "ratingValue": "5"
+                    "reviewValue": "5"
                 },
                 "reviewBody": "TurboTags has revolutionized my content strategy. The AI-generated tags are incredibly accurate and have significantly boosted my reach across all platforms."
             }
@@ -685,7 +688,6 @@
             "How to get more views on YouTube",
             "How to increase YouTube subscribers",
             "How to find trending Instagram hashtags",
-            "How to get more Instagram followers",
             "How to go viral on TikTok",
             "How to increase TikTok views",
             "SEO optimization for social media content",
@@ -1458,6 +1460,12 @@
 
     <!-- Main Application Script (including Firebase initialization) - MOVED TO END OF BODY -->
     <script type="module" defer>
+        // Ensure __firebase_config and __app_id are defined, even if the environment doesn't inject them.
+        // This prevents ReferenceErrors if running outside the Canvas environment.
+        let __firebase_config_env = typeof __firebase_config !== 'undefined' ? __firebase_config : undefined;
+        let __app_id_env = typeof __app_id !== 'undefined' ? __app_id : undefined;
+        let __initial_auth_token_env = typeof __initial_auth_token !== 'undefined' ? __initial_auth_token : undefined;
+
         // Import Firebase functions from CDN
         import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
         import { getAuth, signInAnonymously, signInWithCustomToken, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
@@ -1484,50 +1492,56 @@
             collection, addDoc, query, onSnapshot, serverTimestamp, deleteDoc, doc, getDocs
         };
 
+        // Helper function for dummy Firebase config
+        function getDummyFirebaseConfig() {
+            return {
+                apiKey: "dummy-api-key-for-canvas",
+                authDomain: "dummy-auth-domain.firebaseapp.com",
+                projectId: "dummy-project-id",
+                storageBucket: "dummy-storage-bucket",
+                messagingSenderId: "dummy-sender-id",
+                appId: "dummy-app-id",
+                measurementId: "G-DUMMY"
+            };
+        }
+
         // Initialize Firebase
         let firebaseConfig = {};
         let currentAppId = 'turbotags-default-app'; // Default APP_ID for internal data storage.
 
-        // Check if running in the Canvas environment
-        const isCanvasEnvironment = typeof __firebase_config !== 'undefined' && typeof __app_id !== 'undefined';
+        // Check if running in the Canvas environment using the safely defined variables
+        const isCanvasEnvironment = typeof __firebase_config_env !== 'undefined' && typeof __app_id_env !== 'undefined';
 
         if (isCanvasEnvironment) {
             try {
-                const rawConfig = __firebase_config;
-                const parsedConfig = JSON.parse(rawConfig);
-                if (parsedConfig && Object.keys(parsedConfig).length > 0) {
-                    firebaseConfig = parsedConfig;
-                    console.log("Firebase: Initializing with Canvas-injected config.");
+                // Safely parse or assign __firebase_config_env
+                if (typeof __firebase_config_env === 'string') {
+                    const parsedConfig = JSON.parse(__firebase_config_env);
+                    if (parsedConfig && Object.keys(parsedConfig).length > 0) {
+                        firebaseConfig = parsedConfig;
+                        console.log("Firebase: Initializing with Canvas-injected config (parsed string).");
+                    } else {
+                        console.warn("Firebase: Canvas __firebase_config_env string is empty or incomplete. Using dummy config for initialization. Firebase features will NOT work.");
+                        firebaseConfig = getDummyFirebaseConfig();
+                    }
+                } else if (typeof __firebase_config_env === 'object' && __firebase_config_env !== null) {
+                    firebaseConfig = __firebase_config_env;
+                    console.log("Firebase: Initializing with Canvas-injected config (direct object).");
                 } else {
-                    console.warn("Firebase: Canvas __firebase_config is empty or incomplete. Using dummy config for initialization. Firebase features will NOT work.");
-                    firebaseConfig = {
-                        apiKey: "dummy-api-key-for-canvas",
-                        authDomain: "dummy-auth-domain.firebaseapp.com",
-                        projectId: "dummy-project-id",
-                        storageBucket: "dummy-storage-bucket",
-                        messagingSenderId: "dummy-sender-id",
-                        appId: "dummy-app-id",
-                        measurementId: "G-DUMMY"
-                    };
+                    console.warn("Firebase: Canvas __firebase_config_env is neither string nor object. Using dummy config for initialization. Firebase features will NOT work.");
+                    firebaseConfig = getDummyFirebaseConfig();
                 }
             } catch (e) {
-                console.error("Firebase: Error parsing __firebase_config. Using dummy config. Error:", e);
-                firebaseConfig = {
-                    apiKey: "dummy-api-key-for-canvas",
-                    authDomain: "dummy-auth-domain.firebaseapp.com",
-                    projectId: "dummy-project-id",
-                    storageBucket: "dummy-storage-bucket",
-                    messagingSenderId: "dummy-sender-id",
-                    appId: "dummy-app-id",
-                    measurementId: "G-DUMMY"
-                };
+                console.error("Firebase: Error processing __firebase_config_env. Using dummy config. Error:", e);
+                firebaseConfig = getDummyFirebaseConfig();
             }
 
-            if (__app_id) {
-                currentAppId = __app_id;
-                console.log("Canvas: Using __app_id for internal data storage:", currentAppId);
+            // Safely assign __app_id_env
+            if (typeof __app_id_env === 'string' && __app_id_env) {
+                currentAppId = __app_id_env;
+                console.log("Canvas: Using __app_id_env for internal data storage:", currentAppId);
             } else {
-                console.warn("Canvas: __app_id not found or empty. Using default APP_ID for internal data storage:", currentAppId);
+                console.warn("Canvas: __app_id_env not found or empty. Using default APP_ID for internal data storage:", currentAppId);
             }
 
         } else {
@@ -1559,7 +1573,7 @@
                     window.userId = user.uid;
                 } else {
                     try {
-                        const initialAuthToken = typeof __initial_auth_token !== 'undefined' ? __initial_auth_token : null;
+                        const initialAuthToken = __initial_auth_token_env; // Use the safely defined variable
                         if (initialAuthToken) {
                             await signInWithCustomToken(window.auth, initialAuthToken);
                         } else {
