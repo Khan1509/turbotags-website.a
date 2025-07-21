@@ -7,7 +7,7 @@
 
     <!-- Favicon links - Using generic placeholders to avoid 404s in this environment. -->
     <link rel="icon" href="https://placehold.co/32x32/151440/ffffff?text=TT" type="image/png">
-    <link rel="apple-touch-icon" href="https://placehold.co/180x180/151440/ffffff?text=TT">\
+    <link rel="apple-touch-icon" href="https://placehold.co/180x180/151440/ffffff?text=TT">
 
     <!-- Enhanced Global SEO Meta Tags -->
     <meta name="description" content="TurboTags: Free AI-powered hashtag and tag generator for YouTube, Instagram, TikTok. Create viral content with SEO-optimized tags. Boost reach, grow followers, increase engagement worldwide. Learn how to generate tags for YouTube, how to get more views, how to increase subscribers, how to find trending hashtags for Instagram, how to go viral on TikTok, and more. Your ultimate free SEO tool for content creators, influencers, and marketers globally.">
@@ -96,9 +96,15 @@
 
     <!-- Custom styles for animations and font - Placed AFTER Tailwind CDN to ensure overrides work -->
     <style>
+        /* Set html background to white to prevent any flash of previous background */
+        html {
+            background-color: white;
+        }
+
         body {
             font-family: 'Inter', sans-serif;
-            background-color: #F2EEB6; /* Light yellow background */
+            /* The inline style on body will take precedence over this, but keep it here for consistency */
+            background-color: white;
             margin: 0; /* Remove default body margin */
             padding: 0; /* Remove default body padding */
             overflow-x: hidden; /* Prevent horizontal scrolling */
@@ -762,7 +768,7 @@
     }
     </script>
 </head>
-<body class="bg-gray-50 min-h-screen flex flex-col items-center">
+<body style="background-color: white;">
 
     <!-- Cookie Consent Banner -->
     <div id="cookieConsent" class="cookie-consent" role="dialog" aria-live="polite" aria-label="Cookie Consent">
@@ -1262,7 +1268,7 @@
                         <p class="text-gray-800 mt-2">
                             TurboTags typically generates 15-20 tags and hashtags per request, which is optimal for most platforms. YouTube allows up to 500 characters in tags, while Instagram and TikTok have their own best practices that our system follows automatically.
                         </p>
-                    </div>
+                    </p>
                 </div>
 
                 <!-- FAQ Item 5 -->
