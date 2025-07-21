@@ -1,7 +1,7 @@
 {
-  "name": "TurboTags - AI-Powered Tag & Hashtag Generator",
+  "name": "TurboTags - AI-Powered Tags & Hashtags Generator",
   "short_name": "TurboTags",
-  "description": "Instantly generate SEO-friendly tags and hashtags for YouTube, Instagram, and TikTok using AI.",
+  "description": "TurboTags: Free AI-powered hashtag and tag generator for YouTube, Instagram, TikTok. Create viral content with SEO-optimized tags. Boost reach, grow followers, increase engagement worldwide.",
   "start_url": "/",
   "display": "standalone",
   "background_color": "#ffffff",
@@ -10,31 +10,11 @@
   "scope": "/",
   "lang": "en-US",
   "dir": "ltr",
-  "categories": ["productivity", "social", "tools"],
+  "categories": ["business", "productivity", "social", "tools", "seo"],
   "icons": [
     {
-      "src": "/icon-72x72.svg",
-      "sizes": "72x72",
-      "type": "image/svg+xml"
-    },
-    {
-      "src": "/icon-96x96.svg",
-      "sizes": "96x96",
-      "type": "image/svg+xml"
-    },
-    {
-      "src": "/icon-144x144.svg",
-      "sizes": "144x144",
-      "type": "image/svg+xml"
-    },
-    {
-      "src": "/icon-192x192.svg",
-      "sizes": "192x192",
-      "type": "image/svg+xml"
-    },
-    {
-      "src": "/icon-512x512.svg",
-      "sizes": "512x512",
+      "src": "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⚡</text></svg>",
+      "sizes": "any",
       "type": "image/svg+xml"
     }
   ],
@@ -56,41 +36,38 @@
   ],
   "shortcuts": [
     {
-      "name": "YouTube Tag Generator",
+      "name": "YouTube Tags & Hashtags",
       "short_name": "YouTube",
-      "description": "Generate YouTube tags and hashtags",
+      "description": "Generate YouTube tags and hashtags with TurboTags",
       "url": "/#youtube",
       "icons": [
         {
-          "src": "/youtube-shortcut-96x96.svg",
-          "sizes": "96x96",
-          "type": "image/svg+xml"
+          "src": "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📺</text></svg>",
+          "sizes": "96x96"
         }
       ]
     },
     {
-      "name": "Instagram Hashtag Generator",
+      "name": "Instagram Hashtags",
       "short_name": "Instagram",
-      "description": "Generate Instagram hashtags",
+      "description": "Generate Instagram hashtags with TurboTags",
       "url": "/#instagram",
       "icons": [
         {
-          "src": "/instagram-shortcut-96x96.svg",
-          "sizes": "96x96",
-          "type": "image/svg+xml"
+          "src": "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📷</text></svg>",
+          "sizes": "96x96"
         }
       ]
     },
     {
-      "name": "TikTok Hashtag Generator",
+      "name": "TikTok Hashtags",
       "short_name": "TikTok",
-      "description": "Generate TikTok hashtags",
+      "description": "Generate TikTok hashtags with TurboTags",
       "url": "/#tiktok",
       "icons": [
         {
-          "src": "/tiktok-shortcut-96x96.svg",
-          "sizes": "96x96",
-          "type": "image/svg+xml"
+          "src": "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎵</text></svg>",
+          "sizes": "96x96"
         }
       ]
     }
