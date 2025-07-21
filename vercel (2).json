@@ -1,0 +1,32 @@
+{
+  "version": 2,
+  "builds": [
+    {
+      "src": "api/generate.js",
+      "use": "@vercel/node@2.0.0",
+      "config": {
+        "runtime": "nodejs22.x",
+        "includeFiles": ["api/**"]
+      }
+    },
+    {
+      "src": "*.{html,txt,xml,json,ico}",
+      "use": "@vercel/static"
+    },
+    {
+      "src": "icons/**",
+      "use": "@vercel/static"
+    }
+  ],
+  "routes": [
+    {
+      "src": "/api/generate",
+      "dest": "/api/generate.js",
+      "methods": ["POST"]
+    },
+    {
+      "src": "/(.*)", 
+      "dest": "/$1"
+    }
+  ]
+}
