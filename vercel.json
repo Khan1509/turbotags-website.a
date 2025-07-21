@@ -10,11 +10,7 @@
       }
     },
     {
-      "src": "*.{html,txt,xml,json,ico}",
-      "use": "@vercel/static"
-    },
-    {
-      "src": "icons/**",
+      "src": "public/**",
       "use": "@vercel/static"
     }
   ],
@@ -25,8 +21,8 @@
       "methods": ["POST"]
     },
     {
-      "src": "/(.*)", 
-      "dest": "/$1"
+      "src": "/(.*)",
+      "dest": "/public/$1"
     }
   ]
 }
