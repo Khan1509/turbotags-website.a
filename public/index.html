@@ -1295,16 +1295,8 @@
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
                 <!-- Adsterra Ad Tag -->
                 <div class="ad-placeholder">
-                    <script type="text/javascript">
-                        atOptions = {
-                            'key' : '70357c016b9f7a90a4913531b29bb3b7',
-                            'format' : 'iframe',
-                            'height' : 250,
-                            'width' : 300,
-                            'params' : {}
-                        };
-                    </script>
-                    <script type="text/javascript" src="//www.highperformanceformat.com/70357c016b9f7a90a4913531b29bb3b7/invoke.js"></script>
+                    <!-- Adsterra 300x250 Ad -->
+                    <script async src="/adsterra-300x250.js"></script>
                 </div>
 
                 <!-- Remaining 14 placeholders for Google Ads -->
@@ -1761,9 +1753,7 @@
             } else if (tabName === 'tiktok') {
                 tiktokTabBtn.classList.add('active');
                 tiktokTabContent.classList.remove('hidden');
-                tagsSection.classList.add('hidden');
-                tagsOutput.classList.remove('md:grid-cols-2');
-                tagsOutput.classList.add('grid-cols-1');
+                tiktokTabContent.classList.add('grid-cols-1');
             }
             activeTab = tabName;
             resetOutputAndErrors();
@@ -2498,5 +2488,7 @@
             }
         }
     </script>
+    <!-- Monetag Vignette Ad -->
+    <script async src="/monetag-vignette.js"></script>
 </body>
 </html>
