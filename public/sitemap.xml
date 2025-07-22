@@ -22,7 +22,7 @@
   
   <url>
     <loc>https://turbotags.app/blog</loc>
-    <lastmod>2025-07-15</lastmod>
+    <lastmod>2025-07-22</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -49,7 +49,7 @@
     <priority>0.3</priority>
   </url>
 
-  <!-- Dynamic Content (Example) -->
+  <!-- Dynamic Content -->
   <url>
     <loc>https://turbotags.app/generator</loc>
     <lastmod>2025-07-15</lastmod>
@@ -57,17 +57,24 @@
     <priority>0.7</priority>
   </url>
 
-  <!-- Blog Posts (Examples - Add your actual posts) -->
+  <!-- Blog Posts (Actual Files) -->
   <url>
-    <loc>https://turbotags.app/blog/best-tiktok-hashtags-2025</loc>
-    <lastmod>2025-07-12</lastmod>
+    <loc>https://turbotags.app/blog/tiktok-hashtags.html</loc>
+    <lastmod>2025-07-22</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
-  
+
   <url>
-    <loc>https://turbotags.app/blog/youtube-seo-tags-guide</loc>
-    <lastmod>2025-07-05</lastmod>
+    <loc>https://turbotags.app/blog/instagram-growth.html</loc>
+    <lastmod>2025-07-22</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+
+  <url>
+    <loc>https://turbotags.app/blog/youtube-shorts-strategy.html</loc>
+    <lastmod>2025-07-22</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
