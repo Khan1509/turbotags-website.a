@@ -20,11 +20,5 @@
       "destination": "https://srv.adstxtmanager.com/19390/turbotags.app",
       "permanent": true
     }
-  ],
-  "rewrites": [
-    {
-      "source": "/(.*)",
-      "destination": "/public/$1"
-    }
   ]
 }
