@@ -22,17 +22,14 @@
     }
   ],
   "rewrites": [
-    // Explicitly route API endpoint
     {
       "source": "/api/generate",
       "destination": "/api/generate.js"
     },
-    // Route the root URL to the main generator index.html
     {
       "source": "/",
       "destination": "/public/generator/index.html"
     },
-    // Route blog pages and their assets
     {
       "source": "/blog",
       "destination": "/public/blog/index.html"
@@ -41,9 +38,6 @@
       "source": "/blog/(.*)",
       "destination": "/public/blog/$1"
     },
-    // Route all other files that should be served from the public/generator directory.
-    // This includes privacy.html, terms.html, disclaimer.html, manifest.json, favicons,
-    // and any other assets directly linked from index.html in public/generator.
     {
       "source": "/(.*)",
       "destination": "/public/generator/$1"
