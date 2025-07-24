@@ -24,5 +24,12 @@
       "src": "/(.*)",
       "dest": "/public/$1"
     }
+  ],
+  "redirects": [
+    {
+      "source": "/ads.txt",
+      "destination": "https://srv.adstxtmanager.com/19390/turbotags.app",
+      "permanent": true
+    }
   ]
 }
