@@ -1,1 +1,0 @@
-curl -L "https://srv.adstxtmanager.com/19390/turbotags.app" > public/ads.txt
