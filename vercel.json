@@ -22,46 +22,28 @@
     }
   ],
   "rewrites": [
+    // Explicitly route API endpoint
     {
-      "source": "/manifest.json",
-      "destination": "/public/generator/manifest.json"
+      "source": "/api/generate",
+      "destination": "/api/generate.js"
+    },
+    // Route the root URL to the main generator index.html
+    {
+      "source": "/",
+      "destination": "/public/generator/index.html"
+    },
+    // Route blog pages and their assets
+    {
+      "source": "/blog",
+      "destination": "/public/blog/index.html"
     },
     {
-      "source": "/favicon.ico",
-      "destination": "/public/generator/favicon.ico"
+      "source": "/blog/(.*)",
+      "destination": "/public/blog/$1"
     },
-    {
-      "source": "/favicon.png",
-      "destination": "/public/generator/favicon.png"
-    },
-    {
-      "source": "/favicon.svg",
-      "destination": "/public/generator/favicon.svg"
-    },
-    {
-      "source": "/favicon_16x16.png",
-      "destination": "/public/generator/favicon_16x16.png"
-    },
-    {
-      "source": "/favicon_192x192.png",
-      "destination": "/public/generator/favicon_192x192.png"
-    },
-    {
-      "source": "/favicon_32x32.png",
-      "destination": "/public/generator/favicon_32x32.png"
-    },
-    {
-      "source": "/favicon_512x512.png",
-      "destination": "/public/generator/favicon_512x512.png"
-    },
-    {
-      "source": "/robots.txt",
-      "destination": "/public/generator/robots.txt"
-    },
-    {
-      "source": "/sitemap.xml",
-      "destination": "/public/generator/sitemap.xml"
-    },
+    // Route all other files that should be served from the public/generator directory.
+    // This includes privacy.html, terms.html, disclaimer.html, manifest.json, favicons,
+    // and any other assets directly linked from index.html in public/generator.
     {
       "source": "/(.*)",
       "destination": "/public/generator/$1"
