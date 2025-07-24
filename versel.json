@@ -13,12 +13,5 @@
       "src": "public/**",
       "use": "@vercel/static"
     }
-  ],
-  "redirects": [
-    {
-      "source": "/ads.txt",
-      "destination": "https://srv.adstxtmanager.com/19390/turbotags.app",
-      "permanent": true
-    }
   ]
 }
