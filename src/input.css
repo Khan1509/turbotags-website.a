@@ -36,6 +36,7 @@ body {
 .gradient-text {
     background: linear-gradient(90deg, #151440, #7A7EBF, #9E99BF);
     -webkit-background-clip: text;
+    background-clip: text;
     -webkit-text-fill-color: transparent;
 }
 
@@ -130,6 +131,7 @@ body {
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
     transition: all 0.2s ease-in-out;
 }
+
 .tag-item:hover {
     transform: translateX(5px);
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
@@ -146,6 +148,7 @@ body {
 .copy-btn {
     transition: all 0.2s ease-in-out;
 }
+
 .copy-btn:hover {
     transform: scale(1.05);
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
@@ -250,7 +253,7 @@ section.bg-white:hover {
 /* Premium/Coming Soon Cards */
 .premium-card {
     background: white;
-    border-radius: 1.rem;
+    border-radius: 1rem; /* Fixed missing digit */
     padding: 1.5rem;
     box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
     transition: all 0.3s ease;
@@ -272,6 +275,7 @@ section.bg-white:hover {
     border: 1px solid #151440; /* Changed border color */
     transition: transform 0.3s ease, box-shadow 0.3s ease; /* Added transition */
 }
+
 .ad-placeholder:hover {
     transform: translateY(-2px);
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
@@ -317,9 +321,11 @@ section.bg-white:hover {
     align-items: center;
     justify-content: center;
 }
+
 .modal.show {
     display: flex;
 }
+
 .modal-content {
     background-color: white;
     margin: auto;
@@ -332,10 +338,12 @@ section.bg-white:hover {
     box-shadow: 0 5px 15px rgba(0,0,0,0.3);
     animation: fadeInScale 0.3s ease-out;
 }
+
 @keyframes fadeInScale {
     from { opacity: 0; transform: scale(0.9); }
     to { opacity: 1; transform: scale(1); }
 }
+
 .close {
     color: #aaa;
     float: right;
@@ -343,17 +351,20 @@ section.bg-white:hover {
     font-weight: bold;
     cursor: pointer;
 }
+
 .close:hover,
 .close:focus {
     color: #000;
     text-decoration: none;
     cursor: pointer;
 }
+
 /* Custom Confirmation Modal Styling */
 #confirmModal .modal-content {
     max-width: 400px;
     text-align: center;
 }
+
 #confirmModal .modal-content button {
     padding: 0.5rem 1rem;
     border-radius: 0.375rem;
@@ -361,17 +372,21 @@ section.bg-white:hover {
     transition-property: all;
     transition-duration: 200ms;
 }
+
 #confirmModal .modal-content .confirm-yes {
     background-color: #ef4444;
     color: white;
 }
+
 #confirmModal .modal-content .confirm-yes:hover {
     background-color: #dc2626;
 }
+
 #confirmModal .modal-content .confirm-no {
     background-color: #e5e7eb;
     color: #1f2937;
 }
+
 #confirmModal .modal-content .confirm-no:hover {
     background-color: #d1d5db;
 }
@@ -394,6 +409,7 @@ section.bg-white:hover {
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     transition: background-color 0.3s, transform 0.3s;
 }
+
 #scrollToTopBtn:hover {
     background-color: #7A7EBF;
     transform: translateY(-2px);
@@ -419,7 +435,6 @@ section.bg-white:hover {
     50% { transform: translateY(-5px); }
     100% { transform: translateY(0px); }
 }
-
 
 /* Mobile-specific styles */
 @media (max-width: 768px) {
