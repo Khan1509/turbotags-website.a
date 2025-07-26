@@ -15,14 +15,68 @@
     }
   ],
   "routes": [
+    // API route
     {
       "src": "/api/generate",
       "dest": "/api/generate.js",
       "methods": ["POST"]
     },
+    
+    // Main pages (without .html)
+    {
+      "src": "/features",
+      "dest": "/public/features.html"
+    },
+    {
+      "src": "/generator",
+      "dest": "/public/generator.html"
+    },
+    {
+      "src": "/privacy",
+      "dest": "/public/privacy.html"
+    },
+    {
+      "src": "/terms",
+      "dest": "/public/terms.html"
+    },
+    {
+      "src": "/disclaimer",
+      "dest": "/public/disclaimer.html"
+    },
+    
+    // Blog routes
+    {
+      "src": "/blog",
+      "dest": "/public/blog/index.html"
+    },
+    {
+      "src": "/blog/best-tiktok-hashtags-2025",
+      "dest": "/public/blog/best-tiktok-hashtags-2025.html"
+    },
+    {
+      "src": "/blog/instagram-growth",
+      "dest": "/public/blog/instagram-growth.html"
+    },
+    {
+      "src": "/blog/youtube-shorts-strategy",
+      "dest": "/public/blog/youtube-shorts-strategy.html"
+    },
+    {
+      "src": "/blog/youtube-seo-tags-guide",
+      "dest": "/public/blog/youtube-seo-tags-guide.html"
+    },
+    
+    // Static assets and fallback
+    {
+      "src": "/(.*\\.(ico|png|jpg|jpeg|svg|css|js|json|xml|txt))",
+      "dest": "/public/$1"
+    },
     {
       "src": "/(.*)",
-      "dest": "/public/$1"
+      "status": 404,
+      "dest": "/public/404.html"
     }
-  ]
+  ],
+  "trailingSlash": false,
+  "cleanUrls": true
 }
