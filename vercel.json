@@ -33,10 +33,7 @@
     },
     {
       "source": "/blog",
-      "destination": "/public/blog/index.html",
-      "headers": {
-        "Content-Type": "text/html"
-      }
+      "destination": "/public/blog/index.html"
     },
     {
       "source": "/blog/best-tiktok-hashtags-2025",
@@ -67,5 +64,16 @@
     }
   ],
   "cleanUrls": true,
+  "headers": [
+    {
+      "source": "/blog",
+      "headers": [
+        {
+          "key": "Content-Type",
+          "value": "text/html"
+        }
+      ]
+    }
+  ],
   "trailingSlash": false
 }
