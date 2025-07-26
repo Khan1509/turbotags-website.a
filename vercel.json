@@ -16,6 +16,10 @@
   ],
   "rewrites": [
     {
+      "source": "/api/generate",
+      "destination": "/api/generate.js"
+    },
+    {
       "source": "/features",
       "destination": "/features.html"
     },
