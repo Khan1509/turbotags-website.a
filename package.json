@@ -7,10 +7,18 @@
     "node": ">=22.0.0"
   },
   "dependencies": {
-    "@google/generative-ai": "^0.1.0"
+    // If @google/generative-ai is used directly in client-side JS, move it to devDependencies
+    // and ensure it's bundled. Otherwise, it's likely a backend dependency.
+  },
+  "devDependencies": {
+    "tailwindcss": "^3.4.4",
+    "postcss": "^8.4.38",
+    "autoprefixer": "^10.4.19"
   },
   "scripts": {
     "dev": "vercel dev",
-    "deploy": "vercel --prod"
+    "deploy": "vercel --prod",
+    "build:css": "tailwindcss -i ./src/input.css -o ./public/output.css --minify",
+    "watch:css": "tailwindcss -i ./src/input.css -o ./public/output.css --watch"
   }
 }
