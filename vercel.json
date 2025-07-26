@@ -21,7 +21,7 @@
     },
     {
       "source": "/features",
-      "destination": "/features.html"
+      "destination": "/features"
     },
     {
       "source": "/generator",
@@ -29,23 +29,35 @@
     },
     {
       "source": "/terms",
-      "destination": "/terms.html"
+      "destination": "/terms"
     },
     {
       "source": "/privacy",
-      "destination": "/privacy.html"
+      "destination": "/privacy"
     },
     {
       "source": "/disclaimer",
-      "destination": "/disclaimer.html"
+      "destination": "/disclaimer"
     },
     {
       "source": "/blog",
       "destination": "/blog/index.html"
     },
     {
-      "source": "/blog/:slug",
-      "destination": "/blog/:slug.html"
+      "source": "/blog/best-tiktok-hashtags-2025",
+      "destination": "/blog/best-tiktok-hashtags-2025"
+    },
+    {
+      "source": "/blog/instagram-growth",
+      "destination": "/blog/instagram-growth"
+    },
+    {
+      "source": "/blog/youtube-seo-tags-guide",
+      "destination": "/blog/youtube-seo-tags-guide"
+    },
+    {
+      "source": "/blog/youtube-shorts-strategy",
+      "destination": "/blog/youtube-shorts-strategy"
     },
     {
       "source": "/",
