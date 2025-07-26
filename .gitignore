@@ -45,5 +45,6 @@ Icon?
 .vercel/output/
 .netlify/
 
-# Optional: ignore Tailwind's generated CSS (if compiled)
-src/output.css
+# Tailwind CSS generated files
+/output.css       # Old location (root)
+src/output.css    # New location
