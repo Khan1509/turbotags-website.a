@@ -10,70 +10,10 @@
       "use": "@vercel/static"
     }
   ],
-  "rewrites": [
+  "routes": [
     {
-      "source": "/api/generate",
-      "destination": "/api/generate.js"
-    },
-    {
-      "source": "/features",
-      "destination": "/public/features"
-    },
-    {
-      "source": "/privacy",
-      "destination": "/public/privacy"
-    },
-    {
-      "source": "/terms",
-      "destination": "/public/terms"
-    },
-    {
-      "source": "/disclaimer",
-      "destination": "/public/disclaimer"
-    },
-    {
-      "source": "/blog",
-      "destination": "/public/blog/index.html"
-    },
-    {
-      "source": "/blog/best-tiktok-hashtags-2025",
-      "destination": "/public/blog/best-tiktok-hashtags-2025"
-    },
-    {
-      "source": "/blog/instagram-growth",
-      "destination": "/public/blog/instagram-growth"
-    },
-    {
-      "source": "/blog/youtube-seo-tags-guide",
-      "destination": "/public/blog/youtube-seo-tags-guide"
-    },
-    {
-      "source": "/blog/youtube-shorts-strategy",
-      "destination": "/public/blog/youtube-shorts-strategy"
-    },
-    {
-      "source": "/",
-      "destination": "/public/generator/index.html"
+      "src": "/(.*)", 
+      "dest": "/public/$1"
     }
-  ],
-  "redirects": [
-    {
-      "source": "/(.*)\\.html",
-      "destination": "/$1",
-      "permanent": true
-    }
-  ],
-  "cleanUrls": true,
-  "headers": [
-    {
-      "source": "/blog",
-      "headers": [
-        {
-          "key": "Content-Type",
-          "value": "text/html"
-        }
-      ]
-    }
-  ],
-  "trailingSlash": false
+  ]
 }
