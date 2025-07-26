@@ -32,6 +32,13 @@
       "destination": "/public/disclaimer"
     },
     {
+      "source": "/blog",
+      "destination": "/public/blog/index.html",
+      "headers": {
+        "Content-Type": "text/html"
+      }
+    },
+    {
       "source": "/blog/best-tiktok-hashtags-2025",
       "destination": "/public/blog/best-tiktok-hashtags-2025"
     },
