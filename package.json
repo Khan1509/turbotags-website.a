@@ -7,8 +7,7 @@
     "node": ">=22.0.0"
   },
   "dependencies": {
-    // If @google/generative-ai is used directly in client-side JS, move it to devDependencies
-    // and ensure it's bundled. Otherwise, it's likely a backend dependency.
+    
   },
   "devDependencies": {
     "tailwindcss": "^3.4.4",
