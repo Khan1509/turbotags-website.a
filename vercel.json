@@ -3,11 +3,7 @@
   "builds": [
     {
       "src": "api/generate.js",
-      "use": "@vercel/node@2.0.0",
-      "config": {
-        "runtime": "nodejs22.x",
-        "includeFiles": ["api/**"]
-      }
+      "use": "@vercel/node"
     },
     {
       "src": "public/**",
@@ -15,14 +11,11 @@
     }
   ],
   "routes": [
-    // API route
     {
       "src": "/api/generate",
       "dest": "/api/generate.js",
       "methods": ["POST"]
     },
-    
-    // Main pages (without .html)
     {
       "src": "/features",
       "dest": "/public/features.html"
@@ -43,8 +36,6 @@
       "src": "/disclaimer",
       "dest": "/public/disclaimer.html"
     },
-    
-    // Blog routes
     {
       "src": "/blog",
       "dest": "/public/blog/index.html"
@@ -65,18 +56,9 @@
       "src": "/blog/youtube-seo-tags-guide",
       "dest": "/public/blog/youtube-seo-tags-guide.html"
     },
-    
-    // Static assets and fallback
-    {
-      "src": "/(.*\\.(ico|png|jpg|jpeg|svg|css|js|json|xml|txt))",
-      "dest": "/public/$1"
-    },
     {
       "src": "/(.*)",
-      "status": 404,
-      "dest": "/public/404.html"
+      "dest": "/public/$1"
     }
-  ],
-  "trailingSlash": false,
-  "cleanUrls": true
+  ]
 }
