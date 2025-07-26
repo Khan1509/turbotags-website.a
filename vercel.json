@@ -10,77 +10,55 @@
       "use": "@vercel/static"
     }
   ],
-  "routes": [
+  "rewrites": [
     {
-      "src": "/api/generate",
-      "dest": "/api/generate.js",
-      "methods": ["POST"]
+      "source": "/api/generate",
+      "destination": "/api/generate.js"
     },
     {
-      "src": "/features",
-      "dest": "/public/features",
-      "headers": { "Content-Type": "text/html" }
+      "source": "/features",
+      "destination": "/public/features"
     },
     {
-      "src": "/privacy",
-      "dest": "/public/privacy",
-      "headers": { "Content-Type": "text/html" }
+      "source": "/privacy",
+      "destination": "/public/privacy"
     },
     {
-      "src": "/terms",
-      "dest": "/public/terms",
-      "headers": { "Content-Type": "text/html" }
+      "source": "/terms",
+      "destination": "/public/terms"
     },
     {
-      "src": "/disclaimer",
-      "dest": "/public/disclaimer",
-      "headers": { "Content-Type": "text/html" }
+      "source": "/disclaimer",
+      "destination": "/public/disclaimer"
     },
     {
-      "src": "/blog/best-tiktok-hashtags-2025",
-      "dest": "/public/blog/best-tiktok-hashtags-2025",
-      "headers": { "Content-Type": "text/html" }
+      "source": "/blog/best-tiktok-hashtags-2025",
+      "destination": "/public/blog/best-tiktok-hashtags-2025"
     },
     {
-      "src": "/blog/instagram-growth",
-      "dest": "/public/blog/instagram-growth",
-      "headers": { "Content-Type": "text/html" }
+      "source": "/blog/instagram-growth",
+      "destination": "/public/blog/instagram-growth"
     },
     {
-      "src": "/blog/youtube-seo-tags-guide",
-      "dest": "/public/blog/youtube-seo-tags-guide",
-      "headers": { "Content-Type": "text/html" }
+      "source": "/blog/youtube-seo-tags-guide",
+      "destination": "/public/blog/youtube-seo-tags-guide"
     },
     {
-      "src": "/blog/youtube-shorts-strategy",
-      "dest": "/public/blog/youtube-shorts-strategy",
-      "headers": { "Content-Type": "text/html" }
+      "source": "/blog/youtube-shorts-strategy",
+      "destination": "/public/blog/youtube-shorts-strategy"
     },
     {
-      "src": "/blog",
-      "dest": "/public/blog/index.html"
-    },
-    {
-      "src": "/generator",
-      "dest": "/public/generator/index.html"
-    },
-    {
-      "src": "/",
-      "dest": "/public/generator/index.html"
-    },
-    {
-      "src": "/(.*)\\.html",
-      "status": 301,
-      "headers": { "Location": "/$1" }
-    },
-    {
-      "src": "/(.*\\.(ico|png|jpg|svg|css|js|xml|txt))",
-      "dest": "/public/$1"
-    },
-    {
-      "src": "/(.*)",
-      "dest": "/public/generator/index.html"
+      "source": "/",
+      "destination": "/public/generator/index.html"
     }
   ],
+  "redirects": [
+    {
+      "source": "/(.*)\\.html",
+      "destination": "/$1",
+      "permanent": true
+    }
+  ],
+  "cleanUrls": true,
   "trailingSlash": false
 }
