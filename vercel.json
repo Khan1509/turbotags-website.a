@@ -18,47 +18,69 @@
     },
     {
       "src": "/features",
-      "dest": "/public/features.html"
-    },
-    {
-      "src": "/generator",
-      "dest": "/public/generator.html"
+      "dest": "/public/features",
+      "headers": { "Content-Type": "text/html" }
     },
     {
       "src": "/privacy",
-      "dest": "/public/privacy.html"
+      "dest": "/public/privacy",
+      "headers": { "Content-Type": "text/html" }
     },
     {
       "src": "/terms",
-      "dest": "/public/terms.html"
+      "dest": "/public/terms",
+      "headers": { "Content-Type": "text/html" }
     },
     {
       "src": "/disclaimer",
-      "dest": "/public/disclaimer.html"
+      "dest": "/public/disclaimer",
+      "headers": { "Content-Type": "text/html" }
+    },
+    {
+      "src": "/blog/best-tiktok-hashtags-2025",
+      "dest": "/public/blog/best-tiktok-hashtags-2025",
+      "headers": { "Content-Type": "text/html" }
+    },
+    {
+      "src": "/blog/instagram-growth",
+      "dest": "/public/blog/instagram-growth",
+      "headers": { "Content-Type": "text/html" }
+    },
+    {
+      "src": "/blog/youtube-seo-tags-guide",
+      "dest": "/public/blog/youtube-seo-tags-guide",
+      "headers": { "Content-Type": "text/html" }
+    },
+    {
+      "src": "/blog/youtube-shorts-strategy",
+      "dest": "/public/blog/youtube-shorts-strategy",
+      "headers": { "Content-Type": "text/html" }
     },
     {
       "src": "/blog",
       "dest": "/public/blog/index.html"
     },
     {
-      "src": "/blog/best-tiktok-hashtags-2025",
-      "dest": "/public/blog/best-tiktok-hashtags-2025.html"
+      "src": "/generator",
+      "dest": "/public/generator/index.html"
     },
     {
-      "src": "/blog/instagram-growth",
-      "dest": "/public/blog/instagram-growth.html"
+      "src": "/",
+      "dest": "/public/generator/index.html"
     },
     {
-      "src": "/blog/youtube-shorts-strategy",
-      "dest": "/public/blog/youtube-shorts-strategy.html"
+      "src": "/(.*)\\.html",
+      "status": 301,
+      "headers": { "Location": "/$1" }
     },
     {
-      "src": "/blog/youtube-seo-tags-guide",
-      "dest": "/public/blog/youtube-seo-tags-guide.html"
+      "src": "/(.*\\.(ico|png|jpg|svg|css|js|xml|txt))",
+      "dest": "/public/$1"
     },
     {
       "src": "/(.*)",
-      "dest": "/public/$1"
+      "dest": "/public/generator/index.html"
     }
-  ]
+  ],
+  "trailingSlash": false
 }
