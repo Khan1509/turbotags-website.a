@@ -21,7 +21,7 @@
     <link rel="icon" href="https://placehold.co/32x32/151440/ffffff?text=TT" type="image/png">
     <link rel="apple-touch-icon" href="https://placehold.co/180x180/151440/ffffff?text=TT">
 
-    <!-- PWA Manifest Link - NEWLY ADDED -->
+    <!-- PWA Manifest Link -->
     <link rel="manifest" href="/manifest.json">
 
     <!-- Enhanced Global SEO Meta Tags -->
@@ -55,7 +55,6 @@
     <!-- Yandex Site Verification -->
     <meta name="yandex-verification" content="3a79b1e10329613e">
     <meta name="baidu-site-verification" content="PLACEHOLDER_FOR_BAIDU_VERIFICATION">
-    <!-- Removed Ezoic Domain Verification meta tag as per user's request (using DNS TXT) -->
 
     <!-- Mobile & PWA Meta Tags -->
     <meta name="theme-color" content="#151440">
@@ -99,7 +98,7 @@
       gtag('config', 'G-YXQPT1LPT8');
     </script>
 
-    <!-- Tailwind CSS CDN - Keep in head to prevent CLS, but it is render-blocking -->
+    <!-- Tailwind CSS CDN - Keep in head to prevent CLS, but for production, compile and link -->
     <script src="https://cdn.tailwindcss.com"></script>
 
     <!-- Font Awesome for icons - Preloaded for better performance -->
@@ -783,20 +782,6 @@
         ]
     }
     </script>
-    <!-- Removed Monetag Vignette Ad Script Link -->
-    <!-- <script async src="/monetag-vignette.js"></script> -->
-
-    <!-- Removed New Ad Code from head -->
-    <!-- <script>
-        (function(d,z,s){
-            s.src='https://'+d+'/401/'+z;
-            try{
-                (document.body||document.documentElement).appendChild(s)
-            }catch(e){
-                console.error("Error loading gizokraijaw.net ad script:", e);
-            }
-        })('gizokraijaw.net',9609519,document.createElement('script'))
-    </script> -->
 </head>
 <body style="background-color: white;">
 
@@ -806,7 +791,7 @@
             <div class="mb-4 sm:mb-0 sm:mr-4">
                 <p class="text-sm">
                     🍪 We use cookies to enhance your experience and analyze our traffic.
-                    <a href="privacy.html" class="underline hover:text-gray-300" aria-label="Learn more about our privacy policy">Learn more about our privacy policy</a>
+                    <a href="legal/cookies.html" class="underline hover:text-gray-300" aria-label="Learn more about our cookie policy">Learn more about our cookie policy</a>
                 </p>
             </div>
             <div class="flex space-x-4">
@@ -843,8 +828,8 @@
                     <a href="#tag-generator" class="text-gray-800 hover:text-violet-600 font-medium transition">Generator</a>
                     <a href="#why-choose" class="text-gray-800 hover:text-violet-600 font-medium transition">Features</a>
                     <a href="#faq" class="text-gray-800 hover:text-violet-600 font-medium transition">FAQ</a>
-                    <!-- Ko-fi Support Button - Color changed to #151440 -->
-                    <a href="https://ko-fi.com/ytseo1509" target="_blank" rel="noopener noreferrer" class="bg-[#151440] text-white px-4 py-2 rounded-lg flex items-center hover:opacity-90 transition" aria-label="Support us on Ko-fi">
+                    <!-- Ko-fi Support Button - CORRECTED LINK -->
+                    <a href="https://ko-fi.com/turbotags1509" target="_blank" rel="noopener noreferrer" class="bg-[#151440] text-white px-4 py-2 rounded-lg flex items-center hover:opacity-90 transition" aria-label="Support us on Ko-fi">
                         <i class="fas fa-mug-hot mr-2" aria-hidden="true"></i> Support Us
                     </a>
                 </nav>
@@ -886,7 +871,7 @@
             <a href="#tag-generator" class="block py-4 text-white hover:bg-gray-700 transition" onclick="closeMobileMenu()">Generator</a>
             <a href="#why-choose" class="block py-4 text-white hover:bg-gray-700 transition" onclick="closeMobileMenu()">Features</a>
             <a href="#faq" class="block py-4 text-white hover:bg-gray-700 transition" onclick="closeMobileMenu()">FAQ</a>
-            <a href="https://ko-fi.com/ytseo1509" target="_blank" rel="noopener noreferrer" class="block py-4 text-white hover:bg-gray-700 transition" onclick="closeMobileMenu()">
+            <a href="https://ko-fi.com/turbotags1509" target="_blank" rel="noopener noreferrer" class="block py-4 text-white hover:bg-gray-700 transition" onclick="closeMobileMenu()">
                 <i class="fas fa-mug-hot mr-2" aria-hidden="true"></i> Support Us
             </a>
         </div>
@@ -1388,9 +1373,10 @@
                 <div>
                     <h4 class="font-semibold text-gray-800 mb-4">Legal</h4>
                     <ul class="space-y-2 text-xs">
-                        <li><a href="privacy.html" class="hover:text-violet-600 transition" aria-label="Read our privacy policy">Privacy Policy</a></li>
-                        <li><a href="terms.html" class="hover:text-violet-600 transition" aria-label="Read our terms of service">Terms of Service</a></li>
-                        <li><a href="disclaimer.html" class="hover:text-violet-600 transition" aria-label="Read our disclaimer">Disclaimer</a></li>
+                        <li><a href="legal/privacy.html" class="hover:text-violet-600 transition" aria-label="Read our privacy policy">Privacy Policy</a></li>
+                        <li><a href="legal/terms.html" class="hover:text-violet-600 transition" aria-label="Read our terms of service">Terms of Service</a></li>
+                        <li><a href="legal/disclaimer.html" class="hover:text-violet-600 transition" aria-label="Read our disclaimer">Disclaimer</a></li>
+                        <li><a href="legal/cookies.html" class="hover:text-violet-600 transition" aria-label="Read our cookie policy">Cookie Policy</a></li>
                     </ul>
                 </div>
 
@@ -1409,7 +1395,7 @@
                 <p class="text-xs text-gray-800">
                     Built with ❤️ for content creators worldwide.
                     <span class="mx-2">•</span>
-                    <a href="disclaimer.html" class="hover:text-violet-600 transition" aria-label="Read our legal disclaimer">Legal Disclaimer</a>
+                    <a href="legal/disclaimer.html" class="hover:text-violet-600 transition" aria-label="Read our legal disclaimer">Legal Disclaimer</a>
                 </p>
             </div>
         </footer>
@@ -1444,7 +1430,6 @@
         import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
         import { getAuth, signInAnonymously, signInWithCustomToken, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
         import { getFirestore, collection, addDoc, query, onSnapshot, serverTimestamp, deleteDoc, doc, getDocs } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
-        // Removed getAnalytics as gtag.js is removed for performance optimization.
 
         // Global Firebase variables
         window.firebaseApp = null;
@@ -2210,11 +2195,13 @@
         // Modal Management - Redirect to separate pages for legal documents
         function openModal(modalId) {
             if (modalId === 'privacyModal') {
-                window.open('privacy.html', '_blank'); // Open in new tab
+                window.open('legal/privacy.html', '_blank'); // Open in new tab
             } else if (modalId === 'termsModal') {
-                window.open('terms.html', '_blank'); // Open in new tab
+                window.open('legal/terms.html', '_blank'); // Open in new tab
             } else if (modalId === 'disclaimerModal') {
-                window.open('disclaimer.html', '_blank'); // Open in new tab
+                window.open('legal/disclaimer.html', '_blank'); // Open in new tab
+            } else if (modalId === 'cookiesModal') {
+                window.open('legal/cookies.html', '_blank'); // Open in new tab
             }
         }
 
