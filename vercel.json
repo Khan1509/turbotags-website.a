@@ -43,16 +43,5 @@
       "source": "/blog/:slug",
       "destination": "/blog/:slug.html"
     }
-  ],
-  "routes": [
-    {
-      "src": "/api/generate",
-      "dest": "/api/generate.js",
-      "methods": ["POST"]
-    },
-    {
-      "src": "/(.*)",
-      "dest": "/public/$1"
-    }
   ]
 }
