@@ -5,8 +5,9 @@ const config = {
 	darkMode: ["class"],
 	// Configure files to scan for Tailwind classes to purge unused CSS
 	content: [
-		"./public/index.html", // Explicitly include the main index.html file
-		"./public/**/*.html",  // Scan all other HTML files in 'public' and its subdirectories
+		"./*.html",             // Scans HTML files directly in the project root (e.g., if public/ is the root)
+		"./**/*.html",          // Scans all HTML files in any subdirectory from the project root
+		"./public/**/*.html",   // Explicitly scans all HTML files inside the 'public' directory and its subdirectories
 		// If you have separate JS files that dynamically add Tailwind classes, list them here:
 		// "./src/**/*.js",
 		// "./src/**/*.ts",
