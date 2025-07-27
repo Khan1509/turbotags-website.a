@@ -1,0 +1,29 @@
+name: Submit to IndexNow
+
+on:
+  push:
+    branches: [ main ]
+  workflow_dispatch:
+
+jobs:
+  submit:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Submit URLs to IndexNow
+        run: |
+          curl -X POST "https://api.indexnow.org/IndexNow" \
+          -H "Content-Type: application/json" \
+          -d '{
+            "host": "turbotags.app",
+            "key": "a9a8c9d7d2164bdcaf882d56136d207e",
+            "keyLocation": "https://turbotags.app/a9a8c9d7d2164bdcaf882d56136d207e.txt",
+            "urlList": [
+              "https://turbotags.app/",
+              "https://turbotags.app/features",
+              "https://turbotags.app/generator",
+              "https://turbotags.app/blog/best-tiktok-hashtags-2025",
+              "https://turbotags.app/blog/youtube-shorts-strategy"
+            ]
+          }'
