@@ -1,18 +1,55 @@
-name: Submit to IndexNow
+name: Auto-Submit URLs to IndexNow
 
 on:
   push:
-    branches: [ main ]
-  workflow_dispatch:
-  schedule:
-    - cron: '0 0 * * 0'  # Weekly submissions (Sundays)
+    branches: [main]
+    paths:
+      - 'public/**'       # Triggers when content changes
+      - 'src/content/**'  # Triggers when blog posts change
+      - '!*.md'           # Excludes markdown-only changes
+  workflow_dispatch:      # Manual trigger option
 
 jobs:
   submit:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Submit URLs to IndexNow
+
+      - name: Auto-Detect Changed URLs
+        id: url-detector
+        run: |
+          # Get modified files
+          CHANGED_FILES=$(git diff --name-only HEAD^ HEAD)
+          
+          # Convert file paths to URLs
+          URLS=()
+          for FILE in $CHANGED_FILES; do
+            if [[ $FILE == public/* ]]; then
+              URLS+=("https://turbotags.app/${FILE#public/}")
+            elif [[ $FILE == src/content/blog/* ]]; then
+              SLUG=$(basename $FILE .md)
+              URLS+=("https://turbotags.app/blog/$SLUG")
+            fi
+          done
+
+          # Deduplicate and format as JSON
+          UNIQUE_URLS=$(printf '%s\n' "${URLS[@]}" | sort -u | jq -R -s -c 'split("\n")[:-1]')
+          echo "urls=$UNIQUE_URLS" >> $GITHUB_OUTPUT
+
+      - name: Submit Changed URLs
+        if: steps.url-detector.outputs.urls != '[]'
+        run: |
+          curl -X POST "https://api.indexnow.org/IndexNow" \
+          -H "Content-Type: application/json" \
+          -d '{
+            "host": "turbotags.app",
+            "key": "a9a8c9d7d2164bdcaf882d56136d207e",
+            "keyLocation": "https://turbotags.app/a9a8c9d7d2164bdcaf882d56136d207e.txt",
+            "urlList": ${{ steps.url-detector.outputs.urls }}
+          }'
+
+      - name: Fallback Submission
+        if: steps.url-detector.outputs.urls == '[]'
         run: |
           curl -X POST "https://api.indexnow.org/IndexNow" \
           -H "Content-Type: application/json" \
@@ -22,16 +59,6 @@ jobs:
             "keyLocation": "https://turbotags.app/a9a8c9d7d2164bdcaf882d56136d207e.txt",
             "urlList": [
               "https://turbotags.app/",
-              "https://turbotags.app/features",
-              "https://turbotags.app/generator",
-              "https://turbotags.app/blog",
-              "https://turbotags.app/privacy",
-              "https://turbotags.app/terms",
-              "https://turbotags.app/disclaimer",
-              "https://turbotags.app/blog/best-tiktok-hashtags-2025",
-              "https://turbotags.app/blog/youtube-shorts-strategy",
-              "https://turbotags.app/blog/instagram-growth",
-              "https://turbotags.app/blog/youtube-seo-tags-guide",
               "https://turbotags.app/sitemap.xml"
             ]
           }'
