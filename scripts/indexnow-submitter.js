@@ -11,8 +11,8 @@ async function submit() {
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({
       host: "turbotags.app",
-      key: "30d7e3ffb84440aaa89c9adbdae72fc2",
-      keyLocation: "https://turbotags.app/30d7e3ffb84440aaa89c9adbdae72fc2.txt",
+      key: "a9a8c9d7d2164bdcaf882d56136d207e",
+      keyLocation: "https://turbotags.app/a9a8c9d7d2164bdcaf882d56136d207e.txt",
       urlList: urls
     })
   });
