@@ -106,8 +106,8 @@
     <link rel="preload" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
     <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;500;700;800&display=swap"></noscript>
 
-    <!-- Link to your compiled Tailwind CSS file with absolute path -->
-    <link rel="stylesheet" href="/public/output.css">
+    <!-- Link to your compiled Tailwind CSS file directly from the root -->
+    <link rel="stylesheet" href="/output.css">
 
     <!-- Enhanced Schema.org JSON-LD for Global SEO - ALL UPDATED TO turbotags.app, using WebP image paths -->
     <script type="application/ld+json">
@@ -181,8 +181,7 @@
             "How to get more views on YouTube",
             "How to increase YouTube subscribers",
             "How to find trending Instagram hashtags",
-            "How to go viral on TikTok",
-            "How to increase TikTok views",
+            "How to go viral on TikTok, how to increase TikTok views",
             "SEO optimization for social media content",
             "Global content reach strategies"
         ],
@@ -330,9 +329,9 @@
                     AI-Powered
                 </span>
                 <span class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-[#151440] text-white">
-                    <i class="fas fa-chart-line mr-2" aria-hidden="true"></i>
-                    SEO Optimized
-                </span\>
+                        <i class="fas fa-chart-line mr-2" aria-hidden="true"></i>
+                        SEO Optimized
+                    </span\>
             </div>
             <!-- "Try for free" button fixed -->
             <div class="mt-8">
@@ -1900,7 +1899,7 @@
             const appId = window.firebaseApp.options.appId;
 
             // Check for dummy or missing app ID
-            if (!appId || appId === "dummy-app-id" || appId.includes("YOUR_FIREBASE_APP_ID_HERE")) {
+            if (!appId || appId === "dummy-app-id" || appId.includes("YOUR_FIREBASE_API_KEY_HERE")) {
                 console.warn("Firebase App ID is dummy or missing. Cannot save search for internal use.");
                 return;
             }
