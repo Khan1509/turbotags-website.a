@@ -9,9 +9,7 @@
       "src": "package.json",
       "use": "@vercel/static-build",
       "config": {
-        "installCommand": "yarn install",
-        "buildCommand": "yarn build",
-        "outputDirectory": "dist"
+        "distDir": "dist"
       }
     }
   ],
@@ -21,7 +19,24 @@
       "dest": "/api/generate"
     },
     {
-      "handle": "filesystem"
+      "src": "/assets/(.*)",
+      "dest": "/assets/$1"
+    },
+    {
+      "src": "/blog/(.*)",
+      "dest": "/blog/$1"
+    },
+    {
+      "src": "/legal/(.*)",
+      "dest": "/legal/$1"
+    },
+    {
+      "src": "/generator/(.*)",
+      "dest": "/generator/$1"
+    },
+    {
+      "src": "/(favicon\\.svg|manifest\\.json|styles\\.css|robots\\.txt|sitemap\\.xml|.*\\.html|.*\\.txt|screenshots/.*)",
+      "dest": "/$1"
     },
     {
       "src": "/(.*)",
