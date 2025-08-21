@@ -11,14 +11,9 @@
       "config": { "distDir": "dist" }
     }
   ],
-  "rewrites": [
-    {
-      "source": "/api/(.*)",
-      "destination": "/api/$1"
-    },
-    {
-      "source": "/((?!api/|blog/|legal/|generator/|screenshots/|styles.css|manifest.json|favicon.svg|robots.txt|sitemap.xml|.*\\.html$|.*\\.txt$).*)",
-      "destination": "/index.html"
-    }
+  "routes": [
+    { "src": "/api/generate", "dest": "/api/generate" },
+    { "handle": "filesystem" },
+    { "src": "/(.*)", "dest": "/index.html" }
   ]
 }
