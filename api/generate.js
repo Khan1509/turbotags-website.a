@@ -1,3 +1,6 @@
+import fs from 'node:fs';
+import path from 'node:path';
+
 export default async function handler(req, res) {
   // Immediately set JSON content-type
   res.setHeader('Content-Type', 'application/json');
@@ -72,13 +75,28 @@ export default async function handler(req, res) {
     } else {
       // If all models fail, fall back to the local JSON file
       console.warn("All OpenRouter models failed. Falling back to local fallback.json.");
-      const fallbackResponse = await fetch('/fallback.json');
-      if (!fallbackResponse.ok) {
-        throw new Error(`Failed to load fallback.json: ${fallbackResponse.status} ${fallbackResponse.statusText}`);
+      // **FIX:** Read file from filesystem instead of fetch
+      const fallbackPath = path.resolve(process.cwd(), 'api', 'fallback.json');
+      const fallbackContent = fs.readFileSync(fallbackPath, 'utf-8');
+      const fallbackData = JSON.parse(fallbackContent);
+      
+      // A default response if the JSON is empty or malformed
+      const defaultResponse = "No content could be generated.";
+      
+      // Determine a suitable fallback based on the prompt
+      let fallbackText = defaultResponse;
+      if (prompt.toLowerCase().includes('youtube')) {
+        fallbackText = [...fallbackData.youtube.plain_tags, ...fallbackData.youtube.hashtags].join(', ');
+      } else if (prompt.toLowerCase().includes('instagram')) {
+        fallbackText = fallbackData.instagram_hashtags.join(', ');
+      } else if (prompt.toLowerCase().includes('tiktok')) {
+        fallbackText = fallbackData.tiktok_hashtags.join(', ');
+      } else {
+        fallbackText = fallbackData.youtube.plain_tags.join(', ');
       }
-      const fallbackData = await fallbackResponse.json();
+      
       return res.status(200).json({
-        text: fallbackData.defaultResponse || "No content could be generated."
+        text: fallbackText || defaultResponse
       });
     }
 
