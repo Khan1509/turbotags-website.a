@@ -12,8 +12,17 @@
     }
   ],
   "routes": [
-    { "src": "/api/generate", "dest": "/api/generate" },
-    { "handle": "filesystem" },
-    { "src": "/(.*)", "dest": "/index.html" }
+    {
+      "src": "/api/generate",
+      "methods": ["POST"],
+      "dest": "/api/generate"
+    },
+    {
+      "handle": "filesystem"
+    },
+    {
+      "src": "/.*",
+      "dest": "/index.html"
+    }
   ]
 }
