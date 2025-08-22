@@ -1,22 +1,11 @@
 {
   "version": 2,
   "builds": [
-    {
-      "src": "api/generate.js",
-      "use": "@vercel/node"
-    },
-    {
-      "src": "package.json",
-      "use": "@vercel/static-build",
-      "config": {
-        "distDir": "dist"
-      }
-    }
+    { "src": "api/generate.js", "use": "@vercel/node" },
+    { "src": "package.json", "use": "@vercel/static-build" }
   ],
-  "rewrites": [
-    {
-      "source": "/api/generate",
-      "destination": "/api/generate"
-    }
+  "routes": [
+    { "handle": "filesystem" },
+    { "src": "/(.*)", "dest": "/index.html" }
   ]
 }
