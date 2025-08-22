@@ -12,83 +12,216 @@
           colors: {
             'tt-dark-violet': '#151440',
             'tt-medium-violet': '#6366F1',
+            'tt-light-violet': '#EEF2FF',
           }
         }
       }
     }
   </script>
   <style>
+    /* Custom styles with proper CSS */
     .btn-primary {
       display: inline-flex;
       align-items: center;
       justify-content: center;
       border-radius: 0.5rem;
-      padding-left: 1.5rem;
-      padding-right: 1.5rem;
-      padding-top: 0.75rem;
-      padding-bottom: 0.75rem;
-      font-weight: bold;
+      padding: 0.75rem 1.5rem;
+      font-weight: 700;
       box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
-      transition: all 0.3s;
+      transition: all 0.3s ease;
       background-color: #151440;
       color: white;
     }
+    
     .btn-primary:hover {
       transform: translateY(-2px);
-      box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+      box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.2), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
       background-color: #6366F1;
     }
-    a {
-      color: #6366F1;
+    
+    .policy-section {
+      background: linear-gradient(to right, #f9fafb, #f3f4f6);
+      border-radius: 0.75rem;
+      padding: 1.5rem;
+      margin-bottom: 1.5rem;
+      border-left: 4px solid #6366F1;
     }
-    a:hover {
-      text-decoration: underline;
+    
+    .policy-section h2 {
+      position: relative;
+      padding-left: 1.5rem;
+    }
+    
+    .policy-section h2:before {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 8px;
+      height: 8px;
+      background-color: #6366F1;
+      border-radius: 50%;
+    }
+    
+    .back-to-top {
+      position: fixed;
+      bottom: 2rem;
+      right: 2rem;
+      background-color: #6366F1;
+      color: white;
+      width: 3rem;
+      height: 3rem;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      cursor: pointer;
+      transition: all 0.3s ease;
+      opacity: 0;
+      visibility: hidden;
+      z-index: 100;
+    }
+    
+    .back-to-top.visible {
+      opacity: 1;
+      visibility: visible;
+    }
+    
+    .back-to-top:hover {
+      background-color: #151440;
+      transform: translateY(-3px);
+    }
+    
+    /* Smooth scrolling */
+    html {
+      scroll-behavior: smooth;
     }
   </style>
 </head>
-<body class="bg-gray-50">
-  <div class="container mx-auto max-w-4xl p-8">
-    <h1 class="text-4xl font-bold text-tt-dark-violet mb-4">Privacy Policy</h1>
-    <p class="text-gray-500 mb-8">Last updated: July 11, 2025</p>
-    
-    <div class="space-y-6 text-gray-700">
-      <p>TurboTags ("we," "us," or "our") is committed to protecting your privacy. This Privacy Policy explains how we collect, use, disclose, and safeguard your information when you visit our website https://turbotags.app (the "Site"). Please read this privacy policy carefully. If you do not agree with the terms of this privacy policy, please do not access the site.</p>
-      
-      <h2 class="text-2xl font-bold text-tt-dark-violet pt-4">1. Information Collection</h2>
-      <p>We collect information from you in the following ways:</p>
-      <ul class="list-disc list-inside space-y-2 pl-4">
-        <li><strong>Voluntary Information:</strong> We collect information that you voluntarily provide to us. The primary piece of information collected is the text prompt you enter into our generator to create tags and hashtags. This information is processed in real-time to provide the service and is not stored, logged, or associated with you in any way after the generation process is complete.</li>
-        <li><strong>Analytics Data:</strong> We may use third-party service providers, such as Google Analytics, to collect standard internet log information and details of visitor behavior patterns. This is to understand aspects like the number of visitors to different parts of the site. This information is processed in a way that does not personally identify anyone.</li>
-        <li><strong>Cookies:</strong> We use cookies to manage user preferences, such as your cookie consent choice. For more details, please see our <a href="/legal/cookies.html" class="text-tt-medium-violet hover:underline">Cookie Policy</a>.</li>
-      </ul>
-
-      <h2 class="text-2xl font-bold text-tt-dark-violet pt-4">2. Use of Information</h2>
-      <p>We use the collected information for the following purposes:</p>
-      <ul class="list-disc list-inside space-y-2 pl-4">
-        <li>To operate and maintain our Site and services.</li>
-        <li>To generate tags and hashtags based on your input.</li>
-        <li>To improve our Site, services, and user experience.</li>
-        <li>To monitor and analyze usage and trends to improve your experience with the Site.</li>
-      </ul>
-
-      <h2 class="text-2xl font-bold text-tt-dark-violet pt-4">3. Data Security</h2>
-      <p>We use administrative, technical, and physical security measures to help protect your information. While we have taken reasonable steps to secure the information you provide to us, please be aware that despite our efforts, no security measures are perfect or impenetrable, and no method of data transmission can be guaranteed against any interception or other type of misuse.</p>
-
-      <h2 class="text-2xl font-bold text-tt-dark-violet pt-4">4. Third-Party Services</h2>
-      <p>Our tag generation is powered by the OpenRouter API. We send your prompt to their service for processing. We encourage you to review their privacy policy and contact them directly for responses to your questions. We are not responsible for the privacy practices of third-party services.</p>
-
-      <h2 class="text-2xl font-bold text-tt-dark-violet pt-4">5. Children's Privacy</h2>
-      <p>Our services are not intended for use by children under the age of 13. We do not knowingly collect personally identifiable information from children under 13. If we become aware that we have collected personal information from a child under 13, we will take steps to delete such information from our files.</p>
-      
-      <h2 class="text-2xl font-bold text-tt-dark-violet pt-4">6. Changes to This Policy</h2>
-      <p>We may update this Privacy Policy from time to time. The updated version will be indicated by an updated "Last updated" date. We encourage you to review this privacy policy frequently to be informed of how we are protecting your information.</p>
-
-      <h2 class="text-2xl font-bold text-tt-dark-violet pt-4">7. Contact Us</h2>
-      <p>If you have questions or comments about this Privacy Policy, please contact us at: <a href="mailto:helloturbotags@gmail.com">helloturbotags@gmail.com</a></p>
+<body class="bg-tt-light-violet min-h-screen">
+  <!-- Header -->
+  <header class="bg-tt-dark-violet text-white py-6 shadow-md">
+    <div class="container mx-auto px-6">
+      <div class="flex justify-between items-center">
+        <h1 class="text-2xl font-bold">TurboTags</h1>
+        <nav class="hidden md:block">
+          <a href="/" class="text-white hover:text-tt-medium-violet transition-colors mx-3">Home</a>
+          <a href="/features" class="text-white hover:text-tt-medium-violet transition-colors mx-3">Features</a>
+          <a href="/blog" class="text-white hover:text-tt-medium-violet transition-colors mx-3">Blog</a>
+        </nav>
+      </div>
     </div>
-    <div class="text-center mt-12">
+  </header>
+
+  <!-- Main Content -->
+  <main class="container mx-auto max-w-4xl p-6 py-10">
+    <div class="bg-white rounded-xl shadow-lg p-8">
+      <h1 class="text-4xl font-bold text-tt-dark-violet mb-2">Privacy Policy</h1>
+      <p class="text-gray-500 mb-8 border-b pb-4">Last updated: July 11, 2025</p>
+      
+      <div class="space-y-8 text-gray-700">
+        <div class="policy-section">
+          <h2 class="text-2xl font-bold text-tt-dark-violet mb-4">1. Information Collection</h2>
+          <p>TurboTags ("we," "us," or "our") is committed to protecting your privacy. This Privacy Policy explains how we collect, use, disclose, and safeguard your information when you visit our website https://turbotags.app (the "Site"). Please read this privacy policy carefully. If you do not agree with the terms of this privacy policy, please do not access the site.</p>
+          
+          <p class="mt-4">We collect information from you in the following ways:</p>
+          <ul class="list-disc list-inside space-y-2 pl-4 mt-2">
+            <li><strong>Voluntary Information:</strong> We collect information that you voluntarily provide to us. The primary piece of information collected is the text prompt you enter into our generator to create tags and hashtags. This information is processed in real-time to provide the service and is not stored, logged, or associated with you in any way after the generation process is complete.</li>
+            <li><strong>Analytics Data:</strong> We may use third-party service providers, such as Google Analytics, to collect standard internet log information and details of visitor behavior patterns. This is to understand aspects like the number of visitors to different parts of the site. This information is processed in a way that does not personally identify anyone.</li>
+            <li><strong>Cookies:</strong> We use cookies to manage user preferences, such as your cookie consent choice. For more details, please see our <a href="/legal/cookies.html" class="text-tt-medium-violet hover:underline font-medium">Cookie Policy</a>.</li>
+          </ul>
+        </div>
+
+        <div class="policy-section">
+          <h2 class="text-2xl font-bold text-tt-dark-violet mb-4">2. Use of Information</h2>
+          <p>We use the collected information for the following purposes:</p>
+          <ul class="list-disc list-inside space-y-2 pl-4 mt-2">
+            <li>To operate and maintain our Site and services.</li>
+            <li>To generate tags and hashtags based on your input.</li>
+            <li>To improve our Site, services, and user experience.</li>
+            <li>To monitor and analyze usage and trends to improve your experience with the Site.</li>
+          </ul>
+        </div>
+
+        <div class="policy-section">
+          <h2 class="text-2xl font-bold text-tt-dark-violet mb-4">3. Data Security</h2>
+          <p>We use administrative, technical, and physical security measures to help protect your information. While we have taken reasonable steps to secure the information you provide to us, please be aware that despite our efforts, no security measures are perfect or impenetrable, and no method of data transmission can be guaranteed against any interception or other type of misuse.</p>
+        </div>
+
+        <div class="policy-section">
+          <h2 class="text-2xl font-bold text-tt-dark-violet mb-4">4. Third-Party Services</h2>
+          <p>Our tag generation is powered by the OpenRouter API. We send your prompt to their service for processing. We encourage you to review their privacy policy and contact them directly for responses to your questions. We are not responsible for the privacy practices of third-party services.</p>
+        </div>
+
+        <div class="policy-section">
+          <h2 class="text-2xl font-bold text-tt-dark-violet mb-4">5. Children's Privacy</h2>
+          <p>Our services are not intended for use by children under the age of 13. We do not knowingly collect personally identifiable information from children under 13. If we become aware that we have collected personal information from a child under 13, we will take steps to delete such information from our files.</p>
+        </div>
+        
+        <div class="policy-section">
+          <h2 class="text-2xl font-bold text-tt-dark-violet mb-4">6. Changes to This Policy</h2>
+          <p>We may update this Privacy Policy from time to time. The updated version will be indicated by an updated "Last updated" date. We encourage you to review this privacy policy frequently to be informed of how we are protecting your information.</p>
+        </div>
+
+        <div class="policy-section">
+          <h2 class="text-2xl font-bold text-tt-dark-violet mb-4">7. Contact Us</h2>
+          <p>If you have questions or comments about this Privacy Policy, please contact us at: <a href="mailto:helloturbotags@gmail.com" class="text-tt-medium-violet hover:underline font-medium">helloturbotags@gmail.com</a></p>
+        </div>
+      </div>
+      
+      <div class="text-center mt-12 pt-6 border-t">
         <a href="/" class="btn-primary">Back to Home</a>
+      </div>
     </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="bg-tt-dark-violet text-white py-10 mt-12">
+    <div class="container mx-auto px-6">
+      <div class="flex flex-col md:flex-row justify-between items-center">
+        <div class="mb-6 md:mb-0">
+          <h3 class="text-xl font-bold">TurboTags</h3>
+          <p class="text-tt-light-violet mt-2">AI-Powered Tags & Hashtags Generator</p>
+        </div>
+        <div class="flex flex-col md:flex-row space-y-4 md:space-y-0 md:space-x-8 text-center md:text-left">
+          <a href="/privacy" class="text-white hover:text-tt-medium-violet transition-colors">Privacy Policy</a>
+          <a href="/terms" class="text-white hover:text-tt-medium-violet transition-colors">Terms of Service</a>
+          <a href="/contact" class="text-white hover:text-tt-medium-violet transition-colors">Contact Us</a>
+        </div>
+      </div>
+      <div class="text-center text-tt-light-violet mt-8 text-sm">
+        <p>© 2025 TurboTags. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Back to Top Button -->
+  <div id="backToTop" class="back-to-top">
+    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10l7-7m0 0l7 7m-7-7v18" />
+    </svg>
   </div>
+
+  <script>
+    // Back to top button functionality
+    const backToTopButton = document.getElementById('backToTop');
+    
+    window.addEventListener('scroll', () => {
+      if (window.pageYOffset > 300) {
+        backToTopButton.classList.add('visible');
+      } else {
+        backToTopButton.classList.remove('visible');
+      }
+    });
+    
+    backToTopButton.addEventListener('click', () => {
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+      });
+    });
+  </script>
 </body>
 </html>
