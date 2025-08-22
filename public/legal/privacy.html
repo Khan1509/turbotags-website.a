@@ -17,18 +17,39 @@
       }
     }
   </script>
-  <style type="text/tailwindcss">
-    @layer components {
-      .btn-primary {
-        @apply inline-flex items-center justify-center rounded-lg px-6 py-3 font-bold shadow-md transition-all duration-300 hover:-translate-y-0.5 hover:shadow-lg bg-tt-dark-violet text-white hover:bg-tt-medium-violet;
-      }
+  <style>
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 0.5rem;
+      padding-left: 1.5rem;
+      padding-right: 1.5rem;
+      padding-top: 0.75rem;
+      padding-bottom: 0.75rem;
+      font-weight: bold;
+      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+      transition: all 0.3s;
+      background-color: #151440;
+      color: white;
+    }
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+      background-color: #6366F1;
+    }
+    a {
+      color: #6366F1;
+    }
+    a:hover {
+      text-decoration: underline;
     }
   </style>
 </head>
 <body class="bg-gray-50">
   <div class="container mx-auto max-w-4xl p-8">
     <h1 class="text-4xl font-bold text-tt-dark-violet mb-4">Privacy Policy</h1>
-    <p class="text-gray-500 mb-8">Last updated: july 11, 2025</p>
+    <p class="text-gray-500 mb-8">Last updated: July 11, 2025</p>
     
     <div class="space-y-6 text-gray-700">
       <p>TurboTags ("we," "us," or "our") is committed to protecting your privacy. This Privacy Policy explains how we collect, use, disclose, and safeguard your information when you visit our website https://turbotags.app (the "Site"). Please read this privacy policy carefully. If you do not agree with the terms of this privacy policy, please do not access the site.</p>
@@ -63,7 +84,7 @@
       <p>We may update this Privacy Policy from time to time. The updated version will be indicated by an updated "Last updated" date. We encourage you to review this privacy policy frequently to be informed of how we are protecting your information.</p>
 
       <h2 class="text-2xl font-bold text-tt-dark-violet pt-4">7. Contact Us</h2>
-      <p>If you have questions or comments about this Privacy Policy, please contact us at: <a href="mailto:helloturbotags@gmail.com" class="text-tt-medium-violet hover:underline">helloturbotags@gmail.com</a></p>
+      <p>If you have questions or comments about this Privacy Policy, please contact us at: <a href="mailto:helloturbotags@gmail.com">helloturbotags@gmail.com</a></p>
     </div>
     <div class="text-center mt-12">
         <a href="/" class="btn-primary">Back to Home</a>
