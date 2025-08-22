@@ -93,9 +93,9 @@ const TagGenerator = () => {
     try {
       let prompt;
       if (activeTab === 'youtube') {
-        prompt = `Generate two lists for a YouTube video about "${state.topic}". First, a list of 15 to 20 SEO-friendly tags (comma-separated phrases, max 25). Second, a list of 15 to 20 trending hashtags (comma-separated, starting with #, max 25). Format the response as: TAGS:[tag1,tag2,...]HASHTAGS:[#hashtag1,#hashtag2,...]`;
+        prompt = `Generate two lists for a YouTube video about "${state.topic}". First, a list of 15 to 20 SEO-friendly tags. Second, a list of 15 to 20 trending hashtags. The total number of tags and hashtags combined should not exceed 25. IMPORTANT: You MUST format the response exactly as follows, with comma-separated values: TAGS:[tag one,tag two,another tag]HASHTAGS:[#hashtag1,#hashtag2,#hashtag3]`;
       } else {
-        prompt = `Generate a list of 15 to 20 concise, relevant, and trending hashtags for a ${activeTab} post about "${state.topic}" (max 25). Provide them as a comma-separated list, each starting with '#'.`;
+        prompt = `Generate a list of 15 to 20 concise, relevant, and trending hashtags for a ${activeTab} post about "${state.topic}" (max 25). IMPORTANT: You MUST provide them as a single comma-separated list, with each item starting with '#'. Example: #hashtag1,#hashtag2,#hashtag3`;
       }
 
       const response = await fetch('/api/generate', {
@@ -113,17 +113,26 @@ const TagGenerator = () => {
       let hashtags = [];
 
       if (activeTab === 'youtube') {
-        const tagsMatch = resultText.match(/TAGS:\[(.*?)\]/i);
-        const hashtagsMatch = resultText.match(/HASHTAGS:\[(.*?)\]/i);
+        const tagsMatch = resultText.match(/TAGS:\[(.*?)\]/is);
         tags = tagsMatch ? tagsMatch[1].split(',').map(t => t.trim()).filter(Boolean) : [];
-        hashtags = hashtagsMatch ? hashtagsMatch[1].split(',').map(t => t.trim()).filter(Boolean) : [];
-        if (tags.length === 0 && hashtags.length === 0) { // Fallback parsing
+
+        const hashtagsBlockMatch = resultText.match(/HASHTAGS:\[(.*?)\]/is);
+        if (hashtagsBlockMatch && hashtagsBlockMatch[1]) {
+            const foundHashtags = hashtagsBlockMatch[1].match(/#[\w_]+/g);
+            hashtags = foundHashtags ? foundHashtags.map(h => h.trim()).filter(Boolean) : [];
+        }
+        
+        if (tags.length === 0 && hashtags.length === 0) {
             const parts = resultText.split(/HASHTAGS:/i);
-            tags = parts[0].replace(/TAGS:/i, '').split(',').map(t => t.trim()).filter(Boolean);
-            hashtags = parts[1] ? parts[1].split(',').map(t => t.trim()).filter(Boolean) : [];
+            tags = parts[0].replace(/TAGS:/i, '').replace(/[\[\]]/g, '').split(',').map(t => t.trim()).filter(Boolean);
+            if (parts[1]) {
+                const foundHashtags = parts[1].match(/#[\w_]+/g);
+                hashtags = foundHashtags ? foundHashtags.map(h => h.trim()).filter(Boolean) : [];
+            }
         }
       } else {
-        hashtags = resultText.split(',').map(t => t.trim()).filter(Boolean);
+        const foundHashtags = resultText.match(/#[\w_]+/g);
+        hashtags = foundHashtags ? foundHashtags.map(h => h.trim()).filter(Boolean) : [];
       }
 
       const tagsWithTrend = tags.map(tag => ({ text: tag, trend: getTrendPercentage() }));
