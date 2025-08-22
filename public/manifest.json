@@ -4,7 +4,7 @@
   "description": "TurboTags: Free AI-powered hashtag and tag generator for YouTube, Instagram, TikTok. Create viral content with SEO-optimized tags. Boost reach, grow followers, increase engagement worldwide.",
   "start_url": "/",
   "display": "standalone",
-  "background_color": "#ffffff",
+  "background_color": "#151440",
   "theme_color": "#151440",
   "orientation": "portrait-primary",
   "scope": "/",
@@ -12,11 +12,9 @@
   "dir": "ltr",
   "categories": ["business", "productivity", "social", "tools", "seo"],
   "icons": [
-    {
-      "src": "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⚡</text></svg>",
-      "sizes": "any",
-      "type": "image/svg+xml"
-    }
+    { "src": "/icon-192x192.png", "sizes": "192x192", "type": "image/png", "purpose": "any maskable" },
+    { "src": "/icon-512x512.png", "sizes": "512x512", "type": "image/png", "purpose": "any maskable" },
+    { "src": "/favicon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any" }
   ],
   "screenshots": [
     {
@@ -40,36 +38,21 @@
       "short_name": "YouTube",
       "description": "Generate YouTube tags and hashtags with TurboTags",
       "url": "/#youtube",
-      "icons": [
-        {
-          "src": "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📺</text></svg>",
-          "sizes": "96x96"
-        }
-      ]
+      "icons": [{ "src": "/youtube-shortcut.svg", "sizes": "96x96" }]
     },
     {
       "name": "Instagram Hashtags",
       "short_name": "Instagram",
       "description": "Generate Instagram hashtags with TurboTags",
       "url": "/#instagram",
-      "icons": [
-        {
-          "src": "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📷</text></svg>",
-          "sizes": "96x96"
-        }
-      ]
+      "icons": [{ "src": "/instagram-shortcut.svg", "sizes": "96x96" }]
     },
     {
       "name": "TikTok Hashtags",
       "short_name": "TikTok",
       "description": "Generate TikTok hashtags with TurboTags",
       "url": "/#tiktok",
-      "icons": [
-        {
-          "src": "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎵</text></svg>",
-          "sizes": "96x96"
-        }
-      ]
+      "icons": [{ "src": "/tiktok-shortcut.svg", "sizes": "96x96" }]
     }
   ]
 }
