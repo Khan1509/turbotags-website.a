@@ -2,17 +2,17 @@ import fs from 'node:fs';
 import path from 'node:path';
 
 export default async function handler(req, res) {
-  // Set CORS headers to allow requests from any origin
+  // Set CORS headers
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
   res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
   
-  // Handle preflight requests (OPTIONS)
+  // Handle preflight requests
   if (req.method === 'OPTIONS') {
     return res.status(200).end();
   }
 
-  // Immediately set JSON content-type
+  // Set JSON content-type
   res.setHeader('Content-Type', 'application/json');
 
   // Block non-POST requests
@@ -24,7 +24,14 @@ export default async function handler(req, res) {
   }
 
   try {
-    const { prompt } = req.body;
+    let body = {};
+    try {
+      body = JSON.parse(req.body);
+    } catch (e) {
+      body = req.body;
+    }
+    
+    const { prompt } = body;
 
     if (!prompt) {
       return res.status(400).json({
@@ -33,7 +40,7 @@ export default async function handler(req, res) {
       });
     }
 
-    // Define the list of models to try in order of preference
+    // Define the list of models to try
     const modelsToTry = [
       "mistralai/mistral-7b-instruct",
       "meta-llama/llama-3-8b-instruct",
@@ -44,6 +51,7 @@ export default async function handler(req, res) {
     let generatedText = null;
     let lastError = null;
 
+    // Try each model in sequence
     for (const model of modelsToTry) {
       try {
         console.log(`Attempting to generate content with model: ${model}`);
@@ -60,7 +68,7 @@ export default async function handler(req, res) {
         });
 
         if (!response.ok) {
-          const errorData = await response.text(); // Use .text() for better error details
+          const errorData = await response.text();
           throw new Error(`API error with ${model}: ${response.status} ${response.statusText} - ${errorData}`);
         }
 
@@ -74,7 +82,7 @@ export default async function handler(req, res) {
         }
       } catch (error) {
         console.error(`Error with model ${model}:`, error.message);
-        lastError = error; // Store the last error
+        lastError = error;
       }
     }
 
@@ -83,28 +91,36 @@ export default async function handler(req, res) {
         text: generatedText
       });
     } else {
-      // If all models fail, fall back to the local JSON file
+      // Fall back to the local JSON file
       console.warn("All OpenRouter models failed. Falling back to local fallback.json.");
       const fallbackPath = path.resolve(process.cwd(), 'api', 'fallback.json');
-      const fallbackContent = fs.readFileSync(fallbackPath, 'utf-8');
-      const fallbackData = JSON.parse(fallbackContent);
       
-      const defaultResponse = "No content could be generated.";
-      
-      let fallbackText = defaultResponse;
-      if (prompt.toLowerCase().includes('youtube')) {
-        fallbackText = [...fallbackData.youtube.plain_tags, ...fallbackData.youtube.hashtags].join(', ');
-      } else if (prompt.toLowerCase().includes('instagram')) {
-        fallbackText = fallbackData.instagram_hashtags.join(', ');
-      } else if (prompt.toLowerCase().includes('tiktok')) {
-        fallbackText = fallbackData.tiktok_hashtags.join(', ');
-      } else {
-        fallbackText = fallbackData.youtube.plain_tags.join(', ');
+      try {
+        const fallbackContent = fs.readFileSync(fallbackPath, 'utf-8');
+        const fallbackData = JSON.parse(fallbackContent);
+        
+        const defaultResponse = "No content could be generated.";
+        let fallbackText = defaultResponse;
+        
+        if (prompt.toLowerCase().includes('youtube')) {
+          fallbackText = [...fallbackData.youtube.plain_tags, ...fallbackData.youtube.hashtags].join(', ');
+        } else if (prompt.toLowerCase().includes('instagram')) {
+          fallbackText = fallbackData.instagram_hashtags.join(', ');
+        } else if (prompt.toLowerCase().includes('tiktok')) {
+          fallbackText = fallbackData.tiktok_hashtags.join(', ');
+        } else {
+          fallbackText = fallbackData.youtube.plain_tags.join(', ');
+        }
+        
+        return res.status(200).json({
+          text: fallbackText || defaultResponse
+        });
+      } catch (error) {
+        console.error('Error reading fallback file:', error);
+        return res.status(200).json({
+          text: "Popular tags: viral, trending, popular, top, best, amazing, incredible"
+        });
       }
-      
-      return res.status(200).json({
-        text: fallbackText || defaultResponse
-      });
     }
 
   } catch (error) {
