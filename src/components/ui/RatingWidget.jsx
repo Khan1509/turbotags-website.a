@@ -1,0 +1,97 @@
+import React, { useState } from 'react';
+import { Star } from 'lucide-react';
+import { motion, AnimatePresence } from 'framer-motion';
+
+// A simple custom hook to use localStorage
+const useLocalStorage = (key, initialValue) => {
+  const [storedValue, setStoredValue] = useState(() => {
+    try {
+      const item = window.localStorage.getItem(key);
+      return item ? JSON.parse(item) : initialValue;
+    } catch (error) {
+      console.error(error);
+      return initialValue;
+    }
+  });
+
+  const setValue = value => {
+    try {
+      const valueToStore = value instanceof Function ? value(storedValue) : value;
+      setStoredValue(valueToStore);
+      window.localStorage.setItem(key, JSON.stringify(valueToStore));
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  return [storedValue, setValue];
+};
+
+
+const RatingWidget = () => {
+  const [userRating, setUserRating] = useLocalStorage('userWebsiteRating', 0);
+  const [hoverRating, setHoverRating] = useState(0);
+  const [hasRated, setHasRated] = useState(userRating > 0);
+
+  const handleRating = (rate) => {
+    if (!hasRated) {
+      setUserRating(rate);
+      setHasRated(true);
+    }
+  };
+
+  const stars = Array(5).fill(0);
+
+  return (
+    <div className="text-center">
+      <div className="flex flex-col items-center">
+        <h3 className="font-semibold text-gray-700 mb-2">
+          {hasRated ? "Thanks for your feedback!" : "Enjoying TurboTags? Rate us!"}
+        </h3>
+        <div className="flex items-center mb-2">
+          {stars.map((_, index) => {
+            const ratingValue = index + 1;
+            return (
+              <motion.div
+                key={index}
+                whileHover={{ scale: hasRated ? 1 : 1.2 }}
+                whileTap={{ scale: hasRated ? 1 : 0.9 }}
+                onMouseEnter={() => !hasRated && setHoverRating(ratingValue)}
+                onMouseLeave={() => !hasRated && setHoverRating(0)}
+                onClick={() => handleRating(ratingValue)}
+                className={`cursor-${hasRated ? 'default' : 'pointer'}`}
+                aria-label={`Rate ${ratingValue} stars`}
+              >
+                <Star
+                  className={`h-7 w-7 transition-colors ${
+                    ratingValue <= (hoverRating || userRating)
+                      ? 'text-yellow-400'
+                      : 'text-gray-300'
+                  }`}
+                  fill={ratingValue <= (hoverRating || userRating) ? 'currentColor' : 'none'}
+                />
+              </motion.div>
+            );
+          })}
+        </div>
+        {hasRated && <p className="text-sm text-gray-500">You rated {userRating} out of 5 stars.</p>}
+      </div>
+      <AnimatePresence>
+       {!hasRated && (
+        <motion.blockquote 
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          transition={{ duration: 0.5 }}
+          className="text-gray-600 italic max-w-3xl mx-auto mt-4"
+        >
+          "TurboTags has revolutionized my content process. The AI tags are spot-on and have significantly increased my reach."
+          <cite className="not-italic font-semibold block mt-1">- Sarah M., Content Creator</cite>
+        </motion.blockquote>
+       )}
+      </AnimatePresence>
+    </div>
+  );
+};
+
+export default RatingWidget;

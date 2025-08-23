@@ -9,8 +9,8 @@ const Demo = () => {
       
       <div className="bg-gray-100 rounded-xl p-4 sm:p-8 text-center">
         <div className="max-w-4xl mx-auto">
-          <a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ" target="_blank" rel="noopener noreferrer" className="aspect-video bg-gray-300 rounded-lg flex items-center justify-center cursor-pointer group relative overflow-hidden">
-            <img src="https://img-wrapper.vercel.app/image?url=https://placehold.co/1280x720/151440/ffffff?text=Watch+Demo" alt="TurboTags Demo Video Thumbnail" className="absolute w-full h-full object-cover"/>
+          <a href="https://www.youtube.com/watch?v=ysz5S6PUM-U" target="_blank" rel="noopener noreferrer" className="aspect-video bg-gray-300 rounded-lg flex items-center justify-center cursor-pointer group relative overflow-hidden">
+            <img src="https://img-wrapper.vercel.app/image?url=https://images.unsplash.com/photo-1611162617213-6d22e525732d?w=1280&h=720&fit=crop" alt="TurboTags Demo Video Thumbnail" className="absolute w-full h-full object-cover"/>
             <div className="absolute w-full h-full bg-black/30 group-hover:bg-black/50 transition-colors flex items-center justify-center">
               <PlayCircle className="h-16 w-16 sm:h-24 sm:w-24 text-white/80 group-hover:text-white transition-colors" />
             </div>

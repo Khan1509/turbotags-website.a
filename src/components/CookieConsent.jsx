@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 
 const useLocalStorage = (key, initialValue) => {
@@ -64,7 +65,7 @@ const CookieConsent = () => {
           <div className="container mx-auto flex flex-col sm:flex-row items-center justify-between gap-4">
             <p className="text-sm text-center sm:text-left">
               🍪 We use cookies to enhance your experience and analyze our traffic.
-              <a href="/legal/cookies.html" className="underline hover:text-gray-300 ml-1">Learn more</a>.
+              <Link to="/legal/cookies" className="underline hover:text-gray-300 ml-1">Learn more</Link>.
             </p>
             <div className="flex space-x-4 flex-shrink-0">
               <button onClick={handleAccept} className="bg-tt-dark-violet text-white px-4 py-2 rounded-lg text-sm hover:bg-tt-medium-violet transition">

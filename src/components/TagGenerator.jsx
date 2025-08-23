@@ -1,8 +1,9 @@
-import React, { useState, useReducer } from 'react';
-import { Youtube, Instagram, Facebook, Tags, RotateCw, Copy, Loader2, TrendingUp } from 'lucide-react';
+import React, { useState, useReducer, useRef, useEffect } from 'react';
+import { Youtube, Instagram, Facebook, Tags, RotateCw, Copy, Loader2, ThumbsUp, ThumbsDown } from 'lucide-react';
 import TikTokIcon from './icons/TikTokIcon';
 import MessageBox from './ui/MessageBox';
 import { motion, AnimatePresence } from 'framer-motion';
+import { generateContent } from '../services/apiService';
 
 const TABS = [
   { id: 'youtube', name: 'YouTube', icon: Youtube, description: 'Tags & #Tags' },
@@ -36,20 +37,34 @@ function reducer(state, action) {
       return { ...initialState, topic: state.topic, message: { text: 'Generator reset!', type: 'info' } };
     case 'CLEAR_MESSAGE':
       return { ...state, message: null, error: null };
+    case 'SET_FEEDBACK': {
+      const { listType, text, feedback } = action.payload;
+      const listToUpdate = state[listType];
+      const updatedList = listToUpdate.map(item => 
+        item.text === text ? { ...item, feedback } : item
+      );
+      return { ...state, [listType]: updatedList };
+    }
     default:
       throw new Error();
   }
 }
 
-const TagItem = React.memo(({ text, trendPercentage, onCopy }) => {
+const TagItem = React.memo(({ item, onCopy, onFeedback }) => {
   const [copied, setCopied] = useState(false);
 
   const handleCopy = () => {
-    navigator.clipboard.writeText(text);
+    navigator.clipboard.writeText(item.text);
     setCopied(true);
     onCopy();
     setTimeout(() => setCopied(false), 2000);
   };
+  
+  const handleFeedback = (feedbackType) => {
+    // If user clicks the same feedback button again, reset it to 'none'
+    const newFeedback = item.feedback === feedbackType ? 'none' : feedbackType;
+    onFeedback(item.text, newFeedback);
+  }
 
   return (
     <motion.div
@@ -57,14 +72,17 @@ const TagItem = React.memo(({ text, trendPercentage, onCopy }) => {
       initial={{ opacity: 0, y: 10 }}
       animate={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0 }}
-      className="tag-item"
+      className="flex flex-col sm:flex-row items-start sm:items-center justify-between rounded-md bg-white p-3 shadow-sm transition-all duration-200 hover:shadow-md"
     >
-      <span className="text-gray-800 text-sm sm:text-base font-medium flex-grow min-w-0 break-all mr-2">{text}</span>
-      <div className="flex items-center flex-shrink-0">
-        <span className="text-xs font-bold text-green-600 bg-green-100 px-2 py-1 rounded-md flex items-center mr-2">
-          <TrendingUp className="h-3 w-3 mr-1" /> {trendPercentage}%
-        </span>
-        <button onClick={handleCopy} className="copy-btn bg-indigo-100 text-indigo-700 px-3 py-1 rounded-md text-sm font-semibold hover:bg-indigo-200 transition duration-200 ease-in-out">
+      <span className="text-gray-800 text-sm sm:text-base font-medium flex-grow min-w-0 break-all mr-2">{item.text}</span>
+      <div className="flex items-center self-end sm:self-center mt-2 sm:mt-0 flex-shrink-0">
+        <button onClick={() => handleFeedback('liked')} className={`p-1 rounded-md transition-colors ${item.feedback === 'liked' ? 'bg-green-100 text-green-600' : 'text-gray-400 hover:bg-gray-100'}`} aria-label="Good tag">
+          <ThumbsUp className="h-4 w-4" />
+        </button>
+        <button onClick={() => handleFeedback('disliked')} className={`p-1 rounded-md transition-colors ml-1 ${item.feedback === 'disliked' ? 'bg-red-100 text-red-600' : 'text-gray-400 hover:bg-gray-100'}`} aria-label="Bad tag">
+          <ThumbsDown className="h-4 w-4" />
+        </button>
+        <button onClick={handleCopy} className="copy-btn bg-indigo-100 text-indigo-700 px-3 py-1 rounded-md text-sm font-semibold hover:bg-indigo-200 transition duration-200 ease-in-out ml-3">
           {copied ? 'Copied!' : 'Copy'}
         </button>
       </div>
@@ -76,12 +94,23 @@ const TagItem = React.memo(({ text, trendPercentage, onCopy }) => {
 const TagGenerator = () => {
   const [activeTab, setActiveTab] = useState('youtube');
   const [state, dispatch] = useReducer(reducer, initialState);
+  const textareaRef = useRef(null);
+
+  useEffect(() => {
+    const textarea = textareaRef.current;
+    if (textarea) {
+      textarea.style.height = 'auto';
+      textarea.style.height = `${textarea.scrollHeight}px`;
+    }
+  }, [state.topic]);
 
   const handleMessage = (text, type) => {
     dispatch({ type: 'SET_MESSAGE', payload: { text, type } });
   };
 
-  const getTrendPercentage = () => Math.floor(Math.random() * (99 - 70 + 1)) + 70;
+  const handleFeedback = (listType, text, feedback) => {
+    dispatch({ type: 'SET_FEEDBACK', payload: { listType, text, feedback } });
+  };
 
   const handleGenerate = async () => {
     if (!state.topic.trim()) {
@@ -98,16 +127,7 @@ const TagGenerator = () => {
         prompt = `Generate a list of 15 to 20 concise, relevant, and trending hashtags for a ${activeTab} post about "${state.topic}" (max 25). IMPORTANT: You MUST provide them as a single comma-separated list, with each item starting with '#'. Example: #hashtag1,#hashtag2,#hashtag3`;
       }
 
-      const response = await fetch('/api/generate', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ prompt }),
-      });
-
-      if (!response.ok) throw new Error('Network response was not ok.');
-      
-      const data = await response.json();
-      const resultText = data.text;
+      const resultText = await generateContent(prompt);
 
       let tags = [];
       let hashtags = [];
@@ -135,10 +155,10 @@ const TagGenerator = () => {
         hashtags = foundHashtags ? foundHashtags.map(h => h.trim()).filter(Boolean) : [];
       }
 
-      const tagsWithTrend = tags.map(tag => ({ text: tag, trend: getTrendPercentage() }));
-      const hashtagsWithTrend = hashtags.map(tag => ({ text: tag, trend: getTrendPercentage() }));
+      const tagsWithFeedback = tags.map(tag => ({ text: tag, feedback: 'none' }));
+      const hashtagsWithFeedback = hashtags.map(tag => ({ text: tag, feedback: 'none' }));
 
-      dispatch({ type: 'GENERATION_SUCCESS', payload: { tags: tagsWithTrend, hashtags: hashtagsWithTrend } });
+      dispatch({ type: 'GENERATION_SUCCESS', payload: { tags: tagsWithFeedback, hashtags: hashtagsWithFeedback } });
       handleMessage('Content generated successfully!', 'success');
 
     } catch (error) {
@@ -191,10 +211,12 @@ const TagGenerator = () => {
         </label>
         <textarea
           id="topicInput"
+          ref={textareaRef}
+          rows={3}
           value={state.topic}
           onChange={(e) => dispatch({ type: 'SET_TOPIC', payload: e.target.value })}
           placeholder="e.g., 'Video about making homemade pizza. Key points: dough recipe, sauce, toppings, baking tips.'"
-          className="w-full p-4 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-tt-dark-violet text-base h-32"
+          className="w-full p-4 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-tt-dark-violet text-base min-h-[8rem] resize-none overflow-y-hidden"
         />
       </div>
 
@@ -222,7 +244,7 @@ const TagGenerator = () => {
                   <div>
                     <h3 className="text-xl font-bold text-gray-800 mb-4 text-center">Tags ({state.tags.length})</h3>
                     <div className="min-h-[100px] border border-gray-200 rounded-lg p-2 sm:p-4 bg-white flex flex-col space-y-2">
-                      {state.tags.map((tag, i) => <TagItem key={`tag-${i}`} text={tag.text} trendPercentage={tag.trend} onCopy={() => handleMessage('Tag copied!', 'success')} />)}
+                      {state.tags.map((item, i) => <TagItem key={`tag-${i}`} item={item} onCopy={() => handleMessage('Tag copied!', 'success')} onFeedback={(text, feedback) => handleFeedback('tags', text, feedback)} />)}
                     </div>
                     <div className="mt-4 text-center">
                       <button onClick={() => copyAll('tags')} className="btn-primary py-2 px-4 text-sm"><Copy className="mr-2 h-4 w-4" /> Copy All Tags</button>
@@ -233,7 +255,7 @@ const TagGenerator = () => {
                   <div>
                     <h3 className="text-xl font-bold text-gray-800 mb-4 text-center">#Tags ({state.hashtags.length})</h3>
                     <div className="min-h-[100px] border border-gray-200 rounded-lg p-2 sm:p-4 bg-white flex flex-col space-y-2">
-                      {state.hashtags.map((tag, i) => <TagItem key={`htag-${i}`} text={tag.text} trendPercentage={tag.trend} onCopy={() => handleMessage('Hashtag copied!', 'success')} />)}
+                      {state.hashtags.map((item, i) => <TagItem key={`htag-${i}`} item={item} onCopy={() => handleMessage('Hashtag copied!', 'success')} onFeedback={(text, feedback) => handleFeedback('hashtags', text, feedback)} />)}
                     </div>
                     <div className="mt-4 text-center">
                       <button onClick={() => copyAll('hashtags')} className="btn-primary py-2 px-4 text-sm"><Copy className="mr-2 h-4 w-4" /> Copy All #Tags</button>
@@ -246,7 +268,7 @@ const TagGenerator = () => {
                 <div>
                   <h3 className="text-xl font-bold text-gray-800 mb-4 text-center">#Tags ({state.hashtags.length})</h3>
                   <div className="min-h-[100px] border border-gray-200 rounded-lg p-2 sm:p-4 bg-white flex flex-col space-y-2">
-                    {state.hashtags.map((tag, i) => <TagItem key={`htag-${i}`} text={tag.text} trendPercentage={tag.trend} onCopy={() => handleMessage('Hashtag copied!', 'success')} />)}
+                    {state.hashtags.map((item, i) => <TagItem key={`htag-${i}`} item={item} onCopy={() => handleMessage('Hashtag copied!', 'success')} onFeedback={(text, feedback) => handleFeedback('hashtags', text, feedback)} />)}
                   </div>
                   <div className="mt-4 text-center">
                     <button onClick={() => copyAll('hashtags')} className="btn-primary py-2 px-4 text-sm"><Copy className="mr-2 h-4 w-4" /> Copy All #Tags</button>
