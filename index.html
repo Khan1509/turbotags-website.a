@@ -22,8 +22,13 @@
     <meta name="author" content="TurboTags">
     <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
     <meta name="language" content="en-US, en-GB, en-CA, en-AU, en-IN">
+    
+    <!-- Geo Tags for SEO -->
+    <meta name="geo.position" content="global;global">
     <meta name="geo.region" content="US, GB, CA, AU, IN, DE, FR, ES, IT, BR, JP, KR, CN">
     <meta name="geo.placename" content="Global">
+    <meta name="ICBM" content="global, global">
+    
     <meta name="revisit-after" content="3 days">
     <meta name="distribution" content="global">
     <meta name="audience" content="all">
@@ -74,7 +79,7 @@
     <meta property="og:image" content="https://turbotags.app/screenshots/desktop.png">
     <meta property="og:image:alt" content="A preview of the TurboTags AI generator interface showing tag generation for YouTube.">
     <meta property="og:locale" content="en_US">
-
+    <meta property="og:site_name" content="TurboTags">
 
     <!-- Twitter -->
     <meta name="twitter:card" content="summary_large_image">
@@ -83,7 +88,7 @@
     <meta name="twitter:description" content="The #1 FREE AI-powered tag and hashtag generator for YouTube, Instagram, & TikTok. Get SEO-optimized tags to boost views, grow followers, and go viral worldwide.">
     <meta name="twitter:image" content="https://turbotags.app/screenshots/desktop.png">
     <meta name="twitter:image:alt" content="A preview of the TurboTags AI generator interface showing tag generation for YouTube.">
-
+    <meta name="twitter:site" content="@TurboTagsApp">
 
     <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-YXQPT1LPT8"></script>
@@ -94,7 +99,7 @@
       gtag('config', 'G-YXQPT1LPT8');
     </script>
 
-    <!-- Schema.org JSON-LD -->
+    <!-- Enhanced Schema.org JSON-LD -->
     <script type="application/ld+json">
     {
         "@context": "https://schema.org",
@@ -113,12 +118,115 @@
             "@type": "AggregateRating",
             "ratingValue": "4.9",
             "ratingCount": "50000"
+        },
+        "areaServed": "Worldwide",
+        "availableLanguage": ["English"],
+        "creator": {
+            "@type": "Organization",
+            "name": "TurboTags",
+            "url": "https://turbotags.app"
         }
     }
     </script>
+
+    <!-- Firebase App Check (optional but recommended for security) -->
+    <script src="https://www.gstatic.com/firebasejs/11.6.1/firebase-app-check.js"></script>
   </head>
   <body class="bg-gray-50">
     <div id="root"></div>
     <script type="module" src="/src/main.jsx"></script>
+
+    <!-- Firebase Initialization -->
+    <script type="module">
+      import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
+      import { getAuth, signInAnonymously, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
+      import { getFirestore, collection, addDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+      import { initializeAppCheck, ReCaptchaV3Provider } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app-check.js";
+
+      // Your web app's Firebase configuration
+      const firebaseConfig = {
+        apiKey: "AIzaSyCdQdG1cqcmUDwSSUlFVrP9arOV3qvdCpE",
+        authDomain: "turbotags-b4ca1.firebaseapp.com",
+        projectId: "turbotags-b4ca1",
+        storageBucket: "turbotags-b4ca1.firebasestorage.app",
+        messagingSenderId: "766845880079",
+        appId: "1:766845880079:web:6de73355da50bf0531607a",
+        measurementId: "G-MP18L879VZ"
+      };
+
+      // Initialize Firebase
+      const app = initializeApp(firebaseConfig);
+      const auth = getAuth(app);
+      const db = getFirestore(app);
+
+      // Initialize App Check with reCAPTCHA
+      if (typeof self !== 'undefined' && self.document) {
+        try {
+          const appCheck = initializeAppCheck(app, {
+            provider: new ReCaptchaV3Provider('6LdC5sYqAAAAALk1f9fQxQZ8XxXxXxXxXxXxXxXx'), // Replace with your actual reCAPTCHA key
+            isTokenAutoRefreshEnabled: true
+          });
+        } catch (error) {
+          console.log('App Check initialization skipped (not in browser environment)');
+        }
+      }
+
+      // Global Firebase instance for React components to use
+      window.firebaseApp = app;
+      window.firebaseAuth = auth;
+      window.firebaseDb = db;
+      window.firebaseHelpers = {
+        collection,
+        addDoc,
+        serverTimestamp,
+        signInAnonymously: () => signInAnonymously(auth)
+      };
+
+      // Sign in anonymously and handle auth state
+      onAuthStateChanged(auth, (user) => {
+        if (user) {
+          console.log('User signed in anonymously:', user.uid);
+          window.userId = user.uid;
+        } else {
+          signInAnonymously(auth)
+            .then((userCredential) => {
+              window.userId = userCredential.user.uid;
+              console.log('Anonymous sign-in successful:', window.userId);
+            })
+            .catch((error) => {
+              console.error('Anonymous sign-in failed:', error);
+              // Fallback: generate random user ID
+              window.userId = 'guest_' + Math.random().toString(36).substr(2, 9);
+            });
+        }
+      });
+
+      // Function to save search history (same as old functionality)
+      window.saveSearchHistory = async (query, platform, tags, hashtags) => {
+        try {
+          if (!window.userId) {
+            console.warn('User not authenticated, skipping search save');
+            return;
+          }
+
+          await addDoc(collection(db, "searches"), {
+            userId: window.userId,
+            query: query,
+            platform: platform,
+            tags: tags,
+            hashtags: hashtags,
+            timestamp: serverTimestamp(),
+            userAgent: navigator.userAgent,
+            language: navigator.language
+          });
+          
+          console.log('Search saved to Firebase');
+        } catch (error) {
+          console.error('Error saving search:', error);
+        }
+      };
+
+      console.log('Firebase initialized successfully');
+    </script>
   </body>
 </html>
