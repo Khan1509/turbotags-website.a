@@ -44,6 +44,25 @@ export default async function handler(req, res) {
     for (const model of modelsToTry) {
       try {
         console.log(`Attempting to generate content with model: ${model}`);
+
+        // Enhanced prompt for better tag generation
+        const enhancedPrompt = `${prompt}
+
+STRICT REQUIREMENTS:
+- Generate EXACTLY 15-20 items per category (minimum 15, maximum 20)
+- For YouTube: Provide both TAGS (plain text) and HASHTAGS (with # symbol)
+- For other platforms: Provide only HASHTAGS (with # symbol)
+- Use the specified language: ${language}
+- Target region: ${region}
+- Platform: ${platform}
+- Content format: ${options.contentFormat || 'general'}
+
+FORMAT REQUIREMENTS:
+- YouTube: TAGS:[tag1,tag2,tag3]HASHTAGS:[#hashtag1,#hashtag2,#hashtag3]
+- Other platforms: #hashtag1,#hashtag2,#hashtag3
+- NO extra text, explanations, or formatting
+- Count must be between 15-20 items per category`;
+
         const response = await fetch("https://openrouter.ai/api/v1/chat/completions", {
           method: 'POST',
           headers: {
@@ -52,7 +71,12 @@ export default async function handler(req, res) {
           },
           body: JSON.stringify({
             model: model,
-            messages: [{ role: "user", content: prompt }]
+            messages: [{
+              role: "user",
+              content: enhancedPrompt
+            }],
+            temperature: 0.7,
+            max_tokens: 1000
           })
         });
 
