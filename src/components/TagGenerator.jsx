@@ -324,7 +324,7 @@ IMPORTANT: Provide as comma-separated list with # prefix. Example: #hashtag1,#ha
       </AnimatePresence>
 
       <h2 className="text-3xl font-bold text-tt-dark-violet mb-2 text-center">AI-Powered Tag Generator</h2>
-      <p className="text-center text-gray-600 mb-8">Generate hyper-targeted tags and hashtags optimized for your specific content format and region.</p>
+      <p className="text-center text-gray-600 mb-8">Generate hyper-targeted tags and hashtags optimized for your specific content format, region, and language.</p>
 
       <div className="flex border-b border-gray-200 mb-6 bg-gray-50 rounded-t-lg overflow-hidden">
         {TABS.map(tab => (
