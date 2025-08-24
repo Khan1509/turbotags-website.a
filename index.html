@@ -7,22 +7,115 @@
 
     <!-- Critical CSS inlined for performance -->
     <style>
-      @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap');
-      * { box-sizing: border-box; }
-      html { scroll-behavior: smooth; height: 100%; }
-      body { font-family: 'Inter', sans-serif; background-color: #f9fafb; margin: 0; padding: 0; overflow-x: hidden; height: 100%; color: #1f2937; line-height: 1.6; }
+      /* Critical above-the-fold styles */
+      * { box-sizing: border-box; margin: 0; padding: 0; }
+      html { scroll-behavior: smooth; height: 100%; font-size: 16px; }
+      body { 
+        font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; 
+        background-color: #f9fafb; 
+        overflow-x: hidden; 
+        height: 100%; 
+        color: #1f2937; 
+        line-height: 1.6;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+      }
       #root { min-height: 100vh; }
-      .hero-section { background: linear-gradient(135deg, #151440 0%, #6366f1 100%); color: white; padding: 2rem 1rem; text-align: center; }
-      .btn-primary { background: linear-gradient(135deg, #151440 0%, #6366f1 100%); color: white; font-weight: 600; padding: 0.875rem 1.5rem; border-radius: 0.5rem; border: none; cursor: pointer; display: inline-flex; align-items: center; justify-content: center; text-decoration: none; transition: transform 0.2s ease; }
+      
+      /* Hero section critical styles */
+      .hero-section { 
+        background: linear-gradient(135deg, #151440 0%, #6366f1 100%); 
+        color: white; 
+        padding: 2rem 1rem; 
+        text-align: center; 
+      }
+      
+      /* Button critical styles */
+      .btn-primary { 
+        background: linear-gradient(135deg, #151440 0%, #6366f1 100%); 
+        color: white; 
+        font-weight: 600; 
+        padding: 0.875rem 1.5rem; 
+        border-radius: 0.5rem; 
+        border: none; 
+        cursor: pointer; 
+        display: inline-flex; 
+        align-items: center; 
+        justify-content: center; 
+        text-decoration: none; 
+        transition: transform 0.2s ease;
+        font-size: 1rem;
+      }
       .btn-primary:hover { transform: translateY(-1px); }
-      .nav-header { background: white; box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1); position: relative; z-index: 100; }
-      @media (max-width: 768px) { .floating-balls { display: none !important; } .btn-primary:hover { transform: none; } * { animation-duration: 0.1s !important; transition-duration: 0.1s !important; } }
-      @media (prefers-reduced-motion: reduce) { * { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; } }
+      
+      /* Navigation critical styles */
+      .nav-header { 
+        background: white; 
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1); 
+        position: relative; 
+        z-index: 100; 
+      }
+      
+      /* Loading spinner */
+      .loading-spinner {
+        display: inline-block;
+        width: 20px;
+        height: 20px;
+        border: 3px solid #f3f3f3;
+        border-top: 3px solid #6366f1;
+        border-radius: 50%;
+        animation: spin 1s linear infinite;
+      }
+      @keyframes spin {
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(360deg); }
+      }
+      
+      /* Mobile optimizations */
+      @media (max-width: 768px) { 
+        .floating-balls { display: none !important; }
+        .btn-primary { padding: 0.75rem 1.25rem; font-size: 0.875rem; }
+        .btn-primary:hover { transform: none; }
+        * { 
+          animation-duration: 0.1s !important; 
+          transition-duration: 0.1s !important; 
+        }
+      }
+      
+      /* Reduced motion preferences */
+      @media (prefers-reduced-motion: reduce) { 
+        html { scroll-behavior: auto; }
+        * { 
+          animation-duration: 0.01ms !important; 
+          animation-iteration-count: 1 !important; 
+          transition-duration: 0.01ms !important; 
+          scroll-behavior: auto !important;
+        }
+        .floating-balls { display: none !important; }
+      }
+      
+      /* Placeholder styles for content loading */
+      .content-placeholder {
+        background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+        background-size: 200% 100%;
+        animation: loading 1.5s infinite;
+      }
+      @keyframes loading {
+        0% { background-position: 200% 0; }
+        100% { background-position: -200% 0; }
+      }
     </style>
 
-    <!-- Resource preloading -->
+    <!-- Preload critical resources -->
     <link rel="preload" href="/src/main.jsx" as="script" crossorigin>
-    <link rel="prefetch" href="/api/generate" as="fetch" crossorigin>
+    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap"></noscript>
+    
+    <!-- DNS prefetch for external resources -->
+    <link rel="dns-prefetch" href="//fonts.googleapis.com">
+    <link rel="dns-prefetch" href="//fonts.gstatic.com">
+    <link rel="dns-prefetch" href="//www.googletagmanager.com">
+    <link rel="dns-prefetch" href="//pagead2.googlesyndication.com">
 
     <!-- Essential meta tags -->
     <meta name="description" content="FREE AI-powered tag and hashtag generator for YouTube, Instagram, TikTok & Facebook. Generate SEO-optimized tags in 16+ languages. Boost views and grow followers.">
@@ -30,7 +123,7 @@
     <meta name="robots" content="index, follow">
     <link rel="canonical" href="https://turbotags.app/">
 
-    <!-- Favicon -->
+    <!-- Favicon optimized -->
     <link rel="icon" href="/favicon.svg" type="image/svg+xml">
     <link rel="apple-touch-icon" href="/favicon.svg">
     <link rel="manifest" href="/manifest.json">
@@ -38,46 +131,96 @@
     <!-- Mobile optimization -->
     <meta name="theme-color" content="#151440">
     <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
     <meta name="apple-mobile-web-app-title" content="TurboTags">
 
-    <!-- Essential Open Graph -->
+    <!-- Open Graph optimized -->
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://turbotags.app/">
     <meta property="og:title" content="TurboTags - FREE AI Tag & Hashtag Generator">
     <meta property="og:description" content="FREE AI-powered tag generator for YouTube, Instagram, TikTok & Facebook. Generate SEO-optimized tags and boost your content reach.">
     <meta property="og:site_name" content="TurboTags">
+    <meta property="og:image" content="https://turbotags.app/favicon.svg">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
 
-    <!-- Performance optimized analytics -->
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="TurboTags - FREE AI Tag & Hashtag Generator">
+    <meta name="twitter:description" content="FREE AI-powered tag generator for YouTube, Instagram, TikTok & Facebook.">
+    <meta name="twitter:image" content="https://turbotags.app/favicon.svg">
+
+    <!-- Optimized analytics loading -->
     <script>
+      // Initialize dataLayer
       window.dataLayer = window.dataLayer || [];
       function gtag(){dataLayer.push(arguments);}
       gtag('js', new Date());
-      gtag('config', 'G-YXQPT1LPT8', { 'send_page_view': false });
-    </script>
+      
+      // Configure but don't send page view yet
+      gtag('config', 'G-YXQPT1LPT8', { 
+        'send_page_view': false,
+        'custom_map': {'custom_parameter_1': 'user_engagement'}
+      });
 
-    <!-- Load non-critical resources after page load -->
-    <script>
-      window.addEventListener('load', function() {
+      // Performance optimization: Load non-critical resources after page interactive
+      function loadNonCriticalResources() {
         // Load Google Analytics
         var ga = document.createElement('script');
         ga.async = true;
         ga.src = 'https://www.googletagmanager.com/gtag/js?id=G-YXQPT1LPT8';
         document.head.appendChild(ga);
 
-        // Load AdSense
-        var ads = document.createElement('script');
-        ads.async = true;
-        ads.src = 'https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7231854986385753';
-        ads.crossOrigin = 'anonymous';
-        document.head.appendChild(ads);
+        // Load AdSense after user interaction or timeout
+        var adsLoaded = false;
+        function loadAds() {
+          if (adsLoaded) return;
+          adsLoaded = true;
+          var ads = document.createElement('script');
+          ads.async = true;
+          ads.src = 'https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7231854986385753';
+          ads.crossOrigin = 'anonymous';
+          document.head.appendChild(ads);
+        }
+
+        // Load ads on user interaction or after 3 seconds
+        ['mousedown', 'touchstart', 'keydown', 'scroll'].forEach(event => {
+          document.addEventListener(event, loadAds, { once: true, passive: true });
+        });
+        setTimeout(loadAds, 3000);
 
         // Send page view after everything loads
-        gtag('event', 'page_view');
-      });
+        gtag('event', 'page_view', {
+          'custom_parameter_1': 'loaded'
+        });
+      }
+
+      // Load after page is interactive
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', loadNonCriticalResources);
+      } else {
+        loadNonCriticalResources();
+      }
     </script>
   </head>
   <body class="bg-gray-50">
-    <div id="root"></div>
+    <div id="root">
+      <!-- Loading placeholder -->
+      <div id="initial-loader" style="display: flex; justify-content: center; align-items: center; height: 100vh; flex-direction: column;">
+        <div class="loading-spinner"></div>
+        <p style="margin-top: 1rem; color: #6b7280;">Loading TurboTags...</p>
+      </div>
+    </div>
     <script type="module" src="/src/main.jsx"></script>
+    
+    <!-- Remove initial loader when React loads -->
+    <script>
+      window.addEventListener('load', function() {
+        const loader = document.getElementById('initial-loader');
+        if (loader && window.React) {
+          loader.style.display = 'none';
+        }
+      });
+    </script>
   </body>
 </html>
