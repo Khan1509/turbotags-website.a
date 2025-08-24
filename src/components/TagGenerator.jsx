@@ -61,7 +61,7 @@ const LANGUAGES = [
   { value: 'arabic', label: 'العربية', code: 'ar', flag: '🇸🇦' },
   { value: 'russian', label: 'Русский', code: 'ru', flag: '🇷🇺' },
   { value: 'dutch', label: 'Nederlands', code: 'nl', flag: '🇳🇱' },
-  { value: 'turkish', label: 'Türkçe', code: 'tr', flag: '🇹🇷' },
+  { value: 'turkish', label: 'Türkçe', code: 'tr', flag: '🇹���' },
   { value: 'thai', label: 'ไทย', code: 'th', flag: '🇹🇭' },
   { value: 'vietnamese', label: 'Tiếng Việt', code: 'vi', flag: '🇻🇳' }
 ];
@@ -295,18 +295,20 @@ Second, create 15-20 HASHTAGS that are:
 
 Total combined should not exceed 25 items.
 
-IMPORTANT: Format exactly as: TAGS:[tag one,tag two,another tag]HASHTAGS:[#hashtag1,#hashtag2,#hashtag3]`;
+IMPORTANT: ${languageInstruction}. Format exactly as: TAGS:[tag one,tag two,another tag]HASHTAGS:[#hashtag1,#hashtag2,#hashtag3]`;
       } else {
         prompt = `Generate 15-20 hashtags for a ${selectedFormat} on ${activeTab} about "${state.topic}".
 
 Content Type: ${selectedFormat} - ${formatInstructions}
 Target Region: ${regionContext}
+Language: ${languageInstruction}
 
 Hashtags should be:
         - Currently ${regionContext}
         - Optimized for ${selectedFormat} on ${activeTab}
         - Perfect for ${formatInstructions}
         - Mix of popular and niche tags for maximum reach
+        - Written in ${selectedLanguage}
 
 IMPORTANT: Provide as comma-separated list with # prefix. Example: #hashtag1,#hashtag2,#hashtag3`;
       }
