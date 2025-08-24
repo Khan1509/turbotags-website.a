@@ -1,7 +1,7 @@
 {
   "name": "TurboTags - AI-Powered Tags & Hashtags Generator",
   "short_name": "TurboTags",
-  "description": "TurboTags: Free AI-powered hashtag and tag generator for YouTube, Instagram, TikTok. Create viral content with SEO-optimized tags. Boost reach, grow followers, increase engagement worldwide.",
+  "description": "TurboTags: Free AI-powered hashtag and tag generator for YouTube, Instagram, TikTok, Facebook. Create viral content with SEO-optimized tags in 16+ languages. Target specific regions and content formats. Boost reach, grow followers, increase engagement worldwide.",
   "start_url": "/",
   "display": "standalone",
   "background_color": "#151440",
@@ -9,8 +9,9 @@
   "orientation": "portrait-primary",
   "scope": "/",
   "lang": "en-US",
-  "dir": "ltr",
-  "categories": ["business", "productivity", "social", "tools", "seo"],
+  "iarc_rating_id": "e87d74cd-9cef-4d96-a689-8dd8b4f6e8f3",
+  "dir": "auto",
+  "categories": ["business", "productivity", "social", "tools", "seo", "marketing", "content-creation", "ai", "multilingual"],
   "icons": [
     { "src": "/icons/icon-192x192.svg", "sizes": "192x192", "type": "image/svg+xml", "purpose": "any maskable" },
     { "src": "/icons/icon-512x512.svg", "sizes": "512x512", "type": "image/svg+xml", "purpose": "any maskable" },
@@ -53,6 +54,13 @@
       "description": "Generate TikTok hashtags with TurboTags",
       "url": "/#tiktok",
       "icons": [{ "src": "/tiktok-shortcut.svg", "sizes": "96x96" }]
+    },
+    {
+      "name": "Multi-Language Generator",
+      "short_name": "Languages",
+      "description": "Generate tags and hashtags in 16+ languages",
+      "url": "/#multilingual",
+      "icons": [{ "src": "/favicon.svg", "sizes": "96x96" }]
     }
   ]
 }
