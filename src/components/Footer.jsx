@@ -23,34 +23,34 @@ const Footer = () => {
 
         <div>
           <h4 className="font-semibold text-gray-800 mb-4">Quick Links</h4>
-          <ul className="space-y-2 text-xs">
-            <li><Link to="/#home" className="text-gray-600 hover:text-tt-dark-violet transition">Home</Link></li>
-            <li><Link to="/about" className="text-gray-600 hover:text-tt-dark-violet transition">About Us</Link></li>
-            <li><Link to="/#why-choose" className="text-gray-600 hover:text-tt-dark-violet transition">Features</Link></li>
-            <li><Link to="/blog" className="text-gray-600 hover:text-tt-dark-violet transition">Blog</Link></li>
-            <li><Link to="/#tag-generator" className="text-gray-600 hover:text-tt-dark-violet transition">Generator</Link></li>
+          <ul className="space-y-2 text-xs" role="list">
+            <li><Link to="/#home" className="text-gray-600 hover:text-tt-dark-violet transition focus:outline-none focus:ring-2 focus:ring-tt-dark-violet rounded-md px-1 py-1" aria-label="Go to TurboTags homepage">Home</Link></li>
+            <li><Link to="/about" className="text-gray-600 hover:text-tt-dark-violet transition focus:outline-none focus:ring-2 focus:ring-tt-dark-violet rounded-md px-1 py-1" aria-label="Learn about TurboTags company">About Us</Link></li>
+            <li><Link to="/#why-choose" className="text-gray-600 hover:text-tt-dark-violet transition focus:outline-none focus:ring-2 focus:ring-tt-dark-violet rounded-md px-1 py-1" aria-label="Explore TurboTags features and benefits">Features</Link></li>
+            <li><Link to="/blog" className="text-gray-600 hover:text-tt-dark-violet transition focus:outline-none focus:ring-2 focus:ring-tt-dark-violet rounded-md px-1 py-1" aria-label="Read TurboTags blog articles">Blog</Link></li>
+            <li><Link to="/#tag-generator" className="text-gray-600 hover:text-tt-dark-violet transition focus:outline-none focus:ring-2 focus:ring-tt-dark-violet rounded-md px-1 py-1" aria-label="Use TurboTags AI generator tool">AI Tag Generator</Link></li>
           </ul>
         </div>
 
         <div>
           <h4 className="font-semibold text-gray-800 mb-4">Legal</h4>
-          <ul className="space-y-2 text-xs">
-            <li><Link to="/legal/privacy" className="text-gray-600 hover:text-tt-dark-violet transition">Privacy Policy</Link></li>
-            <li><Link to="/legal/terms" className="text-gray-600 hover:text-tt-dark-violet transition">Terms of Service</Link></li>
-            <li><Link to="/legal/disclaimer" className="text-gray-600 hover:text-tt-dark-violet transition">Disclaimer</Link></li>
-            <li><Link to="/legal/cookies" className="text-gray-600 hover:text-tt-dark-violet transition">Cookie Policy</Link></li>
+          <ul className="space-y-2 text-xs" role="list">
+            <li><Link to="/legal/privacy" className="text-gray-600 hover:text-tt-dark-violet transition focus:outline-none focus:ring-2 focus:ring-tt-dark-violet rounded-md px-1 py-1" aria-label="Read TurboTags privacy policy">Privacy Policy</Link></li>
+            <li><Link to="/legal/terms" className="text-gray-600 hover:text-tt-dark-violet transition focus:outline-none focus:ring-2 focus:ring-tt-dark-violet rounded-md px-1 py-1" aria-label="Read TurboTags terms of service">Terms of Service</Link></li>
+            <li><Link to="/legal/disclaimer" className="text-gray-600 hover:text-tt-dark-violet transition focus:outline-none focus:ring-2 focus:ring-tt-dark-violet rounded-md px-1 py-1" aria-label="Read TurboTags legal disclaimer">Legal Disclaimer</Link></li>
+            <li><Link to="/legal/cookies" className="text-gray-600 hover:text-tt-dark-violet transition focus:outline-none focus:ring-2 focus:ring-tt-dark-violet rounded-md px-1 py-1" aria-label="Read TurboTags cookie policy">Cookie Policy</Link></li>
           </ul>
         </div>
 
         <div>
           <h4 className="font-semibold text-gray-800 mb-4">Connect & Support</h4>
-          <ul className="space-y-3 text-xs">
-            <li><a href={contactEmail} className="text-gray-600 hover:text-tt-dark-violet transition flex items-center"><Mail className="h-4 w-4 mr-2" />Contact Us</a></li>
-            <li><a href="https://twitter.com/TurboTagsApp" target="_blank" rel="noopener noreferrer" className="text-gray-600 hover:text-tt-dark-violet transition flex items-center"><Twitter className="h-4 w-4 mr-2" />Twitter</a></li>
-            <li><a href="https://www.linkedin.com/in/turbotags-support-173b0a375" target="_blank" rel="noopener noreferrer" className="text-gray-600 hover:text-tt-dark-violet transition flex items-center"><Linkedin className="h-4 w-4 mr-2" />LinkedIn</a></li>
+          <ul className="space-y-3 text-xs" role="list">
+            <li><a href={contactEmail} className="text-gray-600 hover:text-tt-dark-violet transition flex items-center focus:outline-none focus:ring-2 focus:ring-tt-dark-violet rounded-md px-1 py-1" aria-label="Send email to TurboTags support team"><Mail className="h-4 w-4 mr-2" aria-hidden="true" />Contact TurboTags Support</a></li>
+            <li><a href="https://twitter.com/TurboTagsApp" target="_blank" rel="noopener noreferrer" className="text-gray-600 hover:text-tt-dark-violet transition flex items-center focus:outline-none focus:ring-2 focus:ring-tt-dark-violet rounded-md px-1 py-1" aria-label="Follow TurboTags on Twitter - Opens in new tab"><Twitter className="h-4 w-4 mr-2" aria-hidden="true" />Follow on Twitter</a></li>
+            <li><a href="https://www.linkedin.com/in/turbotags-support-173b0a375" target="_blank" rel="noopener noreferrer" className="text-gray-600 hover:text-tt-dark-violet transition flex items-center focus:outline-none focus:ring-2 focus:ring-tt-dark-violet rounded-md px-1 py-1" aria-label="Connect with TurboTags on LinkedIn - Opens in new tab"><Linkedin className="h-4 w-4 mr-2" aria-hidden="true" />Connect on LinkedIn</a></li>
             <li className="pt-2">
-              <a href="https://ko-fi.com/turbotags1509" target="_blank" rel="noopener noreferrer" className="inline-flex items-center justify-center px-4 py-2 rounded-lg bg-pink-100 text-pink-700 font-bold hover:bg-pink-200 transition w-full">
-                <Heart className="h-4 w-4 mr-2" /> Support Us
+              <a href="https://ko-fi.com/turbotags1509" target="_blank" rel="noopener noreferrer" className="inline-flex items-center justify-center px-4 py-2 rounded-lg bg-pink-100 text-pink-700 font-bold hover:bg-pink-200 transition w-full focus:outline-none focus:ring-2 focus:ring-pink-500 focus:ring-offset-2" aria-label="Support TurboTags on Ko-fi - Opens in new tab">
+                <Heart className="h-4 w-4 mr-2" aria-hidden="true" /> Support Us on Ko-fi
               </a>
             </li>
           </ul>
@@ -62,7 +62,7 @@ const Footer = () => {
         <p className="text-xs text-gray-500">
           Powered by AI
           <span className="mx-2">•</span>
-          <Link to="/legal/disclaimer" className="hover:text-tt-dark-violet transition">Legal Disclaimer</Link>
+          <Link to="/legal/disclaimer" className="hover:text-tt-dark-violet transition focus:outline-none focus:ring-2 focus:ring-tt-dark-violet rounded-md px-1 py-1" aria-label="Read our legal disclaimer">Legal Disclaimer</Link>
         </p>
       </div>
     </footer>
