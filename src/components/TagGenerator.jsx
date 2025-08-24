@@ -161,6 +161,47 @@ const TagGenerator = () => {
     dispatch({ type: 'SET_FEEDBACK', payload: { listType, text, feedback } });
   };
 
+  const getRegionContext = (region) => {
+    const regionContexts = {
+      global: 'globally trending',
+      usa: 'trending in the United States',
+      uk: 'trending in the United Kingdom',
+      canada: 'trending in Canada',
+      australia: 'trending in Australia',
+      india: 'trending in India',
+      germany: 'trending in Germany',
+      france: 'trending in France',
+      brazil: 'trending in Brazil',
+      japan: 'trending in Japan'
+    };
+    return regionContexts[region] || 'globally trending';
+  };
+
+  const getContentFormatInstructions = (platform, format) => {
+    const instructions = {
+      youtube: {
+        'long-form': 'evergreen, SEO-focused content that will rank well in search results. Focus on educational, tutorial, and informational keywords',
+        'short': 'viral, trending content optimized for the YouTube Shorts algorithm. Focus on current trends, challenges, and quick entertainment',
+        'live': 'interactive, real-time engagement content. Focus on community building, Q&A, and event-based keywords'
+      },
+      instagram: {
+        'reel': 'viral, entertainment-focused content optimized for maximum reach and engagement',
+        'feed': 'aesthetic, brand-building content that encourages saves and shares',
+        'story': 'casual, behind-the-scenes content for authentic audience connection'
+      },
+      tiktok: {
+        'video': 'viral, trend-based content optimized for the For You Page algorithm',
+        'live': 'interactive, community-building content for real-time engagement'
+      },
+      facebook: {
+        'feed': 'discussion-driving content that encourages comments and shares',
+        'reel': 'entertainment-focused short-form content for discovery',
+        'story': 'personal, authentic content for close connections'
+      }
+    };
+    return instructions[platform]?.[format] || 'engaging content';
+  };
+
   const handleGenerate = async () => {
     if (!state.topic.trim()) {
       handleMessage('Please enter a topic to generate content.', 'error');
@@ -169,11 +210,43 @@ const TagGenerator = () => {
     dispatch({ type: 'START_GENERATION' });
 
     try {
+      const regionContext = getRegionContext(state.region);
+      const formatInstructions = getContentFormatInstructions(activeTab, state.contentFormat);
+      const selectedFormat = CONTENT_FORMATS[activeTab].find(f => f.value === state.contentFormat)?.label;
+
       let prompt;
       if (activeTab === 'youtube') {
-        prompt = `Generate two lists for a YouTube video about "${state.topic}". First, a list of 15 to 20 SEO-friendly tags. Second, a list of 15 to 20 trending hashtags. The total number of tags and hashtags combined should not exceed 25. IMPORTANT: You MUST format the response exactly as follows, with comma-separated values: TAGS:[tag one,tag two,another tag]HASHTAGS:[#hashtag1,#hashtag2,#hashtag3]`;
+        prompt = `Generate two lists for a ${selectedFormat} on YouTube about "${state.topic}".
+
+Content Type: ${selectedFormat} - ${formatInstructions}
+Target Region: ${regionContext}
+
+First, create 15-20 SEO-friendly TAGS that are:
+        - Optimized for ${selectedFormat} discovery
+        - ${regionContext}
+        - Relevant to ${formatInstructions}
+
+Second, create 15-20 HASHTAGS that are:
+        - Currently ${regionContext}
+        - Perfect for ${selectedFormat}
+        - Designed for ${formatInstructions}
+
+Total combined should not exceed 25 items.
+
+IMPORTANT: Format exactly as: TAGS:[tag one,tag two,another tag]HASHTAGS:[#hashtag1,#hashtag2,#hashtag3]`;
       } else {
-        prompt = `Generate a list of 15 to 20 concise, relevant, and trending hashtags for a ${activeTab} post about "${state.topic}" (max 25). IMPORTANT: You MUST provide them as a single comma-separated list, with each item starting with '#'. Example: #hashtag1,#hashtag2,#hashtag3`;
+        prompt = `Generate 15-20 hashtags for a ${selectedFormat} on ${activeTab} about "${state.topic}".
+
+Content Type: ${selectedFormat} - ${formatInstructions}
+Target Region: ${regionContext}
+
+Hashtags should be:
+        - Currently ${regionContext}
+        - Optimized for ${selectedFormat} on ${activeTab}
+        - Perfect for ${formatInstructions}
+        - Mix of popular and niche tags for maximum reach
+
+IMPORTANT: Provide as comma-separated list with # prefix. Example: #hashtag1,#hashtag2,#hashtag3`;
       }
 
       const resultText = await generateContent(prompt);
@@ -238,7 +311,7 @@ const TagGenerator = () => {
       </AnimatePresence>
 
       <h2 className="text-3xl font-bold text-tt-dark-violet mb-2 text-center">AI-Powered Tag Generator</h2>
-      <p className="text-center text-gray-600 mb-8">Generate high-converting tags and hashtags for maximum global reach.</p>
+      <p className="text-center text-gray-600 mb-8">Generate hyper-targeted tags and hashtags optimized for your specific content format and region.</p>
 
       <div className="flex border-b border-gray-200 mb-6 bg-gray-50 rounded-t-lg overflow-hidden">
         {TABS.map(tab => (
@@ -252,6 +325,89 @@ const TagGenerator = () => {
             <span className="text-xs text-gray-500 mt-1 hidden sm:block">{tab.description}</span>
           </button>
         ))}
+      </div>
+
+      {/* Content Format and Region Selection */}
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+        {/* Content Format Dropdown */}
+        <div className="relative">
+          <label className="block text-gray-700 text-sm font-semibold mb-2">
+            Content Format
+          </label>
+          <div className="relative">
+            <button
+              onClick={() => setShowFormatDropdown(!showFormatDropdown)}
+              className="w-full p-3 border border-gray-300 rounded-lg bg-white text-left flex items-center justify-between hover:border-tt-medium-violet focus:outline-none focus:ring-2 focus:ring-tt-dark-violet"
+            >
+              <span className="text-gray-800">
+                {CONTENT_FORMATS[activeTab].find(f => f.value === state.contentFormat)?.label}
+              </span>
+              <ChevronDown className={`h-4 w-4 text-gray-500 transition-transform ${
+                showFormatDropdown ? 'rotate-180' : ''
+              }`} />
+            </button>
+            {showFormatDropdown && (
+              <div className="absolute z-10 w-full mt-1 bg-white border border-gray-300 rounded-lg shadow-lg">
+                {CONTENT_FORMATS[activeTab].map((format) => (
+                  <button
+                    key={format.value}
+                    onClick={() => {
+                      dispatch({ type: 'SET_CONTENT_FORMAT', payload: format.value });
+                      setShowFormatDropdown(false);
+                    }}
+                    className={`w-full p-3 text-left hover:bg-gray-50 first:rounded-t-lg last:rounded-b-lg ${
+                      state.contentFormat === format.value ? 'bg-tt-dark-violet/5 text-tt-dark-violet font-semibold' : 'text-gray-800'
+                    }`}
+                  >
+                    {format.label}
+                  </button>
+                ))}
+              </div>
+            )}
+          </div>
+        </div>
+
+        {/* Region Dropdown */}
+        <div className="relative">
+          <label className="block text-gray-700 text-sm font-semibold mb-2">
+            Target Region
+          </label>
+          <div className="relative">
+            <button
+              onClick={() => setShowRegionDropdown(!showRegionDropdown)}
+              className="w-full p-3 border border-gray-300 rounded-lg bg-white text-left flex items-center justify-between hover:border-tt-medium-violet focus:outline-none focus:ring-2 focus:ring-tt-dark-violet"
+            >
+              <div className="flex items-center">
+                <Globe className="h-4 w-4 mr-2 text-gray-500" />
+                <span className="text-gray-800">
+                  {REGIONS.find(r => r.value === state.region)?.flag} {REGIONS.find(r => r.value === state.region)?.label}
+                </span>
+              </div>
+              <ChevronDown className={`h-4 w-4 text-gray-500 transition-transform ${
+                showRegionDropdown ? 'rotate-180' : ''
+              }`} />
+            </button>
+            {showRegionDropdown && (
+              <div className="absolute z-10 w-full mt-1 bg-white border border-gray-300 rounded-lg shadow-lg max-h-60 overflow-y-auto">
+                {REGIONS.map((region) => (
+                  <button
+                    key={region.value}
+                    onClick={() => {
+                      dispatch({ type: 'SET_REGION', payload: region.value });
+                      setShowRegionDropdown(false);
+                    }}
+                    className={`w-full p-3 text-left hover:bg-gray-50 first:rounded-t-lg last:rounded-b-lg flex items-center ${
+                      state.region === region.value ? 'bg-tt-dark-violet/5 text-tt-dark-violet font-semibold' : 'text-gray-800'
+                    }`}
+                  >
+                    <span className="mr-2">{region.flag}</span>
+                    {region.label}
+                  </button>
+                ))}
+              </div>
+            )}
+          </div>
+        </div>
       </div>
 
       <div className="p-1">
