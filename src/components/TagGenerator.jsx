@@ -310,7 +310,7 @@ Hashtags should be:
         - Mix of popular and niche tags for maximum reach
         - Written in ${selectedLanguage}
 
-IMPORTANT: Provide as comma-separated list with # prefix. Example: #hashtag1,#hashtag2,#hashtag3`;
+IMPORTANT: ${languageInstruction}. Provide as comma-separated list with # prefix. Example: #hashtag1,#hashtag2,#hashtag3`;
       }
 
       const resultText = await generateContent(prompt);
