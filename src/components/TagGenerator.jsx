@@ -1,5 +1,5 @@
 import React, { useState, useReducer, useRef, useEffect } from 'react';
-import { Youtube, Instagram, Facebook, Tags, RotateCw, Copy, Loader2, ThumbsUp, ThumbsDown } from 'lucide-react';
+import { Youtube, Instagram, Facebook, Tags, RotateCw, Copy, Loader2, ThumbsUp, ThumbsDown, Globe, ChevronDown } from 'lucide-react';
 import TikTokIcon from './icons/TikTokIcon';
 import MessageBox from './ui/MessageBox';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -12,6 +12,41 @@ const TABS = [
   { id: 'facebook', name: 'Facebook', icon: Facebook, description: '#Hashtags' },
 ];
 
+const CONTENT_FORMATS = {
+  youtube: [
+    { value: 'long-form', label: 'Long-form Video' },
+    { value: 'short', label: 'YouTube Short' },
+    { value: 'live', label: 'Live Stream' }
+  ],
+  instagram: [
+    { value: 'reel', label: 'Reels' },
+    { value: 'feed', label: 'Feed Post' },
+    { value: 'story', label: 'Story' }
+  ],
+  tiktok: [
+    { value: 'video', label: 'Standard Video' },
+    { value: 'live', label: 'LIVE Stream' }
+  ],
+  facebook: [
+    { value: 'feed', label: 'Feed Post' },
+    { value: 'reel', label: 'Reels' },
+    { value: 'story', label: 'Story' }
+  ]
+};
+
+const REGIONS = [
+  { value: 'global', label: 'Global', flag: '🌍' },
+  { value: 'usa', label: 'United States', flag: '🇺🇸' },
+  { value: 'uk', label: 'United Kingdom', flag: '🇬🇧' },
+  { value: 'canada', label: 'Canada', flag: '🇨🇦' },
+  { value: 'australia', label: 'Australia', flag: '🇦🇺' },
+  { value: 'india', label: 'India', flag: '🇮🇳' },
+  { value: 'germany', label: 'Germany', flag: '🇩🇪' },
+  { value: 'france', label: 'France', flag: '🇫🇷' },
+  { value: 'brazil', label: 'Brazil', flag: '🇧🇷' },
+  { value: 'japan', label: 'Japan', flag: '🇯🇵' }
+];
+
 const initialState = {
   topic: '',
   tags: [],
@@ -19,12 +54,18 @@ const initialState = {
   isLoading: false,
   error: null,
   message: null,
+  contentFormat: 'long-form',
+  region: 'global',
 };
 
 function reducer(state, action) {
   switch (action.type) {
     case 'SET_TOPIC':
       return { ...state, topic: action.payload };
+    case 'SET_CONTENT_FORMAT':
+      return { ...state, contentFormat: action.payload };
+    case 'SET_REGION':
+      return { ...state, region: action.payload };
     case 'START_GENERATION':
       return { ...state, isLoading: true, error: null, message: null, tags: [], hashtags: [] };
     case 'GENERATION_SUCCESS':
@@ -95,6 +136,14 @@ const TagGenerator = () => {
   const [activeTab, setActiveTab] = useState('youtube');
   const [state, dispatch] = useReducer(reducer, initialState);
   const textareaRef = useRef(null);
+  const [showFormatDropdown, setShowFormatDropdown] = useState(false);
+  const [showRegionDropdown, setShowRegionDropdown] = useState(false);
+
+  // Update content format when switching tabs
+  useEffect(() => {
+    const defaultFormat = CONTENT_FORMATS[activeTab][0].value;
+    dispatch({ type: 'SET_CONTENT_FORMAT', payload: defaultFormat });
+  }, [activeTab]);
 
   useEffect(() => {
     const textarea = textareaRef.current;
