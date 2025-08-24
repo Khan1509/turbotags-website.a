@@ -61,18 +61,37 @@ export default defineConfig({
     minify: 'esbuild', // Faster build times
     sourcemap: false,
     cssCodeSplit: true,
-    chunkSizeWarningLimit: 1000, // Warn for chunks larger than 1MB
+    chunkSizeWarningLimit: 500, // Warn for chunks larger than 500KB
     rollupOptions: {
       output: {
-        manualChunks: {
+        manualChunks(id) {
           // Core React chunks
-          'react-vendor': ['react', 'react-dom'],
-          'router': ['react-router-dom'],
-          // UI library chunks
-          'animations': ['framer-motion'],
-          'icons': ['lucide-react'],
-          // Firebase chunk (if used)
-          'firebase': ['firebase/app', 'firebase/analytics'],
+          if (id.includes('node_modules')) {
+            if (id.includes('react') || id.includes('react-dom')) {
+              return 'react-vendor';
+            }
+            if (id.includes('react-router-dom')) {
+              return 'router';
+            }
+            if (id.includes('framer-motion')) {
+              return 'animations';
+            }
+            if (id.includes('lucide-react')) {
+              return 'icons';
+            }
+            if (id.includes('firebase')) {
+              return 'firebase';
+            }
+            // Group all other vendor dependencies
+            return 'vendor';
+          }
+          // Split pages into separate chunks
+          if (id.includes('/pages/')) {
+            return 'pages';
+          }
+          if (id.includes('/components/')) {
+            return 'components';
+          }
         },
         chunkFileNames: 'assets/js/[name]-[hash].js',
         entryFileNames: 'assets/js/[name]-[hash].js',

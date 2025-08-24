@@ -27,46 +27,46 @@ const Hero = () => {
       initial="hidden"
       animate="visible"
     >
-      <motion.div variants={itemVariants} className="mt-4 flex justify-center space-x-2 sm:space-x-4 flex-wrap gap-2">
-        <span className="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-tt-dark-violet text-white">
-          <BadgeCheck className="w-4 h-4 mr-2" />
+      <motion.div variants={itemVariants} className="mt-4 flex justify-center space-x-2 sm:space-x-4 flex-wrap gap-2" role="list" aria-label="Key features">
+        <span className="inline-flex items-center px-3 py-1 rounded-full text-sm font-semibold bg-tt-dark-violet text-white shadow-sm" role="listitem">
+          <BadgeCheck className="w-4 h-4 mr-2" aria-hidden="true" />
           Free to Use
         </span>
-        <span className="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-tt-dark-violet text-white">
-          <Bot className="w-4 h-4 mr-2" />
+        <span className="inline-flex items-center px-3 py-1 rounded-full text-sm font-semibold bg-tt-dark-violet text-white shadow-sm" role="listitem">
+          <Bot className="w-4 h-4 mr-2" aria-hidden="true" />
           AI-Powered
         </span>
-        <span className="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-tt-dark-violet text-white">
-          <BarChart className="w-4 h-4 mr-2" />
+        <span className="inline-flex items-center px-3 py-1 rounded-full text-sm font-semibold bg-tt-dark-violet text-white shadow-sm" role="listitem">
+          <BarChart className="w-4 h-4 mr-2" aria-hidden="true" />
           SEO Optimized
         </span>
       </motion.div>
       
-      <motion.h2 
-        variants={itemVariants} 
-        className="text-4xl md:text-5xl font-extrabold mt-4 text-tt-dark-violet"
+      <motion.h2
+        variants={itemVariants}
+        className="text-4xl md:text-5xl font-extrabold mt-4 text-tt-dark-violet leading-tight"
       >
         The #1 FREE AI-Powered Tags & Hashtags Generator
       </motion.h2>
-      <motion.p 
-        variants={itemVariants} 
-        className="text-lg md:text-xl font-semibold mt-2 text-gray-700"
+      <motion.p
+        variants={itemVariants}
+        className="text-lg md:text-xl font-semibold mt-2 text-gray-800"
       >
-        Smarter Reach. Faster Growth. <span className="inline-block animate-rocket-float">🚀</span>
+        Smarter Reach. Faster Growth. <span className="inline-block animate-rocket-float" role="img" aria-label="rocket">🚀</span>
       </motion.p>
-      <motion.p 
-        variants={itemVariants} 
-        className="mt-4 max-w-3xl mx-auto text-gray-600"
+      <motion.p
+        variants={itemVariants}
+        className="mt-4 max-w-3xl mx-auto text-gray-700 text-base md:text-lg leading-relaxed"
       >
         Get instant, high-quality, and SEO-optimized tags and hashtags for YouTube, Instagram, TikTok & Facebook. Boost your content's worldwide visibility.
       </motion.p>
       
       <motion.div variants={itemVariants} className="mt-8 flex flex-col sm:flex-row justify-center gap-4">
-        <a href="#tag-generator" className="btn-primary">
-          Start Generating Now <Zap className="ml-2 h-5 w-5" />
+        <a href="#tag-generator" className="btn-primary focus:outline-none focus:ring-2 focus:ring-tt-dark-violet focus:ring-offset-2" aria-label="Start generating tags and hashtags now">
+          Start Generating Now <Zap className="ml-2 h-5 w-5" aria-hidden="true" />
         </a>
-        <a href="#demo" className="btn-secondary">
-          Watch Demo <Play className="ml-2 h-5 w-5" />
+        <a href="#demo" className="btn-secondary focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2" aria-label="Watch product demonstration video">
+          Watch Demo <Play className="ml-2 h-5 w-5" aria-hidden="true" />
         </a>
       </motion.div>
     </motion.section>
