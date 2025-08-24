@@ -19,7 +19,7 @@ export default async function handler(req, res) {
   }
 
   try {
-    const { prompt, platform = 'youtube', language = 'english', region = 'global' } = req.body;
+    const { prompt, platform = 'youtube', language = 'english', region = 'global', contentFormat = 'general' } = req.body;
 
     if (!prompt) {
       return res.status(400).json({
@@ -28,7 +28,7 @@ export default async function handler(req, res) {
       });
     }
 
-    console.log(`API Request - Platform: ${platform}, Language: ${language}, Region: ${region}`);
+    console.log(`API Request - Platform: ${platform}, Language: ${language}, Region: ${region}, Format: ${contentFormat}`);
 
     // Define the list of models to try in order of preference
     const modelsToTry = [
@@ -55,7 +55,7 @@ STRICT REQUIREMENTS:
 - Use the specified language: ${language}
 - Target region: ${region}
 - Platform: ${platform}
-- Content format: ${options.contentFormat || 'general'}
+- Content format: ${contentFormat}
 
 FORMAT REQUIREMENTS:
 - YouTube: TAGS:[tag1,tag2,tag3]HASHTAGS:[#hashtag1,#hashtag2,#hashtag3]
