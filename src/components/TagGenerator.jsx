@@ -261,14 +261,14 @@ const TagGenerator = () => {
       italian: 'Generate all content in Italian (Italiano)',
       portuguese: 'Generate all content in Portuguese (Português)',
       japanese: 'Generate all content in Japanese (日本語)',
-      korean: 'Generate all content in Korean (한국어)',
+      korean: 'Generate all content in Korean (한��어)',
       chinese: 'Generate all content in Chinese (中文)',
       hindi: 'Generate all content in Hindi (हिन्दी)',
       arabic: 'Generate all content in Arabic (العربي��)',
       russian: 'Generate all content in Russian (Русский)',
       dutch: 'Generate all content in Dutch (Nederlands)',
       turkish: 'Generate all content in Turkish (Türkçe)',
-      thai: 'Generate all content in Thai (ไ��ย)',
+      thai: 'Generate all content in Thai (ไทย)',
       vietnamese: 'Generate all content in Vietnamese (Tiếng Việt)'
     };
     return languageInstructions[language] || 'Generate all content in English';
@@ -499,7 +499,7 @@ IMPORTANT FORMATTING:
       const languageFallbacks = {
         hindi: {
           tags: ['वायरल कंटेंट', 'ट्रेंडिंग विषय', 'यूट्यूब टिप्स', 'कंटेंट क्रिएटर', 'सोशल मीडिया', 'डिजिटल मार्केटिंग', 'ऑनलाइन बिजनेस', 'वीडियो मार्केटिंग', 'कंटेंट स्ट्रैटेजी', 'ऑडियंस एंगेजमेंट', 'क्रिएटर इकॉनमी', 'कंटेंट मोनेटाइज़ेशन', 'वीडियो SEO', 'यूट्यूब ग्रोथ', 'कंटेंट प्लानिंग'],
-          hashtags: ['#हिंदीकंटेंट', '#भारतीयक्रिएटर', '#वायरलवीडियो', '#ट्रेंडिंगइंडिया', '#सोशलमीडिया', '#डिजिटलइंडिया', '#हिंदीयूट्यूब', '#इंडियनक्रिएटर', '#बॉलीवुड', '#हिंदीट्रेंड्स', '#भारत', '#हिंदी', '#इंडिया', '#देसी', '#हिंदुस्तान']
+          hashtags: ['#हिंदीकंटेंट', '#भारतीयक्रिएटर', '#वायरलवीडियो', '#ट्रेंडिंगइंडिया', '#सोशलमीडिया', '#डिजिटलइंडिया', '#हिंदीयूट्यूब', '#इंडियनक्रिएटर', '#बॉलीवुड', '#हिंदीट्रेंड्स', '#भा���त', '#हिंदी', '#इंडिया', '#देसी', '#हिंदुस्तान']
         },
         spanish: {
           tags: ['contenido viral', 'tendencias', 'youtube español', 'creador contenido', 'redes sociales', 'marketing digital', 'negocio online', 'video marketing', 'estrategia contenido', 'engagement audiencia', 'economía creador', 'monetización', 'seo video', 'crecimiento youtube', 'planificación contenido'],
@@ -535,9 +535,13 @@ IMPORTANT FORMATTING:
         }
       }
 
+      console.log('Using fallback content for language:', state.language);
+      console.log('Fallback tags count:', fallbackTags.length);
+      console.log('Fallback hashtags count:', fallbackHashtags.length);
+
       dispatch({ type: 'GENERATION_ERROR', payload: {
         error: 'Failed to generate content.',
-        message: 'AI service unavailable. Here are some sample tags to get you started.',
+        message: `AI service unavailable. Showing ${state.language === 'english' ? 'English' : state.language} sample content to get you started.`,
         tags: fallbackTags,
         hashtags: fallbackHashtags
       } });
