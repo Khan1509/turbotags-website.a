@@ -1,17 +1,19 @@
 import React, { useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { CheckCircle, XCircle, Info } from 'lucide-react';
+import { CheckCircle, XCircle, Info, AlertTriangle } from 'lucide-react';
 
 const icons = {
   success: <CheckCircle className="h-5 w-5 mr-2" />,
   error: <XCircle className="h-5 w-5 mr-2" />,
   info: <Info className="h-5 w-5 mr-2" />,
+  warning: <AlertTriangle className="h-5 w-5 mr-2" />,
 };
 
 const bgColors = {
   success: 'bg-green-500',
   error: 'bg-red-500',
   info: 'bg-blue-500',
+  warning: 'bg-yellow-500',
 };
 
 const MessageBox = ({ message, type = 'info', onDismiss }) => {
