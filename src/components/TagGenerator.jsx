@@ -57,7 +57,7 @@ const LANGUAGES = [
   { value: 'japanese', label: '日本語', code: 'ja', flag: '🇯🇵' },
   { value: 'korean', label: '한국어', code: 'ko', flag: '🇰🇷' },
   { value: 'chinese', label: '中文', code: 'zh', flag: '🇨🇳' },
-  { value: 'hindi', label: 'हिन्दी', code: 'hi', flag: '🇮🇳' },
+  { value: 'hindi', label: 'हिन्दी', code: 'hi', flag: '🇮����' },
   { value: 'arabic', label: 'العربية', code: 'ar', flag: '🇸🇦' },
   { value: 'russian', label: 'Русский', code: 'ru', flag: '🇷🇺' },
   { value: 'dutch', label: 'Nederlands', code: 'nl', flag: '🇳🇱' },
@@ -132,9 +132,9 @@ const TagItem = React.memo(({ item, onCopy, onFeedback }) => {
   // Generate trend percentage if not provided
   const trendPercentage = item.trend || Math.floor(Math.random() * 41) + 60; // Random between 60-100
   const getTrendColor = (percentage) => {
-    if (percentage >= 85) return 'text-green-600 bg-green-100';
-    if (percentage >= 70) return 'text-yellow-600 bg-yellow-100';
-    return 'text-red-600 bg-red-100';
+    if (percentage >= 85) return 'text-green-700 bg-green-50 border-green-200';
+    if (percentage >= 70) return 'text-yellow-700 bg-yellow-50 border-yellow-200';
+    return 'text-red-700 bg-red-50 border-red-200';
   };
 
   return (
@@ -146,19 +146,33 @@ const TagItem = React.memo(({ item, onCopy, onFeedback }) => {
       className="flex flex-col sm:flex-row items-start sm:items-center justify-between rounded-md bg-white p-3 shadow-sm transition-all duration-200 hover:shadow-md border border-gray-200"
     >
       <div className="flex items-center flex-grow min-w-0 mr-2">
-        <span className="text-gray-800 text-sm sm:text-base font-medium break-all mr-3">{item.text}</span>
-        <span className={`px-2 py-1 rounded-full text-xs font-semibold ${getTrendColor(trendPercentage)}`}>
+        <span className="text-gray-800 text-sm sm:text-base font-medium break-all mr-3" role="text" aria-label={`Tag: ${item.text}`}>{item.text}</span>
+        <span className={`px-2 py-1 rounded-full text-xs font-semibold border ${getTrendColor(trendPercentage)}`} aria-label={`Trending at ${trendPercentage} percent`}>
           {trendPercentage}%
         </span>
       </div>
-      <div className="flex items-center self-end sm:self-center mt-2 sm:mt-0 flex-shrink-0">
-        <button onClick={() => handleFeedback('liked')} className={`p-1 rounded-md transition-colors ${item.feedback === 'liked' ? 'bg-green-100 text-green-600' : 'text-gray-400 hover:bg-gray-100'}`} aria-label="Good tag">
-          <ThumbsUp className="h-4 w-4" />
+      <div className="flex items-center self-end sm:self-center mt-2 sm:mt-0 flex-shrink-0" role="group" aria-label="Tag actions">
+        <button
+          onClick={() => handleFeedback('liked')}
+          className={`p-2 rounded-md transition-colors focus:outline-none focus:ring-2 focus:ring-green-500 ${item.feedback === 'liked' ? 'bg-green-100 text-green-700' : 'text-gray-500 hover:bg-gray-100 hover:text-green-600'}`}
+          aria-label={`Mark tag "${item.text}" as good`}
+          aria-pressed={item.feedback === 'liked'}
+        >
+          <ThumbsUp className="h-4 w-4" aria-hidden="true" />
         </button>
-        <button onClick={() => handleFeedback('disliked')} className={`p-1 rounded-md transition-colors ml-1 ${item.feedback === 'disliked' ? 'bg-red-100 text-red-600' : 'text-gray-400 hover:bg-gray-100'}`} aria-label="Bad tag">
-          <ThumbsDown className="h-4 w-4" />
+        <button
+          onClick={() => handleFeedback('disliked')}
+          className={`p-2 rounded-md transition-colors ml-1 focus:outline-none focus:ring-2 focus:ring-red-500 ${item.feedback === 'disliked' ? 'bg-red-100 text-red-700' : 'text-gray-500 hover:bg-gray-100 hover:text-red-600'}`}
+          aria-label={`Mark tag "${item.text}" as bad`}
+          aria-pressed={item.feedback === 'disliked'}
+        >
+          <ThumbsDown className="h-4 w-4" aria-hidden="true" />
         </button>
-        <button onClick={handleCopy} className="copy-btn bg-indigo-100 text-indigo-700 px-3 py-1 rounded-md text-sm font-semibold hover:bg-indigo-200 transition duration-200 ease-in-out ml-3">
+        <button
+          onClick={handleCopy}
+          className="copy-btn bg-indigo-100 text-indigo-700 px-3 py-2 rounded-md text-sm font-semibold hover:bg-indigo-200 transition duration-200 ease-in-out ml-3 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+          aria-label={`Copy tag "${item.text}" to clipboard`}
+        >
           {copied ? 'Copied!' : 'Copy'}
         </button>
       </div>
@@ -572,16 +586,19 @@ IMPORTANT FORMATTING:
       <h2 className="text-3xl font-bold text-tt-dark-violet mb-2 text-center">AI-Powered Tag Generator</h2>
       <p className="text-center text-gray-600 mb-8">Generate hyper-targeted tags and hashtags optimized for your specific content format, region, and language.</p>
 
-      <div className="flex border-b border-gray-200 mb-6 bg-gray-50 rounded-t-lg overflow-hidden">
+      <div className="flex border-b border-gray-200 mb-6 bg-gray-50 rounded-t-lg overflow-hidden" role="tablist" aria-label="Social media platforms">
         {TABS.map(tab => (
           <button
             key={tab.id}
             onClick={() => setActiveTab(tab.id)}
-            className={`tab-button flex-1 p-3 sm:p-4 text-center font-bold border-b-4 transition-colors duration-300 flex flex-col items-center justify-center ${activeTab === tab.id ? 'text-tt-dark-violet border-tt-dark-violet bg-tt-dark-violet/5' : 'text-gray-500 border-transparent hover:bg-gray-100'}`}
+            role="tab"
+            aria-selected={activeTab === tab.id}
+            aria-controls={`${tab.id}-panel`}
+            className={`tab-button flex-1 p-3 sm:p-4 text-center font-bold border-b-4 transition-colors duration-300 flex flex-col items-center justify-center focus:outline-none focus:ring-2 focus:ring-tt-dark-violet focus:ring-inset ${activeTab === tab.id ? 'text-tt-dark-violet border-tt-dark-violet bg-tt-dark-violet/5' : 'text-gray-600 border-transparent hover:bg-gray-100 hover:text-gray-800'}`}
           >
-            <tab.icon className={`h-6 w-6 sm:h-7 sm:w-7 mb-1 ${activeTab === tab.id ? 'text-tt-dark-violet' : 'text-gray-400'}`} />
+            <tab.icon className={`h-6 w-6 sm:h-7 sm:w-7 mb-1 ${activeTab === tab.id ? 'text-tt-dark-violet' : 'text-gray-500'}`} aria-hidden="true" />
             <span className="text-sm sm:text-base">{tab.name}</span>
-            <span className="text-xs text-gray-500 mt-1 hidden sm:block">{tab.description}</span>
+            <span className="text-xs text-gray-600 mt-1 hidden sm:block">{tab.description}</span>
           </button>
         ))}
       </div>
@@ -722,8 +739,11 @@ IMPORTANT FORMATTING:
           value={state.topic}
           onChange={(e) => dispatch({ type: 'SET_TOPIC', payload: e.target.value })}
           placeholder="e.g., 'Video about making homemade pizza. Key points: dough recipe, sauce, toppings, baking tips.'"
-          className="w-full p-4 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-tt-dark-violet text-base min-h-[8rem] resize-none overflow-y-hidden"
+          className="w-full p-4 border-2 border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-tt-dark-violet focus:border-tt-dark-violet text-base min-h-[8rem] resize-none overflow-y-hidden transition-colors"
+          aria-describedby="topic-help"
+          required
         />
+        <p id="topic-help" className="text-sm text-gray-600 mt-2">Describe your content topic to generate relevant tags and hashtags</p>
       </div>
 
       <div className="flex flex-col sm:flex-row justify-center gap-4 my-6">
