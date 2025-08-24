@@ -39,6 +39,14 @@ function vercelApiDevPlugin() {
             res.end(JSON.stringify(data));
             return res;
           };
+          res.setHeader = (key, value) => {
+            res.setHeader(key, value);
+            return res;
+          };
+          res.end = (data) => {
+            res.end(data);
+            return res;
+          };
           
           try {
             await apiHandler(req, res);
@@ -52,38 +60,68 @@ function vercelApiDevPlugin() {
   };
 }
 
-
 // https://vitejs.dev/config/
 export default defineConfig({
-  plugins: [react(), vercelApiDevPlugin()],
+  plugins: [
+    react({
+      jsxRuntime: 'automatic',
+      // Optimize React in production
+      babel: {
+        plugins: process.env.NODE_ENV === 'production' ? [
+          ['@babel/plugin-transform-react-constant-elements'],
+          ['@babel/plugin-transform-react-inline-elements']
+        ] : []
+      }
+    }),
+    vercelApiDevPlugin()
+  ],
   build: {
-    target: 'es2015', // Better compatibility while still modern
-    minify: 'esbuild', // Faster build times
-    sourcemap: false,
-    cssCodeSplit: true,
-    chunkSizeWarningLimit: 1000, // Warn for chunks larger than 1MB
+    target: 'es2020', // Modern browsers for better performance
+    minify: 'esbuild', // Fastest minification
+    sourcemap: false, // Disable sourcemaps for production
+    cssCodeSplit: true, // Split CSS by routes
+    chunkSizeWarningLimit: 500, // Smaller chunk warning limit
     rollupOptions: {
       output: {
+        // Optimize chunk splitting
         manualChunks: {
-          // Core React chunks
+          // Vendor chunks
           'react-vendor': ['react', 'react-dom'],
-          'router': ['react-router-dom'],
-          // UI library chunks
-          'animations': ['framer-motion'],
-          'icons': ['lucide-react'],
-          // Firebase chunk (if used)
-          'firebase': ['firebase/app', 'firebase/analytics'],
+          'router-vendor': ['react-router-dom'],
+          'animation-vendor': ['framer-motion'],
+          'icons-vendor': ['lucide-react'],
+          // Firebase in separate chunk if large
+          'firebase-vendor': ['firebase/app', 'firebase/analytics']
         },
+        // Optimize file naming
         chunkFileNames: 'assets/js/[name]-[hash].js',
         entryFileNames: 'assets/js/[name]-[hash].js',
-        assetFileNames: 'assets/[ext]/[name]-[hash].[ext]'
+        assetFileNames: (assetInfo) => {
+          const info = assetInfo.name.split('.');
+          const extType = info[info.length - 1];
+          if (/\.(png|jpe?g|svg|gif|tiff|bmp|ico)$/i.test(assetInfo.name)) {
+            return `assets/images/[name]-[hash].${extType}`;
+          }
+          if (/\.(woff2?|eot|ttf|otf)$/i.test(assetInfo.name)) {
+            return `assets/fonts/[name]-[hash].${extType}`;
+          }
+          return `assets/${extType}/[name]-[hash].${extType}`;
+        }
       },
-      external: [] // Keep all dependencies bundled for better caching
+      // Remove unused dependencies
+      external: [],
+      treeshake: {
+        moduleSideEffects: false,
+        propertyReadSideEffects: false
+      }
     },
     // Optimize CSS
-    cssMinify: true,
-    // Better tree shaking
-    reportCompressedSize: false // Faster builds
+    cssMinify: 'esbuild',
+    cssTarget: 'es2020',
+    // Performance optimizations
+    reportCompressedSize: false, // Faster builds
+    assetsInlineLimit: 4096, // Inline small assets
+    emptyOutDir: true
   },
   optimizeDeps: {
     include: [
@@ -93,11 +131,15 @@ export default defineConfig({
       'framer-motion',
       'lucide-react'
     ],
-    exclude: ['firebase'] // Let firebase be dynamically imported
+    exclude: ['firebase'], // Let firebase be dynamically imported
+    esbuildOptions: {
+      target: 'es2020'
+    }
   },
-  // Performance optimizations
+  // Performance optimizations for dev server
   server: {
     cors: true,
+    preTransformRequests: false,
     headers: {
       'Cache-Control': 'max-age=31536000',
       'X-Content-Type-Options': 'nosniff',
@@ -109,16 +151,30 @@ export default defineConfig({
     headers: {
       'Cache-Control': 'max-age=31536000, immutable',
       'X-Content-Type-Options': 'nosniff',
-      'X-Frame-Options': 'DENY'
+      'X-Frame-Options': 'DENY',
+      'X-XSS-Protection': '1; mode=block'
     }
   },
   // CSS optimization
   css: {
     devSourcemap: false,
+    postcss: {
+      plugins: []
+    },
     preprocessorOptions: {
       css: {
         charset: false // Remove charset from CSS
       }
+    }
+  },
+  // Define environment variables
+  define: {
+    __DEV__: process.env.NODE_ENV === 'development'
+  },
+  // Resolve optimizations
+  resolve: {
+    alias: {
+      '@': '/src'
     }
   }
 })
