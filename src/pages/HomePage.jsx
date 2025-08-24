@@ -11,37 +11,54 @@ const ComingSoon = lazy(() => import('../components/ComingSoon'));
 const Faq = lazy(() => import('../components/Faq'));
 const Demo = lazy(() => import('../components/Demo'));
 
-// Optimized Floating Balls - reduced for mobile performance
+// Highly optimized Floating Balls - minimal DOM impact
 const FloatingBalls = React.memo(() => {
-  const [isMobile, setIsMobile] = React.useState(false);
+  const [shouldRender, setShouldRender] = React.useState(false);
 
   React.useEffect(() => {
-    const checkMobile = () => setIsMobile(window.innerWidth < 768);
-    checkMobile();
-    window.addEventListener('resize', checkMobile);
-    return () => window.removeEventListener('resize', checkMobile);
+    // Only render if desktop, supports animations, and user hasn't disabled motion
+    const shouldShow =
+      window.innerWidth >= 1024 &&
+      !window.matchMedia('(prefers-reduced-motion: reduce)').matches &&
+      'requestAnimationFrame' in window;
+
+    setShouldRender(shouldShow);
+
+    const handleResize = () => {
+      setShouldRender(
+        window.innerWidth >= 1024 &&
+        !window.matchMedia('(prefers-reduced-motion: reduce)').matches
+      );
+    };
+
+    window.addEventListener('resize', handleResize, { passive: true });
+    return () => window.removeEventListener('resize', handleResize);
   }, []);
 
-  // Don't render on mobile for performance
-  if (isMobile) return null;
+  // Don't render if conditions not met
+  if (!shouldRender) return null;
 
+  // Reduced number of balls for better performance
   return (
-    <ul className="floating-balls absolute top-0 left-0 -z-10 h-full w-full overflow-hidden pointer-events-none">
-      {Array.from({ length: 5 }).map((_, i) => (
-        <li
+    <div
+      className="floating-balls absolute top-0 left-0 -z-10 h-full w-full overflow-hidden pointer-events-none"
+      aria-hidden="true"
+    >
+      {Array.from({ length: 3 }).map((_, i) => (
+        <div
           key={i}
-          className="absolute block list-none rounded-full bg-tt-dark-violet/5 will-change-transform"
+          className="absolute rounded-full bg-tt-dark-violet/3 will-change-transform"
           style={{
-            left: `${Math.random() * 100}%`,
-            width: `${Math.random() * 80 + 40}px`,
-            height: `${Math.random() * 80 + 40}px`,
-            animation: `fall ${Math.random() * 25 + 20}s linear infinite`,
-            animationDelay: `${Math.random() * 10}s`,
+            left: `${(i + 1) * 25}%`,
+            width: '60px',
+            height: '60px',
+            animation: `fall ${30 + i * 5}s linear infinite`,
+            animationDelay: `${i * 10}s`,
             top: '-150px',
           }}
         />
       ))}
-    </ul>
+    </div>
   );
 });
 
