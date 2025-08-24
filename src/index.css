@@ -3,44 +3,77 @@
 @tailwind utilities;
 
 @layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
   body {
     @apply bg-gray-50 font-sans text-gray-800 antialiased;
     overflow-x: hidden;
-  }
-
-  html {
-    scroll-behavior: smooth;
+    line-height: 1.6;
   }
 }
 
 @layer components {
+  /* Optimized button styles */
   .btn {
-    @apply inline-flex items-center justify-center rounded-lg px-6 py-3 font-bold shadow-md transition-all duration-300 hover:-translate-y-0.5 hover:shadow-lg;
+    @apply inline-flex items-center justify-center rounded-lg px-6 py-3 font-semibold shadow-md transition-transform duration-200 hover:-translate-y-0.5 hover:shadow-lg;
   }
 
   .btn-primary {
-    @apply btn bg-tt-dark-violet text-white hover:bg-tt-medium-violet;
+    @apply btn bg-gradient-to-r from-tt-dark-violet to-tt-medium-violet text-white;
   }
 
   .btn-secondary {
     @apply btn bg-gray-200 text-gray-700 hover:bg-gray-300;
   }
 
+  /* Tag item styles */
   .tag-item {
-    @apply flex items-center justify-between rounded-md bg-white p-3 shadow-sm transition-all duration-200 hover:translate-x-1 hover:shadow-md;
+    @apply flex items-center justify-between rounded-md bg-white p-3 shadow-sm transition-transform duration-200 hover:translate-x-1 hover:shadow-md;
+  }
+
+  /* Feature card optimized */
+  .feature-card {
+    @apply bg-white rounded-xl p-6 shadow-lg transition-transform duration-200 hover:-translate-y-1 hover:shadow-xl border border-gray-100;
   }
 }
 
+/* Optimized animations */
 @keyframes fall {
-  0% { transform: translateY(0) rotate(0deg); opacity: 1; }
-  100% { transform: translateY(120vh) rotate(720deg); opacity: 0; }
+  0% {
+    transform: translateY(-150px) rotate(0deg);
+    opacity: 0.7;
+  }
+  100% {
+    transform: translateY(100vh) rotate(360deg);
+    opacity: 0;
+  }
 }
 
-/* Accessibility: Reduce motion for users who prefer it */
+/* Mobile-first responsive design */
+@media (max-width: 768px) {
+  .floating-balls {
+    display: none !important;
+  }
+
+  .btn {
+    @apply px-4 py-2 text-sm;
+  }
+
+  /* Reduce animations on mobile for performance */
+  * {
+    animation-duration: 0.1s !important;
+    transition-duration: 0.1s !important;
+  }
+}
+
+/* Accessibility improvements */
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
   }
+
   *,
   *::before,
   *::after {
@@ -49,7 +82,8 @@
     transition-duration: 0.01ms !important;
     scroll-behavior: auto !important;
   }
+
   .floating-balls {
-    display: none;
+    display: none !important;
   }
 }

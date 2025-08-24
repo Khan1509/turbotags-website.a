@@ -1,20 +1,26 @@
-import React from 'react';
+import React, { lazy, Suspense } from 'react';
 import { Outlet } from 'react-router-dom';
 import Header from '../Header';
-import Footer from '../Footer';
-import CookieConsent from '../CookieConsent';
-import ScrollToTopButton from '../ScrollToTopButton';
 import ScrollToAnchor from '../utils/ScrollToAnchor';
+
+// Lazy load non-critical components for better performance
+const Footer = lazy(() => import('../Footer'));
+const CookieConsent = lazy(() => import('../CookieConsent'));
+const ScrollToTopButton = lazy(() => import('../ScrollToTopButton'));
 
 const MainLayout = () => {
   return (
     <>
       <ScrollToAnchor />
       <Header />
-      <Outlet />
-      <Footer />
-      <CookieConsent />
-      <ScrollToTopButton />
+      <main>
+        <Outlet />
+      </main>
+      <Suspense fallback={null}>
+        <Footer />
+        <CookieConsent />
+        <ScrollToTopButton />
+      </Suspense>
     </>
   );
 };

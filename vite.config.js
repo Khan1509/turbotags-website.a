@@ -57,35 +57,68 @@ function vercelApiDevPlugin() {
 export default defineConfig({
   plugins: [react(), vercelApiDevPlugin()],
   build: {
-    target: 'esnext',
-    minify: 'esbuild',
+    target: 'es2015', // Better compatibility while still modern
+    minify: 'esbuild', // Faster build times
     sourcemap: false,
     cssCodeSplit: true,
+    chunkSizeWarningLimit: 1000, // Warn for chunks larger than 1MB
     rollupOptions: {
       output: {
         manualChunks: {
-          vendor: ['react', 'react-dom'],
-          ui: ['framer-motion', 'lucide-react'],
-          router: ['react-router-dom']
+          // Core React chunks
+          'react-vendor': ['react', 'react-dom'],
+          'router': ['react-router-dom'],
+          // UI library chunks
+          'animations': ['framer-motion'],
+          'icons': ['lucide-react'],
+          // Firebase chunk (if used)
+          'firebase': ['firebase/app', 'firebase/analytics'],
         },
         chunkFileNames: 'assets/js/[name]-[hash].js',
         entryFileNames: 'assets/js/[name]-[hash].js',
         assetFileNames: 'assets/[ext]/[name]-[hash].[ext]'
-      }
-    }
+      },
+      external: [] // Keep all dependencies bundled for better caching
+    },
+    // Optimize CSS
+    cssMinify: true,
+    // Better tree shaking
+    reportCompressedSize: false // Faster builds
   },
   optimizeDeps: {
-    include: ['react', 'react-dom', 'framer-motion', 'lucide-react', 'react-router-dom']
+    include: [
+      'react',
+      'react-dom',
+      'react-router-dom',
+      'framer-motion',
+      'lucide-react'
+    ],
+    exclude: ['firebase'] // Let firebase be dynamically imported
   },
+  // Performance optimizations
   server: {
     cors: true,
     headers: {
-      'Cache-Control': 'max-age=31536000'
+      'Cache-Control': 'max-age=31536000',
+      'X-Content-Type-Options': 'nosniff',
+      'X-Frame-Options': 'DENY',
+      'X-XSS-Protection': '1; mode=block'
     }
   },
   preview: {
     headers: {
-      'Cache-Control': 'max-age=31536000'
+      'Cache-Control': 'max-age=31536000, immutable',
+      'X-Content-Type-Options': 'nosniff',
+      'X-Frame-Options': 'DENY'
+    }
+  },
+  // CSS optimization
+  css: {
+    devSourcemap: false,
+    preprocessorOptions: {
+      css: {
+        charset: false // Remove charset from CSS
+      }
     }
   }
 })
