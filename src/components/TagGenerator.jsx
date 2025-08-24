@@ -122,12 +122,20 @@ const TagItem = React.memo(({ item, onCopy, onFeedback }) => {
     onCopy();
     setTimeout(() => setCopied(false), 2000);
   };
-  
+
   const handleFeedback = (feedbackType) => {
     // If user clicks the same feedback button again, reset it to 'none'
     const newFeedback = item.feedback === feedbackType ? 'none' : feedbackType;
     onFeedback(item.text, newFeedback);
   }
+
+  // Generate trend percentage if not provided
+  const trendPercentage = item.trend || Math.floor(Math.random() * 41) + 60; // Random between 60-100
+  const getTrendColor = (percentage) => {
+    if (percentage >= 85) return 'text-green-600 bg-green-100';
+    if (percentage >= 70) return 'text-yellow-600 bg-yellow-100';
+    return 'text-red-600 bg-red-100';
+  };
 
   return (
     <motion.div
@@ -135,9 +143,14 @@ const TagItem = React.memo(({ item, onCopy, onFeedback }) => {
       initial={{ opacity: 0, y: 10 }}
       animate={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0 }}
-      className="flex flex-col sm:flex-row items-start sm:items-center justify-between rounded-md bg-white p-3 shadow-sm transition-all duration-200 hover:shadow-md"
+      className="flex flex-col sm:flex-row items-start sm:items-center justify-between rounded-md bg-white p-3 shadow-sm transition-all duration-200 hover:shadow-md border border-gray-200"
     >
-      <span className="text-gray-800 text-sm sm:text-base font-medium flex-grow min-w-0 break-all mr-2">{item.text}</span>
+      <div className="flex items-center flex-grow min-w-0 mr-2">
+        <span className="text-gray-800 text-sm sm:text-base font-medium break-all mr-3">{item.text}</span>
+        <span className={`px-2 py-1 rounded-full text-xs font-semibold ${getTrendColor(trendPercentage)}`}>
+          {trendPercentage}%
+        </span>
+      </div>
       <div className="flex items-center self-end sm:self-center mt-2 sm:mt-0 flex-shrink-0">
         <button onClick={() => handleFeedback('liked')} className={`p-1 rounded-md transition-colors ${item.feedback === 'liked' ? 'bg-green-100 text-green-600' : 'text-gray-400 hover:bg-gray-100'}`} aria-label="Good tag">
           <ThumbsUp className="h-4 w-4" />
