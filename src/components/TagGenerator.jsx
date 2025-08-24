@@ -47,6 +47,25 @@ const REGIONS = [
   { value: 'japan', label: 'Japan', flag: '🇯🇵' }
 ];
 
+const LANGUAGES = [
+  { value: 'english', label: 'English', code: 'en', flag: '🇺🇸' },
+  { value: 'spanish', label: 'Español', code: 'es', flag: '🇪🇸' },
+  { value: 'french', label: 'Français', code: 'fr', flag: '🇫🇷' },
+  { value: 'german', label: 'Deutsch', code: 'de', flag: '🇩🇪' },
+  { value: 'italian', label: 'Italiano', code: 'it', flag: '🇮🇹' },
+  { value: 'portuguese', label: 'Português', code: 'pt', flag: '🇵🇹' },
+  { value: 'japanese', label: '日本語', code: 'ja', flag: '🇯🇵' },
+  { value: 'korean', label: '한국어', code: 'ko', flag: '🇰🇷' },
+  { value: 'chinese', label: '中文', code: 'zh', flag: '🇨🇳' },
+  { value: 'hindi', label: 'हिन्दी', code: 'hi', flag: '🇮🇳' },
+  { value: 'arabic', label: 'العربية', code: 'ar', flag: '🇸🇦' },
+  { value: 'russian', label: 'Русский', code: 'ru', flag: '🇷🇺' },
+  { value: 'dutch', label: 'Nederlands', code: 'nl', flag: '🇳🇱' },
+  { value: 'turkish', label: 'Türkçe', code: 'tr', flag: '🇹🇷' },
+  { value: 'thai', label: 'ไทย', code: 'th', flag: '🇹🇭' },
+  { value: 'vietnamese', label: 'Tiếng Việt', code: 'vi', flag: '🇻🇳' }
+];
+
 const initialState = {
   topic: '',
   tags: [],
@@ -56,6 +75,7 @@ const initialState = {
   message: null,
   contentFormat: 'long-form',
   region: 'global',
+  language: 'english',
 };
 
 function reducer(state, action) {
