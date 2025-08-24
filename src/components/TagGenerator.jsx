@@ -174,6 +174,7 @@ const TagGenerator = () => {
       if (!event.target.closest('.dropdown-container')) {
         setShowFormatDropdown(false);
         setShowRegionDropdown(false);
+        setShowLanguageDropdown(false);
       }
     };
 
