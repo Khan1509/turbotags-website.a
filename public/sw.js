@@ -1,20 +1,14 @@
-const CACHE_NAME = 'turbotags-v2.1.5'; // New version for a clean update
+const CACHE_NAME = 'turbotags-v2.1.6'; // Updated cache name
 
-/**
- * INSTALL: This event now only ensures the service worker becomes active.
- * It no longer pre-caches any assets, which makes the installation
- * process virtually immune to network failures.
- */
+// On install, activate immediately
 self.addEventListener('install', (event) => {
-  console.log(`[SW v${CACHE_NAME}] Install: Service worker installing.`);
+  console.log(`[SW v${CACHE_NAME}] Install`);
   event.waitUntil(self.skipWaiting());
 });
 
-/**
- * ACTIVATE: This event cleans up old, unused caches to save space.
- */
+// On activate, clean up old caches and claim clients
 self.addEventListener('activate', (event) => {
-  console.log(`[SW v${CACHE_NAME}] Activate: Service worker activating.`);
+  console.log(`[SW v${CACHE_NAME}] Activate`);
   event.waitUntil(
     caches.keys().then((cacheNames) => {
       return Promise.all(
@@ -25,45 +19,57 @@ self.addEventListener('activate', (event) => {
           }
         })
       );
-    }).then(() => {
-      console.log(`[SW v${CACHE_NAME}] Claiming clients.`);
-      return self.clients.claim();
-    })
+    }).then(() => self.clients.claim())
   );
 });
 
-/**
- * FETCH: This event handles all network requests.
- * It uses a "Network falling back to Cache" strategy.
- * 1. Try the network first to get the latest content.
- * 2. If successful, cache the response and return it.
- * 3. If the network fails (e.g., offline), return the content from the cache.
- */
+// Fetch event handler with multiple strategies
 self.addEventListener('fetch', (event) => {
-  // We only cache GET requests.
-  if (event.request.method !== 'GET') {
+  const { request } = event;
+
+  // Ignore non-GET requests
+  if (request.method !== 'GET') {
     return;
   }
 
+  // API calls: Network-only. Don't cache.
+  if (request.url.includes('/api/')) {
+    return; // Let the browser handle it, no offline support for API.
+  }
+
+  // HTML Pages (Navigation): Network-first, falling back to cache.
+  if (request.mode === 'navigate') {
+    event.respondWith(
+      fetch(request)
+        .then((networkResponse) => {
+          // Clone and cache the successful response
+          const responseToCache = networkResponse.clone();
+          caches.open(CACHE_NAME).then((cache) => {
+            cache.put(request, responseToCache);
+          });
+          return networkResponse;
+        })
+        .catch(() => {
+          // If network fails, serve from cache
+          return caches.match(request);
+        })
+    );
+    return;
+  }
+
+  // Static Assets (JS, CSS, Images, Fonts, Manifest): Stale-While-Revalidate.
+  // This serves from cache immediately for speed, then updates the cache in the background.
   event.respondWith(
-    fetch(event.request)
-      .then((networkResponse) => {
-        // If we get a valid response, cache it for offline use.
-        const responseToCache = networkResponse.clone();
+    caches.match(request).then((cachedResponse) => {
+      const fetchPromise = fetch(request).then((networkResponse) => {
         caches.open(CACHE_NAME).then((cache) => {
-          cache.put(event.request, responseToCache);
+          cache.put(request, networkResponse.clone());
         });
         return networkResponse;
-      })
-      .catch(() => {
-        // If the network request fails, try to serve from the cache.
-        return caches.match(event.request).then((cachedResponse) => {
-          if (cachedResponse) {
-            console.log(`[SW v${CACHE_NAME}] Serving from cache: ${event.request.url}`);
-            return cachedResponse;
-          }
-          // If not in cache and offline, the request will fail, which is expected.
-        });
-      })
+      });
+
+      // Return cached response if available, otherwise wait for network
+      return cachedResponse || fetchPromise;
+    })
   );
 });
