@@ -62,10 +62,10 @@ const Hero = () => {
       </motion.p>
       
       <motion.div variants={itemVariants} className="mt-8 flex flex-col sm:flex-row justify-center gap-4">
-        <a href="#tag-generator" className="btn-primary focus:outline-none focus:ring-3 focus:ring-tt-dark-violet focus:ring-offset-2" aria-label="Start generating tags and hashtags now">
+        <a href="#tag-generator" className="btn-primary focus:outline-none focus:ring-2 focus:ring-tt-dark-violet focus:ring-offset-2" aria-label="Start generating tags and hashtags now">
           Start Generating Now <Zap className="ml-2 h-5 w-5" aria-hidden="true" />
         </a>
-        <a href="#demo" className="btn-secondary focus:outline-none focus:ring-3 focus:ring-gray-500 focus:ring-offset-2" aria-label="Watch product demonstration video">
+        <a href="#demo" className="btn-secondary focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2" aria-label="Watch product demonstration video">
           Watch Demo <Play className="ml-2 h-5 w-5" aria-hidden="true" />
         </a>
       </motion.div>
