@@ -466,13 +466,17 @@ IMPORTANT FORMATTING:
 
       dispatch({ type: 'GENERATION_SUCCESS', payload: { tags: tagsWithFeedback, hashtags: hashtagsWithFeedback } });
 
+      const endTime = performance.now();
+      const duration = (endTime - startTime).toFixed(2);
+      console.log(`Generation completed in ${duration}ms`);
+
       if (isFallback) {
-        handleMessage('Using sample content - AI service temporarily unavailable', 'warning');
+        handleMessage(`Using ${state.language} sample content - AI service temporarily unavailable`, 'warning');
       } else {
         const totalGenerated = tags.length + hashtags.length;
         const message = activeTab === 'youtube' ?
-          `Generated ${tags.length} tags and ${hashtags.length} hashtags successfully!` :
-          `Generated ${hashtags.length} hashtags successfully!`;
+          `Generated ${tags.length} tags and ${hashtags.length} hashtags in ${duration}ms!` :
+          `Generated ${hashtags.length} hashtags in ${duration}ms!`;
         handleMessage(message, 'success');
       }
 
@@ -486,7 +490,7 @@ IMPORTANT FORMATTING:
       const languageFallbacks = {
         hindi: {
           tags: ['वायरल कंटेंट', 'ट्रेंडिंग विषय', 'यूट्यूब टिप्स', 'कंटेंट क्रिएटर', 'सोशल मीडिया', 'डिजिटल मार्केटिंग', 'ऑनलाइन बिजनेस', 'वीडियो मार्केटिंग', 'कंटेंट स्ट्रैटेजी', 'ऑडियंस एंगेजमेंट', 'क्रिएटर इकॉनमी', 'कंटेंट मोनेटाइज़ेशन', 'वीडियो SEO', 'यूट्यूब ग्रोथ', 'कंटेंट प्लानिंग'],
-          hashtags: ['#हिंदीकंटेंट', '#भारतीयक्रिएटर', '#वायरलवीडियो', '#ट्रेंडिंगइंडिया', '#सोशलमीडिया', '#डिजिटलइंडिया', '#हिंदीयूट्यूब', '#इंडियनक्रिएटर', '#बॉलीवुड', '#हिंदीट्रेंड्स', '#भारत', '#हिंदी', '#इंडिया', '#देसी', '#हिंदुस्तान']
+          hashtags: ['#हिंदीकंटेंट', '#भारतीयक्रिएटर', '#वायरलवीडियो', '#ट्रेंडिंगइंडिया', '#सोशलमीडिया', '#डिजिटलइंडिया', '#हिंदी���ूट्यूब', '#इंडियनक्रिएटर', '#बॉलीवुड', '#हिंदीट्रेंड्स', '#भारत', '#हिंदी', '#इंडिया', '#देसी', '#हिंदुस्तान']
         },
         spanish: {
           tags: ['contenido viral', 'tendencias', 'youtube español', 'creador contenido', 'redes sociales', 'marketing digital', 'negocio online', 'video marketing', 'estrategia contenido', 'engagement audiencia', 'economía creador', 'monetización', 'seo video', 'crecimiento youtube', 'planificación contenido'],
