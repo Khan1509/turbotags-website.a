@@ -315,7 +315,12 @@ Hashtags should be:
 IMPORTANT: ${languageInstruction}. Provide as comma-separated list with # prefix. Example: #hashtag1,#hashtag2,#hashtag3`;
       }
 
-      const resultText = await generateContent(prompt);
+      const resultText = await generateContent(prompt, {
+        platform: activeTab,
+        contentFormat: state.contentFormat,
+        region: state.region,
+        language: state.language
+      });
 
       let tags = [];
       let hashtags = [];
