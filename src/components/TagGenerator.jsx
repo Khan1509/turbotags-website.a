@@ -461,16 +461,33 @@ IMPORTANT FORMATTING:
     } catch (error) {
       console.error('Generation failed:', error);
 
-      // Try to provide some fallback content based on language and platform
+      // Enhanced fallback content based on language and platform
       let fallbackTags = [];
       let fallbackHashtags = [];
 
-      if (state.language === 'hindi') {
+      const languageFallbacks = {
+        hindi: {
+          tags: ['वायरल कंटेंट', 'ट्रेंडिंग विषय', 'यूट्यूब टिप्स', 'कंटेंट क्रिएटर', 'सोशल मीडिया', 'डिजिटल मार्केटिंग', 'ऑनलाइन बिजनेस', 'वीडियो मार्केटिंग', 'कंटेंट स्ट्रैटेजी', 'ऑडियंस एंगेजमेंट', 'क्रिएटर इकॉनमी', 'कंटेंट मोनेटाइज़ेशन', 'वीडियो SEO', 'यूट्यूब ग्रोथ', 'कंटेंट प्लानिंग'],
+          hashtags: ['#हिंदीकंटेंट', '#भारतीयक्रिएटर', '#वायरलवीडियो', '#ट्रेंडिंगइंडिया', '#सोशलमीडिया', '#डिजिटलइंडिया', '#हिंदीयूट्यूब', '#इंडियनक्रिएटर', '#बॉलीवुड', '#हिंदीट्रेंड्स', '#भारत', '#हिंदी', '#इंडिय���', '#देसी', '#हिंदुस्तान']
+        },
+        spanish: {
+          tags: ['contenido viral', 'tendencias', 'youtube español', 'creador contenido', 'redes sociales', 'marketing digital', 'negocio online', 'video marketing', 'estrategia contenido', 'engagement audiencia', 'economía creador', 'monetización', 'seo video', 'crecimiento youtube', 'planificación contenido'],
+          hashtags: ['#ContenidoEspañol', '#CreadorLatino', '#VideoViral', '#TendenciasEspaña', '#RedesSociales', '#MarketingDigital', '#YouTubeEspañol', '#CreadorMexicano', '#ContenidoLatino', '#TendenciasLatam', '#InfluencerLatino', '#VideoEspañol', '#CreadorEspañol', '#ContenidoViral', '#TendenciasVirales']
+        },
+        french: {
+          tags: ['contenu viral', 'tendances', 'youtube français', 'créateur contenu', 'médias sociaux', 'marketing digital', 'business en ligne', 'marketing vidéo', 'stratégie contenu', 'engagement audience', 'économie créateur', 'monétisation', 'seo vidéo', 'croissance youtube', 'planification contenu'],
+          hashtags: ['#ContenuFrançais', '#CréateurFrançais', '#VidéoVirale', '#TendancesFrance', '#RéseauxSociaux', '#MarketingDigital', '#YouTubeFrançais', '#CréateurFrancophone', '#ContenuFrancophone', '#TendancesFrancophones', '#InfluenceurFrançais', '#VidéoFrançaise', '#ContenuViral', '#TendancesVirales', '#CommunautéFrançaise']
+        }
+      };
+
+      const selectedLangFallback = languageFallbacks[state.language];
+
+      if (selectedLangFallback) {
         if (activeTab === 'youtube') {
-          fallbackTags = ['वायरल कंटे��ट', 'ट्रेंडिंग विषय', 'यूट्यूब टिप्स', 'कंटेंट क्���िएटर', 'सोशल मीडिया', 'डिजिटल मार्केटिंग', 'ऑनलाइन बिजनेस', 'वीडियो मार्केटिंग', 'कंटेंट स्ट्रैटेजी', 'ऑडियंस एंगेजमेंट', 'क्रिएटर इकॉनमी', 'कंटेंट मोनेटाइज़ेशन', 'वीडियो SEO', 'यूट्यूब ग्रोथ', 'कंटेंट प्लानिंग'].map(tag => ({ text: tag, feedback: 'none', trend: Math.floor(Math.random() * 41) + 60 }));
-          fallbackHashtags = ['#हिंदीकंटेंट', '#भारतीयक्रिएटर', '#वायरलवीडियो', '#ट्रेंडिंगइंडिया', '#सोशलमीडिया', '#डिजिटलइंडिया', '#हिंदीयूट्यूब', '#इंडियनक्रिएटर', '#बॉलीवुड', '#हिंदीट्रेंड्स', '#भारत', '#हिंदी', '#इंडिया', '#देसी', '#हिंदुस्तान'].map(tag => ({ text: tag, feedback: 'none', trend: Math.floor(Math.random() * 41) + 60 }));
+          fallbackTags = selectedLangFallback.tags.map(tag => ({ text: tag, feedback: 'none', trend: Math.floor(Math.random() * 41) + 60 }));
+          fallbackHashtags = selectedLangFallback.hashtags.map(tag => ({ text: tag, feedback: 'none', trend: Math.floor(Math.random() * 41) + 60 }));
         } else {
-          fallbackHashtags = ['#हिंदीकंटेंट', '#भारतीयक्रिएटर', '#वायरलवीडियो', '#ट्रेंडिंगइंडिया', '#सोशलमीडिया', '#डिजिटलइंडिया', '#इंडियनक्रिएटर', '#बॉलीवुड', '#हिंदीट्रेंड्स', '#भारत', '#हिंदी', '#इंडिया', '#देसी', '#हिंदुस्तान'].map(tag => ({ text: tag, feedback: 'none', trend: Math.floor(Math.random() * 41) + 60 }));
+          fallbackHashtags = selectedLangFallback.hashtags.map(tag => ({ text: tag, feedback: 'none', trend: Math.floor(Math.random() * 41) + 60 }));
         }
       } else {
         // English fallback
