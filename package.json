@@ -5,10 +5,16 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "vite build",
+    "build": "vite build && npm run optimize",
+    "build:fast": "vite build",
+    "optimize": "node scripts/performance-optimize.js",
     "lint": "eslint . --ext js,jsx --report-unused-disable-directives --max-warnings 0",
+    "lint:fix": "eslint . --ext js,jsx --fix",
     "preview": "vite preview",
-    "sitemap": "node scripts/generate-sitemap.js"
+    "sitemap": "node scripts/generate-sitemap.js",
+    "analyze": "npm run build && npx vite-bundle-analyzer dist/stats.json",
+    "test:lighthouse": "echo 'Run lighthouse CI or manual lighthouse test on deployed site'",
+    "perf": "npm run build && npm run preview"
   },
   "dependencies": {
     "@fontsource/inter": "^5.2.6",
