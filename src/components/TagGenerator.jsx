@@ -237,6 +237,28 @@ const TagGenerator = () => {
     return instructions[platform]?.[format] || 'engaging content';
   };
 
+  const getLanguageInstruction = (language) => {
+    const languageInstructions = {
+      english: 'Generate all content in English',
+      spanish: 'Generate all content in Spanish (Español)',
+      french: 'Generate all content in French (Français)',
+      german: 'Generate all content in German (Deutsch)',
+      italian: 'Generate all content in Italian (Italiano)',
+      portuguese: 'Generate all content in Portuguese (Português)',
+      japanese: 'Generate all content in Japanese (日本語)',
+      korean: 'Generate all content in Korean (한국어)',
+      chinese: 'Generate all content in Chinese (中文)',
+      hindi: 'Generate all content in Hindi (हिन्दी)',
+      arabic: 'Generate all content in Arabic (العربي��)',
+      russian: 'Generate all content in Russian (Русский)',
+      dutch: 'Generate all content in Dutch (Nederlands)',
+      turkish: 'Generate all content in Turkish (Türkçe)',
+      thai: 'Generate all content in Thai (ไทย)',
+      vietnamese: 'Generate all content in Vietnamese (Tiếng Việt)'
+    };
+    return languageInstructions[language] || 'Generate all content in English';
+  };
+
   const handleGenerate = async () => {
     if (!state.topic.trim()) {
       handleMessage('Please enter a topic to generate content.', 'error');
