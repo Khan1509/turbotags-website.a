@@ -160,6 +160,7 @@ const TagGenerator = () => {
   const textareaRef = useRef(null);
   const [showFormatDropdown, setShowFormatDropdown] = useState(false);
   const [showRegionDropdown, setShowRegionDropdown] = useState(false);
+  const [showLanguageDropdown, setShowLanguageDropdown] = useState(false);
 
   // Update content format when switching tabs
   useEffect(() => {
