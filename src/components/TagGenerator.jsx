@@ -269,7 +269,9 @@ const TagGenerator = () => {
     try {
       const regionContext = getRegionContext(state.region);
       const formatInstructions = getContentFormatInstructions(activeTab, state.contentFormat);
+      const languageInstruction = getLanguageInstruction(state.language);
       const selectedFormat = CONTENT_FORMATS[activeTab].find(f => f.value === state.contentFormat)?.label;
+      const selectedLanguage = LANGUAGES.find(l => l.value === state.language)?.label;
 
       let prompt;
       if (activeTab === 'youtube') {
@@ -277,16 +279,19 @@ const TagGenerator = () => {
 
 Content Type: ${selectedFormat} - ${formatInstructions}
 Target Region: ${regionContext}
+Language: ${languageInstruction}
 
 First, create 15-20 SEO-friendly TAGS that are:
         - Optimized for ${selectedFormat} discovery
         - ${regionContext}
         - Relevant to ${formatInstructions}
+        - Written in ${selectedLanguage}
 
 Second, create 15-20 HASHTAGS that are:
         - Currently ${regionContext}
         - Perfect for ${selectedFormat}
         - Designed for ${formatInstructions}
+        - Written in ${selectedLanguage}
 
 Total combined should not exceed 25 items.
 
