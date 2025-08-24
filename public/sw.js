@@ -1,10 +1,11 @@
-const CACHE_NAME = 'turbotags-v2.1.2'; // Updated cache name to force update
+const CACHE_NAME = 'turbotags-v2.1.3'; // Incrementing version to ensure update
 const urlsToCache = [
   '/',
   '/manifest.json',
   '/favicon.svg'
-  // Note: API endpoints and source files should not be pre-cached.
-  // The main app assets will be cached on first visit by the fetch handler below.
+  // IMPORTANT: Only static assets that can be fetched with a GET request should be here.
+  // API endpoints (like /api/generate) or source files (like /src/main.jsx)
+  // must NOT be in this list, as it will cause the installation to fail.
 ];
 
 // Install Service Worker
@@ -13,20 +14,23 @@ self.addEventListener('install', (event) => {
     caches.open(CACHE_NAME)
       .then((cache) => {
         console.log('Opened cache');
+        // This command will fail if any of the URLs in urlsToCache are invalid or return an error.
         return cache.addAll(urlsToCache);
       })
       .then(() => {
+        // Force the new service worker to become active immediately.
         return self.skipWaiting();
       })
       .catch(err => {
-        console.error('Cache addAll failed:', err);
+        // Log a detailed error to help debug future issues.
+        console.error('Service Worker installation failed:', err);
       })
   );
 });
 
-// Fetch event
+// Fetch event (caches other assets as they are requested)
 self.addEventListener('fetch', (event) => {
-  // We only want to cache GET requests
+  // We only want to handle GET requests.
   if (event.request.method !== 'GET') {
     return;
   }
@@ -34,25 +38,27 @@ self.addEventListener('fetch', (event) => {
   event.respondWith(
     caches.match(event.request)
       .then((response) => {
-        // Return cached version or fetch from network
+        // If we have a cached response, return it.
         if (response) {
           return response;
         }
         
-        // Clone the request because it's a stream
+        // If not in cache, fetch it from the network.
         const fetchRequest = event.request.clone();
         
         return fetch(fetchRequest).then((response) => {
-          // Check if we received a valid response
+          // Check if we received a valid response to cache.
+          // We only cache basic, successful (200) responses.
           if (!response || response.status !== 200 || response.type !== 'basic') {
             return response;
           }
           
-          // Clone the response because it's a stream
+          // Clone the response because it's a one-time use stream.
           const responseToCache = response.clone();
           
           caches.open(CACHE_NAME)
             .then((cache) => {
+              // Put the new response in the cache.
               cache.put(event.request, responseToCache);
             });
           
@@ -62,12 +68,13 @@ self.addEventListener('fetch', (event) => {
   );
 });
 
-// Activate event
+// Activate event (cleans up old caches)
 self.addEventListener('activate', (event) => {
   event.waitUntil(
     caches.keys().then((cacheNames) => {
       return Promise.all(
         cacheNames.map((cacheName) => {
+          // If a cache's name is different from our current one, delete it.
           if (cacheName !== CACHE_NAME) {
             console.log('Service Worker: clearing old cache:', cacheName);
             return caches.delete(cacheName);
@@ -75,6 +82,7 @@ self.addEventListener('activate', (event) => {
         })
       );
     }).then(() => {
+      // Take control of the page immediately.
       return self.clients.claim();
     })
   );
