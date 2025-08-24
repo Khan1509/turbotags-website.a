@@ -123,21 +123,24 @@ FORMAT REQUIREMENTS:
           fallbackText = langData.hashtags.slice(0, 15).join(', ');
         }
       } else {
-        // English fallback
+        // English fallback - generate exactly 15-20 items
+        const minItems = 15;
+        const maxItems = 20;
+
         if (platform === 'youtube') {
-          const tags = fallbackData.youtube.plain_tags.slice(0, 15);
-          const hashtags = fallbackData.youtube.hashtags.slice(0, 15);
+          const tags = fallbackData.youtube.plain_tags.slice(0, maxItems);
+          const hashtags = fallbackData.youtube.hashtags.slice(0, maxItems);
           fallbackText = `TAGS:[${tags.join(',')}]HASHTAGS:[${hashtags.join(',')}]`;
         } else if (platform === 'instagram') {
-          fallbackText = fallbackData.instagram_hashtags.slice(0, 15).join(', ');
+          fallbackText = fallbackData.instagram_hashtags.slice(0, maxItems).join(', ');
         } else if (platform === 'tiktok') {
-          fallbackText = fallbackData.tiktok_hashtags.slice(0, 15).join(', ');
+          fallbackText = fallbackData.tiktok_hashtags.slice(0, maxItems).join(', ');
         } else if (platform === 'facebook') {
-          fallbackText = fallbackData.facebook_hashtags.slice(0, 15).join(', ');
+          fallbackText = fallbackData.facebook_hashtags.slice(0, maxItems).join(', ');
         } else {
           // Default fallback
-          const tags = fallbackData.youtube.plain_tags.slice(0, 15);
-          const hashtags = fallbackData.youtube.hashtags.slice(0, 15);
+          const tags = fallbackData.youtube.plain_tags.slice(0, maxItems);
+          const hashtags = fallbackData.youtube.hashtags.slice(0, maxItems);
           fallbackText = `TAGS:[${tags.join(',')}]HASHTAGS:[${hashtags.join(',')}]`;
         }
       }
