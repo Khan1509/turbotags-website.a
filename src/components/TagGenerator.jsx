@@ -57,7 +57,7 @@ const LANGUAGES = [
   { value: 'japanese', label: '日本語', code: 'ja', flag: '🇯🇵' },
   { value: 'korean', label: '한국어', code: 'ko', flag: '🇰🇷' },
   { value: 'chinese', label: '中文', code: 'zh', flag: '🇨🇳' },
-  { value: 'hindi', label: 'हिन���दी', code: 'hi', flag: '🇮🇳' },
+  { value: 'hindi', label: 'हिन्दी', code: 'hi', flag: '🇮🇳' },
   { value: 'arabic', label: 'العربية', code: 'ar', flag: '🇸🇦' },
   { value: 'russian', label: 'Русский', code: 'ru', flag: '🇷🇺' },
   { value: 'dutch', label: 'Nederlands', code: 'nl', flag: '🇳🇱' },
@@ -269,7 +269,7 @@ const TagGenerator = () => {
       dutch: 'Generate all content in Dutch (Nederlands)',
       turkish: 'Generate all content in Turkish (Türkçe)',
       thai: 'Generate all content in Thai (ไทย)',
-      vietnamese: 'Generate all content in Vietnamese (Ti���ng Việt)'
+      vietnamese: 'Generate all content in Vietnamese (Tiếng Việt)'
     };
     return languageInstructions[language] || 'Generate all content in English';
   };
@@ -434,17 +434,25 @@ IMPORTANT FORMATTING:
         console.log('Parsed hashtags for', activeTab, ':', hashtags);
       }
 
-      // Add random trend percentages if not provided
-      const tagsWithFeedback = tags.map(tag => ({
-        text: tag,
-        feedback: 'none',
-        trend: Math.floor(Math.random() * 41) + 60 // 60-100%
-      }));
-      const hashtagsWithFeedback = hashtags.map(tag => ({
-        text: tag,
-        feedback: 'none',
-        trend: Math.floor(Math.random() * 41) + 60 // 60-100%
-      }));
+      // Ensure tags are properly formatted and add trend percentages
+      const tagsWithFeedback = tags
+        .filter(tag => tag && tag.trim().length > 0)
+        .map(tag => ({
+          text: tag.trim(),
+          feedback: 'none',
+          trend: Math.floor(Math.random() * 41) + 60 // 60-100%
+        }));
+
+      const hashtagsWithFeedback = hashtags
+        .filter(tag => tag && tag.trim().length > 0)
+        .map(tag => ({
+          text: tag.trim(),
+          feedback: 'none',
+          trend: Math.floor(Math.random() * 41) + 60 // 60-100%
+        }));
+
+      console.log('Final tags with feedback:', tagsWithFeedback);
+      console.log('Final hashtags with feedback:', hashtagsWithFeedback);
 
       dispatch({ type: 'GENERATION_SUCCESS', payload: { tags: tagsWithFeedback, hashtags: hashtagsWithFeedback } });
 
@@ -467,7 +475,7 @@ IMPORTANT FORMATTING:
 
       const languageFallbacks = {
         hindi: {
-          tags: ['वायरल कंटेंट', 'ट्रेंडिंग विषय', 'यूट्यूब टिप्स', 'कंटेंट क्रिएटर', 'सोशल मीडिया', 'डिजिटल मार्केटिंग', 'ऑनलाइन बिजनेस', 'वीडियो मार्केटिंग', 'कंटेंट स्ट्रैटेजी', 'ऑडियंस एंगेजमेंट', 'क्रिएटर इकॉनमी', 'कंटेंट मोनेटाइज़ेशन', 'वीडियो SEO', 'यूट्यूब ग्रोथ', 'कंटेंट प्लानिंग'],
+          tags: ['वायरल कंटेंट', 'ट्रेंडिंग विषय', 'यूट्यूब टिप्स', 'कंटेंट क्रिएटर', 'सोशल मीडिया', '���िजिटल मार्केटिंग', 'ऑनलाइन बिजनेस', 'वीडियो मार्केटिंग', 'कंटेंट स्ट्रैटेजी', 'ऑडियंस एंगेजमेंट', 'क्रिएटर इकॉनमी', 'कंटेंट मोनेटाइज़ेशन', 'वीडियो SEO', 'यूट्यूब ग्रोथ', 'कंटेंट प्लानिंग'],
           hashtags: ['#हिंदीकंटेंट', '#भारतीयक्रिएटर', '#वायरलवीडियो', '#ट्रेंडिंगइंडिया', '#सोशलमीडिया', '#डिजिटलइंडिया', '#हिंदीयूट्यूब', '#इंडियनक्रिएटर', '#बॉलीवुड', '#हिंदीट्रेंड्स', '#भारत', '#हिंदी', '#इंडिया', '#देसी', '#हिंदुस्तान']
         },
         spanish: {
