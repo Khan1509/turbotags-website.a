@@ -1,4 +1,4 @@
-const CACHE_NAME = 'turbotags-v2.1.1'; // Updated cache name to force update
+const CACHE_NAME = 'turbotags-v2.1.2'; // Updated cache name to force update
 const urlsToCache = [
   '/',
   '/manifest.json',
