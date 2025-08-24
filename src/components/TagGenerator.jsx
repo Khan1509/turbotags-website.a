@@ -340,8 +340,8 @@ IMPORTANT: Provide as comma-separated list with # prefix. Example: #hashtag1,#ha
         ))}
       </div>
 
-      {/* Content Format and Region Selection */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+      {/* Content Format, Region, and Language Selection */}
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
         {/* Content Format Dropdown */}
         <div className="relative dropdown-container">
           <label className="block text-gray-700 text-sm font-semibold mb-2">
