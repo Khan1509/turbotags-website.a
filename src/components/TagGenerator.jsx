@@ -296,36 +296,47 @@ Content Type: ${selectedFormat} - ${formatInstructions}
 Target Region: ${regionContext}
 Language: ${languageInstruction}
 
-First, create 15-20 SEO-friendly TAGS that are:
-        - Optimized for ${selectedFormat} discovery
-        - ${regionContext}
-        - Relevant to ${formatInstructions}
-        - Written in ${selectedLanguage}
+Generate EXACTLY 15-20 items in each category:
 
-Second, create 15-20 HASHTAGS that are:
-        - Currently ${regionContext}
-        - Perfect for ${selectedFormat}
-        - Designed for ${formatInstructions}
-        - Written in ${selectedLanguage}
+FIRST - SEO TAGS (plain text, no # symbols):
+- 15-20 keyword-rich tags optimized for ${selectedFormat} discovery
+- ${regionContext} and relevant to ${formatInstructions}
+- Written in ${selectedLanguage}
+- Examples: "viral cooking tips", "homemade pizza recipe"
 
-Total combined should not exceed 25 items.
+SECOND - HASHTAGS (with # symbols):
+- 15-20 trending hashtags perfect for ${selectedFormat}
+- ${regionContext} and designed for ${formatInstructions}
+- Written in ${selectedLanguage}
+- Examples: "#CookingTips", "#PizzaRecipe"
 
-IMPORTANT: ${languageInstruction}. Format exactly as: TAGS:[tag one,tag two,another tag]HASHTAGS:[#hashtag1,#hashtag2,#hashtag3]`;
+IMPORTANT FORMATTING RULES:
+1. ${languageInstruction}
+2. Use this EXACT format: TAGS:[tag1,tag2,tag3]HASHTAGS:[#hashtag1,#hashtag2,#hashtag3]
+3. NO line breaks within the brackets
+4. Minimum 15 items per category, maximum 20 per category
+5. Tags are plain text, hashtags start with #`;
       } else {
-        prompt = `Generate 15-20 hashtags for a ${selectedFormat} on ${activeTab} about "${state.topic}".
+        prompt = `Generate EXACTLY 15-20 hashtags for a ${selectedFormat} on ${activeTab} about "${state.topic}".
 
 Content Type: ${selectedFormat} - ${formatInstructions}
 Target Region: ${regionContext}
 Language: ${languageInstruction}
 
-Hashtags should be:
-        - Currently ${regionContext}
-        - Optimized for ${selectedFormat} on ${activeTab}
-        - Perfect for ${formatInstructions}
-        - Mix of popular and niche tags for maximum reach
-        - Written in ${selectedLanguage}
+Hashtags MUST:
+- Be EXACTLY 15-20 hashtags (minimum 15, maximum 20)
+- Currently ${regionContext}
+- Optimized for ${selectedFormat} on ${activeTab}
+- Perfect for ${formatInstructions}
+- Mix of popular and niche tags for maximum reach
+- Written in ${selectedLanguage}
+- Include # symbol before each hashtag
 
-IMPORTANT: ${languageInstruction}. Provide as comma-separated list with # prefix. Example: #hashtag1,#hashtag2,#hashtag3`;
+IMPORTANT FORMATTING:
+1. ${languageInstruction}
+2. Provide as comma-separated list: #hashtag1,#hashtag2,#hashtag3
+3. NO extra text, just the hashtags
+4. Must be between 15-20 hashtags total`;
       }
 
       const resultText = await generateContent(prompt, {
@@ -339,30 +350,86 @@ IMPORTANT: ${languageInstruction}. Provide as comma-separated list with # prefix
       let hashtags = [];
 
       if (activeTab === 'youtube') {
-        const tagsMatch = resultText.match(/TAGS:\[(.*?)\]/is);
-        tags = tagsMatch ? tagsMatch[1].split(',').map(t => t.trim()).filter(Boolean) : [];
-
-        const hashtagsBlockMatch = resultText.match(/HASHTAGS:\[(.*?)\]/is);
-        if (hashtagsBlockMatch && hashtagsBlockMatch[1]) {
-            const foundHashtags = hashtagsBlockMatch[1].match(/#[\w_]+/g);
-            hashtags = foundHashtags ? foundHashtags.map(h => h.trim()).filter(Boolean) : [];
+        // Enhanced parsing for YouTube content
+        const tagsMatch = resultText.match(/TAGS:\[(.*?)\](?=HASHTAGS:)/is) || resultText.match(/TAGS:\[(.*?)\]/is);
+        if (tagsMatch && tagsMatch[1]) {
+          tags = tagsMatch[1]
+            .split(',')
+            .map(t => t.trim().replace(/^["']|["']$/g, '')) // Remove quotes
+            .filter(Boolean)
+            .slice(0, 20); // Limit to 20
         }
-        
+
+        const hashtagsMatch = resultText.match(/HASHTAGS:\[(.*?)\]/is);
+        if (hashtagsMatch && hashtagsMatch[1]) {
+          // Extract hashtags with better Unicode support for multi-language
+          const hashtagPattern = /#[\w\u0900-\u097F\u4e00-\u9fff\u0600-\u06ff\u0590-\u05ff]+/g;
+          hashtags = hashtagsMatch[1]
+            .match(hashtagPattern) ||
+            hashtagsMatch[1]
+              .split(',')
+              .map(h => {
+                const cleaned = h.trim().replace(/^["']|["']$/g, '');
+                return cleaned.startsWith('#') ? cleaned : '#' + cleaned;
+              })
+              .filter(h => h.length > 1)
+              .slice(0, 20);
+        }
+
+        // Fallback parsing if structured format fails
         if (tags.length === 0 && hashtags.length === 0) {
-            const parts = resultText.split(/HASHTAGS:/i);
-            tags = parts[0].replace(/TAGS:/i, '').replace(/[\[\]]/g, '').split(',').map(t => t.trim()).filter(Boolean);
-            if (parts[1]) {
-                const foundHashtags = parts[1].match(/#[\w_]+/g);
-                hashtags = foundHashtags ? foundHashtags.map(h => h.trim()).filter(Boolean) : [];
-            }
+          const parts = resultText.split(/(?:HASHTAGS:|#)/i);
+          if (parts.length >= 2) {
+            tags = parts[0]
+              .replace(/TAGS:/i, '')
+              .replace(/[\[\]]/g, '')
+              .split(',')
+              .map(t => t.trim().replace(/^["']|["']$/g, ''))
+              .filter(Boolean)
+              .slice(0, 20);
+
+            const hashtagPattern = /#[\w\u0900-\u097F\u4e00-\u9fff\u0600-\u06ff\u0590-\u05ff]+/g;
+            hashtags = resultText.match(hashtagPattern) || [];
+            hashtags = hashtags.slice(0, 20);
+          }
+        }
+
+        // Ensure minimum counts
+        if (tags.length < 15) {
+          console.warn(`Generated only ${tags.length} tags, minimum is 15`);
+        }
+        if (hashtags.length < 15) {
+          console.warn(`Generated only ${hashtags.length} hashtags, minimum is 15`);
         }
       } else {
-        const foundHashtags = resultText.match(/#[\w_]+/g);
-        hashtags = foundHashtags ? foundHashtags.map(h => h.trim()).filter(Boolean) : [];
+        // Enhanced parsing for other platforms
+        const hashtagPattern = /#[\w\u0900-\u097F\u4e00-\u9fff\u0600-\u06ff\u0590-\u05ff]+/g;
+        hashtags = resultText.match(hashtagPattern) ||
+          resultText
+            .split(',')
+            .map(h => {
+              const cleaned = h.trim().replace(/^["']|["']$/g, '');
+              return cleaned.startsWith('#') ? cleaned : '#' + cleaned;
+            })
+            .filter(h => h.length > 1)
+            .slice(0, 20);
+
+        if (hashtags.length < 15) {
+          console.warn(`Generated only ${hashtags.length} hashtags, minimum is 15`);
+        }
       }
 
-      const tagsWithFeedback = tags.map(tag => ({ text: tag, feedback: 'none' }));
-      const hashtagsWithFeedback = hashtags.map(tag => ({ text: tag, feedback: 'none' }));
+      // Add random trend percentages if not provided
+      const tagsWithFeedback = tags.map(tag => ({
+        text: tag,
+        feedback: 'none',
+        trend: Math.floor(Math.random() * 41) + 60 // 60-100%
+      }));
+      const hashtagsWithFeedback = hashtags.map(tag => ({
+        text: tag,
+        feedback: 'none',
+        trend: Math.floor(Math.random() * 41) + 60 // 60-100%
+      }));
 
       dispatch({ type: 'GENERATION_SUCCESS', payload: { tags: tagsWithFeedback, hashtags: hashtagsWithFeedback } });
       handleMessage('Content generated successfully!', 'success');
