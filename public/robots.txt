@@ -1,5 +1,66 @@
-# https://www.robotstxt.org/robotstxt.html
 User-agent: *
-Disallow:
+Allow: /
 
+# Main pages
+Allow: /generator
+Allow: /blog
+Allow: /features
+Allow: /legal
+
+# Blog posts
+Allow: /blog/best-tiktok-hashtags-2025
+Allow: /blog/instagram-growth
+Allow: /blog/youtube-seo-tags-guide
+Allow: /blog/youtube-shorts-strategy
+Allow: /blog/facebook-strategy.html
+
+# Static assets
+Allow: /favicon.svg
+Allow: /manifest.json
+Allow: /output.css
+
+# Disallow non-essential files
+Disallow: /api/
+Disallow: /*.json$
+Disallow: /node_modules/
+Disallow: /src/
+Disallow: /.env
+Disallow: /scripts/
+
+# Sitemap location
 Sitemap: https://turbotags.app/sitemap.xml
+
+# Enhanced for global reach
+User-agent: Googlebot
+Allow: /
+
+User-agent: Bingbot
+Allow: /
+
+User-agent: Slurp
+Allow: /
+
+User-agent: DuckDuckBot
+Allow: /
+
+User-agent: Baiduspider
+Allow: /
+
+User-agent: YandexBot
+Allow: /
+
+# Social media crawlers
+User-agent: facebookexternalhit/
+Allow: /
+
+User-agent: Twitterbot
+Allow: /
+
+User-agent: LinkedInBot
+Allow: /
+
+User-agent: TikTokBot
+Allow: /
+
+# Crawl-delay for performance
+Crawl-delay: 1

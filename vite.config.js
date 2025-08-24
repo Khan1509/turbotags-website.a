@@ -56,4 +56,36 @@ function vercelApiDevPlugin() {
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [react(), vercelApiDevPlugin()],
+  build: {
+    target: 'esnext',
+    minify: 'esbuild',
+    sourcemap: false,
+    cssCodeSplit: true,
+    rollupOptions: {
+      output: {
+        manualChunks: {
+          vendor: ['react', 'react-dom'],
+          ui: ['framer-motion', 'lucide-react'],
+          router: ['react-router-dom']
+        },
+        chunkFileNames: 'assets/js/[name]-[hash].js',
+        entryFileNames: 'assets/js/[name]-[hash].js',
+        assetFileNames: 'assets/[ext]/[name]-[hash].[ext]'
+      }
+    }
+  },
+  optimizeDeps: {
+    include: ['react', 'react-dom', 'framer-motion', 'lucide-react', 'react-router-dom']
+  },
+  server: {
+    cors: true,
+    headers: {
+      'Cache-Control': 'max-age=31536000'
+    }
+  },
+  preview: {
+    headers: {
+      'Cache-Control': 'max-age=31536000'
+    }
+  }
 })
