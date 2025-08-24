@@ -1,66 +1,19 @@
 User-agent: *
 Allow: /
 
-# Main pages
-Allow: /generator
-Allow: /blog
-Allow: /features
-Allow: /legal
+# Important pages for crawling
+Allow: /
+Allow: /about
+Allow: /blog/
+Allow: /legal/
 
-# Blog posts
-Allow: /blog/best-tiktok-hashtags-2025
-Allow: /blog/instagram-growth
-Allow: /blog/youtube-seo-tags-guide
-Allow: /blog/youtube-shorts-strategy
-Allow: /blog/facebook-strategy.html
-
-# Static assets
-Allow: /favicon.svg
-Allow: /manifest.json
-Allow: /output.css
-
-# Disallow non-essential files
+# Block admin and API endpoints
 Disallow: /api/
-Disallow: /*.json$
-Disallow: /node_modules/
-Disallow: /src/
-Disallow: /.env
-Disallow: /scripts/
+Disallow: /_next/
+Disallow: /.well-known/
 
 # Sitemap location
 Sitemap: https://turbotags.app/sitemap.xml
 
-# Enhanced for global reach
-User-agent: Googlebot
-Allow: /
-
-User-agent: Bingbot
-Allow: /
-
-User-agent: Slurp
-Allow: /
-
-User-agent: DuckDuckBot
-Allow: /
-
-User-agent: Baiduspider
-Allow: /
-
-User-agent: YandexBot
-Allow: /
-
-# Social media crawlers
-User-agent: facebookexternalhit/
-Allow: /
-
-User-agent: Twitterbot
-Allow: /
-
-User-agent: LinkedInBot
-Allow: /
-
-User-agent: TikTokBot
-Allow: /
-
-# Crawl-delay for performance
+# Crawl delay for better server performance
 Crawl-delay: 1
