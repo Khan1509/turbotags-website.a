@@ -36,5 +36,15 @@ export const generateContent = async (prompt, options = {}) => {
   }
 
   const data = await response.json();
+
+  // Handle both direct text response and object with fallback info
+  if (data.fallback) {
+    return {
+      text: data.text,
+      fallback: true,
+      message: data.message
+    };
+  }
+
   return data.text;
 };

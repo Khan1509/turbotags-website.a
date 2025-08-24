@@ -83,22 +83,27 @@ export default async function handler(req, res) {
       const fallbackPath = path.join(__dirname, 'fallback.json');
       const fallbackContent = fs.readFileSync(fallbackPath, 'utf-8');
       const fallbackData = JSON.parse(fallbackContent);
-      
-      const defaultResponse = "No content could be generated.";
-      
+
+      const defaultResponse = "TAGS:[content creation,social media,digital marketing,viral content,audience engagement]HASHTAGS:[#ContentCreator,#SocialMedia,#DigitalMarketing,#ViralContent,#Engagement]";
+
       let fallbackText = defaultResponse;
       if (prompt.toLowerCase().includes('youtube')) {
-        fallbackText = [...fallbackData.youtube.plain_tags, ...fallbackData.youtube.hashtags].join(', ');
+        // Format for YouTube with both tags and hashtags
+        const tags = fallbackData.youtube.plain_tags.slice(0, 15);
+        const hashtags = fallbackData.youtube.hashtags.slice(0, 15);
+        fallbackText = `TAGS:[${tags.join(',')}]HASHTAGS:[${hashtags.join(',')}]`;
       } else if (prompt.toLowerCase().includes('instagram')) {
-        fallbackText = fallbackData.instagram_hashtags.join(', ');
+        fallbackText = fallbackData.instagram_hashtags.slice(0, 15).join(', ');
       } else if (prompt.toLowerCase().includes('tiktok')) {
-        fallbackText = fallbackData.tiktok_hashtags.join(', ');
+        fallbackText = fallbackData.tiktok_hashtags.slice(0, 15).join(', ');
       } else {
-        fallbackText = fallbackData.youtube.plain_tags.join(', ');
+        fallbackText = defaultResponse;
       }
       
       return res.status(200).json({
-        text: fallbackText || defaultResponse
+        text: fallbackText,
+        fallback: true,
+        message: "Using fallback content due to API unavailability"
       });
     }
 
