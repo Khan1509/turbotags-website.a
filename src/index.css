@@ -5,41 +5,134 @@
 @layer base {
   html {
     scroll-behavior: smooth;
+    font-size: 16px;
+    height: 100%;
   }
 
   body {
-    @apply bg-gray-50 font-sans text-gray-800 antialiased;
+    @apply bg-gray-50 font-sans text-gray-900 antialiased;
     overflow-x: hidden;
     line-height: 1.6;
+    height: 100%;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  /* Improve text contrast for accessibility */
+  .text-gray-600 {
+    @apply text-gray-700;
+  }
+  
+  .text-gray-500 {
+    @apply text-gray-600;
+  }
+  
+  .text-gray-400 {
+    @apply text-gray-500;
   }
 }
 
 @layer components {
-  /* Optimized button styles */
+  /* Optimized button styles with better contrast */
   .btn {
     @apply inline-flex items-center justify-center rounded-lg px-6 py-3 font-semibold shadow-md transition-transform duration-200 hover:-translate-y-0.5 hover:shadow-lg;
+    min-height: 44px; /* Touch target size for accessibility */
   }
 
   .btn-primary {
     @apply btn bg-gradient-to-r from-tt-dark-violet to-tt-medium-violet text-white;
+    border: 2px solid transparent;
+  }
+
+  .btn-primary:hover {
+    @apply shadow-xl;
+    transform: translateY(-2px);
+  }
+
+  .btn-primary:focus {
+    @apply outline-none ring-4 ring-tt-medium-violet ring-opacity-50;
   }
 
   .btn-secondary {
-    @apply btn bg-gray-200 text-gray-700 hover:bg-gray-300;
+    @apply btn bg-gray-100 text-gray-800 hover:bg-gray-200 border-2 border-gray-300;
   }
 
-  /* Tag item styles */
+  .btn-secondary:hover {
+    @apply bg-gray-200 text-gray-900;
+  }
+
+  .btn-secondary:focus {
+    @apply outline-none ring-4 ring-gray-400 ring-opacity-50;
+  }
+
+  /* Tag item styles with better contrast */
   .tag-item {
-    @apply flex items-center justify-between rounded-md bg-white p-3 shadow-sm transition-transform duration-200 hover:translate-x-1 hover:shadow-md;
+    @apply flex items-center justify-between rounded-md bg-white p-3 shadow-sm transition-transform duration-200 hover:translate-x-1 hover:shadow-md border border-gray-300;
+    min-height: 60px; /* Prevent layout shift */
   }
 
   /* Feature card optimized */
   .feature-card {
-    @apply bg-white rounded-xl p-6 shadow-lg transition-transform duration-200 hover:-translate-y-1 hover:shadow-xl border border-gray-100;
+    @apply bg-white rounded-xl p-6 shadow-lg transition-transform duration-200 hover:-translate-y-1 hover:shadow-xl border border-gray-200;
+    min-height: 200px; /* Prevent layout shift */
+  }
+
+  /* Copy button with better contrast */
+  .copy-btn {
+    @apply bg-indigo-600 text-white px-3 py-1 rounded-md text-sm font-semibold hover:bg-indigo-700 transition duration-200 ease-in-out;
+    min-height: 32px;
+    min-width: 60px;
+  }
+
+  .copy-btn:focus {
+    @apply outline-none ring-4 ring-indigo-300 ring-opacity-50;
+  }
+
+  /* Dropdown improvements */
+  .dropdown-container button {
+    @apply text-gray-800;
+    min-height: 44px;
+  }
+
+  .dropdown-container button:focus {
+    @apply outline-none ring-4 ring-tt-medium-violet ring-opacity-50;
+  }
+
+  /* Form elements with better contrast */
+  input, textarea, select {
+    @apply text-gray-900;
+    min-height: 44px;
+  }
+
+  input:focus, textarea:focus, select:focus {
+    @apply outline-none ring-4 ring-tt-medium-violet ring-opacity-50;
+  }
+
+  /* Link improvements for accessibility */
+  a {
+    @apply text-tt-medium-violet underline hover:text-tt-dark-violet;
+  }
+
+  a:focus {
+    @apply outline-none ring-4 ring-tt-medium-violet ring-opacity-50 rounded;
+  }
+
+  /* Tab button improvements */
+  .tab-button {
+    min-height: 60px;
+    @apply text-gray-700;
+  }
+
+  .tab-button:focus {
+    @apply outline-none ring-4 ring-tt-medium-violet ring-opacity-50;
+  }
+
+  .tab-button.active {
+    @apply text-tt-dark-violet;
   }
 }
 
-/* Optimized animations */
+/* Optimized animations - reduced for performance */
 @keyframes fall {
   0% {
     transform: translateY(-150px) rotate(0deg);
@@ -51,6 +144,21 @@
   }
 }
 
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.fade-in {
+  animation: fadeIn 0.3s ease-out;
+}
+
 /* Mobile-first responsive design */
 @media (max-width: 768px) {
   .floating-balls {
@@ -59,12 +167,41 @@
 
   .btn {
     @apply px-4 py-2 text-sm;
+    min-height: 44px;
   }
 
   /* Reduce animations on mobile for performance */
   * {
     animation-duration: 0.1s !important;
     transition-duration: 0.1s !important;
+  }
+
+  .tag-item {
+    @apply flex-col items-start;
+    min-height: auto;
+  }
+
+  .copy-btn {
+    @apply mt-2 w-full;
+  }
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+  .btn-primary {
+    @apply bg-black text-white border-2 border-white;
+  }
+  
+  .btn-secondary {
+    @apply bg-white text-black border-2 border-black;
+  }
+  
+  .tag-item {
+    @apply border-2 border-black;
+  }
+  
+  .copy-btn {
+    @apply bg-black text-white border-2 border-white;
   }
 }
 
@@ -86,4 +223,72 @@
   .floating-balls {
     display: none !important;
   }
+}
+
+/* Dark mode support (future enhancement) */
+@media (prefers-color-scheme: dark) {
+  .bg-white {
+    @apply bg-gray-800;
+  }
+  
+  .text-gray-800 {
+    @apply text-gray-200;
+  }
+  
+  .text-gray-700 {
+    @apply text-gray-300;
+  }
+}
+
+/* Print styles */
+@media print {
+  .floating-balls,
+  .btn,
+  button {
+    display: none !important;
+  }
+  
+  .tag-item {
+    @apply shadow-none border border-gray-400;
+  }
+  
+  * {
+    animation: none !important;
+    transition: none !important;
+  }
+}
+
+/* Focus visible for better keyboard navigation */
+.focus-visible {
+  @apply outline-none ring-4 ring-tt-medium-violet ring-opacity-50;
+}
+
+/* Loading states */
+.loading-skeleton {
+  background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+  background-size: 200% 100%;
+  animation: loading 1.5s infinite;
+  border-radius: 0.375rem;
+}
+
+@keyframes loading {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
+}
+
+/* Prevent layout shifts */
+.container-fixed-height {
+  min-height: 400px;
+}
+
+.hero-fixed-height {
+  min-height: 500px;
+}
+
+.tag-list-container {
+  min-height: 300px;
 }
