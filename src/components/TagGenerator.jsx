@@ -1,5 +1,5 @@
 import React, { useState, useReducer, useRef, useEffect } from 'react';
-import { Youtube, Instagram, Facebook, Tags, RotateCw, Copy, Loader2, ThumbsUp, ThumbsDown, Globe, ChevronDown } from 'lucide-react';
+import { Youtube, Instagram, Facebook, Tags, RotateCw, Copy, Loader2, ThumbsUp, ThumbsDown, Globe, ChevronDown, Type } from 'lucide-react';
 import TikTokIcon from './icons/TikTokIcon';
 import MessageBox from './ui/MessageBox';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -433,7 +433,7 @@ IMPORTANT: Provide as comma-separated list with # prefix. Example: #hashtag1,#ha
               className="w-full p-3 border border-gray-300 rounded-lg bg-white text-left flex items-center justify-between hover:border-tt-medium-violet focus:outline-none focus:ring-2 focus:ring-tt-dark-violet"
             >
               <div className="flex items-center">
-                <Languages className="h-4 w-4 mr-2 text-gray-500" />
+                <Type className="h-4 w-4 mr-2 text-gray-500" />
                 <span className="text-gray-800">
                   {LANGUAGES.find(l => l.value === state.language)?.flag} {LANGUAGES.find(l => l.value === state.language)?.label}
                 </span>
