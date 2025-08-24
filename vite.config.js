@@ -61,7 +61,7 @@ export default defineConfig({
     minify: 'esbuild', // Faster build times
     sourcemap: false,
     cssCodeSplit: true,
-    chunkSizeWarningLimit: 1000, // Warn for chunks larger than 1MB
+    chunkSizeWarningLimit: 500, // Warn for chunks larger than 500KB
     rollupOptions: {
       output: {
         manualChunks(id) {
