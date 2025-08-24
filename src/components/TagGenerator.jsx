@@ -421,6 +421,48 @@ IMPORTANT: Provide as comma-separated list with # prefix. Example: #hashtag1,#ha
             )}
           </div>
         </div>
+
+        {/* Language Dropdown */}
+        <div className="relative dropdown-container">
+          <label className="block text-gray-700 text-sm font-semibold mb-2">
+            Language
+          </label>
+          <div className="relative">
+            <button
+              onClick={() => setShowLanguageDropdown(!showLanguageDropdown)}
+              className="w-full p-3 border border-gray-300 rounded-lg bg-white text-left flex items-center justify-between hover:border-tt-medium-violet focus:outline-none focus:ring-2 focus:ring-tt-dark-violet"
+            >
+              <div className="flex items-center">
+                <Languages className="h-4 w-4 mr-2 text-gray-500" />
+                <span className="text-gray-800">
+                  {LANGUAGES.find(l => l.value === state.language)?.flag} {LANGUAGES.find(l => l.value === state.language)?.label}
+                </span>
+              </div>
+              <ChevronDown className={`h-4 w-4 text-gray-500 transition-transform ${
+                showLanguageDropdown ? 'rotate-180' : ''
+              }`} />
+            </button>
+            {showLanguageDropdown && (
+              <div className="absolute z-10 w-full mt-1 bg-white border border-gray-300 rounded-lg shadow-lg max-h-60 overflow-y-auto">
+                {LANGUAGES.map((language) => (
+                  <button
+                    key={language.value}
+                    onClick={() => {
+                      dispatch({ type: 'SET_LANGUAGE', payload: language.value });
+                      setShowLanguageDropdown(false);
+                    }}
+                    className={`w-full p-3 text-left hover:bg-gray-50 first:rounded-t-lg last:rounded-b-lg flex items-center ${
+                      state.language === language.value ? 'bg-tt-dark-violet/5 text-tt-dark-violet font-semibold' : 'text-gray-800'
+                    }`}
+                  >
+                    <span className="mr-2">{language.flag}</span>
+                    {language.label}
+                  </button>
+                ))}
+              </div>
+            )}
+          </div>
+        </div>
       </div>
 
       <div className="p-1">
