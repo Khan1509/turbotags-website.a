@@ -1,4 +1,4 @@
-const CACHE_NAME = 'turbotags-v2.1.6'; // Updated cache name
+const CACHE_NAME = 'turbotags-v2.1.7'; // Increment version for update
 
 // On install, activate immediately
 self.addEventListener('install', (event) => {
@@ -23,7 +23,7 @@ self.addEventListener('activate', (event) => {
   );
 });
 
-// Fetch event handler with multiple strategies
+// Fetch event handler
 self.addEventListener('fetch', (event) => {
   const { request } = event;
 
@@ -34,7 +34,8 @@ self.addEventListener('fetch', (event) => {
 
   // API calls: Network-only. Don't cache.
   if (request.url.includes('/api/')) {
-    return; // Let the browser handle it, no offline support for API.
+    event.respondWith(fetch(request));
+    return;
   }
 
   // HTML Pages (Navigation): Network-first, falling back to cache.
@@ -42,7 +43,6 @@ self.addEventListener('fetch', (event) => {
     event.respondWith(
       fetch(request)
         .then((networkResponse) => {
-          // Clone and cache the successful response
           const responseToCache = networkResponse.clone();
           caches.open(CACHE_NAME).then((cache) => {
             cache.put(request, responseToCache);
@@ -50,26 +50,27 @@ self.addEventListener('fetch', (event) => {
           return networkResponse;
         })
         .catch(() => {
-          // If network fails, serve from cache
           return caches.match(request);
         })
     );
     return;
   }
 
-  // Static Assets (JS, CSS, Images, Fonts, Manifest): Stale-While-Revalidate.
-  // This serves from cache immediately for speed, then updates the cache in the background.
+  // Static Assets (JS, CSS, Images, etc.): Cache-First strategy.
+  // This is more stable and avoids the "body already used" error.
   event.respondWith(
     caches.match(request).then((cachedResponse) => {
-      const fetchPromise = fetch(request).then((networkResponse) => {
-        caches.open(CACHE_NAME).then((cache) => {
+      // Return from cache if found.
+      if (cachedResponse) {
+        return cachedResponse;
+      }
+      // Otherwise, fetch from network, cache it, and return the response.
+      return fetch(request).then((networkResponse) => {
+        return caches.open(CACHE_NAME).then((cache) => {
           cache.put(request, networkResponse.clone());
+          return networkResponse;
         });
-        return networkResponse;
       });
-
-      // Return cached response if available, otherwise wait for network
-      return cachedResponse || fetchPromise;
     })
   );
 });
