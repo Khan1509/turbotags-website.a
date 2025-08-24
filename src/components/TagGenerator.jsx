@@ -145,6 +145,19 @@ const TagGenerator = () => {
     dispatch({ type: 'SET_CONTENT_FORMAT', payload: defaultFormat });
   }, [activeTab]);
 
+  // Close dropdowns when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (!event.target.closest('.dropdown-container')) {
+        setShowFormatDropdown(false);
+        setShowRegionDropdown(false);
+      }
+    };
+
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, []);
+
   useEffect(() => {
     const textarea = textareaRef.current;
     if (textarea) {
