@@ -3,140 +3,77 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>TurboTags - #1 FREE AI Tag & Hashtag Generator | 16+ Languages | YouTube, Instagram, TikTok, Facebook</title>
-    
-    <!-- Favicon links -->
-    <link rel="icon" href="/favicon.svg" type="image/svg+xml">
-    <link rel="apple-touch-icon" href="/favicon.svg">
+    <title>TurboTags - #1 FREE AI Tag & Hashtag Generator</title>
 
-    <!-- PWA Manifest Link -->
-    <link rel="manifest" href="/manifest.json">
+    <!-- Critical CSS inlined for performance -->
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap');
+      * { box-sizing: border-box; }
+      html { scroll-behavior: smooth; height: 100%; }
+      body { font-family: 'Inter', sans-serif; background-color: #f9fafb; margin: 0; padding: 0; overflow-x: hidden; height: 100%; color: #1f2937; line-height: 1.6; }
+      #root { min-height: 100vh; }
+      .hero-section { background: linear-gradient(135deg, #151440 0%, #6366f1 100%); color: white; padding: 2rem 1rem; text-align: center; }
+      .btn-primary { background: linear-gradient(135deg, #151440 0%, #6366f1 100%); color: white; font-weight: 600; padding: 0.875rem 1.5rem; border-radius: 0.5rem; border: none; cursor: pointer; display: inline-flex; align-items: center; justify-content: center; text-decoration: none; transition: transform 0.2s ease; }
+      .btn-primary:hover { transform: translateY(-1px); }
+      .nav-header { background: white; box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1); position: relative; z-index: 100; }
+      @media (max-width: 768px) { .floating-balls { display: none !important; } .btn-primary:hover { transform: none; } * { animation-duration: 0.1s !important; transition-duration: 0.1s !important; } }
+      @media (prefers-reduced-motion: reduce) { * { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; } }
+    </style>
 
-    <!-- Enhanced Global SEO Meta Tags -->
-    <meta name="description" content="TurboTags: The #1 FREE AI-powered tag and hashtag generator for YouTube, Instagram, TikTok & Facebook. Generate SEO-optimized tags in 16+ languages with region-specific targeting and content format optimization. Boost views, grow followers, and go viral worldwide.">
-    <meta name="keywords" content="YouTube tags, Instagram hashtags, TikTok hashtags, Facebook hashtags, AI tag generator, hashtag generator, SEO optimization, content creation, social media growth, video marketing, viral content, free hashtag tool, YouTube SEO, Instagram growth, TikTok viral, content creator tools, influencer marketing, social media optimization, trending hashtags, AI-powered tags, global reach, worldwide content optimization, multilingual hashtags, Spanish hashtags, French hashtags, German hashtags, Japanese hashtags, Chinese hashtags, Portuguese hashtags, Hindi hashtags, Arabic hashtags, Russian hashtags, region-specific tags, YouTube Shorts tags, Instagram Reels hashtags, TikTok Live hashtags, long-form video tags, viral video tags, content format optimization, regional targeting, AI tools for content, how to generate tags for YouTube, how to get more YouTube views, how to increase YouTube subscribers, how to find trending Instagram hashtags, how to go viral on TikTok, how to increase TikTok views, best free tag generator, YouTube SEO tips, Instagram growth hacks, TikTok viral strategies">
-    <meta name="author" content="TurboTags">
-    <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
-    <meta name="language" content="en-US, en-GB, en-CA, en-AU, en-IN, es-ES, fr-FR, de-DE, it-IT, pt-PT, ja-JP, ko-KR, zh-CN, hi-IN, ar-SA, ru-RU, nl-NL, tr-TR, th-TH, vi-VN">
-    
-    <!-- Geo Tags for SEO -->
-    <meta name="geo.position" content="global;global">
-    <meta name="geo.region" content="US, GB, CA, AU, IN, DE, FR, ES, IT, BR, JP, KR, CN">
-    <meta name="geo.placename" content="Global">
-    <meta name="ICBM" content="global, global">
-    
-    <meta name="revisit-after" content="3 days">
-    <meta name="distribution" content="global">
-    <meta name="audience" content="all">
-    <meta name="rating" content="general">
-    <meta name="referrer" content="origin-when-cross-origin">
+    <!-- Resource preloading -->
+    <link rel="preload" href="/src/main.jsx" as="script" crossorigin>
+    <link rel="prefetch" href="/api/generate" as="fetch" crossorigin>
 
-    <!-- Canonical URL to prevent duplicate content issues -->
+    <!-- Essential meta tags -->
+    <meta name="description" content="FREE AI-powered tag and hashtag generator for YouTube, Instagram, TikTok & Facebook. Generate SEO-optimized tags in 16+ languages. Boost views and grow followers.">
+    <meta name="keywords" content="YouTube tags, Instagram hashtags, TikTok hashtags, AI tag generator, hashtag generator, SEO optimization">
+    <meta name="robots" content="index, follow">
     <link rel="canonical" href="https://turbotags.app/">
 
-    <!-- International SEO -->
-    <link rel="alternate" hreflang="en" href="https://turbotags.app/">
-    <link rel="alternate" hreflang="en-us" href="https://turbotags.app/">
-    <link rel="alternate" hreflang="en-gb" href="https://turbotags.app/">
-    <link rel="alternate" hreflang="en-ca" href="https://turbotags.app/">
-    <link rel="alternate" hreflang="en-au" href="https://turbotags.app/">
-    <link rel="alternate" hreflang="es" href="https://turbotags.app/">
-    <link rel="alternate" hreflang="de" href="https://turbotags.app/">
-    <link rel="alternate" hreflang="fr" href="https://turbotags.app/">
-    <link rel="alternate" hreflang="es" href="https://turbotags.app/">
-    <link rel="alternate" hreflang="it" href="https://turbotags.app/">
-    <link rel="alternate" hreflang="pt" href="https://turbotags.app/">
-    <link rel="alternate" hreflang="ja" href="https://turbotags.app/">
-    <link rel="alternate" hreflang="ko" href="https://turbotags.app/">
-    <link rel="alternate" hreflang="zh" href="https://turbotags.app/">
-    <link rel="alternate" hreflang="hi" href="https://turbotags.app/">
-    <link rel="alternate" hreflang="ar" href="https://turbotags.app/">
-    <link rel="alternate" hreflang="ru" href="https://turbotags.app/">
-    <link rel="alternate" hreflang="nl" href="https://turbotags.app/">
-    <link rel="alternate" hreflang="tr" href="https://turbotags.app/">
-    <link rel="alternate" hreflang="th" href="https://turbotags.app/">
-    <link rel="alternate" hreflang="vi" href="https://turbotags.app/">
-    <link rel="alternate" hreflang="x-default" href="https://turbotags.app/">
+    <!-- Favicon -->
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+    <link rel="apple-touch-icon" href="/favicon.svg">
+    <link rel="manifest" href="/manifest.json">
 
-    <!-- Performance & SEO Optimization -->
-    <meta name="google-site-verification" content="hVRr2MoyaAmrnZfy0zqnMkj7qDw9fGfP4iMRK3r_ZvU" />
-    <meta name="msvalidate.01" content="YOUR_BING_VERIFICATION_CODE_HERE">
-    <meta name="yandex-verification" content="3a79b1e10329613e">
-    <meta name="baidu-site-verification" content="PLACEHOLDER_FOR_BAIDU_VERIFICATION">
-
-    <!-- Mobile & PWA Meta Tags -->
+    <!-- Mobile optimization -->
     <meta name="theme-color" content="#151440">
-    <meta name="msapplication-TileColor" content="#151440">
-    <meta name="mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="apple-mobile-web-app-title" content="TurboTags">
-    <meta name="format-detection" content="telephone=no">
 
-    <!-- Performance & Security -->
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="referrer" content="origin-when-cross-origin">
-
-    <!-- Open Graph / Facebook -->
+    <!-- Essential Open Graph -->
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://turbotags.app/">
-    <meta property="og:title" content="TurboTags - #1 FREE AI Tag & Hashtag Generator | 16+ Languages">
-    <meta property="og:description" content="The #1 FREE AI-powered tag and hashtag generator for YouTube, Instagram, TikTok & Facebook. Generate SEO-optimized tags in 16+ languages with region-specific targeting. Boost views, grow followers, and go viral worldwide.">
-    <meta property="og:image" content="https://img-wrapper.vercel.app/image?url=https://img-wrapper.vercel.app/image?url=https://img-wrapper.vercel.app/image?url=https://img-wrapper.vercel.app/image?url=https://placehold.co/1280x720.png?text=TurboTags+Desktop">
-    <meta property="og:image:alt" content="A preview of the TurboTags AI generator interface showing tag generation for YouTube.">
-    <meta property="og:locale" content="en_US">
+    <meta property="og:title" content="TurboTags - FREE AI Tag & Hashtag Generator">
+    <meta property="og:description" content="FREE AI-powered tag generator for YouTube, Instagram, TikTok & Facebook. Generate SEO-optimized tags and boost your content reach.">
     <meta property="og:site_name" content="TurboTags">
 
-    <!-- Twitter -->
-    <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:url" content="https://turbotags.app/">
-    <meta name="twitter:title" content="TurboTags - #1 FREE AI Tag & Hashtag Generator | 16+ Languages">
-    <meta name="twitter:description" content="The #1 FREE AI-powered tag and hashtag generator for YouTube, Instagram, TikTok & Facebook. Generate SEO-optimized tags in 16+ languages with region-specific targeting. Boost views, grow followers, and go viral worldwide.">
-    <meta name="twitter:image" content="https://img-wrapper.vercel.app/image?url=https://img-wrapper.vercel.app/image?url=https://img-wrapper.vercel.app/image?url=https://img-wrapper.vercel.app/image?url=https://placehold.co/1280x720.png?text=TurboTags+Desktop">
-    <meta name="twitter:image:alt" content="A preview of the TurboTags AI generator interface showing tag generation for YouTube.">
-    <meta name="twitter:site" content="@TurboTagsApp">
-
-    <!-- Google AdSense -->
-    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7231854986385753"
-     crossorigin="anonymous"></script>
-
-    <!-- Google tag (gtag.js) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-YXQPT1LPT8"></script>
+    <!-- Performance optimized analytics -->
     <script>
       window.dataLayer = window.dataLayer || [];
       function gtag(){dataLayer.push(arguments);}
       gtag('js', new Date());
-      gtag('config', 'G-YXQPT1LPT8');
+      gtag('config', 'G-YXQPT1LPT8', { 'send_page_view': false });
     </script>
 
-    <!-- Enhanced Schema.org JSON-LD -->
-    <script type="application/ld+json">
-    {
-        "@context": "https://schema.org",
-        "@type": "WebApplication",
-        "name": "TurboTags - AI Hashtag & Tag Generator",
-        "description": "Free AI-powered hashtag and tag generator for YouTube, Instagram, TikTok, Facebook. Create viral content with SEO-optimized tags in 16+ languages with region-specific targeting and content format optimization.",
-        "url": "https://turbotags.app",
-        "applicationCategory": ["BusinessApplication", "UtilitiesApplication", "ProductivityApplication", "SEO Software", "Social Media Marketing Tool"],
-        "operatingSystem": "Any",
-        "offers": {
-            "@type": "Offer",
-            "price": "0",
-            "priceCurrency": "USD"
-        },
-        "aggregateRating": {
-            "@type": "AggregateRating",
-            "ratingValue": "4.9",
-            "ratingCount": "50000"
-        },
-        "areaServed": "Worldwide",
-        "availableLanguage": ["English", "Spanish", "French", "German", "Italian", "Portuguese", "Japanese", "Korean", "Chinese", "Hindi", "Arabic", "Russian", "Dutch", "Turkish", "Thai", "Vietnamese"],
-        "creator": {
-            "@type": "Organization",
-            "name": "TurboTags",
-            "url": "https://turbotags.app"
-        }
-    }
+    <!-- Load non-critical resources after page load -->
+    <script>
+      window.addEventListener('load', function() {
+        // Load Google Analytics
+        var ga = document.createElement('script');
+        ga.async = true;
+        ga.src = 'https://www.googletagmanager.com/gtag/js?id=G-YXQPT1LPT8';
+        document.head.appendChild(ga);
+
+        // Load AdSense
+        var ads = document.createElement('script');
+        ads.async = true;
+        ads.src = 'https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7231854986385753';
+        ads.crossOrigin = 'anonymous';
+        document.head.appendChild(ads);
+
+        // Send page view after everything loads
+        gtag('event', 'page_view');
+      });
     </script>
   </head>
   <body class="bg-gray-50">
