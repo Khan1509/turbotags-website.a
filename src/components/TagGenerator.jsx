@@ -268,7 +268,7 @@ const TagGenerator = () => {
       russian: 'Generate all content in Russian (Русский)',
       dutch: 'Generate all content in Dutch (Nederlands)',
       turkish: 'Generate all content in Turkish (Türkçe)',
-      thai: 'Generate all content in Thai (ไทย)',
+      thai: 'Generate all content in Thai (ไ��ย)',
       vietnamese: 'Generate all content in Vietnamese (Tiếng Việt)'
     };
     return languageInstructions[language] || 'Generate all content in English';
@@ -481,7 +481,16 @@ IMPORTANT FORMATTING:
       }
 
     } catch (error) {
-      console.error('Generation failed:', error);
+      const endTime = performance.now();
+      const duration = (endTime - startTime).toFixed(2);
+      console.error('Generation failed after', duration + 'ms:', error);
+      console.error('Error details:', {
+        message: error.message,
+        stack: error.stack,
+        topic: state.topic,
+        language: state.language,
+        platform: activeTab
+      });
 
       // Enhanced fallback content based on language and platform
       let fallbackTags = [];
@@ -490,7 +499,7 @@ IMPORTANT FORMATTING:
       const languageFallbacks = {
         hindi: {
           tags: ['वायरल कंटेंट', 'ट्रेंडिंग विषय', 'यूट्यूब टिप्स', 'कंटेंट क्रिएटर', 'सोशल मीडिया', 'डिजिटल मार्केटिंग', 'ऑनलाइन बिजनेस', 'वीडियो मार्केटिंग', 'कंटेंट स्ट्रैटेजी', 'ऑडियंस एंगेजमेंट', 'क्रिएटर इकॉनमी', 'कंटेंट मोनेटाइज़ेशन', 'वीडियो SEO', 'यूट्यूब ग्रोथ', 'कंटेंट प्लानिंग'],
-          hashtags: ['#हिंदीकंटेंट', '#भारतीयक्रिएटर', '#वायरलवीडियो', '#ट्रेंडिंगइंडिया', '#सोशलमीडिया', '#डिजिटलइंडिया', '#हिंदी���ूट्यूब', '#इंडियनक्रिएटर', '#बॉलीवुड', '#हिंदीट्रेंड्स', '#भारत', '#हिंदी', '#इंडिया', '#देसी', '#हिंदुस्तान']
+          hashtags: ['#हिंदीकंटेंट', '#भारतीयक्रिएटर', '#वायरलवीडियो', '#ट्रेंडिंगइंडिया', '#सोशलमीडिया', '#डिजिटलइंडिया', '#हिंदीयूट्यूब', '#इंडियनक्रिएटर', '#बॉलीवुड', '#हिंदीट्रेंड्स', '#भारत', '#हिंदी', '#इंडिया', '#देसी', '#हिंदुस्तान']
         },
         spanish: {
           tags: ['contenido viral', 'tendencias', 'youtube español', 'creador contenido', 'redes sociales', 'marketing digital', 'negocio online', 'video marketing', 'estrategia contenido', 'engagement audiencia', 'economía creador', 'monetización', 'seo video', 'crecimiento youtube', 'planificación contenido'],
