@@ -19,7 +19,7 @@ export default async function handler(req, res) {
   }
 
   try {
-    const { prompt } = req.body;
+    const { prompt, platform = 'youtube', language = 'english', region = 'global' } = req.body;
 
     if (!prompt) {
       return res.status(400).json({
@@ -27,6 +27,8 @@ export default async function handler(req, res) {
         message: 'Missing prompt in request body'
       });
     }
+
+    console.log(`API Request - Platform: ${platform}, Language: ${language}, Region: ${region}`);
 
     // Define the list of models to try in order of preference
     const modelsToTry = [
@@ -84,26 +86,42 @@ export default async function handler(req, res) {
       const fallbackContent = fs.readFileSync(fallbackPath, 'utf-8');
       const fallbackData = JSON.parse(fallbackContent);
 
-      const defaultResponse = "TAGS:[content creation,social media,digital marketing,viral content,audience engagement]HASHTAGS:[#ContentCreator,#SocialMedia,#DigitalMarketing,#ViralContent,#Engagement]";
+      let fallbackText = "";
 
-      let fallbackText = defaultResponse;
-      if (prompt.toLowerCase().includes('youtube')) {
-        // Format for YouTube with both tags and hashtags
-        const tags = fallbackData.youtube.plain_tags.slice(0, 15);
-        const hashtags = fallbackData.youtube.hashtags.slice(0, 15);
-        fallbackText = `TAGS:[${tags.join(',')}]HASHTAGS:[${hashtags.join(',')}]`;
-      } else if (prompt.toLowerCase().includes('instagram')) {
-        fallbackText = fallbackData.instagram_hashtags.slice(0, 15).join(', ');
-      } else if (prompt.toLowerCase().includes('tiktok')) {
-        fallbackText = fallbackData.tiktok_hashtags.slice(0, 15).join(', ');
+      // Handle multilingual fallback content
+      if (language !== 'english' && fallbackData.multilingual && fallbackData.multilingual[language]) {
+        const langData = fallbackData.multilingual[language];
+        if (platform === 'youtube') {
+          const tags = langData.tags.slice(0, 15);
+          const hashtags = langData.hashtags.slice(0, 15);
+          fallbackText = `TAGS:[${tags.join(',')}]HASHTAGS:[${hashtags.join(',')}]`;
+        } else {
+          fallbackText = langData.hashtags.slice(0, 15).join(', ');
+        }
       } else {
-        fallbackText = defaultResponse;
+        // English fallback
+        if (platform === 'youtube') {
+          const tags = fallbackData.youtube.plain_tags.slice(0, 15);
+          const hashtags = fallbackData.youtube.hashtags.slice(0, 15);
+          fallbackText = `TAGS:[${tags.join(',')}]HASHTAGS:[${hashtags.join(',')}]`;
+        } else if (platform === 'instagram') {
+          fallbackText = fallbackData.instagram_hashtags.slice(0, 15).join(', ');
+        } else if (platform === 'tiktok') {
+          fallbackText = fallbackData.tiktok_hashtags.slice(0, 15).join(', ');
+        } else if (platform === 'facebook') {
+          fallbackText = fallbackData.facebook_hashtags.slice(0, 15).join(', ');
+        } else {
+          // Default fallback
+          const tags = fallbackData.youtube.plain_tags.slice(0, 15);
+          const hashtags = fallbackData.youtube.hashtags.slice(0, 15);
+          fallbackText = `TAGS:[${tags.join(',')}]HASHTAGS:[${hashtags.join(',')}]`;
+        }
       }
-      
+
       return res.status(200).json({
         text: fallbackText,
         fallback: true,
-        message: "Using fallback content due to API unavailability"
+        message: `Using ${language} fallback content due to API unavailability`
       });
     }
 

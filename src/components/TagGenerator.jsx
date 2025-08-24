@@ -61,7 +61,7 @@ const LANGUAGES = [
   { value: 'arabic', label: 'العربية', code: 'ar', flag: '🇸🇦' },
   { value: 'russian', label: 'Русский', code: 'ru', flag: '🇷🇺' },
   { value: 'dutch', label: 'Nederlands', code: 'nl', flag: '🇳🇱' },
-  { value: 'turkish', label: 'Türkçe', code: 'tr', flag: '🇹���' },
+  { value: 'turkish', label: 'Türkçe', code: 'tr', flag: '🇹🇷' },
   { value: 'thai', label: 'ไทย', code: 'th', flag: '🇹🇭' },
   { value: 'vietnamese', label: 'Tiếng Việt', code: 'vi', flag: '🇻🇳' }
 ];
@@ -261,7 +261,7 @@ const TagGenerator = () => {
       italian: 'Generate all content in Italian (Italiano)',
       portuguese: 'Generate all content in Portuguese (Português)',
       japanese: 'Generate all content in Japanese (日本語)',
-      korean: 'Generate all content in Korean (한국어)',
+      korean: 'Generate all content in Korean (한��어)',
       chinese: 'Generate all content in Chinese (中文)',
       hindi: 'Generate all content in Hindi (हिन्दी)',
       arabic: 'Generate all content in Arabic (العربي��)',
@@ -279,6 +279,16 @@ const TagGenerator = () => {
       handleMessage('Please enter a topic to generate content.', 'error');
       return;
     }
+
+    console.log('Starting generation with:', {
+      topic: state.topic,
+      platform: activeTab,
+      language: state.language,
+      region: state.region,
+      contentFormat: state.contentFormat
+    });
+
+    const startTime = performance.now();
     dispatch({ type: 'START_GENERATION' });
 
     try {
@@ -352,113 +362,163 @@ IMPORTANT FORMATTING:
       let tags = [];
       let hashtags = [];
 
+      console.log('Raw result text:', resultText);
+
       if (activeTab === 'youtube') {
-        // Enhanced parsing for YouTube content
+        // Enhanced parsing for YouTube content with better multi-language support
         const tagsMatch = resultText.match(/TAGS:\[(.*?)\](?=HASHTAGS:)/is) || resultText.match(/TAGS:\[(.*?)\]/is);
         if (tagsMatch && tagsMatch[1]) {
           tags = tagsMatch[1]
             .split(',')
-            .map(t => t.trim().replace(/^["']|["']$/g, '')) // Remove quotes
-            .filter(Boolean)
+            .map(t => t.trim().replace(/^["'\[\]]+|["'\[\]]+$/g, '')) // Remove quotes and brackets
+            .filter(t => t.length > 0 && !t.startsWith('#'))
             .slice(0, 20); // Limit to 20
         }
 
         const hashtagsMatch = resultText.match(/HASHTAGS:\[(.*?)\]/is);
         if (hashtagsMatch && hashtagsMatch[1]) {
-          // Extract hashtags with better Unicode support for multi-language
-          const hashtagPattern = /#[\w\u0900-\u097F\u4e00-\u9fff\u0600-\u06ff\u0590-\u05ff]+/g;
-          hashtags = hashtagsMatch[1]
-            .match(hashtagPattern) ||
-            hashtagsMatch[1]
+          // Enhanced Unicode support for multiple languages including Hindi, Chinese, Arabic, etc.
+          const hashtagPattern = /#[\w\u0900-\u097F\u4e00-\u9fff\u0600-\u06ff\u0590-\u05ff\u0400-\u04FF\u1E00-\u1EFF\u0100-\u017F\u0180-\u024F]+/g;
+
+          // First try to extract hashtags using pattern matching
+          let extractedHashtags = hashtagsMatch[1].match(hashtagPattern);
+
+          if (!extractedHashtags || extractedHashtags.length === 0) {
+            // Fallback: split by comma and ensure # prefix
+            extractedHashtags = hashtagsMatch[1]
               .split(',')
               .map(h => {
-                const cleaned = h.trim().replace(/^["']|["']$/g, '');
+                const cleaned = h.trim().replace(/^["'\[\]]+|["'\[\]]+$/g, '');
                 return cleaned.startsWith('#') ? cleaned : '#' + cleaned;
               })
-              .filter(h => h.length > 1)
-              .slice(0, 20);
+              .filter(h => h.length > 1 && h !== '#');
+          }
+
+          hashtags = extractedHashtags.slice(0, 20);
         }
 
         // Fallback parsing if structured format fails
         if (tags.length === 0 && hashtags.length === 0) {
-          const parts = resultText.split(/(?:HASHTAGS:|#)/i);
-          if (parts.length >= 2) {
-            tags = parts[0]
-              .replace(/TAGS:/i, '')
-              .replace(/[\[\]]/g, '')
-              .split(',')
-              .map(t => t.trim().replace(/^["']|["']$/g, ''))
-              .filter(Boolean)
-              .slice(0, 20);
+          console.warn('Structured parsing failed, attempting fallback parsing');
+          const lines = resultText.split('\n').filter(line => line.trim());
 
-            const hashtagPattern = /#[\w\u0900-\u097F\u4e00-\u9fff\u0600-\u06ff\u0590-\u05ff]+/g;
-            hashtags = resultText.match(hashtagPattern) || [];
-            hashtags = hashtags.slice(0, 20);
+          for (const line of lines) {
+            if (line.toLowerCase().includes('tags') && !line.includes('#')) {
+              tags = line
+                .replace(/tags?:?/gi, '')
+                .replace(/[\[\]]/g, '')
+                .split(',')
+                .map(t => t.trim().replace(/^["']+|["']+$/g, ''))
+                .filter(t => t.length > 0 && !t.startsWith('#'))
+                .slice(0, 20);
+            } else if (line.includes('#')) {
+              const hashtagPattern = /#[\w\u0900-\u097F\u4e00-\u9fff\u0600-\u06ff\u0590-\u05ff\u0400-\u04FF\u1E00-\u1EFF\u0100-\u017F\u0180-\u024F]+/g;
+              const foundHashtags = line.match(hashtagPattern) || [];
+              hashtags = [...hashtags, ...foundHashtags].slice(0, 20);
+            }
           }
         }
 
-        // Ensure minimum counts
-        if (tags.length < 15) {
-          console.warn(`Generated only ${tags.length} tags, minimum is 15`);
-        }
-        if (hashtags.length < 15) {
-          console.warn(`Generated only ${hashtags.length} hashtags, minimum is 15`);
-        }
+        console.log('Parsed tags:', tags);
+        console.log('Parsed hashtags:', hashtags);
+
       } else {
-        // Enhanced parsing for other platforms
-        const hashtagPattern = /#[\w\u0900-\u097F\u4e00-\u9fff\u0600-\u06ff\u0590-\u05ff]+/g;
-        hashtags = resultText.match(hashtagPattern) ||
-          resultText
-            .split(',')
+        // Enhanced parsing for other platforms (Instagram, TikTok, Facebook)
+        const hashtagPattern = /#[\w\u0900-\u097F\u4e00-\u9fff\u0600-\u06ff\u0590-\u05ff\u0400-\u04FF\u1E00-\u1EFF\u0100-\u017F\u0180-\u024F]+/g;
+
+        // First try pattern matching
+        let extractedHashtags = resultText.match(hashtagPattern);
+
+        if (!extractedHashtags || extractedHashtags.length === 0) {
+          // Fallback: split by comma and ensure # prefix
+          extractedHashtags = resultText
+            .split(/[,\n]/)
             .map(h => {
-              const cleaned = h.trim().replace(/^["']|["']$/g, '');
+              const cleaned = h.trim().replace(/^["'\[\]]+|["'\[\]]+$/g, '');
               return cleaned.startsWith('#') ? cleaned : '#' + cleaned;
             })
-            .filter(h => h.length > 1)
-            .slice(0, 20);
-
-        if (hashtags.length < 15) {
-          console.warn(`Generated only ${hashtags.length} hashtags, minimum is 15`);
+            .filter(h => h.length > 1 && h !== '#');
         }
+
+        hashtags = extractedHashtags.slice(0, 20);
+        console.log('Parsed hashtags for', activeTab, ':', hashtags);
       }
 
-      // Add random trend percentages if not provided
-      const tagsWithFeedback = tags.map(tag => ({
-        text: tag,
-        feedback: 'none',
-        trend: Math.floor(Math.random() * 41) + 60 // 60-100%
-      }));
-      const hashtagsWithFeedback = hashtags.map(tag => ({
-        text: tag,
-        feedback: 'none',
-        trend: Math.floor(Math.random() * 41) + 60 // 60-100%
-      }));
+      // Ensure tags are properly formatted and add trend percentages
+      const tagsWithFeedback = tags
+        .filter(tag => tag && tag.trim().length > 0)
+        .map(tag => ({
+          text: tag.trim(),
+          feedback: 'none',
+          trend: Math.floor(Math.random() * 41) + 60 // 60-100%
+        }));
+
+      const hashtagsWithFeedback = hashtags
+        .filter(tag => tag && tag.trim().length > 0)
+        .map(tag => ({
+          text: tag.trim(),
+          feedback: 'none',
+          trend: Math.floor(Math.random() * 41) + 60 // 60-100%
+        }));
+
+      console.log('Final tags with feedback:', tagsWithFeedback);
+      console.log('Final hashtags with feedback:', hashtagsWithFeedback);
 
       dispatch({ type: 'GENERATION_SUCCESS', payload: { tags: tagsWithFeedback, hashtags: hashtagsWithFeedback } });
 
+      const endTime = performance.now();
+      const duration = (endTime - startTime).toFixed(2);
+      console.log(`Generation completed in ${duration}ms`);
+
       if (isFallback) {
-        handleMessage('Using sample content - AI service temporarily unavailable', 'warning');
+        handleMessage(`Using ${state.language} sample content - AI service temporarily unavailable`, 'warning');
       } else {
         const totalGenerated = tags.length + hashtags.length;
         const message = activeTab === 'youtube' ?
-          `Generated ${tags.length} tags and ${hashtags.length} hashtags successfully!` :
-          `Generated ${hashtags.length} hashtags successfully!`;
+          `Generated ${tags.length} tags and ${hashtags.length} hashtags in ${duration}ms!` :
+          `Generated ${hashtags.length} hashtags in ${duration}ms!`;
         handleMessage(message, 'success');
       }
 
     } catch (error) {
-      console.error('Generation failed:', error);
+      const endTime = performance.now();
+      const duration = (endTime - startTime).toFixed(2);
+      console.error('Generation failed after', duration + 'ms:', error);
+      console.error('Error details:', {
+        message: error.message,
+        stack: error.stack,
+        topic: state.topic,
+        language: state.language,
+        platform: activeTab
+      });
 
-      // Try to provide some fallback content based on language and platform
+      // Enhanced fallback content based on language and platform
       let fallbackTags = [];
       let fallbackHashtags = [];
 
-      if (state.language === 'hindi') {
+      const languageFallbacks = {
+        hindi: {
+          tags: ['वायरल कंटेंट', 'ट्रेंडिंग विषय', 'यूट्यूब टिप्स', 'कंटेंट क्रिएटर', 'सोशल मीडिया', 'डिजिटल मार्केटिंग', 'ऑनलाइन बिजनेस', 'वीडियो मार्केटिंग', 'कंटेंट स्ट्रैटेजी', 'ऑडियंस एंगेजमेंट', 'क्रिएटर इकॉनमी', 'कंटेंट मोनेटाइज़ेशन', 'वीडियो SEO', 'यूट्यूब ग्रोथ', 'कंटेंट प्लानिंग'],
+          hashtags: ['#हिंदीकंटेंट', '#भारतीयक्रिएटर', '#वायरलवीडियो', '#ट्रेंडिंगइंडिया', '#सोशलमीडिया', '#डिजिटलइंडिया', '#हिंदीयूट्यूब', '#इंडियनक्रिएटर', '#बॉलीवुड', '#हिंदीट्रेंड्स', '#भा���त', '#हिंदी', '#इंडिया', '#देसी', '#हिंदुस्तान']
+        },
+        spanish: {
+          tags: ['contenido viral', 'tendencias', 'youtube español', 'creador contenido', 'redes sociales', 'marketing digital', 'negocio online', 'video marketing', 'estrategia contenido', 'engagement audiencia', 'economía creador', 'monetización', 'seo video', 'crecimiento youtube', 'planificación contenido'],
+          hashtags: ['#ContenidoEspañol', '#CreadorLatino', '#VideoViral', '#TendenciasEspaña', '#RedesSociales', '#MarketingDigital', '#YouTubeEspañol', '#CreadorMexicano', '#ContenidoLatino', '#TendenciasLatam', '#InfluencerLatino', '#VideoEspañol', '#CreadorEspañol', '#ContenidoViral', '#TendenciasVirales']
+        },
+        french: {
+          tags: ['contenu viral', 'tendances', 'youtube français', 'créateur contenu', 'médias sociaux', 'marketing digital', 'business en ligne', 'marketing vidéo', 'stratégie contenu', 'engagement audience', 'économie créateur', 'monétisation', 'seo vidéo', 'croissance youtube', 'planification contenu'],
+          hashtags: ['#ContenuFrançais', '#CréateurFrançais', '#VidéoVirale', '#TendancesFrance', '#RéseauxSociaux', '#MarketingDigital', '#YouTubeFrançais', '#CréateurFrancophone', '#ContenuFrancophone', '#TendancesFrancophones', '#InfluenceurFrançais', '#VidéoFrançaise', '#ContenuViral', '#TendancesVirales', '#CommunautéFrançaise']
+        }
+      };
+
+      const selectedLangFallback = languageFallbacks[state.language];
+
+      if (selectedLangFallback) {
         if (activeTab === 'youtube') {
-          fallbackTags = ['वायरल कंटे��ट', 'ट्रेंडिंग विषय', 'यूट्यूब टिप्स', 'कंटेंट क्रिएटर', 'सोशल मीडिया', 'डिजिटल मार्केटिंग', 'ऑनलाइन बिजनेस', 'वीडियो मार्केटिंग', 'कंटेंट स्ट्रैटेजी', 'ऑडियंस एंगेजमेंट', 'क्रिएटर इकॉनमी', 'कंटेंट मोनेटाइज़ेशन', 'वीडियो SEO', 'यूट्यूब ग्रोथ', 'कंटेंट प्लानिंग'].map(tag => ({ text: tag, feedback: 'none', trend: Math.floor(Math.random() * 41) + 60 }));
-          fallbackHashtags = ['#हिंदीकंटेंट', '#भारतीयक्रिएटर', '#वायरलवीडियो', '#ट्रेंडिंगइंडिया', '#सोशलमीडिया', '#डिजिटलइंडिया', '#हिंदीयूट्यूब', '#इंडियनक्रिएटर', '#बॉलीवुड', '#हिंदीट्रेंड्स', '#भारत', '#हिंदी', '#इंडिया', '#देसी', '#हिंदुस्तान'].map(tag => ({ text: tag, feedback: 'none', trend: Math.floor(Math.random() * 41) + 60 }));
+          fallbackTags = selectedLangFallback.tags.map(tag => ({ text: tag, feedback: 'none', trend: Math.floor(Math.random() * 41) + 60 }));
+          fallbackHashtags = selectedLangFallback.hashtags.map(tag => ({ text: tag, feedback: 'none', trend: Math.floor(Math.random() * 41) + 60 }));
         } else {
-          fallbackHashtags = ['#हिंदीकंटेंट', '#भारतीयक्रिएटर', '#वायरलवीडियो', '#ट्रेंडिंगइंडिया', '#सोशलमीडिया', '#डिजिटलइंडिया', '#इंडियनक्रिएटर', '#बॉलीवुड', '#हिंदीट्रेंड्स', '#भारत', '#हिंदी', '#इंडिया', '#देसी', '#हिंदुस्तान'].map(tag => ({ text: tag, feedback: 'none', trend: Math.floor(Math.random() * 41) + 60 }));
+          fallbackHashtags = selectedLangFallback.hashtags.map(tag => ({ text: tag, feedback: 'none', trend: Math.floor(Math.random() * 41) + 60 }));
         }
       } else {
         // English fallback
@@ -475,9 +535,13 @@ IMPORTANT FORMATTING:
         }
       }
 
+      console.log('Using fallback content for language:', state.language);
+      console.log('Fallback tags count:', fallbackTags.length);
+      console.log('Fallback hashtags count:', fallbackHashtags.length);
+
       dispatch({ type: 'GENERATION_ERROR', payload: {
         error: 'Failed to generate content.',
-        message: 'AI service unavailable. Here are some sample tags to get you started.',
+        message: `AI service unavailable. Showing ${state.language === 'english' ? 'English' : state.language} sample content to get you started.`,
         tags: fallbackTags,
         hashtags: fallbackHashtags
       } });
