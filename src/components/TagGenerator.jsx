@@ -558,7 +558,12 @@ IMPORTANT FORMATTING:
   };
 
   return (
-    <section id="tag-generator" className="bg-white p-4 sm:p-6 rounded-xl shadow-md">
+    <section
+      id="tag-generator"
+      className="container-fixed-height bg-white p-4 sm:p-6 rounded-xl shadow-md"
+      role="region"
+      aria-labelledby="generator-title"
+    >
       <AnimatePresence>
         {state.message && (
           <MessageBox
@@ -569,8 +574,15 @@ IMPORTANT FORMATTING:
         )}
       </AnimatePresence>
 
-      <h2 className="text-3xl font-bold text-tt-dark-violet mb-2 text-center">AI-Powered Tag Generator</h2>
-      <p className="text-center text-gray-600 mb-8">Generate hyper-targeted tags and hashtags optimized for your specific content format, region, and language.</p>
+      <h2
+        id="generator-title"
+        className="text-3xl font-bold text-tt-dark-violet mb-2 text-center"
+      >
+        AI-Powered Tag Generator
+      </h2>
+      <p className="text-center text-gray-700 mb-8 max-w-4xl mx-auto">
+        Generate hyper-targeted tags and hashtags optimized for your specific content format, region, and language.
+      </p>
 
       <div className="flex border-b border-gray-200 mb-6 bg-gray-50 rounded-t-lg overflow-hidden">
         {TABS.map(tab => (
