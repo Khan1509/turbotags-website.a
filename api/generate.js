@@ -19,7 +19,7 @@ export default async function handler(req, res) {
   }
 
   try {
-    const { prompt } = req.body;
+    const { prompt, platform = 'youtube', language = 'english', region = 'global' } = req.body;
 
     if (!prompt) {
       return res.status(400).json({
@@ -27,6 +27,8 @@ export default async function handler(req, res) {
         message: 'Missing prompt in request body'
       });
     }
+
+    console.log(`API Request - Platform: ${platform}, Language: ${language}, Region: ${region}`);
 
     // Define the list of models to try in order of preference
     const modelsToTry = [
