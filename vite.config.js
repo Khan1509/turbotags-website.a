@@ -13,40 +13,81 @@ function vercelApiDevPlugin() {
   return {
     name: 'vercel-api-dev-plugin',
     configureServer(server) {
-      server.middlewares.use('/api/generate', (req, res) => {
-        let body = '';
-        req.on('data', chunk => {
-          body += chunk.toString();
-        });
-        req.on('end', async () => {
-          if (req.method === 'POST' && body) {
-            try {
-              req.body = JSON.parse(body);
-            } catch (e) {
-              req.body = {};
-            }
-          } else {
-            req.body = {};
+      server.middlewares.use('/api/generate', async (req, res, next) => {
+        try {
+          // Ensure we're only handling POST requests
+          if (req.method !== 'POST') {
+            res.statusCode = 405;
+            res.setHeader('Content-Type', 'application/json');
+            res.end(JSON.stringify({
+              error: 'Method Not Allowed',
+              message: 'Only POST requests are supported'
+            }));
+            return;
           }
 
-          // Shim Express-like res methods onto Node's native res object
-          res.status = (code) => {
-            res.statusCode = code;
-            return res;
-          };
-          res.json = (data) => {
+          // Parse request body
+          let body = '';
+          req.setEncoding('utf8');
+
+          req.on('data', chunk => {
+            body += chunk;
+          });
+
+          req.on('end', async () => {
+            try {
+              // Parse JSON body
+              if (body) {
+                req.body = JSON.parse(body);
+              } else {
+                req.body = {};
+              }
+
+              // Shim Express-like res methods onto Node's native res object
+              res.status = (code) => {
+                res.statusCode = code;
+                return res;
+              };
+
+              res.json = (data) => {
+                res.setHeader('Content-Type', 'application/json');
+                res.end(JSON.stringify(data));
+                return res;
+              };
+
+              // Call the API handler
+              await apiHandler(req, res);
+
+            } catch (parseError) {
+              console.error('Error parsing request body:', parseError);
+              res.statusCode = 400;
+              res.setHeader('Content-Type', 'application/json');
+              res.end(JSON.stringify({
+                error: 'Bad Request',
+                message: 'Invalid JSON in request body'
+              }));
+            }
+          });
+
+          req.on('error', (error) => {
+            console.error('Request error:', error);
+            res.statusCode = 500;
             res.setHeader('Content-Type', 'application/json');
-            res.end(JSON.stringify(data));
-            return res;
-          };
-          
-          try {
-            await apiHandler(req, res);
-          } catch (error) {
-            console.error('Error in API handler middleware:', error);
-            res.status(500).json({ error: 'Internal Server Error' });
-          }
-        });
+            res.end(JSON.stringify({
+              error: 'Internal Server Error',
+              message: 'Request processing failed'
+            }));
+          });
+
+        } catch (error) {
+          console.error('Error in API handler middleware:', error);
+          res.statusCode = 500;
+          res.setHeader('Content-Type', 'application/json');
+          res.end(JSON.stringify({
+            error: 'Internal Server Error',
+            message: 'Middleware error'
+          }));
+        }
       });
     },
   };
