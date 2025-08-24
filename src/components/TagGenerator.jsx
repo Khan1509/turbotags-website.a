@@ -86,6 +86,8 @@ function reducer(state, action) {
       return { ...state, contentFormat: action.payload };
     case 'SET_REGION':
       return { ...state, region: action.payload };
+    case 'SET_LANGUAGE':
+      return { ...state, language: action.payload };
     case 'START_GENERATION':
       return { ...state, isLoading: true, error: null, message: null, tags: [], hashtags: [] };
     case 'GENERATION_SUCCESS':
