@@ -339,12 +339,15 @@ IMPORTANT FORMATTING:
 4. Must be between 15-20 hashtags total`;
       }
 
-      const resultText = await generateContent(prompt, {
+      const result = await generateContent(prompt, {
         platform: activeTab,
         contentFormat: state.contentFormat,
         region: state.region,
         language: state.language
       });
+
+      const resultText = typeof result === 'string' ? result : result.text;
+      const isFallback = typeof result === 'object' && result.fallback;
 
       let tags = [];
       let hashtags = [];
@@ -432,11 +435,52 @@ IMPORTANT FORMATTING:
       }));
 
       dispatch({ type: 'GENERATION_SUCCESS', payload: { tags: tagsWithFeedback, hashtags: hashtagsWithFeedback } });
-      handleMessage('Content generated successfully!', 'success');
+
+      if (isFallback) {
+        handleMessage('Using sample content - AI service temporarily unavailable', 'warning');
+      } else {
+        const totalGenerated = tags.length + hashtags.length;
+        const message = activeTab === 'youtube' ?
+          `Generated ${tags.length} tags and ${hashtags.length} hashtags successfully!` :
+          `Generated ${hashtags.length} hashtags successfully!`;
+        handleMessage(message, 'success');
+      }
 
     } catch (error) {
       console.error('Generation failed:', error);
-      dispatch({ type: 'GENERATION_ERROR', payload: { error: 'Failed to generate content.', message: 'Service is busy. Using fallback data.', tags: [], hashtags: [] } });
+
+      // Try to provide some fallback content based on language and platform
+      let fallbackTags = [];
+      let fallbackHashtags = [];
+
+      if (state.language === 'hindi') {
+        if (activeTab === 'youtube') {
+          fallbackTags = ['वायरल कंटे��ट', 'ट्रेंडिंग विषय', 'यूट्यूब टिप्स', 'कंटेंट क्रिएटर', 'सोशल मीडिया', 'डिजिटल मार्केटिंग', 'ऑनलाइन बिजनेस', 'वीडियो मार्केटिंग', 'कंटेंट स्ट्रैटेजी', 'ऑडियंस एंगेजमेंट', 'क्रिएटर इकॉनमी', 'कंटेंट मोनेटाइज़ेशन', 'वीडियो SEO', 'यूट्यूब ग्रोथ', 'कंटेंट प्लानिंग'].map(tag => ({ text: tag, feedback: 'none', trend: Math.floor(Math.random() * 41) + 60 }));
+          fallbackHashtags = ['#हिंदीकंटेंट', '#भारतीयक्रिएटर', '#वायरलवीडियो', '#ट्रेंडिंगइंडिया', '#सोशलमीडिया', '#डिजिटलइंडिया', '#हिंदीयूट्यूब', '#इंडियनक्रिएटर', '#बॉलीवुड', '#हिंदीट्रेंड्स', '#भारत', '#हिंदी', '#इंडिया', '#देसी', '#हिंदुस्तान'].map(tag => ({ text: tag, feedback: 'none', trend: Math.floor(Math.random() * 41) + 60 }));
+        } else {
+          fallbackHashtags = ['#हिंदीकंटेंट', '#भारतीयक्रिएटर', '#वायरलवीडियो', '#ट्रेंडिंगइंडिया', '#सोशलमीडिया', '#डिजिटलइंडिया', '#इंडियनक्रिएटर', '#बॉलीवुड', '#हिंदीट्रेंड्स', '#भारत', '#हिंदी', '#इंडिया', '#देसी', '#हिंदुस्तान'].map(tag => ({ text: tag, feedback: 'none', trend: Math.floor(Math.random() * 41) + 60 }));
+        }
+      } else {
+        // English fallback
+        if (activeTab === 'youtube') {
+          fallbackTags = ['content creation', 'viral content', 'social media growth', 'youtube tips', 'video marketing', 'creator economy', 'content strategy', 'audience engagement', 'digital marketing', 'online business', 'content monetization', 'video seo', 'youtube growth', 'content planning', 'video production'].map(tag => ({ text: tag, feedback: 'none', trend: Math.floor(Math.random() * 41) + 60 }));
+          fallbackHashtags = ['#ContentCreator', '#ViralVideo', '#YouTubeShorts', '#ContentStrategy', '#VideoMarketing', '#CreatorEconomy', '#YouTubeTips', '#SocialMediaGrowth', '#DigitalMarketing', '#OnlineBusiness', '#ContentCreation', '#YouTubeSuccess', '#VideoSEO', '#CreatorLife', '#YouTubeAlgorithm'].map(tag => ({ text: tag, feedback: 'none', trend: Math.floor(Math.random() * 41) + 60 }));
+        } else {
+          const platformTags = {
+            instagram: ['#Instagram2025', '#InstagramReels', '#ContentCreator', '#SocialMediaMarketing', '#InstagramGrowth', '#DigitalMarketing', '#InstagramTips', '#ContentStrategy', '#SocialMediaInfluencer', '#InstagramSuccess', '#ReelsCreator', '#InstagramContent', '#SocialMediaGrowth', '#ContentCreation', '#InstagramMarketing'],
+            tiktok: ['#TikTok2025', '#TikTokCreator', '#ViralTikTok', '#TikTokTrends', '#ContentCreator', '#TikTokMarketing', '#SocialMediaGrowth', '#TikTokSuccess', '#CreatorEconomy', '#TikTokTips', '#ViralContent', '#TikTokStrategy', '#SocialMediaMarketing', '#ContentCreation', '#TikTokInfluencer'],
+            facebook: ['#Facebook2025', '#FacebookMarketing', '#SocialMediaMarketing', '#ContentCreator', '#FacebookReels', '#DigitalMarketing', '#SocialMediaGrowth', '#FacebookBusiness', '#ContentStrategy', '#FacebookTips', '#SocialMediaStrategy', '#FacebookSuccess', '#ContentCreation', '#FacebookPage', '#SocialMediaInfluencer']
+          };
+          fallbackHashtags = (platformTags[activeTab] || platformTags.instagram).map(tag => ({ text: tag, feedback: 'none', trend: Math.floor(Math.random() * 41) + 60 }));
+        }
+      }
+
+      dispatch({ type: 'GENERATION_ERROR', payload: {
+        error: 'Failed to generate content.',
+        message: 'AI service unavailable. Here are some sample tags to get you started.',
+        tags: fallbackTags,
+        hashtags: fallbackHashtags
+      } });
     }
   };
 
