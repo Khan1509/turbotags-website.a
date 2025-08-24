@@ -352,74 +352,86 @@ IMPORTANT FORMATTING:
       let tags = [];
       let hashtags = [];
 
+      console.log('Raw result text:', resultText);
+
       if (activeTab === 'youtube') {
-        // Enhanced parsing for YouTube content
+        // Enhanced parsing for YouTube content with better multi-language support
         const tagsMatch = resultText.match(/TAGS:\[(.*?)\](?=HASHTAGS:)/is) || resultText.match(/TAGS:\[(.*?)\]/is);
         if (tagsMatch && tagsMatch[1]) {
           tags = tagsMatch[1]
             .split(',')
-            .map(t => t.trim().replace(/^["']|["']$/g, '')) // Remove quotes
-            .filter(Boolean)
+            .map(t => t.trim().replace(/^["'\[\]]+|["'\[\]]+$/g, '')) // Remove quotes and brackets
+            .filter(t => t.length > 0 && !t.startsWith('#'))
             .slice(0, 20); // Limit to 20
         }
 
         const hashtagsMatch = resultText.match(/HASHTAGS:\[(.*?)\]/is);
         if (hashtagsMatch && hashtagsMatch[1]) {
-          // Extract hashtags with better Unicode support for multi-language
-          const hashtagPattern = /#[\w\u0900-\u097F\u4e00-\u9fff\u0600-\u06ff\u0590-\u05ff]+/g;
-          hashtags = hashtagsMatch[1]
-            .match(hashtagPattern) ||
-            hashtagsMatch[1]
+          // Enhanced Unicode support for multiple languages including Hindi, Chinese, Arabic, etc.
+          const hashtagPattern = /#[\w\u0900-\u097F\u4e00-\u9fff\u0600-\u06ff\u0590-\u05ff\u0400-\u04FF\u1E00-\u1EFF\u0100-\u017F\u0180-\u024F]+/g;
+
+          // First try to extract hashtags using pattern matching
+          let extractedHashtags = hashtagsMatch[1].match(hashtagPattern);
+
+          if (!extractedHashtags || extractedHashtags.length === 0) {
+            // Fallback: split by comma and ensure # prefix
+            extractedHashtags = hashtagsMatch[1]
               .split(',')
               .map(h => {
-                const cleaned = h.trim().replace(/^["']|["']$/g, '');
+                const cleaned = h.trim().replace(/^["'\[\]]+|["'\[\]]+$/g, '');
                 return cleaned.startsWith('#') ? cleaned : '#' + cleaned;
               })
-              .filter(h => h.length > 1)
-              .slice(0, 20);
+              .filter(h => h.length > 1 && h !== '#');
+          }
+
+          hashtags = extractedHashtags.slice(0, 20);
         }
 
         // Fallback parsing if structured format fails
         if (tags.length === 0 && hashtags.length === 0) {
-          const parts = resultText.split(/(?:HASHTAGS:|#)/i);
-          if (parts.length >= 2) {
-            tags = parts[0]
-              .replace(/TAGS:/i, '')
-              .replace(/[\[\]]/g, '')
-              .split(',')
-              .map(t => t.trim().replace(/^["']|["']$/g, ''))
-              .filter(Boolean)
-              .slice(0, 20);
+          console.warn('Structured parsing failed, attempting fallback parsing');
+          const lines = resultText.split('\n').filter(line => line.trim());
 
-            const hashtagPattern = /#[\w\u0900-\u097F\u4e00-\u9fff\u0600-\u06ff\u0590-\u05ff]+/g;
-            hashtags = resultText.match(hashtagPattern) || [];
-            hashtags = hashtags.slice(0, 20);
+          for (const line of lines) {
+            if (line.toLowerCase().includes('tags') && !line.includes('#')) {
+              tags = line
+                .replace(/tags?:?/gi, '')
+                .replace(/[\[\]]/g, '')
+                .split(',')
+                .map(t => t.trim().replace(/^["']+|["']+$/g, ''))
+                .filter(t => t.length > 0 && !t.startsWith('#'))
+                .slice(0, 20);
+            } else if (line.includes('#')) {
+              const hashtagPattern = /#[\w\u0900-\u097F\u4e00-\u9fff\u0600-\u06ff\u0590-\u05ff\u0400-\u04FF\u1E00-\u1EFF\u0100-\u017F\u0180-\u024F]+/g;
+              const foundHashtags = line.match(hashtagPattern) || [];
+              hashtags = [...hashtags, ...foundHashtags].slice(0, 20);
+            }
           }
         }
 
-        // Ensure minimum counts
-        if (tags.length < 15) {
-          console.warn(`Generated only ${tags.length} tags, minimum is 15`);
-        }
-        if (hashtags.length < 15) {
-          console.warn(`Generated only ${hashtags.length} hashtags, minimum is 15`);
-        }
+        console.log('Parsed tags:', tags);
+        console.log('Parsed hashtags:', hashtags);
+
       } else {
-        // Enhanced parsing for other platforms
-        const hashtagPattern = /#[\w\u0900-\u097F\u4e00-\u9fff\u0600-\u06ff\u0590-\u05ff]+/g;
-        hashtags = resultText.match(hashtagPattern) ||
-          resultText
-            .split(',')
+        // Enhanced parsing for other platforms (Instagram, TikTok, Facebook)
+        const hashtagPattern = /#[\w\u0900-\u097F\u4e00-\u9fff\u0600-\u06ff\u0590-\u05ff\u0400-\u04FF\u1E00-\u1EFF\u0100-\u017F\u0180-\u024F]+/g;
+
+        // First try pattern matching
+        let extractedHashtags = resultText.match(hashtagPattern);
+
+        if (!extractedHashtags || extractedHashtags.length === 0) {
+          // Fallback: split by comma and ensure # prefix
+          extractedHashtags = resultText
+            .split(/[,\n]/)
             .map(h => {
-              const cleaned = h.trim().replace(/^["']|["']$/g, '');
+              const cleaned = h.trim().replace(/^["'\[\]]+|["'\[\]]+$/g, '');
               return cleaned.startsWith('#') ? cleaned : '#' + cleaned;
             })
-            .filter(h => h.length > 1)
-            .slice(0, 20);
-
-        if (hashtags.length < 15) {
-          console.warn(`Generated only ${hashtags.length} hashtags, minimum is 15`);
+            .filter(h => h.length > 1 && h !== '#');
         }
+
+        hashtags = extractedHashtags.slice(0, 20);
+        console.log('Parsed hashtags for', activeTab, ':', hashtags);
       }
 
       // Add random trend percentages if not provided
@@ -455,7 +467,7 @@ IMPORTANT FORMATTING:
 
       if (state.language === 'hindi') {
         if (activeTab === 'youtube') {
-          fallbackTags = ['वायरल कंटे��ट', 'ट्रेंडिंग विषय', 'यूट्यूब टिप्स', 'कंटेंट क्रिएटर', 'सोशल मीडिया', 'डिजिटल मार्केटिंग', 'ऑनलाइन बिजनेस', 'वीडियो मार्केटिंग', 'कंटेंट स्ट्रैटेजी', 'ऑडियंस एंगेजमेंट', 'क्रिएटर इकॉनमी', 'कंटेंट मोनेटाइज़ेशन', 'वीडियो SEO', 'यूट्यूब ग्रोथ', 'कंटेंट प्लानिंग'].map(tag => ({ text: tag, feedback: 'none', trend: Math.floor(Math.random() * 41) + 60 }));
+          fallbackTags = ['वायरल कंटे��ट', 'ट्रेंडिंग विषय', 'यूट्यूब टिप्स', 'कंटेंट क्���िएटर', 'सोशल मीडिया', 'डिजिटल मार्केटिंग', 'ऑनलाइन बिजनेस', 'वीडियो मार्केटिंग', 'कंटेंट स्ट्रैटेजी', 'ऑडियंस एंगेजमेंट', 'क्रिएटर इकॉनमी', 'कंटेंट मोनेटाइज़ेशन', 'वीडियो SEO', 'यूट्यूब ग्रोथ', 'कंटेंट प्लानिंग'].map(tag => ({ text: tag, feedback: 'none', trend: Math.floor(Math.random() * 41) + 60 }));
           fallbackHashtags = ['#हिंदीकंटेंट', '#भारतीयक्रिएटर', '#वायरलवीडियो', '#ट्रेंडिंगइंडिया', '#सोशलमीडिया', '#डिजिटलइंडिया', '#हिंदीयूट्यूब', '#इंडियनक्रिएटर', '#बॉलीवुड', '#हिंदीट्रेंड्स', '#भारत', '#हिंदी', '#इंडिया', '#देसी', '#हिंदुस्तान'].map(tag => ({ text: tag, feedback: 'none', trend: Math.floor(Math.random() * 41) + 60 }));
         } else {
           fallbackHashtags = ['#हिंदीकंटेंट', '#भारतीयक्रिएटर', '#वायरलवीडियो', '#ट्रेंडिंगइंडिया', '#सोशलमीडिया', '#डिजिटलइंडिया', '#इंडियनक्रिएटर', '#बॉलीवुड', '#हिंदीट्रेंड्स', '#भारत', '#हिंदी', '#इंडिया', '#देसी', '#हिंदुस्तान'].map(tag => ({ text: tag, feedback: 'none', trend: Math.floor(Math.random() * 41) + 60 }));
