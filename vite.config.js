@@ -58,7 +58,7 @@ export default defineConfig({
   plugins: [react(), vercelApiDevPlugin()],
   build: {
     target: 'es2015', // Better compatibility while still modern
-    minify: 'terser', // Better compression than esbuild
+    minify: 'esbuild', // Faster build times
     sourcemap: false,
     cssCodeSplit: true,
     chunkSizeWarningLimit: 1000, // Warn for chunks larger than 1MB
