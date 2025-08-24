@@ -1,10 +1,10 @@
-const CACHE_NAME = 'turbotags-v2.1.0';
+const CACHE_NAME = 'turbotags-v2.1.1'; // Updated cache name to force update
 const urlsToCache = [
   '/',
-  '/src/main.jsx',
-  '/api/generate',
   '/manifest.json',
   '/favicon.svg'
+  // Note: API endpoints and source files should not be pre-cached.
+  // The main app assets will be cached on first visit by the fetch handler below.
 ];
 
 // Install Service Worker
@@ -12,16 +12,25 @@ self.addEventListener('install', (event) => {
   event.waitUntil(
     caches.open(CACHE_NAME)
       .then((cache) => {
+        console.log('Opened cache');
         return cache.addAll(urlsToCache);
       })
       .then(() => {
         return self.skipWaiting();
+      })
+      .catch(err => {
+        console.error('Cache addAll failed:', err);
       })
   );
 });
 
 // Fetch event
 self.addEventListener('fetch', (event) => {
+  // We only want to cache GET requests
+  if (event.request.method !== 'GET') {
+    return;
+  }
+
   event.respondWith(
     caches.match(event.request)
       .then((response) => {
@@ -60,6 +69,7 @@ self.addEventListener('activate', (event) => {
       return Promise.all(
         cacheNames.map((cacheName) => {
           if (cacheName !== CACHE_NAME) {
+            console.log('Service Worker: clearing old cache:', cacheName);
             return caches.delete(cacheName);
           }
         })
