@@ -31,7 +31,7 @@ const FloatingBalls = React.memo(() => {
       {Array.from({ length: 5 }).map((_, i) => (
         <li
           key={i}
-          className="absolute block list-none rounded-full bg-tt-dark-violet/5 will-change-transform"
+          className="absolute block list-none rounded-full bg-tt-medium-violet/20 will-change-transform"
           style={{
             left: `${Math.random() * 100}%`,
             width: `${Math.random() * 80 + 40}px`,
