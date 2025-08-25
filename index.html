@@ -27,16 +27,23 @@
       @media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; } }
     </style>
 
-    <!-- Resource preloading -->
+    <!-- Resource preloading & prefetching for faster connections -->
     <link rel="dns-prefetch" href="//fonts.googleapis.com">
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
+    <link rel="dns-prefetch" href="//www.googletagmanager.com">
+    <link rel="dns-prefetch" href="//www.google-analytics.com">
+    <link rel="dns-prefetch" href="//pagead2.googlesyndication.com">
 
-    <!-- Essential meta tags -->
-    <meta name="description" content="FREE AI-powered tag and hashtag generator for YouTube, Instagram, TikTok & Facebook. Generate SEO-optimized tags in 16+ languages. Boost views and grow followers.">
-    <meta name="keywords" content="YouTube tags, Instagram hashtags, TikTok hashtags, AI tag generator, hashtag generator, SEO optimization, social media marketing, content creator tools">
+    <!-- Essential meta tags for SEO and Global Reach -->
+    <meta name="description" content="FREE AI-powered tag and hashtag generator for YouTube, Instagram, TikTok & Facebook. Generate SEO-optimized tags in 16+ languages to boost views and grow followers worldwide.">
+    <meta name="keywords" content="YouTube tags, Instagram hashtags, TikTok hashtags, AI tag generator, hashtag generator, SEO optimization, social media marketing, content creator tools, global seo, multilingual hashtags">
     <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
     <meta name="author" content="TurboTags">
     <link rel="canonical" href="https://turbotags.app/">
+
+    <!-- Hreflang tags for Global SEO -->
+    <link rel="alternate" hreflang="en" href="https://turbotags.app/" />
+    <link rel="alternate" hreflang="x-default" href="https://turbotags.app/" />
 
     <!-- Favicon -->
     <link rel="icon" href="/favicon.svg" type="image/svg+xml">
@@ -56,8 +63,39 @@
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://turbotags.app/">
     <meta property="og:title" content="TurboTags - FREE AI Tag & Hashtag Generator">
-    <meta property="og:description" content="FREE AI-powered tag generator for YouTube, Instagram, TikTok & Facebook. Generate SEO-optimized tags and boost your content reach.">
+    <meta property="og:description" content="FREE AI-powered tag generator for YouTube, Instagram, TikTok & Facebook. Generate SEO-optimized tags and boost your content reach worldwide.">
     <meta property="og:site_name" content="TurboTags">
+
+    <!-- JSON-LD Structured Data for Rich Snippets -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "WebSite",
+          "url": "https://turbotags.app/",
+          "name": "TurboTags",
+          "description": "FREE AI-powered tag and hashtag generator for YouTube, Instagram, TikTok & Facebook. Generate SEO-optimized tags in 16+ languages to boost views and grow followers worldwide.",
+          "publisher": {
+            "@id": "https://turbotags.app/#organization"
+          },
+          "inLanguage": "en-US"
+        },
+        {
+          "@type": "Organization",
+          "@id": "https://turbotags.app/#organization",
+          "name": "TurboTags",
+          "url": "https://turbotags.app/",
+          "logo": "https://turbotags.app/favicon.svg",
+          "email": "helloturbotags@gmail.com",
+          "sameAs": [
+            "https://twitter.com/TurboTagsApp",
+            "https://www.linkedin.com/in/turbotags-support-173b0a375"
+          ]
+        }
+      ]
+    }
+    </script>
 
     <!-- Performance optimized analytics -->
     <script>
