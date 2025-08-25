@@ -28,17 +28,30 @@ export default async function handler(req, res) {
 
     console.log(`API Request - Platform: ${platform}, Language: ${language}, Region: ${region}, Format: ${contentFormat}`);
 
-    const modelsToTry = [
-      "mistralai/mistral-7b-instruct",
-      "google/gemini-flash-1.5",
-      "meta-llama/llama-3-8b-instruct",
-      "anthropic/claude-3-haiku"
-    ];
+    // **CRITICAL FIX**: Dynamically select model priority based on language.
+    // Gemini is prioritized for non-English languages for better multilingual support.
+    let modelsToTry;
+    if (language.toLowerCase() === 'english') {
+      console.log('Language is English, prioritizing Mistral.');
+      modelsToTry = [
+        "mistralai/mistral-7b-instruct",
+        "google/gemini-flash-1.5",
+        "meta-llama/llama-3-8b-instruct",
+        "anthropic/claude-3-haiku"
+      ];
+    } else {
+      console.log(`Language is ${language}, prioritizing Gemini for multilingual generation.`);
+      modelsToTry = [
+        "google/gemini-flash-1.5", // Gemini first for non-English
+        "mistralai/mistral-7b-instruct", // Mistral as backup
+        "meta-llama/llama-3-8b-instruct",
+        "anthropic/claude-3-haiku"
+      ];
+    }
 
     let generatedText = null;
     let lastError = null;
 
-    // Simplified, more reliable prompt structure
     const systemPrompt = `You are an expert social media strategist. Your task is to generate SEO-optimized tags and hashtags for a content creator.
 - Generate EXACTLY 15-20 items per category.
 - Adhere strictly to the requested language.
@@ -79,7 +92,6 @@ export default async function handler(req, res) {
         const data = await response.json();
         const content = data.choices?.[0]?.message?.content;
 
-        // More robust check: ensure content is not null, empty, or just whitespace
         if (content && content.trim()) {
           generatedText = content;
           console.log(`Successfully generated content with model: ${model}`);
@@ -98,7 +110,6 @@ export default async function handler(req, res) {
         text: generatedText
       });
     } else {
-      // Fallback to local JSON if all models fail
       console.warn("All OpenRouter models failed. Falling back to local JSON.", lastError?.message);
       const fallbackPath = path.join(__dirname, 'fallback.json');
       const fallbackContent = fs.readFileSync(fallbackPath, 'utf-8');
