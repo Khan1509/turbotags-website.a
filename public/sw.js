@@ -1,5 +1,5 @@
 // **CRITICAL FIX**: A more robust Service Worker to eliminate all previous errors.
-const CACHE_NAME = 'turbotags-v2.1.9'; // Incremented version for a clean installation.
+const CACHE_NAME = 'turbotags-v2.2.0'; // Incremented version for a clean installation.
 
 // On install, activate immediately. No pre-caching to ensure installation never fails.
 self.addEventListener('install', (event) => {
@@ -44,8 +44,8 @@ self.addEventListener('fetch', (event) => {
         const networkResponse = await fetch(request);
         
         // If the network request is successful, cache the response and return it.
-        // We must clone the response to use it in both the cache and the browser.
         const cache = await caches.open(CACHE_NAME);
+        // We must clone the response to use it in both the cache and the browser.
         await cache.put(request, networkResponse.clone());
         
         return networkResponse;
@@ -54,8 +54,18 @@ self.addEventListener('fetch', (event) => {
         console.log(`[SW ${CACHE_NAME}] Network failed for ${request.url}, trying cache.`);
         const cachedResponse = await caches.match(request);
         
-        // Return the cached response if it exists.
-        return cachedResponse;
+        // **FIX**: If a cached response is found, return it.
+        if (cachedResponse) {
+          return cachedResponse;
+        }
+        
+        // **FIX**: If the resource is not in the cache and the network has failed,
+        // we must return a valid Response object to avoid a TypeError.
+        // A 503 Service Unavailable response is appropriate and prevents the crash.
+        return new Response('', {
+          status: 503,
+          statusText: 'Service Unavailable'
+        });
       }
     })()
   );
