@@ -5,6 +5,7 @@ import Platforms from '../components/Platforms';
 import TagGenerator from '../components/TagGenerator';
 import LoadingSpinner from '../components/ui/LoadingSpinner';
 import RatingWidget from '../components/ui/RatingWidget';
+import LazySection from '../components/utils/LazySection';
 
 const WhyChooseUs = lazy(() => import('../components/WhyChooseUs'));
 const ComingSoon = lazy(() => import('../components/ComingSoon'));
@@ -55,10 +56,18 @@ function HomePage() {
         <Platforms />
         <TagGenerator />
         <Suspense fallback={<LoadingSpinner />}>
-          <WhyChooseUs />
-          <ComingSoon />
-          <Demo />
-          <Faq />
+          <LazySection>
+            <WhyChooseUs />
+          </LazySection>
+          <LazySection>
+            <ComingSoon />
+          </LazySection>
+          <LazySection>
+            <Demo />
+          </LazySection>
+          <LazySection>
+            <Faq />
+          </LazySection>
         </Suspense>
         <section className="bg-white p-6 rounded-xl shadow-md">
           <RatingWidget />
