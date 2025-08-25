@@ -7,10 +7,8 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 export default async function handler(req, res) {
-  // Immediately set JSON content-type
   res.setHeader('Content-Type', 'application/json');
 
-  // Block non-POST requests
   if (req.method !== 'POST') {
     return res.status(405).json({
       error: 'Method Not Allowed',
@@ -30,38 +28,31 @@ export default async function handler(req, res) {
 
     console.log(`API Request - Platform: ${platform}, Language: ${language}, Region: ${region}, Format: ${contentFormat}`);
 
-    // Define the list of models to try in order of preference
     const modelsToTry = [
       "mistralai/mistral-7b-instruct",
-      "meta-llama/llama-3-8b-instruct",
       "google/gemini-flash-1.5",
+      "meta-llama/llama-3-8b-instruct",
       "anthropic/claude-3-haiku"
     ];
 
     let generatedText = null;
     let lastError = null;
 
+    // Simplified, more reliable prompt structure
+    const systemPrompt = `You are an expert social media strategist. Your task is to generate SEO-optimized tags and hashtags for a content creator.
+- Generate EXACTLY 15-20 items per category.
+- Adhere strictly to the requested language.
+- For YouTube, provide two lists: 'TAGS' (plain keywords) and 'HASHTAGS' (with #).
+- For all other platforms, provide only one list of 'HASHTAGS'.
+- Output format for YouTube: TAGS:[tag1,tag2,...]HASHTAGS:[#hashtag1,#hashtag2,...]
+- Output format for others: #hashtag1,#hashtag2,...
+- Do NOT include any extra text, explanations, or formatting.`;
+
+    const userPrompt = `Platform: ${platform}\nLanguage: ${language}\nRegion: ${region}\nContent Format: ${contentFormat}\nTopic: "${prompt}"`;
+
     for (const model of modelsToTry) {
       try {
         console.log(`Attempting to generate content with model: ${model}`);
-
-        // Enhanced prompt for better tag generation
-        const enhancedPrompt = `${prompt}
-
-STRICT REQUIREMENTS:
-- Generate EXACTLY 15-20 items per category (minimum 15, maximum 20)
-- For YouTube: Provide both TAGS (plain text) and HASHTAGS (with # symbol)
-- For other platforms: Provide only HASHTAGS (with # symbol)
-- Use the specified language: ${language}
-- Target region: ${region}
-- Platform: ${platform}
-- Content format: ${contentFormat}
-
-FORMAT REQUIREMENTS:
-- YouTube: TAGS:[tag1,tag2,tag3]HASHTAGS:[#hashtag1,#hashtag2,#hashtag3]
-- Other platforms: #hashtag1,#hashtag2,#hashtag3
-- NO extra text, explanations, or formatting
-- Count must be between 15-20 items per category`;
 
         const response = await fetch("https://openrouter.ai/api/v1/chat/completions", {
           method: 'POST',
@@ -71,31 +62,34 @@ FORMAT REQUIREMENTS:
           },
           body: JSON.stringify({
             model: model,
-            messages: [{
-              role: "user",
-              content: enhancedPrompt
-            }],
+            messages: [
+              { role: "system", content: systemPrompt },
+              { role: "user", content: userPrompt }
+            ],
             temperature: 0.7,
             max_tokens: 1000
           })
         });
 
         if (!response.ok) {
-          const errorData = await response.text(); // Use .text() for better error details
-          throw new Error(`API error with ${model}: ${response.status} ${response.statusText} - ${errorData}`);
+          const errorData = await response.text();
+          throw new Error(`API error with ${model}: ${response.status} - ${errorData}`);
         }
 
         const data = await response.json();
-        if (data.choices && data.choices.length > 0 && data.choices[0].message && data.choices[0].message.content) {
-          generatedText = data.choices[0].message.content;
+        const content = data.choices?.[0]?.message?.content;
+
+        // More robust check: ensure content is not null, empty, or just whitespace
+        if (content && content.trim()) {
+          generatedText = content;
           console.log(`Successfully generated content with model: ${model}`);
-          break; // Exit loop if successful
+          break; // Exit loop on success
         } else {
-          throw new Error(`API response from ${model} missing content or unexpected structure.`);
+          throw new Error(`API response from ${model} was empty or malformed.`);
         }
       } catch (error) {
         console.error(`Error with model ${model}:`, error.message);
-        lastError = error; // Store the last error
+        lastError = error;
       }
     }
 
@@ -104,59 +98,37 @@ FORMAT REQUIREMENTS:
         text: generatedText
       });
     } else {
-      // If all models fail, fall back to the local JSON file
-      console.warn("All OpenRouter models failed. Falling back to local fallback.json.");
+      // Fallback to local JSON if all models fail
+      console.warn("All OpenRouter models failed. Falling back to local JSON.", lastError?.message);
       const fallbackPath = path.join(__dirname, 'fallback.json');
       const fallbackContent = fs.readFileSync(fallbackPath, 'utf-8');
       const fallbackData = JSON.parse(fallbackContent);
 
       let fallbackText = "";
+      const langData = fallbackData.multilingual[language] || fallbackData.multilingual['english'];
 
-      // Handle multilingual fallback content
-      if (language !== 'english' && fallbackData.multilingual && fallbackData.multilingual[language]) {
-        const langData = fallbackData.multilingual[language];
-        if (platform === 'youtube') {
-          const tags = langData.tags.slice(0, 15);
-          const hashtags = langData.hashtags.slice(0, 15);
-          fallbackText = `TAGS:[${tags.join(',')}]HASHTAGS:[${hashtags.join(',')}]`;
-        } else {
-          fallbackText = langData.hashtags.slice(0, 15).join(', ');
-        }
+      if (platform === 'youtube') {
+        const tags = (langData.tags || fallbackData.youtube.plain_tags).slice(0, 20);
+        const hashtags = (langData.hashtags || fallbackData.youtube.hashtags).slice(0, 20);
+        fallbackText = `TAGS:[${tags.join(',')}]HASHTAGS:[${hashtags.join(',')}]`;
       } else {
-        // English fallback - generate exactly 15-20 items
-        const minItems = 15;
-        const maxItems = 20;
-
-        if (platform === 'youtube') {
-          const tags = fallbackData.youtube.plain_tags.slice(0, maxItems);
-          const hashtags = fallbackData.youtube.hashtags.slice(0, maxItems);
-          fallbackText = `TAGS:[${tags.join(',')}]HASHTAGS:[${hashtags.join(',')}]`;
-        } else if (platform === 'instagram') {
-          fallbackText = fallbackData.instagram_hashtags.slice(0, maxItems).join(', ');
-        } else if (platform === 'tiktok') {
-          fallbackText = fallbackData.tiktok_hashtags.slice(0, maxItems).join(', ');
-        } else if (platform === 'facebook') {
-          fallbackText = fallbackData.facebook_hashtags.slice(0, maxItems).join(', ');
-        } else {
-          // Default fallback
-          const tags = fallbackData.youtube.plain_tags.slice(0, maxItems);
-          const hashtags = fallbackData.youtube.hashtags.slice(0, maxItems);
-          fallbackText = `TAGS:[${tags.join(',')}]HASHTAGS:[${hashtags.join(',')}]`;
-        }
+        const platformKey = `${platform}_hashtags`;
+        const hashtags = (fallbackData[platformKey] || langData.hashtags || fallbackData.youtube.hashtags).slice(0, 20);
+        fallbackText = hashtags.join(', ');
       }
 
       return res.status(200).json({
         text: fallbackText,
         fallback: true,
-        message: `Using ${language} fallback content due to API unavailability`
+        message: `Using ${language} fallback content due to API unavailability.`
       });
     }
 
   } catch (error) {
-    console.error('Final error in generate.js:', error);
+    console.error('Fatal error in generate.js:', error);
     return res.status(500).json({
       error: 'Internal Server Error',
-      message: error.message || 'An unexpected error occurred during content generation.'
+      message: error.message || 'An unexpected error occurred.'
     });
   }
 }
