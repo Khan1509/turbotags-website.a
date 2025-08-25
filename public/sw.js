@@ -1,4 +1,5 @@
-const CACHE_NAME = 'turbotags-v2.1.8'; // **CRITICAL**: Incremented version for a fresh start
+// **CRITICAL FIX**: A more robust Service Worker to eliminate all previous errors.
+const CACHE_NAME = 'turbotags-v2.1.9'; // Incremented version for a clean installation.
 
 // On install, activate immediately. No pre-caching to ensure installation never fails.
 self.addEventListener('install', (event) => {
@@ -26,32 +27,36 @@ self.addEventListener('activate', (event) => {
   );
 });
 
-// Fetch event handler: A single, robust "Network-first, falling back to cache" strategy.
-// This is the most reliable approach to prevent the "body already used" errors.
+// Fetch event handler using a stable "Network-first, falling back to cache" strategy.
 self.addEventListener('fetch', (event) => {
   const { request } = event;
 
-  // Ignore non-GET requests and API calls. They should always go to the network.
+  // Always use the network for API calls and non-GET requests.
   if (request.method !== 'GET' || request.url.includes('/api/')) {
+    event.respondWith(fetch(request));
     return;
   }
 
+  // For all other GET requests, try the network first.
   event.respondWith(
-    fetch(request)
-      .then((networkResponse) => {
-        // If the fetch is successful, we clone the response.
-        // One copy goes to the cache, the other is returned to the browser.
-        const responseToCache = networkResponse.clone();
-        caches.open(CACHE_NAME).then((cache) => {
-          cache.put(request, responseToCache);
-        });
+    (async () => {
+      try {
+        const networkResponse = await fetch(request);
+        
+        // If the network request is successful, cache the response and return it.
+        // We must clone the response to use it in both the cache and the browser.
+        const cache = await caches.open(CACHE_NAME);
+        await cache.put(request, networkResponse.clone());
+        
         return networkResponse;
-      })
-      .catch(() => {
-        // If the network request fails (e.g., user is offline),
-        // we try to serve the content from the cache.
-        console.log(`[SW ${CACHE_NAME}] Network failed, serving from cache: ${request.url}`);
-        return caches.match(request);
-      })
+      } catch (error) {
+        // If the network fails (e.g., user is offline), try to serve from the cache.
+        console.log(`[SW ${CACHE_NAME}] Network failed for ${request.url}, trying cache.`);
+        const cachedResponse = await caches.match(request);
+        
+        // Return the cached response if it exists.
+        return cachedResponse;
+      }
+    })()
   );
 });
