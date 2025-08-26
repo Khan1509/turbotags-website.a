@@ -1,5 +1,5 @@
 // **CRITICAL FIX**: A more robust Service Worker to eliminate all previous errors.
-const CACHE_NAME = 'turbotags-v2.2.0'; // Incremented version for a clean installation.
+const CACHE_NAME = 'turbotags-v2.4.0'; // Incremented version for a clean installation.
 
 // On install, activate immediately. No pre-caching to ensure installation never fails.
 self.addEventListener('install', (event) => {
