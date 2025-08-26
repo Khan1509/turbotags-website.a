@@ -1,22 +1,21 @@
 import { initializeApp } from "firebase/app";
 import { getAnalytics } from "firebase/analytics";
 
-// Your web app's Firebase configuration.
-// This should match the values in your Firebase project console.
+// Firebase configuration is loaded from environment variables for security
 const firebaseConfig = {
-  apiKey: "AIzaSyCdQdG1cqcmUDwSSUlFVrP9arOV3qvdCpE",
-  authDomain: "turbotags-b4ca1.firebaseapp.com",
-  projectId: "turbotags-b4ca1",
-  storageBucket: "turbotags-b4ca1.firebasestorage.app",
-  messagingSenderId: "766845880079",
-  appId: "1:766845880079:web:1722ceb1cf6e976231607a",
-  measurementId: "G-YXQPT1LPT8"
+  apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
+  authDomain: import.meta.env.VITE_FIREBASE_AUTH_DOMAIN,
+  projectId: import.meta.env.VITE_FIREBASE_PROJECT_ID,
+  storageBucket: import.meta.env.VITE_FIREBASE_STORAGE_BUCKET,
+  messagingSenderId: import.meta.env.VITE_FIREBASE_MESSAGING_SENDER_ID,
+  appId: import.meta.env.VITE_FIREBASE_APP_ID,
+  measurementId: import.meta.env.VITE_FIREBASE_MEASUREMENT_ID
 };
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 
-// Initialize and export Firebase services
-const analytics = getAnalytics(app);
+// Initialize Analytics only on the client side to prevent errors in other environments
+const analytics = typeof window !== 'undefined' ? getAnalytics(app) : null;
 
 export { app, analytics };

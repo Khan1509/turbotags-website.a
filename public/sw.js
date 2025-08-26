@@ -1,6 +1,6 @@
 // **STABLE RELEASE**: Network-First, falling back to Cache strategy.
-// v2.6.2: Force cache bust to resolve stale CSS issue in production.
-const CACHE_NAME = 'turbotags-v2.6.2-cache-bust';
+// v2.6.3: Final fix. Aggressively bust cache to resolve stale CSS issue in production.
+const CACHE_NAME = 'turbotags-v2.6.3-final-fix';
 
 // Essential assets to pre-cache for the app shell to work offline.
 const PRECACHE_ASSETS = [

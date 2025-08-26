@@ -2,11 +2,12 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { blogData } from '../../data/blogData';
 import usePageMeta from '../../hooks/usePageMeta';
+import LazyImage from '../../components/ui/LazyImage';
 
 const BlogCard = ({ post }) => (
   <article className="flex flex-col bg-white rounded-lg shadow-md overflow-hidden transition-transform hover:-translate-y-1">
     <Link to={`/blog/${post.slug}`} className="block">
-      <img src={post.imageSrc} alt={`${post.title} Guide`} className="w-full h-48 object-cover" />
+      <LazyImage src={post.imageSrc} alt={`${post.title} Guide`} className="w-full h-48 object-cover" />
     </Link>
     <div className="p-6 flex flex-col flex-grow">
       <h2 className={`text-xl font-semibold ${post.platformColor || 'text-black'} mb-2`}>

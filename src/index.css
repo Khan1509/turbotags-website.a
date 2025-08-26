@@ -21,7 +21,9 @@
   }
 
   .btn-primary {
-    @apply btn bg-gradient-to-r from-tt-dark-violet to-tt-medium-violet text-white focus:ring-tt-dark-violet;
+    @apply btn text-white hover:bg-tt-medium-violet focus:ring-tt-dark-violet;
+    background-color: #151440 !important;
+    background-image: none !important;
   }
 
   .btn-secondary {
