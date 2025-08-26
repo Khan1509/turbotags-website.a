@@ -1,6 +1,7 @@
 // **STABLE RELEASE**: Network-First, falling back to Cache strategy.
-// This version prioritizes fresh content and provides a reliable offline fallback, eliminating 503 errors.
-const CACHE_NAME = 'turbotags-v2.6.0-stable';
+// This version prioritizes fresh content and provides a reliable offline fallback.
+// v2.6.1: Added a guard to ignore non-http requests (e.g., from browser extensions).
+const CACHE_NAME = 'turbotags-v2.6.1-stable';
 
 // Essential assets to pre-cache for the app shell to work offline.
 const PRECACHE_ASSETS = [
@@ -38,6 +39,12 @@ self.addEventListener('activate', (event) => {
 // On fetch, implement the Network-First strategy.
 self.addEventListener('fetch', (event) => {
   const { request } = event;
+
+  // **CRITICAL FIX**: Ignore requests for non-http/https schemes, like chrome-extension://.
+  // This prevents the "Request scheme is unsupported" error.
+  if (!request.url.startsWith('http')) {
+    return; // Let the browser handle these requests natively.
+  }
 
   // Do not cache API calls or non-GET requests.
   if (request.method !== 'GET' || request.url.includes('/api/')) {
