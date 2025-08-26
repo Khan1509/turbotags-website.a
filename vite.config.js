@@ -90,14 +90,17 @@ export default defineConfig({
   plugins: [react(), vercelApiDevPlugin()],
   build: {
     target: 'es2020',
-    minify: 'esbuild',
+    minify: 'terser', // Switched to terser for better minification
+    terserOptions: {
+      compress: {
+        drop_console: true, // Remove console logs from production build
+      },
+    },
     sourcemap: false,
     cssCodeSplit: true,
     chunkSizeWarningLimit: 500,
     rollupOptions: {
       output: {
-        // REMOVED the manualChunks function.
-        // Let Vite handle chunking automatically for optimal performance and to prevent build errors.
         chunkFileNames: 'assets/js/[name]-[hash].js',
         entryFileNames: 'assets/js/[name]-[hash].js',
         assetFileNames: 'assets/[ext]/[name]-[hash].[ext]'
