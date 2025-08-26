@@ -89,7 +89,7 @@ function vercelApiDevPlugin() {
 export default defineConfig({
   plugins: [react(), vercelApiDevPlugin()],
   build: {
-    target: 'es2015',
+    target: 'es2020',
     minify: 'esbuild',
     sourcemap: false,
     cssCodeSplit: true,
@@ -129,7 +129,7 @@ export default defineConfig({
       },
       external: []
     },
-    cssMinify: true,
+    cssMinify: 'esbuild',
     reportCompressedSize: false
   },
   optimizeDeps: {
