@@ -237,12 +237,9 @@ const TagGenerator = () => {
         language: state.language
       });
 
-      // **SIMPLIFIED LOGIC**: The API now sends clean, structured JSON. No more parsing needed here.
-      const tags = result.tags || [];
-      const hashtags = result.hashtags || [];
-
-      const tagsWithFeedback = tags.map(tag => ({ text: tag, feedback: 'none', trend: Math.floor(Math.random() * 41) + 60 }));
-      const hashtagsWithFeedback = hashtags.map(tag => ({ text: tag, feedback: 'none', trend: Math.floor(Math.random() * 41) + 60 }));
+      // **ENHANCED LOGIC**: Process the structured JSON from the API
+      const tagsWithFeedback = result.tags.map(item => ({ ...item, feedback: 'none' }));
+      const hashtagsWithFeedback = result.hashtags.map(item => ({ ...item, feedback: 'none' }));
 
       dispatch({ type: 'GENERATION_SUCCESS', payload: { tags: tagsWithFeedback, hashtags: hashtagsWithFeedback } });
 
@@ -253,8 +250,8 @@ const TagGenerator = () => {
         handleMessage(result.message || `Using ${state.language} sample content.`, 'warning');
       } else {
         const message = activeTab === 'youtube' ?
-          `Generated ${tags.length} tags and ${hashtags.length} hashtags in ${duration}ms!` :
-          `Generated ${hashtags.length} hashtags in ${duration}ms!`;
+          `Generated ${result.tags.length} tags and ${result.hashtags.length} hashtags in ${duration}ms!` :
+          `Generated ${result.hashtags.length} hashtags in ${duration}ms!`;
         handleMessage(message, 'success');
       }
 

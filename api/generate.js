@@ -10,12 +10,12 @@ const __dirname = path.dirname(__filename);
 const getFallbackNiche = (prompt, niches) => {
   const lowerCasePrompt = prompt.toLowerCase();
   for (const nicheKey in niches) {
-    if (lowerCasePrompt.includes(nicheKey.split('_')[0])) {
-      console.log(`Fallback niche found: ${nicheKey}`);
+    if (nicheKey !== 'default' && lowerCasePrompt.includes(nicheKey.split('_')[0])) {
+      console.log(`[Fallback] Niche found: ${nicheKey}`);
       return niches[nicheKey];
     }
   }
-  console.log('No specific fallback niche found, using default.');
+  console.log('[Fallback] No specific niche found, using default.');
   return niches.default;
 };
 
@@ -30,21 +30,17 @@ export default async function handler(req, res) {
   }
 
   if (req.method !== 'POST') {
-    return res.status(405).json({
-      error: 'Method Not Allowed'
-    });
+    return res.status(405).json({ error: 'Method Not Allowed' });
   }
 
   try {
     const { prompt, platform = 'youtube', language = 'english' } = req.body;
 
     if (!prompt) {
-      return res.status(400).json({
-        error: 'Bad Request',
-        message: 'Missing prompt in request body'
-      });
+      return res.status(400).json({ error: 'Bad Request', message: 'Missing prompt in request body' });
     }
 
+    // **ENHANCED MODEL SELECTION LOGIC**
     let modelsToTry;
     if (language.toLowerCase() === 'english') {
       modelsToTry = ["mistralai/mistral-7b-instruct", "google/gemini-flash-1.5", "meta-llama/llama-3-8b-instruct"];
@@ -55,17 +51,17 @@ export default async function handler(req, res) {
     let generatedText = null;
     let lastError = null;
 
-    const systemPrompt = `You are a world-class social media strategist and SEO expert. Your task is to generate highly relevant, trending, and SEO-optimized tags and hashtags for a content creator.
+    // **BULLETPROOF SYSTEM PROMPT**
+    const systemPrompt = `You are a world-class social media strategist and SEO expert. Your task is to generate highly relevant, trending, and SEO-optimized content for a creator.
 - **Quantity**: Generate EXACTLY 15-20 items per category. You can generate up to a maximum of 25 if they are highly relevant.
 - **Language**: Adhere strictly to the requested language: ${language}.
 - **Formatting**:
-  - For YouTube: Provide two lists in this exact format: TAGS:[tag1,tag2,...]HASHTAGS:[#hashtag1,#hashtag2,...]
-  - For all other platforms: Provide a single comma-separated list of hashtags: #hashtag1,#hashtag2,...
+  - For YouTube: Provide two JSON arrays in this exact format: TAGS:[{"tag":"tag1","trend":85},{"tag":"tag2","trend":72},...]HASHTAGS:[{"hashtag":"#hashtag1","trend":91},{"hashtag":"#hashtag2","trend":68},...]
+  - For all other platforms: Provide a single JSON array of hashtags: HASHTAGS:[{"hashtag":"#hashtag1","trend":91},{"hashtag":"#hashtag2","trend":68},...]
 - **Rules**:
-  - Do NOT include any extra text, explanations, apologies, or formatting.
-  - Tags are plain keywords (e.g., 'cooking tips').
-  - Hashtags must start with a '#' (e.g., '#CookingTips').
-  - Do not use markdown or code blocks.`;
+  - The "trend" value MUST be an integer between 60 and 100.
+  - Do NOT include any extra text, explanations, apologies, or formatting. Your entire response must start with TAGS or HASHTAGS.
+  - Do not use markdown, code blocks, or any characters before the initial TAGS or HASHTAGS keyword.`;
 
     const userPrompt = `Platform: ${platform}\nTopic: "${prompt}"`;
 
@@ -73,15 +69,13 @@ export default async function handler(req, res) {
       try {
         const response = await fetch("https://openrouter.ai/api/v1/chat/completions", {
           method: 'POST',
-          headers: {
-            'Authorization': `Bearer ${process.env.OPENROUTER_API_KEY}`,
-            'Content-Type': 'application/json'
-          },
+          headers: { 'Authorization': `Bearer ${process.env.OPENROUTER_API_KEY}`, 'Content-Type': 'application/json' },
           body: JSON.stringify({
             model: model,
             messages: [{ role: "system", content: systemPrompt }, { role: "user", content: userPrompt }],
             temperature: 0.7,
-            max_tokens: 1000
+            max_tokens: 1500,
+            response_format: { type: "text" } // Ensure text output
           })
         });
 
@@ -94,7 +88,8 @@ export default async function handler(req, res) {
         const content = data.choices?.[0]?.message?.content;
 
         if (content && content.trim()) {
-          generatedText = content;
+          generatedText = content.trim();
+          console.log(`[AI Success] Model ${model} generated content.`);
           break;
         } else {
           throw new Error(`API response from ${model} was empty.`);
@@ -106,43 +101,38 @@ export default async function handler(req, res) {
     }
 
     if (generatedText) {
-      // **ROBUST PARSING LOGIC MOVED TO BACKEND**
+      // **ROBUST BACKEND PARSING LOGIC**
       let tags = [];
       let hashtags = [];
 
-      if (platform === 'youtube') {
-        const tagsMatch = generatedText.match(/TAGS\s*:\s*\[(.*?)]/is);
-        if (tagsMatch && tagsMatch[1]) {
-          tags = tagsMatch[1].split(',').map(t => t.trim().replace(/^["'\[\]#]+|["'\[\]#]+$/g, '')).filter(Boolean);
-        }
+      try {
+        if (platform === 'youtube') {
+          const tagsMatch = generatedText.match(/TAGS\s*:\s*(\[.*?\])/is);
+          const hashtagsMatch = generatedText.match(/HASHTAGS\s*:\s*(\[.*?\])/is);
 
-        const hashtagsMatch = generatedText.match(/HASHTAGS\s*:\s*\[(.*?)]/is);
-        if (hashtagsMatch && hashtagsMatch[1]) {
-          hashtags = hashtagsMatch[1].split(',').map(h => {
-            const cleaned = h.trim().replace(/^["'\[\]]+|["'\[\]]+$/g, '');
-            return cleaned.startsWith('#') ? cleaned : `#${cleaned}`;
-          }).filter(Boolean);
+          if (tagsMatch && tagsMatch[1]) {
+            const parsedTags = JSON.parse(tagsMatch[1]);
+            tags = parsedTags.map(t => ({ text: t.tag, trend: t.trend })).filter(t => t.text && t.trend);
+          }
+          if (hashtagsMatch && hashtagsMatch[1]) {
+            const parsedHashtags = JSON.parse(hashtagsMatch[1]);
+            hashtags = parsedHashtags.map(h => ({ text: h.hashtag, trend: h.trend })).filter(h => h.text && h.trend);
+          }
+        } else {
+          const hashtagsMatch = generatedText.match(/HASHTAGS\s*:\s*(\[.*?\])/is);
+          if (hashtagsMatch && hashtagsMatch[1]) {
+            const parsedHashtags = JSON.parse(hashtagsMatch[1]);
+            hashtags = parsedHashtags.map(h => ({ text: h.hashtag, trend: h.trend })).filter(h => h.text && h.trend);
+          }
         }
-      } else {
-        hashtags = generatedText.split(',').map(h => {
-          const cleaned = h.trim().replace(/^["'\[\]]+|["'\[\]]+$/g, '');
-          return cleaned.startsWith('#') ? cleaned : `#${cleaned}`;
-        }).filter(Boolean);
-      }
-
-      // Final check to ensure we have some data if parsing was weird
-      if (platform === 'youtube' && tags.length === 0 && hashtags.length === 0 && generatedText.length > 5) {
-          hashtags = generatedText.split(',').map(h => {
-            const cleaned = h.trim().replace(/^["'\[\]]+|["'\[\]]+$/g, '');
-            return cleaned.startsWith('#') ? cleaned : `#${cleaned}`;
-          }).filter(Boolean);
+      } catch (e) {
+        console.error("Failed to parse AI JSON response:", e, "Raw Text:", generatedText);
+        // Fall through to the main fallback logic
       }
       
-      if (tags.length === 0 && hashtags.length === 0) {
-        console.warn("AI response was generated but parsing failed. Falling back.", { generatedText });
-        // Fall through to the main fallback logic
-      } else {
+      if ((platform === 'youtube' && tags.length > 0 && hashtags.length > 0) || (platform !== 'youtube' && hashtags.length > 0)) {
         // **SEND CLEAN JSON TO FRONTEND**
+        console.log(`[Parsing Success] Parsed ${tags.length} tags and ${hashtags.length} hashtags.`);
         return res.status(200).json({ tags, hashtags, fallback: false });
       }
     }
@@ -155,7 +145,7 @@ export default async function handler(req, res) {
 
     let fallbackTags = [];
     let fallbackHashtags = [];
-    const langData = fallbackData.multilingual[language] || fallbackData.multilingual['english'];
+    const langData = fallbackData.multilingual[language.toLowerCase()] || fallbackData.multilingual['english'];
 
     if (platform === 'youtube') {
       const nicheData = getFallbackNiche(prompt, fallbackData.youtube.niches);
@@ -167,7 +157,7 @@ export default async function handler(req, res) {
         const nicheData = getFallbackNiche(prompt, platformNiches);
         fallbackHashtags = (nicheData.hashtags || langData.hashtags).slice(0, 25);
       } else {
-        fallbackHashtags = (langData.hashtags).slice(0, 25);
+        fallbackHashtags = (langData.hashtags || []).slice(0, 25);
       }
     }
 

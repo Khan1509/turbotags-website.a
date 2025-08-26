@@ -2,94 +2,164 @@
   "youtube": {
     "niches": {
       "gaming": {
-        "tags": ["gaming", "live stream", "gameplay", "pc gaming", "console gaming", "esports", "gaming community", "video game", "gaming channel", "fortnite", "minecraft", "call of duty", "among us", "valorant", "gaming setup", "pro gamer", "walkthrough", "speedrun", "indie game", "gaming news"],
-        "hashtags": ["#Gaming", "#LiveStream", "#Gameplay", "#PCGaming", "#Esports", "#GamingCommunity", "#VideoGames", "#Fortnite", "#Minecraft", "#Valorant", "#GamingLife", "#Gamer", "#GamingSetup", "#Streamer", "#IndieGame", "#GamingNews", "#ProGamer", "#GamingVideos", "#LetsPlay", "#CODWarzone"]
+        "tags": [
+          {"text": "gaming", "trend": 98}, {"text": "live stream", "trend": 92}, {"text": "gameplay", "trend": 95}, {"text": "pc gaming", "trend": 88}, {"text": "console gaming", "trend": 85}, {"text": "esports", "trend": 91}, {"text": "gaming community", "trend": 87}, {"text": "video game", "trend": 96}, {"text": "gaming channel", "trend": 93}, {"text": "fortnite", "trend": 99}, {"text": "minecraft", "trend": 97}, {"text": "call of duty", "trend": 94}, {"text": "among us", "trend": 80}, {"text": "valorant", "trend": 96}, {"text": "gaming setup", "trend": 89}, {"text": "pro gamer", "trend": 82}, {"text": "walkthrough", "trend": 78}, {"text": "speedrun", "trend": 75}, {"text": "indie game", "trend": 81}, {"text": "gaming news", "trend": 84}, {"text": "apex legends", "trend": 90}, {"text": "roblox", "trend": 95}, {"text": "gta 5", "trend": 89}, {"text": "new game", "trend": 88}
+        ],
+        "hashtags": [
+          {"text": "#Gaming", "trend": 99}, {"text": "#LiveStream", "trend": 93}, {"text": "#Gameplay", "trend": 96}, {"text": "#PCGaming", "trend": 89}, {"text": "#Esports", "trend": 92}, {"text": "#GamingCommunity", "trend": 88}, {"text": "#VideoGames", "trend": 97}, {"text": "#Fortnite", "trend": 99}, {"text": "#Minecraft", "trend": 98}, {"text": "#Valorant", "trend": 97}, {"text": "#GamingLife", "trend": 90}, {"text": "#Gamer", "trend": 98}, {"text": "#GamingSetup", "trend": 91}, {"text": "#Streamer", "trend": 94}, {"text": "#IndieGame", "trend": 82}, {"text": "#GamingNews", "trend": 85}, {"text": "#ProGamer", "trend": 83}, {"text": "#GamingVideos", "trend": 90}, {"text": "#LetsPlay", "trend": 86}, {"text": "#CODWarzone", "trend": 92}, {"text": "#ApexLegends", "trend": 91}, {"text": "#Roblox", "trend": 96}
+        ]
       },
       "cooking": {
-        "tags": ["cooking", "recipe", "food", "baking", "kitchen", "homemade", "easy recipe", "cooking show", "foodie", "healthy food", "dessert", "vegan recipes", "meal prep", "street food", "cooking tips", "chef", "kitchen hacks", "baking tutorial", "asmr cooking", "family recipe"],
-        "hashtags": ["#Cooking", "#Recipe", "#Food", "#Baking", "#Homemade", "#Foodie", "#HealthyRecipes", "#Vegan", "#MealPrep", "#Dessert", "#ChefLife", "#KitchenHacks", "#FoodLover", "#ASMRCooking", "#EasyRecipe", "#CookingAtHome", "#FoodVlog", "#BakingLove", "#StreetFood", "#Yummy"]
+        "tags": [
+          {"text": "cooking", "trend": 97}, {"text": "recipe", "trend": 98}, {"text": "food", "trend": 99}, {"text": "baking", "trend": 94}, {"text": "kitchen", "trend": 88}, {"text": "homemade", "trend": 92}, {"text": "easy recipe", "trend": 96}, {"text": "cooking show", "trend": 85}, {"text": "foodie", "trend": 95}, {"text": "healthy food", "trend": 91}, {"text": "dessert", "trend": 93}, {"text": "vegan recipes", "trend": 89}, {"text": "meal prep", "trend": 90}, {"text": "street food", "trend": 87}, {"text": "cooking tips", "trend": 92}, {"text": "chef", "trend": 86}, {"text": "kitchen hacks", "trend": 91}, {"text": "baking tutorial", "trend": 88}, {"text": "asmr cooking", "trend": 84}, {"text": "family recipe", "trend": 89}, {"text": "air fryer recipes", "trend": 94}, {"text": "instant pot", "trend": 87}, {"text": "budget meals", "trend": 88}
+        ],
+        "hashtags": [
+          {"text": "#Cooking", "trend": 98}, {"text": "#Recipe", "trend": 99}, {"text": "#Food", "trend": 99}, {"text": "#Baking", "trend": 95}, {"text": "#Homemade", "trend": 93}, {"text": "#Foodie", "trend": 96}, {"text": "#HealthyRecipes", "trend": 92}, {"text": "#Vegan", "trend": 90}, {"text": "#MealPrep", "trend": 91}, {"text": "#Dessert", "trend": 94}, {"text": "#ChefLife", "trend": 87}, {"text": "#KitchenHacks", "trend": 92}, {"text": "#FoodLover", "trend": 95}, {"text": "#ASMRCooking", "trend": 85}, {"text": "#EasyRecipe", "trend": 97}, {"text": "#CookingAtHome", "trend": 93}, {"text": "#FoodVlog", "trend": 89}, {"text": "#BakingLove", "trend": 90}, {"text": "#StreetFood", "trend": 88}, {"text": "#Yummy", "trend": 98}, {"text": "#AirFryer", "trend": 95}
+        ]
       },
-      "tech_reviews": {
-        "tags": ["tech review", "gadgets", "unboxing", "smartphones", "laptops", "tech news", "product review", "apple", "samsung", "android", "ios", "tech channel", "latest gadgets", "vs", "comparison", "hands-on", "first impressions", "tech explained", "future tech", "smart home"],
-        "hashtags": ["#TechReview", "#Gadgets", "#Unboxing", "#Smartphone", "#Laptop", "#TechNews", "#Apple", "#Samsung", "#Android", "#iOS", "#FutureTech", "#SmartHome", "#ProductReview", "#Techie", "#GadgetLover", "#LatestTech", "#TechVlogger", "#Instatech", "#Techno", "#Geek"]
+      "tech": {
+        "tags": [
+          {"text": "tech review", "trend": 95}, {"text": "gadgets", "trend": 96}, {"text": "unboxing", "trend": 92}, {"text": "smartphones", "trend": 98}, {"text": "laptops", "trend": 94}, {"text": "tech news", "trend": 90}, {"text": "product review", "trend": 91}, {"text": "apple", "trend": 99}, {"text": "samsung", "trend": 97}, {"text": "android", "trend": 96}, {"text": "ios", "trend": 95}, {"text": "tech channel", "trend": 88}, {"text": "latest gadgets", "trend": 93}, {"text": "vs", "trend": 85}, {"text": "comparison", "trend": 86}, {"text": "hands-on", "trend": 84}, {"text": "first impressions", "trend": 87}, {"text": "tech explained", "trend": 89}, {"text": "future tech", "trend": 91}, {"text": "smart home", "trend": 90}, {"text": "ai", "trend": 98}, {"text": "wearables", "trend": 88}, {"text": "tech tips", "trend": 89}
+        ],
+        "hashtags": [
+          {"text": "#TechReview", "trend": 96}, {"text": "#Gadgets", "trend": 97}, {"text": "#Unboxing", "trend": 93}, {"text": "#Smartphone", "trend": 98}, {"text": "#Laptop", "trend": 95}, {"text": "#TechNews", "trend": 91}, {"text": "#Apple", "trend": 99}, {"text": "#Samsung", "trend": 98}, {"text": "#Android", "trend": 97}, {"text": "#iOS", "trend": 96}, {"text": "#FutureTech", "trend": 92}, {"text": "#SmartHome", "trend": 91}, {"text": "#ProductReview", "trend": 92}, {"text": "#Techie", "trend": 94}, {"text": "#GadgetLover", "trend": 90}, {"text": "#LatestTech", "trend": 93}, {"text": "#TechVlogger", "trend": 89}, {"text": "#Instatech", "trend": 88}, {"text": "#AI", "trend": 99}, {"text": "#Geek", "trend": 87}
+        ]
       },
       "vlogging": {
-        "tags": ["vlog", "daily vlog", "travel vlog", "lifestyle", "a day in the life", "vlogger", "travel", "adventure", "explore", "behind the scenes", "q&a", "storytime", "life update", "weekly vlog", "family vlog", "couple vlog", "city vlog", "motivation", "inspiration", "challenge"],
-        "hashtags": ["#Vlog", "#DailyVlog", "#TravelVlog", "#Lifestyle", "#Vlogger", "#Travel", "#Adventure", "#Explore", "#DayInTheLife", "#Storytime", "#LifeUpdate", "#FamilyVlog", "#CoupleGoals", "#Motivation", "#Inspiration", "#Challenge", "#TravelBlogger", "#BTS", "#NewVideo", "#YouTubeVlog"]
+        "tags": [
+          {"text": "vlog", "trend": 98}, {"text": "daily vlog", "trend": 94}, {"text": "travel vlog", "trend": 96}, {"text": "lifestyle", "trend": 95}, {"text": "a day in the life", "trend": 92}, {"text": "vlogger", "trend": 93}, {"text": "travel", "trend": 97}, {"text": "adventure", "trend": 91}, {"text": "explore", "trend": 90}, {"text": "behind the scenes", "trend": 85}, {"text": "q&a", "trend": 84}, {"text": "storytime", "trend": 86}, {"text": "life update", "trend": 88}, {"text": "weekly vlog", "trend": 89}, {"text": "family vlog", "trend": 87}, {"text": "couple vlog", "trend": 88}, {"text": "city vlog", "trend": 89}, {"text": "motivation", "trend": 90}, {"text": "inspiration", "trend": 89}, {"text": "challenge", "trend": 88}
+        ],
+        "hashtags": [
+          {"text": "#Vlog", "trend": 99}, {"text": "#DailyVlog", "trend": 95}, {"text": "#TravelVlog", "trend": 97}, {"text": "#Lifestyle", "trend": 96}, {"text": "#Vlogger", "trend": 94}, {"text": "#Travel", "trend": 98}, {"text": "#Adventure", "trend": 92}, {"text": "#Explore", "trend": 91}, {"text": "#DayInTheLife", "trend": 93}, {"text": "#Storytime", "trend": 87}, {"text": "#LifeUpdate", "trend": 89}, {"text": "#FamilyVlog", "trend": 88}, {"text": "#CoupleGoals", "trend": 89}, {"text": "#Motivation", "trend": 91}, {"text": "#Inspiration", "trend": 90}, {"text": "#Challenge", "trend": 89}, {"text": "#TravelBlogger", "trend": 93}, {"text": "#BTS", "trend": 86}, {"text": "#NewVideo", "trend": 92}, {"text": "#YouTubeVlog", "trend": 94}
+        ]
+      },
+      "finance": {
+        "tags": [
+          {"text": "personal finance", "trend": 95}, {"text": "investing", "trend": 97}, {"text": "stock market", "trend": 96}, {"text": "cryptocurrency", "trend": 98}, {"text": "budgeting", "trend": 92}, {"text": "saving money", "trend": 94}, {"text": "financial freedom", "trend": 93}, {"text": "real estate investing", "trend": 90}, {"text": "passive income", "trend": 91}, {"text": "credit score", "trend": 88}, {"text": "how to invest", "trend": 94}, {"text": "beginner investing", "trend": 93}, {"text": "bitcoin", "trend": 97}, {"text": "ethereum", "trend": 96}, {"text": "side hustle", "trend": 90}
+        ],
+        "hashtags": [
+          {"text": "#Finance", "trend": 96}, {"text": "#Investing", "trend": 98}, {"text": "#StockMarket", "trend": 97}, {"text": "#Crypto", "trend": 99}, {"text": "#Budgeting", "trend": 93}, {"text": "#MoneyTips", "trend": 95}, {"text": "#FinancialFreedom", "trend": 94}, {"text": "#RealEstate", "trend": 91}, {"text": "#PassiveIncome", "trend": 92}, {"text": "#CreditScore", "trend": 89}, {"text": "#Bitcoin", "trend": 98}, {"text": "#SideHustle", "trend": 91}, {"text": "#Wealth", "trend": 93}, {"text": "#MoneyMindset", "trend": 92}, {"text": "#FinTech", "trend": 90}
+        ]
       },
       "default": {
-        "tags": ["viral content 2025", "trending topics", "youtube shorts strategy", "content creation tips", "video seo optimization", "audience engagement", "creator economy", "video marketing", "social media growth", "content monetization", "youtube algorithm", "viral video secrets", "content planning", "youtube success", "video editing tips", "thumbnail design", "youtube analytics", "content strategy", "creator mindset", "digital marketing"],
-        "hashtags": ["#YouTube2025", "#ContentCreator", "#ViralVideo", "#YouTubeShorts", "#ContentStrategy", "#VideoMarketing", "#CreatorEconomy", "#YouTubeTips", "#SocialMediaGrowth", "#DigitalMarketing", "#OnlineBusiness", "#ContentCreation", "#YouTubeSuccess", "#VideoSEO", "#CreatorLife", "#YouTubeAlgorithm", "#ContentPlanning", "#VideoProduction", "#YouTubeTutorial", "#CreatorTips"]
+        "tags": [
+          {"text": "viral content 2025", "trend": 95}, {"text": "trending topics", "trend": 96}, {"text": "youtube shorts strategy", "trend": 92}, {"text": "content creation tips", "trend": 94}, {"text": "video seo optimization", "trend": 91}, {"text": "audience engagement", "trend": 93}, {"text": "creator economy", "trend": 90}, {"text": "video marketing", "trend": 89}, {"text": "social media growth", "trend": 94}, {"text": "content monetization", "trend": 88}, {"text": "youtube algorithm", "trend": 97}, {"text": "viral video secrets", "trend": 93}, {"text": "content planning", "trend": 87}, {"text": "youtube success", "trend": 95}, {"text": "video editing tips", "trend": 89}, {"text": "thumbnail design", "trend": 90}, {"text": "youtube analytics", "trend": 88}, {"text": "content strategy", "trend": 92}, {"text": "creator mindset", "trend": 89}, {"text": "digital marketing", "trend": 91}
+        ],
+        "hashtags": [
+          {"text": "#YouTube2025", "trend": 96}, {"text": "#ContentCreator", "trend": 98}, {"text": "#ViralVideo", "trend": 97}, {"text": "#YouTubeShorts", "trend": 94}, {"text": "#ContentStrategy", "trend": 93}, {"text": "#VideoMarketing", "trend": 90}, {"text": "#CreatorEconomy", "trend": 91}, {"text": "#YouTubeTips", "trend": 95}, {"text": "#SocialMediaGrowth", "trend": 95}, {"text": "#DigitalMarketing", "trend": 92}, {"text": "#OnlineBusiness", "trend": 89}, {"text": "#ContentCreation", "trend": 96}, {"text": "#YouTubeSuccess", "trend": 96}, {"text": "#VideoSEO", "trend": 92}, {"text": "#CreatorLife", "trend": 91}, {"text": "#YouTubeAlgorithm", "trend": 98}, {"text": "#ContentPlanning", "trend": 88}, {"text": "#VideoProduction", "trend": 89}, {"text": "#YouTubeTutorial", "trend": 93}, {"text": "#CreatorTips", "trend": 94}
+        ]
       }
     }
   },
   "instagram": {
     "niches": {
       "fashion": {
-        "hashtags": ["#OOTD", "#FashionBlogger", "#StreetStyle", "#InstaFashion", "#Fashionista", "#StyleInspo", "#LookOfTheDay", "#FashionGram", "#WhatIWore", "#StyleBlogger", "#FashionStyle", "#CurrentlyWearing", "#OutfitInspiration", "#FashionDaily", "#MenFashion", "#WomenFashion", "#SustainableFashion", "#VintageFashion", "#FashionAddict", "#TrendAlert"]
+        "hashtags": [
+          {"text": "#OOTD", "trend": 99}, {"text": "#FashionBlogger", "trend": 95}, {"text": "#StreetStyle", "trend": 94}, {"text": "#InstaFashion", "trend": 96}, {"text": "#Fashionista", "trend": 97}, {"text": "#StyleInspo", "trend": 98}, {"text": "#LookOfTheDay", "trend": 93}, {"text": "#FashionGram", "trend": 92}, {"text": "#WhatIWore", "trend": 91}, {"text": "#StyleBlogger", "trend": 90}, {"text": "#FashionStyle", "trend": 94}, {"text": "#CurrentlyWearing", "trend": 88}, {"text": "#OutfitInspiration", "trend": 96}, {"text": "#FashionDaily", "trend": 89}, {"text": "#MenFashion", "trend": 93}, {"text": "#WomenFashion", "trend": 94}, {"text": "#SustainableFashion", "trend": 87}, {"text": "#VintageFashion", "trend": 85}, {"text": "#FashionAddict", "trend": 90}, {"text": "#TrendAlert", "trend": 92}
+        ]
       },
       "fitness": {
-        "hashtags": ["#Fitness", "#GymLife", "#Workout", "#FitnessMotivation", "#FitFam", "#Bodybuilding", "#HealthyLifestyle", "#FitnessJourney", "#GymMotivation", "#TrainHard", "#GetFit", "#FitnessGoals", "#NoPainNoGain", "#HomeWorkout", "#PersonalTrainer", "#Yoga", "#Crossfit", "#Running", "#FitInspo", "#Cardio"]
+        "hashtags": [
+          {"text": "#Fitness", "trend": 99}, {"text": "#GymLife", "trend": 96}, {"text": "#Workout", "trend": 98}, {"text": "#FitnessMotivation", "trend": 97}, {"text": "#FitFam", "trend": 95}, {"text": "#Bodybuilding", "trend": 92}, {"text": "#HealthyLifestyle", "trend": 94}, {"text": "#FitnessJourney", "trend": 96}, {"text": "#GymMotivation", "trend": 95}, {"text": "#TrainHard", "trend": 91}, {"text": "#GetFit", "trend": 97}, {"text": "#FitnessGoals", "trend": 94}, {"text": "#NoPainNoGain", "trend": 88}, {"text": "#HomeWorkout", "trend": 93}, {"text": "#PersonalTrainer", "trend": 89}, {"text": "#Yoga", "trend": 92}, {"text": "#Crossfit", "trend": 89}, {"text": "#Running", "trend": 93}, {"text": "#FitInspo", "trend": 94}, {"text": "#Cardio", "trend": 90}
+        ]
       },
       "travel": {
-        "hashtags": ["#TravelGram", "#Wanderlust", "#Traveling", "#TravelBlogger", "#InstaTravel", "#Explore", "#BeautifulDestinations", "#TravelPhotography", "#Vacation", "#Adventure", "#SeeTheWorld", "#TravelTheWorld", "#RoamThePlanet", "#PassionPassport", "#TravelLife", "#SoloTravel", "#CoupleTravel", "#Backpacking", "#DigitalNomad", "#Staycation"]
+        "hashtags": [
+          {"text": "#TravelGram", "trend": 99}, {"text": "#Wanderlust", "trend": 98}, {"text": "#Traveling", "trend": 97}, {"text": "#TravelBlogger", "trend": 95}, {"text": "#InstaTravel", "trend": 96}, {"text": "#Explore", "trend": 98}, {"text": "#BeautifulDestinations", "trend": 97}, {"text": "#TravelPhotography", "trend": 96}, {"text": "#Vacation", "trend": 95}, {"text": "#Adventure", "trend": 94}, {"text": "#SeeTheWorld", "trend": 93}, {"text": "#TravelTheWorld", "trend": 94}, {"text": "#RoamThePlanet", "trend": 90}, {"text": "#PassionPassport", "trend": 91}, {"text": "#TravelLife", "trend": 92}, {"text": "#SoloTravel", "trend": 89}, {"text": "#CoupleTravel", "trend": 90}, {"text": "#Backpacking", "trend": 88}, {"text": "#DigitalNomad", "trend": 89}, {"text": "#Staycation", "trend": 87}
+        ]
       },
       "food": {
-        "hashtags": ["#Foodie", "#InstaFood", "#FoodPhotography", "#Yummy", "#Delicious", "#FoodBlogger", "#FoodLover", "#HealthyFood", "#Homemade", "#Eats", "#FoodGram", "#FoodStyling", "#VeganFood", "#GlutenFree", "#Breakfast", "#Lunch", "#Dinner", "#Dessert", "#Foodgasm", "#ChefMode"]
+        "hashtags": [
+          {"text": "#Foodie", "trend": 99}, {"text": "#InstaFood", "trend": 98}, {"text": "#FoodPhotography", "trend": 97}, {"text": "#Yummy", "trend": 96}, {"text": "#Delicious", "trend": 95}, {"text": "#FoodBlogger", "trend": 94}, {"text": "#FoodLover", "trend": 96}, {"text": "#HealthyFood", "trend": 93}, {"text": "#Homemade", "trend": 92}, {"text": "#Eats", "trend": 91}, {"text": "#FoodGram", "trend": 94}, {"text": "#FoodStyling", "trend": 90}, {"text": "#VeganFood", "trend": 91}, {"text": "#GlutenFree", "trend": 88}, {"text": "#Breakfast", "trend": 93}, {"text": "#Lunch", "trend": 92}, {"text": "#Dinner", "trend": 93}, {"text": "#Dessert", "trend": 94}, {"text": "#Foodgasm", "trend": 90}, {"text": "#ChefMode", "trend": 89}
+        ]
       },
       "default": {
-        "hashtags": ["#Instagram2025", "#InstagramReels", "#ContentCreator", "#SocialMediaMarketing", "#InstagramGrowth", "#DigitalMarketing", "#InstagramTips", "#ContentStrategy", "#SocialMediaInfluencer", "#InstagramSuccess", "#ReelsCreator", "#InstagramContent", "#SocialMediaGrowth", "#ContentCreation", "#InstagramMarketing", "#InfluencerMarketing", "#SocialMediaStrategy", "#InstagramEngagement", "#ContentPlanning", "#InstagramBusiness"]
+        "hashtags": [
+          {"text": "#Instagram2025", "trend": 95}, {"text": "#InstagramReels", "trend": 99}, {"text": "#ContentCreator", "trend": 98}, {"text": "#SocialMediaMarketing", "trend": 94}, {"text": "#InstagramGrowth", "trend": 97}, {"text": "#DigitalMarketing", "trend": 93}, {"text": "#InstagramTips", "trend": 96}, {"text": "#ContentStrategy", "trend": 92}, {"text": "#SocialMediaInfluencer", "trend": 91}, {"text": "#InstagramSuccess", "trend": 95}, {"text": "#ReelsCreator", "trend": 97}, {"text": "#InstagramContent", "trend": 94}, {"text": "#SocialMediaGrowth", "trend": 96}, {"text": "#ContentCreation", "trend": 97}, {"text": "#InstagramMarketing", "trend": 93}, {"text": "#InfluencerMarketing", "trend": 92}, {"text": "#SocialMediaStrategy", "trend": 91}, {"text": "#InstagramEngagement", "trend": 95}, {"text": "#ContentPlanning", "trend": 90}, {"text": "#InstagramBusiness", "trend": 92}
+        ]
       }
     }
   },
   "tiktok": {
     "niches": {
       "comedy": {
-        "hashtags": ["#Comedy", "#Funny", "#LOL", "#Skit", "#FunnyVideos", "#Jokes", "#Humor", "#StandUpComedy", "#Relatable", "#Meme", "#Prank", "#TikTokComedy", "#FunnyMoments", "#Laugh", "#JustForLaughs", "#ComedySkit", "#ViralComedy", "#FunnyReels", "#Comedian", "#Hilarious"]
+        "hashtags": [
+          {"text": "#Comedy", "trend": 98}, {"text": "#Funny", "trend": 99}, {"text": "#LOL", "trend": 97}, {"text": "#Skit", "trend": 95}, {"text": "#FunnyVideos", "trend": 98}, {"text": "#Jokes", "trend": 94}, {"text": "#Humor", "trend": 96}, {"text": "#StandUpComedy", "trend": 88}, {"text": "#Relatable", "trend": 97}, {"text": "#Meme", "trend": 96}, {"text": "#Prank", "trend": 93}, {"text": "#TikTokComedy", "trend": 95}, {"text": "#FunnyMoments", "trend": 94}, {"text": "#Laugh", "trend": 96}, {"text": "#JustForLaughs", "trend": 92}, {"text": "#ComedySkit", "trend": 93}, {"text": "#ViralComedy", "trend": 94}, {"text": "#FunnyReels", "trend": 95}, {"text": "#Comedian", "trend": 90}, {"text": "#Hilarious", "trend": 96}
+        ]
       },
       "dance": {
-        "hashtags": ["#Dance", "#DanceChallenge", "#Choreography", "#Dancer", "#TikTokDance", "#ViralDance", "#DanceCover", "#HipHop", "#DanceLife", "#JustDance", "#DanceMoves", "#TrendingDance", "#DanceTutorial", "#KpopDance", "#ShuffleDance", "#DanceCrew", "#Freestyle", "#DanceVideo", "#DancersOfTikTok", "#InstaDance"]
+        "hashtags": [
+          {"text": "#Dance", "trend": 99}, {"text": "#DanceChallenge", "trend": 98}, {"text": "#Choreography", "trend": 94}, {"text": "#Dancer", "trend": 97}, {"text": "#TikTokDance", "trend": 98}, {"text": "#ViralDance", "trend": 97}, {"text": "#DanceCover", "trend": 95}, {"text": "#HipHop", "trend": 93}, {"text": "#DanceLife", "trend": 94}, {"text": "#JustDance", "trend": 92}, {"text": "#DanceMoves", "trend": 96}, {"text": "#TrendingDance", "trend": 97}, {"text": "#DanceTutorial", "trend": 94}, {"text": "#KpopDance", "trend": 95}, {"text": "#ShuffleDance", "trend": 90}, {"text": "#DanceCrew", "trend": 91}, {"text": "#Freestyle", "trend": 92}, {"text": "#DanceVideo", "trend": 95}, {"text": "#DancersOfTikTok", "trend": 94}, {"text": "#InstaDance", "trend": 93}
+        ]
       },
       "diy": {
-        "hashtags": ["#DIY", "#DoItYourself", "#Crafts", "#DIYProjects", "#Handmade", "#LifeHacks", "#Upcycling", "#HomeDecor", "#DIYCrafts", "#Tutorial", "#HowTo", "#Crafter", "#DIYIdeas", "#EasyDIY", "#Crafting", "#DIYInspiration", "#Creative", "#Maker", "#DIYHome", "#Project"]
+        "hashtags": [
+          {"text": "#DIY", "trend": 98}, {"text": "#DoItYourself", "trend": 97}, {"text": "#Crafts", "trend": 95}, {"text": "#DIYProjects", "trend": 96}, {"text": "#Handmade", "trend": 94}, {"text": "#LifeHacks", "trend": 97}, {"text": "#Upcycling", "trend": 90}, {"text": "#HomeDecor", "trend": 93}, {"text": "#DIYCrafts", "trend": 95}, {"text": "#Tutorial", "trend": 96}, {"text": "#HowTo", "trend": 97}, {"text": "#Crafter", "trend": 92}, {"text": "#DIYIdeas", "trend": 95}, {"text": "#EasyDIY", "trend": 96}, {"text": "#Crafting", "trend": 94}, {"text": "#DIYInspiration", "trend": 93}, {"text": "#Creative", "trend": 95}, {"text": "#Maker", "trend": 91}, {"text": "#DIYHome", "trend": 92}, {"text": "#Project", "trend": 90}
+        ]
       },
       "education": {
-        "hashtags": ["#LearnOnTikTok", "#Education", "#DidYouKnow", "#Science", "#History", "#Facts", "#Knowledge", "#Mindblown", "#EduTok", "#LearnSomethingNew", "#LifeHack", "#TipsAndTricks", "#CareerTips", "#Space", "#Nature", "#Psychology", "#FunFacts", "#Explained", "#HowItWorks", "#STEM"]
+        "hashtags": [
+          {"text": "#LearnOnTikTok", "trend": 99}, {"text": "#Education", "trend": 97}, {"text": "#DidYouKnow", "trend": 96}, {"text": "#Science", "trend": 95}, {"text": "#History", "trend": 93}, {"text": "#Facts", "trend": 97}, {"text": "#Knowledge", "trend": 96}, {"text": "#Mindblown", "trend": 94}, {"text": "#EduTok", "trend": 98}, {"text": "#LearnSomethingNew", "trend": 97}, {"text": "#LifeHack", "trend": 96}, {"text": "#TipsAndTricks", "trend": 95}, {"text": "#CareerTips", "trend": 92}, {"text": "#Space", "trend": 94}, {"text": "#Nature", "trend": 93}, {"text": "#Psychology", "trend": 94}, {"text": "#FunFacts", "trend": 96}, {"text": "#Explained", "trend": 95}, {"text": "#HowItWorks", "trend": 94}, {"text": "#STEM", "trend": 93}
+        ]
       },
       "default": {
-        "hashtags": ["#TikTok2025", "#TikTokCreator", "#ViralTikTok", "#TikTokTrends", "#ContentCreator", "#TikTokMarketing", "#SocialMediaGrowth", "#TikTokSuccess", "#CreatorEconomy", "#TikTokTips", "#ViralContent", "#TikTokStrategy", "#SocialMediaMarketing", "#ContentCreation", "#TikTokInfluencer", "#DigitalMarketing", "#TikTokGrowth", "#SocialMediaTrends", "#ContentStrategy", "#TikTokAlgorithm"]
+        "hashtags": [
+          {"text": "#TikTok2025", "trend": 96}, {"text": "#TikTokCreator", "trend": 97}, {"text": "#ViralTikTok", "trend": 98}, {"text": "#TikTokTrends", "trend": 99}, {"text": "#ContentCreator", "trend": 98}, {"text": "#TikTokMarketing", "trend": 94}, {"text": "#SocialMediaGrowth", "trend": 97}, {"text": "#TikTokSuccess", "trend": 96}, {"text": "#CreatorEconomy", "trend": 93}, {"text": "#TikTokTips", "trend": 97}, {"text": "#ViralContent", "trend": 98}, {"text": "#TikTokStrategy", "trend": 95}, {"text": "#SocialMediaMarketing", "trend": 94}, {"text": "#ContentCreation", "trend": 98}, {"text": "#TikTokInfluencer", "trend": 93}, {"text": "#DigitalMarketing", "trend": 94}, {"text": "#TikTokGrowth", "trend": 96}, {"text": "#SocialMediaTrends", "trend": 97}, {"text": "#ContentStrategy", "trend": 95}, {"text": "#TikTokAlgorithm", "trend": 98}
+        ]
       }
     }
   },
   "facebook": {
     "niches": {
       "small_business": {
-        "hashtags": ["#SmallBusiness", "#SupportLocal", "#ShopSmall", "#Entrepreneur", "#BusinessOwner", "#LocalBusiness", "#StartupLife", "#WomenInBusiness", "#Handmade", "#SmallBiz", "#MarketingTips", "#FacebookForBusiness", "#CommunityOverCompetition", "#GrowYourBusiness", "#CustomerLove", "#FacebookMarketing", "#SocialMediaForBusiness", "#EntrepreneurLife", "#BusinessTips", "#ShopLocal"]
+        "hashtags": [
+          {"text": "#SmallBusiness", "trend": 97}, {"text": "#SupportLocal", "trend": 95}, {"text": "#ShopSmall", "trend": 94}, {"text": "#Entrepreneur", "trend": 96}, {"text": "#BusinessOwner", "trend": 93}, {"text": "#LocalBusiness", "trend": 92}, {"text": "#StartupLife", "trend": 90}, {"text": "#WomenInBusiness", "trend": 91}, {"text": "#Handmade", "trend": 89}, {"text": "#SmallBiz", "trend": 94}, {"text": "#MarketingTips", "trend": 93}, {"text": "#FacebookForBusiness", "trend": 95}, {"text": "#CommunityOverCompetition", "trend": 88}, {"text": "#GrowYourBusiness", "trend": 96}, {"text": "#CustomerLove", "trend": 90}, {"text": "#FacebookMarketing", "trend": 94}, {"text": "#SocialMediaForBusiness", "trend": 93}, {"text": "#EntrepreneurLife", "trend": 95}, {"text": "#BusinessTips", "trend": 92}, {"text": "#ShopLocal", "trend": 94}
+        ]
       },
       "community": {
-        "hashtags": ["#Community", "#GetInvolved", "#LocalEvents", "#NonProfit", "#Volunteer", "#CommunityLove", "#SupportYourCommunity", "#GiveBack", "#SocialGood", "#DoGood", "#CommunityFirst", "#LocalHeroes", "#MakeADifference", "#Neighborhood", "#CommunityBuilding", "#JoinUs", "#Events", "#Fundraiser", "#Charity", "#CommunitySupport"]
+        "hashtags": [
+          {"text": "#Community", "trend": 96}, {"text": "#GetInvolved", "trend": 90}, {"text": "#LocalEvents", "trend": 92}, {"text": "#NonProfit", "trend": 89}, {"text": "#Volunteer", "trend": 88}, {"text": "#CommunityLove", "trend": 93}, {"text": "#SupportYourCommunity", "trend": 94}, {"text": "#GiveBack", "trend": 91}, {"text": "#SocialGood", "trend": 90}, {"text": "#DoGood", "trend": 89}, {"text": "#CommunityFirst", "trend": 92}, {"text": "#LocalHeroes", "trend": 88}, {"text": "#MakeADifference", "trend": 93}, {"text": "#Neighborhood", "trend": 91}, {"text": "#CommunityBuilding", "trend": 92}, {"text": "#JoinUs", "trend": 90}, {"text": "#Events", "trend": 93}, {"text": "#Fundraiser", "trend": 89}, {"text": "#Charity", "trend": 90}, {"text": "#CommunitySupport", "trend": 94}
+        ]
       },
       "default": {
-        "hashtags": ["#Facebook2025", "#FacebookMarketing", "#SocialMediaMarketing", "#ContentCreator", "#FacebookReels", "#DigitalMarketing", "#SocialMediaGrowth", "#FacebookBusiness", "#ContentStrategy", "#FacebookTips", "#SocialMediaStrategy", "#FacebookSuccess", "#ContentCreation", "#FacebookPage", "#SocialMediaInfluencer", "#FacebookAdvertising", "#ContentMarketing", "#SocialMediaTips", "#FacebookEngagement", "#OnlineMarketing"]
+        "hashtags": [
+          {"text": "#Facebook2025", "trend": 94}, {"text": "#FacebookMarketing", "trend": 95}, {"text": "#SocialMediaMarketing", "trend": 96}, {"text": "#ContentCreator", "trend": 97}, {"text": "#FacebookReels", "trend": 98}, {"text": "#DigitalMarketing", "trend": 93}, {"text": "#SocialMediaGrowth", "trend": 96}, {"text": "#FacebookBusiness", "trend": 94}, {"text": "#ContentStrategy", "trend": 92}, {"text": "#FacebookTips", "trend": 95}, {"text": "#SocialMediaStrategy", "trend": 91}, {"text": "#FacebookSuccess", "trend": 94}, {"text": "#ContentCreation", "trend": 97}, {"text": "#FacebookPage", "trend": 93}, {"text": "#SocialMediaInfluencer", "trend": 90}, {"text": "#FacebookAdvertising", "trend": 92}, {"text": "#ContentMarketing", "trend": 91}, {"text": "#SocialMediaTips", "trend": 94}, {"text": "#FacebookEngagement", "trend": 95}, {"text": "#OnlineMarketing", "trend": 92}
+        ]
       }
     }
   },
   "multilingual": {
     "hindi": {
-      "tags": ["वायरल कंटेंट", "ट्रेंडिंग विषय", "सोशल मीडिया", "कंटेंट क्रिएटर", "डिजिटल मार्केटिंग", "ऑनलाइन बिजनेस", "यूट्यूब टिप्स", "इंस्टाग्राम ग्रोथ", "टिकटॉक ट्रेंड्स", "कंटेंट स्ट्रैटेजी", "वीडियो मार्केटिंग", "सोशल मीडिया ग्रोथ", "क्रिएटर इकॉनमी", "कंटेंट मोनेटाइज़ेशन", "ऑडियंस एंगेजमेंट", "भारतीय यूट्यूबर", "मेक इन इंडिया", "हिंदी में सीखें", "देसी कंटेंट", "मनोरंजन"],
-      "hashtags": ["#हिंदीकंटेंट", "#भारतीयक्रिएटर", "#वायरलवीडियो", "#ट्रेंडिंगइंडिया", "#सोशलमीडिया", "#डिजिटलइंडिया", "#हिंदीयूट्यूब", "#इंडियनक्रिएटर", "#बॉलीवुड", "#हिंदीट्रेंड्स", "#भारत", "#हिंदी", "#इंडिया", "#देसी", "#हिंदुस्तान", "#मनोरंजन", "#ज्ञान", "#सीखें", "#ट्रेंडिंग", "#वायरल"]
+      "tags": [
+        {"text": "वायरल कंटेंट", "trend": 95}, {"text": "ट्रेंडिंग विषय", "trend": 96}, {"text": "सोशल मीडिया", "trend": 97}, {"text": "कंटेंट क्रिएटर", "trend": 98}, {"text": "डिजिटल मार्केटिंग", "trend": 92}, {"text": "ऑनलाइन बिजनेस", "trend": 90}, {"text": "यूट्यूब टिप्स", "trend": 94}, {"text": "इंस्टाग्राम ग्रोथ", "trend": 93}, {"text": "टिकटॉक ट्रेंड्स", "trend": 95}, {"text": "कंटेंट स्ट्रैटेजी", "trend": 91}, {"text": "वीडियो मार्केटिंग", "trend": 90}, {"text": "सोशल मीडिया ग्रोथ", "trend": 94}, {"text": "क्रिएटर इकॉनमी", "trend": 89}, {"text": "ऑडियंस एंगेजमेंट", "trend": 92}, {"text": "भारतीय यूट्यूबर", "trend": 96}
+      ],
+      "hashtags": [
+        {"text": "#हिंदीकंटेंट", "trend": 98}, {"text": "#भारतीयक्रिएटर", "trend": 97}, {"text": "#वायरलवीडियो", "trend": 99}, {"text": "#ट्रेंडिंगइंडिया", "trend": 98}, {"text": "#सोशलमीडिया", "trend": 97}, {"text": "#डिजिटलइंडिया", "trend": 96}, {"text": "#हिंदीयूट्यूब", "trend": 95}, {"text": "#इंडियनक्रिएटर", "trend": 96}, {"text": "#बॉलीवुड", "trend": 94}, {"text": "#हिंदीट्रेंड्स", "trend": 93}, {"text": "#भारत", "trend": 98}, {"text": "#हिंदी", "trend": 99}, {"text": "#इंडिया", "trend": 99}, {"text": "#देसी", "trend": 97}, {"text": "#मनोरंजन", "trend": 96}
+      ]
     },
     "spanish": {
-      "tags": ["contenido viral", "tendencias", "redes sociales", "creador de contenido", "marketing digital", "negocio online", "consejos youtube", "crecimiento instagram", "tendencias tiktok", "estrategia contenido", "video marketing", "crecimiento redes sociales", "economía de creadores", "monetización", "engagement", "youtuber español", "hecho en latam", "aprende en español", "contenido latino", "entretenimiento"],
-      "hashtags": ["#ContenidoEspañol", "#CreadorLatino", "#VideoViral", "#TendenciasEspaña", "#RedesSociales", "#MarketingDigital", "#YouTubeEspañol", "#CreadorMexicano", "#ContenidoLatino", "#TendenciasLatam", "#Hispano", "#Aprende", "#Entretenimiento", "#Viral", "#Tendencia"]
+      "tags": [
+        {"text": "contenido viral", "trend": 96}, {"text": "tendencias", "trend": 97}, {"text": "redes sociales", "trend": 98}, {"text": "creador de contenido", "trend": 97}, {"text": "marketing digital", "trend": 93}, {"text": "negocio online", "trend": 91}, {"text": "consejos youtube", "trend": 94}, {"text": "crecimiento instagram", "trend": 93}, {"text": "tendencias tiktok", "trend": 95}, {"text": "estrategia contenido", "trend": 92}, {"text": "video marketing", "trend": 91}, {"text": "crecimiento redes sociales", "trend": 94}, {"text": "economía de creadores", "trend": 90}, {"text": "engagement", "trend": 92}, {"text": "youtuber español", "trend": 95}
+      ],
+      "hashtags": [
+        {"text": "#ContenidoEspañol", "trend": 98}, {"text": "#CreadorLatino", "trend": 97}, {"text": "#VideoViral", "trend": 99}, {"text": "#TendenciasEspaña", "trend": 96}, {"text": "#RedesSociales", "trend": 98}, {"text": "#MarketingDigital", "trend": 94}, {"text": "#YouTubeEspañol", "trend": 95}, {"text": "#CreadorMexicano", "trend": 96}, {"text": "#ContenidoLatino", "trend": 97}, {"text": "#TendenciasLatam", "trend": 96}, {"text": "#Hispano", "trend": 94}, {"text": "#Aprende", "trend": 93}, {"text": "#Entretenimiento", "trend": 95}, {"text": "#Viral", "trend": 99}, {"text": "#Tendencia", "trend": 98}
+      ]
     },
     "french": {
-        "tags": ["contenu viral", "tendances", "médias sociaux", "créateur de contenu", "marketing numérique", "entreprise en ligne", "conseils youtube", "croissance instagram", "tendances tiktok", "stratégie de contenu", "marketing vidéo", "croissance des médias sociaux", "économie des créateurs", "monétisation", "engagement", "youtubeur français", "fabriqué en france", "apprendre en français", "contenu francophone", "divertissement"],
-        "hashtags": ["#ContenuFrançais", "#CréateurFrançais", "#VidéoVirale", "#TendancesFrance", "#RéseauxSociaux", "#MarketingNumérique", "#YouTubeFrance", "#CréateurFrancophone", "#Francophonie", "#TendancesFR", "#France", "#Apprendre", "#Divertissement", "#Viral", "#Tendance"]
+        "tags": [
+          {"text": "contenu viral", "trend": 95}, {"text": "tendances", "trend": 96}, {"text": "médias sociaux", "trend": 97}, {"text": "créateur de contenu", "trend": 98}, {"text": "marketing numérique", "trend": 93}, {"text": "entreprise en ligne", "trend": 91}, {"text": "conseils youtube", "trend": 94}, {"text": "croissance instagram", "trend": 93}, {"text": "tendances tiktok", "trend": 95}, {"text": "stratégie de contenu", "trend": 92}, {"text": "marketing vidéo", "trend": 91}, {"text": "croissance des médias sociaux", "trend": 94}, {"text": "économie des créateurs", "trend": 90}, {"text": "engagement", "trend": 92}, {"text": "youtubeur français", "trend": 96}
+        ],
+        "hashtags": [
+          {"text": "#ContenuFrançais", "trend": 98}, {"text": "#CréateurFrançais", "trend": 97}, {"text": "#VidéoVirale", "trend": 99}, {"text": "#TendancesFrance", "trend": 96}, {"text": "#RéseauxSociaux", "trend": 98}, {"text": "#MarketingNumérique", "trend": 94}, {"text": "#YouTubeFrance", "trend": 95}, {"text": "#CréateurFrancophone", "trend": 96}, {"text": "#Francophonie", "trend": 95}, {"text": "#TendancesFR", "trend": 96}, {"text": "#France", "trend": 99}, {"text": "#Apprendre", "trend": 93}, {"text": "#Divertissement", "trend": 95}, {"text": "#Viral", "trend": 99}, {"text": "#Tendance", "trend": 98}
+        ]
     },
     "german": {
-        "tags": ["virale inhalte", "trends", "soziale medien", "content creator", "digitales marketing", "online-geschäft", "youtube-tipps", "instagram-wachstum", "tiktok-trends", "inhaltsstrategie", "videomarketing", "social-media-wachstum", "creator economy", "monetarisierung", "engagement", "deutscher youtuber", "made in germany", "lernen auf deutsch", "deutscher inhalt", "unterhaltung"],
-        "hashtags": ["#DeutscherContent", "#CreatorDE", "#ViralesVideo", "#TrendsDeutschland", "#SozialeMedien", "#DigitalesMarketing", "#YouTubeDE", "#DeutscheCreator", "#Deutschland", "#TrendsDE", "#Lernen", "#Unterhaltung", "#Viral", "#Trend", "#MadeInGermany"]
+        "tags": [
+          {"text": "virale inhalte", "trend": 95}, {"text": "trends", "trend": 97}, {"text": "soziale medien", "trend": 98}, {"text": "content creator", "trend": 97}, {"text": "digitales marketing", "trend": 93}, {"text": "online-geschäft", "trend": 91}, {"text": "youtube-tipps", "trend": 94}, {"text": "instagram-wachstum", "trend": 93}, {"text": "tiktok-trends", "trend": 95}, {"text": "inhaltsstrategie", "trend": 92}, {"text": "videomarketing", "trend": 91}, {"text": "social-media-wachstum", "trend": 94}, {"text": "creator economy", "trend": 90}, {"text": "engagement", "trend": 92}, {"text": "deutscher youtuber", "trend": 96}
+        ],
+        "hashtags": [
+          {"text": "#DeutscherContent", "trend": 98}, {"text": "#CreatorDE", "trend": 97}, {"text": "#ViralesVideo", "trend": 99}, {"text": "#TrendsDeutschland", "trend": 96}, {"text": "#SozialeMedien", "trend": 98}, {"text": "#DigitalesMarketing", "trend": 94}, {"text": "#YouTubeDE", "trend": 95}, {"text": "#DeutscheCreator", "trend": 96}, {"text": "#Deutschland", "trend": 99}, {"text": "#TrendsDE", "trend": 96}, {"text": "#Lernen", "trend": 93}, {"text": "#Unterhaltung", "trend": 95}, {"text": "#Viral", "trend": 99}, {"text": "#Trend", "trend": 98}, {"text": "#MadeInGermany", "trend": 95}
+        ]
     }
   }
 }
