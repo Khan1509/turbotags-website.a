@@ -8,7 +8,7 @@ import RatingWidget from '../components/ui/RatingWidget';
 import LazySection from '../components/utils/LazySection';
 
 const WhyChooseUs = lazy(() => import('../components/WhyChooseUs'));
-const ComingSoon = lazy(() => import('../components/ComingSoon'));
+const TrendingTopics = lazy(() => import('../components/TrendingTopics'));
 const Faq = lazy(() => import('../components/Faq'));
 const Demo = lazy(() => import('../components/Demo'));
 
@@ -60,7 +60,7 @@ function HomePage() {
             <WhyChooseUs />
           </LazySection>
           <LazySection>
-            <ComingSoon />
+            <TrendingTopics />
           </LazySection>
           <LazySection>
             <Demo />
