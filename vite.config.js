@@ -96,33 +96,8 @@ export default defineConfig({
     chunkSizeWarningLimit: 500,
     rollupOptions: {
       output: {
-        manualChunks(id) {
-          // Core React chunks
-          if (id.includes('node_modules')) {
-            if (id.includes('react') || id.includes('react-dom')) {
-              return 'react-vendor';
-            }
-            if (id.includes('react-router-dom')) {
-              return 'router';
-            }
-            if (id.includes('framer-motion')) {
-              return 'animations';
-            }
-            if (id.includes('lucide-react')) {
-              return 'icons';
-            }
-            if (id.includes('firebase')) {
-              return 'firebase';
-            }
-            return 'vendor';
-          }
-          if (id.includes('/pages/')) {
-            return 'pages';
-          }
-          if (id.includes('/components/')) {
-            return 'components';
-          }
-        },
+        // REMOVED the manualChunks function.
+        // Let Vite handle chunking automatically for optimal performance and to prevent build errors.
         chunkFileNames: 'assets/js/[name]-[hash].js',
         entryFileNames: 'assets/js/[name]-[hash].js',
         assetFileNames: 'assets/[ext]/[name]-[hash].[ext]'
