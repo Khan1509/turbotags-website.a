@@ -230,8 +230,6 @@ const TagGenerator = () => {
     dispatch({ type: 'START_GENERATION' });
 
     try {
-      // The complex prompt is now handled by the backend API for better control and security.
-      // We only need to send the core topic and parameters.
       const result = await generateContent(state.topic, {
         platform: activeTab,
         contentFormat: state.contentFormat,
@@ -239,25 +237,9 @@ const TagGenerator = () => {
         language: state.language
       });
 
-      const resultText = typeof result === 'string' ? result : result.text;
-      const isFallback = typeof result === 'object' && result.fallback;
-
-      let tags = [];
-      let hashtags = [];
-
-      if (activeTab === 'youtube') {
-        const tagsMatch = resultText.match(/TAGS:\[(.*?)\]/is);
-        if (tagsMatch && tagsMatch[1]) {
-          tags = tagsMatch[1].split(',').map(t => t.trim().replace(/^["'\[\]]+|["'\[\]]+$/g, '')).filter(Boolean).slice(0, 25);
-        }
-
-        const hashtagsMatch = resultText.match(/HASHTAGS:\[(.*?)\]/is);
-        if (hashtagsMatch && hashtagsMatch[1]) {
-          hashtags = hashtagsMatch[1].split(',').map(h => h.trim().replace(/^["'\[\]]+|["'\[\]]+$/g, '')).filter(Boolean).slice(0, 25);
-        }
-      } else {
-        hashtags = resultText.split(',').map(h => h.trim().replace(/^["'\[\]]+|["'\[\]]+$/g, '')).filter(Boolean).slice(0, 25);
-      }
+      // **SIMPLIFIED LOGIC**: The API now sends clean, structured JSON. No more parsing needed here.
+      const tags = result.tags || [];
+      const hashtags = result.hashtags || [];
 
       const tagsWithFeedback = tags.map(tag => ({ text: tag, feedback: 'none', trend: Math.floor(Math.random() * 41) + 60 }));
       const hashtagsWithFeedback = hashtags.map(tag => ({ text: tag, feedback: 'none', trend: Math.floor(Math.random() * 41) + 60 }));
@@ -267,7 +249,7 @@ const TagGenerator = () => {
       const endTime = performance.now();
       const duration = (endTime - startTime).toFixed(2);
       
-      if (isFallback) {
+      if (result.fallback) {
         handleMessage(result.message || `Using ${state.language} sample content.`, 'warning');
       } else {
         const message = activeTab === 'youtube' ?
@@ -283,7 +265,7 @@ const TagGenerator = () => {
       
       dispatch({ type: 'GENERATION_ERROR', payload: {
         error: 'Failed to generate content.',
-        message: `AI service unavailable. Showing sample content. Please try again.`,
+        message: `AI service unavailable. Please try again shortly.`,
         tags: [],
         hashtags: []
       }});

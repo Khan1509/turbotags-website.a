@@ -6,7 +6,7 @@
  * @param {string} options.contentFormat - Content format (long-form, short, reel, etc.).
  * @param {string} options.region - Target region (global, usa, uk, etc.).
  * @param {string} options.language - Content language (english, spanish, etc.).
- * @returns {Promise<string>} The generated text from the API.
+ * @returns {Promise<object>} The generated content from the API as a structured object: { tags: [], hashtags: [], fallback: boolean, message?: string }.
  * @throws {Error} If the network response is not ok.
  */
 export const generateContent = async (prompt, options = {}) => {
@@ -16,14 +16,14 @@ export const generateContent = async (prompt, options = {}) => {
     contentFormat: options.contentFormat || 'long-form',
     region: options.region || 'global',
     language: options.language || 'english',
-    version: '2.1.0' // API versioning for future compatibility
+    version: '2.2.0' // API versioning for future compatibility
   };
 
   const response = await fetch('/api/generate', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
-      'X-API-Version': '2.1.0',
+      'X-API-Version': '2.2.0',
       'Accept': 'application/json'
     },
     body: JSON.stringify(requestBody),
@@ -35,16 +35,6 @@ export const generateContent = async (prompt, options = {}) => {
     throw new Error(errorBody.message || 'Network response was not ok.');
   }
 
-  const data = await response.json();
-
-  // Handle both direct text response and object with fallback info
-  if (data.fallback) {
-    return {
-      text: data.text,
-      fallback: true,
-      message: data.message
-    };
-  }
-
-  return data.text;
+  // **SIMPLIFIED LOGIC**: The API now always returns a structured JSON object.
+  return await response.json();
 };
