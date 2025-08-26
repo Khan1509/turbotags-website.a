@@ -43,27 +43,33 @@ export default async function handler(req, res) {
     // **ENHANCED MODEL SELECTION LOGIC**
     let modelsToTry;
     if (language.toLowerCase() === 'english') {
-      modelsToTry = ["mistralai/mistral-7b-instruct", "google/gemini-flash-1.5", "meta-llama/llama-3-8b-instruct"];
+      modelsToTry = ["mistralai/mistral-7b-instruct", "google/gemini-flash-1.5"];
     } else {
-      modelsToTry = ["google/gemini-flash-1.5", "mistralai/mistral-7b-instruct", "meta-llama/llama-3-8b-instruct"];
+      modelsToTry = ["google/gemini-flash-1.5", "mistralai/mistral-7b-instruct"];
     }
+
+    // **NEW DYNAMIC & BULLETPROOF SYSTEM PROMPT**
+    let jsonStructureExample;
+    let mainInstruction;
+
+    if (platform === 'youtube') {
+      mainInstruction = "Provide two JSON arrays: 'tags' (for video metadata) and 'hashtags' (for the description).";
+      jsonStructureExample = '{"tags": [{"text": "example tag", "trend": 88}, ...], "hashtags": [{"text": "#exampleHashtag", "trend": 92}, ...]}';
+    } else {
+      mainInstruction = "Provide a single JSON array: 'hashtags'.";
+      jsonStructureExample = '{"hashtags": [{"text": "#exampleHashtag", "trend": 92}, ...]}';
+    }
+
+    const systemPrompt = `You are an expert social media SEO strategist. Your response MUST be a single, valid JSON object and nothing else. Do not include any introductory text, explanations, or markdown.
+- **Task**: Generate content for a ${platform} post about "${prompt}".
+- **Language**: All generated text MUST be in ${language}.
+- **Instruction**: ${mainInstruction}
+- **Quantity**: Generate between 15 and 20 items for each array.
+- **Trend Score**: Each item must have a "trend" key with an integer value between 60 and 100.
+- **Format**: Your entire response must be ONLY the JSON object, like this example: ${jsonStructureExample}`;
 
     let generatedText = null;
     let lastError = null;
-
-    // **BULLETPROOF SYSTEM PROMPT**
-    const systemPrompt = `You are a world-class social media strategist and SEO expert. Your task is to generate highly relevant, trending, and SEO-optimized content for a creator.
-- **Quantity**: Generate EXACTLY 15-20 items per category. You can generate up to a maximum of 25 if they are highly relevant.
-- **Language**: Adhere strictly to the requested language: ${language}.
-- **Formatting**:
-  - For YouTube: Provide two JSON arrays in this exact format: TAGS:[{"tag":"tag1","trend":85},{"tag":"tag2","trend":72},...]HASHTAGS:[{"hashtag":"#hashtag1","trend":91},{"hashtag":"#hashtag2","trend":68},...]
-  - For all other platforms: Provide a single JSON array of hashtags: HASHTAGS:[{"hashtag":"#hashtag1","trend":91},{"hashtag":"#hashtag2","trend":68},...]
-- **Rules**:
-  - The "trend" value MUST be an integer between 60 and 100.
-  - Do NOT include any extra text, explanations, apologies, or formatting. Your entire response must start with TAGS or HASHTAGS.
-  - Do not use markdown, code blocks, or any characters before the initial TAGS or HASHTAGS keyword.`;
-
-    const userPrompt = `Platform: ${platform}\nTopic: "${prompt}"`;
 
     for (const model of modelsToTry) {
       try {
@@ -72,10 +78,10 @@ export default async function handler(req, res) {
           headers: { 'Authorization': `Bearer ${process.env.OPENROUTER_API_KEY}`, 'Content-Type': 'application/json' },
           body: JSON.stringify({
             model: model,
-            messages: [{ role: "system", content: systemPrompt }, { role: "user", content: userPrompt }],
+            messages: [{ role: "system", content: systemPrompt }],
             temperature: 0.7,
-            max_tokens: 1500,
-            response_format: { type: "text" } // Ensure text output
+            max_tokens: 2048,
+            response_format: { type: "json_object" } // **CRITICAL**: Force JSON output
           })
         });
 
@@ -101,39 +107,21 @@ export default async function handler(req, res) {
     }
 
     if (generatedText) {
-      // **ROBUST BACKEND PARSING LOGIC**
-      let tags = [];
-      let hashtags = [];
-
+      // **NEW ROBUST PARSING LOGIC**
       try {
-        if (platform === 'youtube') {
-          const tagsMatch = generatedText.match(/TAGS\s*:\s*(\[.*?\])/is);
-          const hashtagsMatch = generatedText.match(/HASHTAGS\s*:\s*(\[.*?\])/is);
+        const parsedData = JSON.parse(generatedText);
+        
+        const tags = (parsedData.tags || []).filter(t => t && typeof t.text === 'string' && typeof t.trend === 'number');
+        const hashtags = (parsedData.hashtags || []).filter(h => h && typeof h.text === 'string' && typeof h.trend === 'number');
 
-          if (tagsMatch && tagsMatch[1]) {
-            const parsedTags = JSON.parse(tagsMatch[1]);
-            tags = parsedTags.map(t => ({ text: t.tag, trend: t.trend })).filter(t => t.text && t.trend);
-          }
-          if (hashtagsMatch && hashtagsMatch[1]) {
-            const parsedHashtags = JSON.parse(hashtagsMatch[1]);
-            hashtags = parsedHashtags.map(h => ({ text: h.hashtag, trend: h.trend })).filter(h => h.text && h.trend);
-          }
+        if ((platform === 'youtube' && tags.length > 0) || (platform !== 'youtube' && hashtags.length > 0)) {
+            console.log(`[Parsing Success] Parsed ${tags.length} tags and ${hashtags.length} hashtags.`);
+            return res.status(200).json({ tags, hashtags, fallback: false });
         } else {
-          const hashtagsMatch = generatedText.match(/HASHTAGS\s*:\s*(\[.*?\])/is);
-          if (hashtagsMatch && hashtagsMatch[1]) {
-            const parsedHashtags = JSON.parse(hashtagsMatch[1]);
-            hashtags = parsedHashtags.map(h => ({ text: h.hashtag, trend: h.trend })).filter(h => h.text && h.trend);
-          }
+            throw new Error("Parsed JSON was empty or had incorrect structure.");
         }
       } catch (e) {
         console.error("Failed to parse AI JSON response:", e, "Raw Text:", generatedText);
-        // Fall through to the main fallback logic
-      }
-      
-      if ((platform === 'youtube' && tags.length > 0 && hashtags.length > 0) || (platform !== 'youtube' && hashtags.length > 0)) {
-        // **SEND CLEAN JSON TO FRONTEND**
-        console.log(`[Parsing Success] Parsed ${tags.length} tags and ${hashtags.length} hashtags.`);
-        return res.status(200).json({ tags, hashtags, fallback: false });
       }
     }
     

@@ -1,6 +1,6 @@
-// **STABLE RELEASE**: Network-First, falling back to Cache strategy.
-// v2.6.3: Final fix. Aggressively bust cache to resolve stale CSS issue in production.
-const CACHE_NAME = 'turbotags-v2.6.3-final-fix';
+// **STABLE RELEASE**: Network-First, with robust error handling.
+// v2.6.4-stable: Ignores cross-origin requests to prevent CSP/fetch errors.
+const CACHE_NAME = 'turbotags-v2.6.4-stable';
 
 // Essential assets to pre-cache for the app shell to work offline.
 const PRECACHE_ASSETS = [
@@ -39,9 +39,9 @@ self.addEventListener('activate', (event) => {
 self.addEventListener('fetch', (event) => {
   const { request } = event;
 
-  // **CRITICAL FIX**: Ignore requests for non-http/https schemes, like chrome-extension://.
-  // This prevents the "Request scheme is unsupported" error.
-  if (!request.url.startsWith('http')) {
+  // **CRITICAL FIX**: Ignore requests for non-http/https schemes AND all cross-origin requests.
+  // This prevents errors with browser extensions and third-party scripts (like Google's CSP reporter).
+  if (!request.url.startsWith('http') || new URL(request.url).origin !== self.origin) {
     return; // Let the browser handle these requests natively.
   }
 
@@ -57,8 +57,6 @@ self.addEventListener('fetch', (event) => {
       try {
         const networkResponse = await fetch(request);
         
-        // If the network request is successful, update the cache and return the response.
-        // We only cache successful (status 200) responses to avoid caching errors.
         if (networkResponse.ok) {
           const cache = await caches.open(CACHE_NAME);
           cache.put(request, networkResponse.clone());
@@ -76,19 +74,14 @@ self.addEventListener('fetch', (event) => {
           return cachedResponse;
         }
 
-        // 3. If the resource is not in the cache and the network failed,
-        // let the browser handle the error. This avoids the 503 and shows a standard network error.
+        // 3. If not in cache and network failed, let the browser handle it.
         console.error(`[SW] Failed to fetch ${request.url} from both network and cache.`);
         
-        // For page navigations, we can try to return the main page as a last resort.
         if (request.mode === 'navigate') {
           const fallbackResponse = await caches.match('/');
-          if (fallbackResponse) {
-            return fallbackResponse;
-          }
+          if (fallbackResponse) return fallbackResponse;
         }
 
-        // Let the browser generate the response for a failed fetch.
         return Response.error();
       }
     })()
