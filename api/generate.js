@@ -8,6 +8,13 @@ const __dirname = path.dirname(__filename);
 
 export default async function handler(req, res) {
   res.setHeader('Content-Type', 'application/json');
+  res.setHeader('Access-Control-Allow-Origin', '*'); // Allow all origins
+  res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
+
+  if (req.method === 'OPTIONS') {
+    return res.status(200).end();
+  }
 
   if (req.method !== 'POST') {
     return res.status(405).json({
@@ -17,7 +24,7 @@ export default async function handler(req, res) {
   }
 
   try {
-    const { prompt, platform = 'youtube', language = 'english', region = 'global', contentFormat = 'general' } = req.body;
+    const { prompt, platform = 'youtube', language = 'english' } = req.body;
 
     if (!prompt) {
       return res.status(400).json({
@@ -26,10 +33,10 @@ export default async function handler(req, res) {
       });
     }
 
-    console.log(`API Request - Platform: ${platform}, Language: ${language}, Region: ${region}, Format: ${contentFormat}`);
+    console.log(`API Request - Platform: ${platform}, Language: ${language}`);
 
     // **CRITICAL FIX**: Dynamically select model priority based on language.
-    // Gemini is prioritized for non-English languages for better multilingual support.
+    // Mistral is prioritized for English, Gemini for all other languages.
     let modelsToTry;
     if (language.toLowerCase() === 'english') {
       console.log('Language is English, prioritizing Mistral.');
@@ -42,8 +49,8 @@ export default async function handler(req, res) {
     } else {
       console.log(`Language is ${language}, prioritizing Gemini for multilingual generation.`);
       modelsToTry = [
-        "google/gemini-flash-1.5", // Gemini first for non-English
-        "mistralai/mistral-7b-instruct", // Mistral as backup
+        "google/gemini-flash-1.5",
+        "mistralai/mistral-7b-instruct",
         "meta-llama/llama-3-8b-instruct",
         "anthropic/claude-3-haiku"
       ];
@@ -52,16 +59,21 @@ export default async function handler(req, res) {
     let generatedText = null;
     let lastError = null;
 
-    const systemPrompt = `You are an expert social media strategist. Your task is to generate SEO-optimized tags and hashtags for a content creator.
-- Generate EXACTLY 15-20 items per category.
-- Adhere strictly to the requested language.
-- For YouTube, provide two lists: 'TAGS' (plain keywords) and 'HASHTAGS' (with #).
-- For all other platforms, provide only one list of 'HASHTAGS'.
-- Output format for YouTube: TAGS:[tag1,tag2,...]HASHTAGS:[#hashtag1,#hashtag2,...]
-- Output format for others: #hashtag1,#hashtag2,...
-- Do NOT include any extra text, explanations, or formatting.`;
+    // **ENHANCED SYSTEM PROMPT**
+    const systemPrompt = `You are a world-class social media strategist and SEO expert. Your task is to generate highly relevant, trending, and SEO-optimized tags and hashtags for a content creator.
+- **Quantity**: Generate EXACTLY 15-20 items per category. You can generate up to a maximum of 25 if they are highly relevant and add significant value.
+- **Quality**: The generated items must be trending and relevant to the user's topic. Mix popular (high volume) and niche (high intent) terms.
+- **Language**: Adhere strictly to the requested language: ${language}.
+- **Formatting**:
+  - For YouTube: Provide two lists in this exact format: TAGS:[tag1,tag2,...]HASHTAGS:[#hashtag1,#hashtag2,...]
+  - For all other platforms: Provide a single comma-separated list of hashtags: #hashtag1,#hashtag2,...
+- **Rules**:
+  - Do NOT include any extra text, explanations, apologies, or formatting.
+  - Tags are plain keywords (e.g., 'cooking tips').
+  - Hashtags must start with a '#' (e.g., '#CookingTips').
+  - Do not use markdown or code blocks.`;
 
-    const userPrompt = `Platform: ${platform}\nLanguage: ${language}\nRegion: ${region}\nContent Format: ${contentFormat}\nTopic: "${prompt}"`;
+    const userPrompt = `Platform: ${platform}\nTopic: "${prompt}"`;
 
     for (const model of modelsToTry) {
       try {
@@ -95,7 +107,7 @@ export default async function handler(req, res) {
         if (content && content.trim()) {
           generatedText = content;
           console.log(`Successfully generated content with model: ${model}`);
-          break; // Exit loop on success
+          break;
         } else {
           throw new Error(`API response from ${model} was empty or malformed.`);
         }
@@ -119,19 +131,31 @@ export default async function handler(req, res) {
       const langData = fallbackData.multilingual[language] || fallbackData.multilingual['english'];
 
       if (platform === 'youtube') {
-        const tags = (langData.tags || fallbackData.youtube.plain_tags).slice(0, 20);
-        const hashtags = (langData.hashtags || fallbackData.youtube.hashtags).slice(0, 20);
+        const niches = fallbackData.youtube.niches;
+        const randomNicheKey = Object.keys(niches)[Math.floor(Math.random() * Object.keys(niches).length)];
+        const nicheData = niches[randomNicheKey];
+
+        const tags = (langData.tags || nicheData.tags).slice(0, 25);
+        const hashtags = (langData.hashtags || nicheData.hashtags).slice(0, 25);
         fallbackText = `TAGS:[${tags.join(',')}]HASHTAGS:[${hashtags.join(',')}]`;
       } else {
-        const platformKey = `${platform}_hashtags`;
-        const hashtags = (fallbackData[platformKey] || langData.hashtags || fallbackData.youtube.hashtags).slice(0, 20);
-        fallbackText = hashtags.join(', ');
+        const platformNiches = fallbackData[platform]?.niches;
+        if (platformNiches) {
+            const randomNicheKey = Object.keys(platformNiches)[Math.floor(Math.random() * Object.keys(platformNiches).length)];
+            const nicheData = platformNiches[randomNicheKey];
+            const hashtags = nicheData.hashtags.slice(0, 25);
+            fallbackText = hashtags.join(', ');
+        } else {
+            // Default fallback if platform structure is missing
+            const hashtags = (langData.hashtags || fallbackData.youtube.niches.default.hashtags).slice(0, 25);
+            fallbackText = hashtags.join(', ');
+        }
       }
 
       return res.status(200).json({
         text: fallbackText,
         fallback: true,
-        message: `Using ${language} fallback content due to API unavailability.`
+        message: `Using ${language} sample content due to high demand. Please try again shortly.`
       });
     }
 

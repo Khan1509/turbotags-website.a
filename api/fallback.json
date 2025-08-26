@@ -1,69 +1,95 @@
 {
   "youtube": {
-    "plain_tags": [
-      "viral content 2025", "trending topics", "youtube shorts strategy", "content creation tips", "video seo optimization",
-      "audience engagement", "creator economy", "video marketing", "social media growth", "content monetization",
-      "youtube algorithm", "viral video secrets", "content planning", "youtube success", "video editing tips",
-      "thumbnail design", "youtube analytics", "content strategy", "creator mindset", "digital marketing"
-    ],
-    "hashtags": [
-      "#YouTube2025", "#ContentCreator", "#ViralVideo", "#YouTubeShorts", "#ContentStrategy",
-      "#VideoMarketing", "#CreatorEconomy", "#YouTubeTips", "#SocialMediaGrowth", "#DigitalMarketing",
-      "#OnlineBusiness", "#ContentCreation", "#YouTubeSuccess", "#VideoSEO", "#CreatorLife",
-      "#YouTubeAlgorithm", "#ContentPlanning", "#VideoProduction", "#YouTubeTutorial", "#CreatorTips"
-    ]
-  },
-
-  "instagram_hashtags": [
-    "#Instagram2025", "#InstagramReels", "#ContentCreator", "#SocialMediaMarketing", "#InstagramGrowth",
-    "#DigitalMarketing", "#InstagramTips", "#ContentStrategy", "#SocialMediaInfluencer", "#InstagramSuccess",
-    "#ReelsCreator", "#InstagramContent", "#SocialMediaGrowth", "#ContentCreation", "#InstagramMarketing",
-    "#InfluencerMarketing", "#SocialMediaStrategy", "#InstagramEngagement", "#ContentPlanning", "#InstagramBusiness"
-  ],
-
-  "tiktok_hashtags": [
-    "#TikTok2025", "#TikTokCreator", "#ViralTikTok", "#TikTokTrends", "#ContentCreator",
-    "#TikTokMarketing", "#SocialMediaGrowth", "#TikTokSuccess", "#CreatorEconomy", "#TikTokTips",
-    "#ViralContent", "#TikTokStrategy", "#SocialMediaMarketing", "#ContentCreation", "#TikTokInfluencer",
-    "#DigitalMarketing", "#TikTokGrowth", "#SocialMediaTrends", "#ContentStrategy", "#TikTokAlgorithm"
-  ],
-
-  "facebook_hashtags": [
-    "#Facebook2025", "#FacebookMarketing", "#SocialMediaMarketing", "#ContentCreator", "#FacebookReels",
-    "#DigitalMarketing", "#SocialMediaGrowth", "#FacebookBusiness", "#ContentStrategy", "#FacebookTips",
-    "#SocialMediaStrategy", "#FacebookSuccess", "#ContentCreation", "#FacebookPage", "#SocialMediaInfluencer",
-    "#FacebookAdvertising", "#ContentMarketing", "#SocialMediaTips", "#FacebookEngagement", "#OnlineMarketing"
-  ],
-
-  "multilingual": {
-    "hindi": {
-      "tags": [
-        "वायरल कंटेंट", "ट्रेंडिंग विषय", "सोशल मीडिया", "कंटेंट क्रिएटर", "डिजि���ल मार्केटिंग",
-        "ऑनलाइन बिजनेस", "यूट्यूब टिप्स", "इं��्टाग्राम ग्रोथ", "टिकटॉक ट्रेंड्स", "कंटेंट स्ट्रैटेजी",
-        "वीडियो मार्केटिंग", "सोशल मीडिया ग्रोथ", "क्रिएटर इकॉनमी", "कंटेंट मोनेटाइज़ेशन", "ऑडियंस एंगेजमेंट"
-      ],
-      "hashtags": [
-        "#हिंदीकंटेंट", "#भारतीयक्रिएटर", "#वायरलवीडियो", "#ट्रेंडिंगइंडिया", "#सोशलमीडिया",
-        "#डिजिटलइंडिया", "#हिंदीयूट्यूब", "#इंडियनक्रिएटर", "#बॉलीवुड", "#हिंदीट्रेंड्स",
-        "#भारत", "#हिंदी", "#इंडिया", "#देसी", "#हिंदुस्तान"
-      ]
-    },
-    "spanish": {
-      "tags": [
-        "contenido viral", "tendencias", "redes sociales", "creador de contenido", "marketing digital",
-        "negocio online", "consejos youtube", "crecimiento instagram", "tendencias tiktok", "estrategia contenido"
-      ],
-      "hashtags": [
-        "#ContenidoEspañol", "#CreadorLatino", "#VideoViral", "#TendenciasEspaña", "#RedesSociales",
-        "#MarketingDigital", "#YouTubeEspañol", "#CreadorMexicano", "#ContenidoLatino", "#TendenciasLatam"
-      ]
+    "niches": {
+      "gaming": {
+        "tags": ["gaming", "live stream", "gameplay", "pc gaming", "console gaming", "esports", "gaming community", "video game", "gaming channel", "fortnite", "minecraft", "call of duty", "among us", "valorant", "gaming setup", "pro gamer", "walkthrough", "speedrun", "indie game", "gaming news"],
+        "hashtags": ["#Gaming", "#LiveStream", "#Gameplay", "#PCGaming", "#Esports", "#GamingCommunity", "#VideoGames", "#Fortnite", "#Minecraft", "#Valorant", "#GamingLife", "#Gamer", "#GamingSetup", "#Streamer", "#IndieGame", "#GamingNews", "#ProGamer", "#GamingVideos", "#LetsPlay", "#CODWarzone"]
+      },
+      "cooking": {
+        "tags": ["cooking", "recipe", "food", "baking", "kitchen", "homemade", "easy recipe", "cooking show", "foodie", "healthy food", "dessert", "vegan recipes", "meal prep", "street food", "cooking tips", "chef", "kitchen hacks", "baking tutorial", "asmr cooking", "family recipe"],
+        "hashtags": ["#Cooking", "#Recipe", "#Food", "#Baking", "#Homemade", "#Foodie", "#HealthyRecipes", "#Vegan", "#MealPrep", "#Dessert", "#ChefLife", "#KitchenHacks", "#FoodLover", "#ASMRCooking", "#EasyRecipe", "#CookingAtHome", "#FoodVlog", "#BakingLove", "#StreetFood", "#Yummy"]
+      },
+      "tech_reviews": {
+        "tags": ["tech review", "gadgets", "unboxing", "smartphones", "laptops", "tech news", "product review", "apple", "samsung", "android", "ios", "tech channel", "latest gadgets", "vs", "comparison", "hands-on", "first impressions", "tech explained", "future tech", "smart home"],
+        "hashtags": ["#TechReview", "#Gadgets", "#Unboxing", "#Smartphone", "#Laptop", "#TechNews", "#Apple", "#Samsung", "#Android", "#iOS", "#FutureTech", "#SmartHome", "#ProductReview", "#Techie", "#GadgetLover", "#LatestTech", "#TechVlogger", "#Instatech", "#Techno", "#Geek"]
+      },
+      "vlogging": {
+        "tags": ["vlog", "daily vlog", "travel vlog", "lifestyle", "a day in the life", "vlogger", "travel", "adventure", "explore", "behind the scenes", "q&a", "storytime", "life update", "weekly vlog", "family vlog", "couple vlog", "city vlog", "motivation", "inspiration", "challenge"],
+        "hashtags": ["#Vlog", "#DailyVlog", "#TravelVlog", "#Lifestyle", "#Vlogger", "#Travel", "#Adventure", "#Explore", "#DayInTheLife", "#Storytime", "#LifeUpdate", "#FamilyVlog", "#CoupleGoals", "#Motivation", "#Inspiration", "#Challenge", "#TravelBlogger", "#BTS", "#NewVideo", "#YouTubeVlog"]
+      },
+      "default": {
+        "tags": ["viral content 2025", "trending topics", "youtube shorts strategy", "content creation tips", "video seo optimization", "audience engagement", "creator economy", "video marketing", "social media growth", "content monetization", "youtube algorithm", "viral video secrets", "content planning", "youtube success", "video editing tips", "thumbnail design", "youtube analytics", "content strategy", "creator mindset", "digital marketing"],
+        "hashtags": ["#YouTube2025", "#ContentCreator", "#ViralVideo", "#YouTubeShorts", "#ContentStrategy", "#VideoMarketing", "#CreatorEconomy", "#YouTubeTips", "#SocialMediaGrowth", "#DigitalMarketing", "#OnlineBusiness", "#ContentCreation", "#YouTubeSuccess", "#VideoSEO", "#CreatorLife", "#YouTubeAlgorithm", "#ContentPlanning", "#VideoProduction", "#YouTubeTutorial", "#CreatorTips"]
+      }
     }
   },
-
-  "platform_core": {
-    "youtube_core": ["#Shorts", "#Viral", "#Trending", "#Subscribe", "#Views"],
-    "instagram_core": ["#Love", "#InstaGood", "#PhotoOfTheDay", "#Follow", "#Like"],
-    "tiktok_core": ["#FYP", "#ForYou", "#Viral", "#Trending", "#Follow"],
-    "facebook_core": ["#Like", "#Share", "#Comment", "#Follow", "#Facebook"]
+  "instagram": {
+    "niches": {
+      "fashion": {
+        "hashtags": ["#OOTD", "#FashionBlogger", "#StreetStyle", "#InstaFashion", "#Fashionista", "#StyleInspo", "#LookOfTheDay", "#FashionGram", "#WhatIWore", "#StyleBlogger", "#FashionStyle", "#CurrentlyWearing", "#OutfitInspiration", "#FashionDaily", "#MenFashion", "#WomenFashion", "#SustainableFashion", "#VintageFashion", "#FashionAddict", "#TrendAlert"]
+      },
+      "fitness": {
+        "hashtags": ["#Fitness", "#GymLife", "#Workout", "#FitnessMotivation", "#FitFam", "#Bodybuilding", "#HealthyLifestyle", "#FitnessJourney", "#GymMotivation", "#TrainHard", "#GetFit", "#FitnessGoals", "#NoPainNoGain", "#HomeWorkout", "#PersonalTrainer", "#Yoga", "#Crossfit", "#Running", "#FitInspo", "#Cardio"]
+      },
+      "travel": {
+        "hashtags": ["#TravelGram", "#Wanderlust", "#Traveling", "#TravelBlogger", "#InstaTravel", "#Explore", "#BeautifulDestinations", "#TravelPhotography", "#Vacation", "#Adventure", "#SeeTheWorld", "#TravelTheWorld", "#RoamThePlanet", "#PassionPassport", "#TravelLife", "#SoloTravel", "#CoupleTravel", "#Backpacking", "#DigitalNomad", "#Staycation"]
+      },
+      "food": {
+        "hashtags": ["#Foodie", "#InstaFood", "#FoodPhotography", "#Yummy", "#Delicious", "#FoodBlogger", "#FoodLover", "#HealthyFood", "#Homemade", "#Eats", "#FoodGram", "#FoodStyling", "#VeganFood", "#GlutenFree", "#Breakfast", "#Lunch", "#Dinner", "#Dessert", "#Foodgasm", "#ChefMode"]
+      },
+      "default": {
+        "hashtags": ["#Instagram2025", "#InstagramReels", "#ContentCreator", "#SocialMediaMarketing", "#InstagramGrowth", "#DigitalMarketing", "#InstagramTips", "#ContentStrategy", "#SocialMediaInfluencer", "#InstagramSuccess", "#ReelsCreator", "#InstagramContent", "#SocialMediaGrowth", "#ContentCreation", "#InstagramMarketing", "#InfluencerMarketing", "#SocialMediaStrategy", "#InstagramEngagement", "#ContentPlanning", "#InstagramBusiness"]
+      }
+    }
+  },
+  "tiktok": {
+    "niches": {
+      "comedy": {
+        "hashtags": ["#Comedy", "#Funny", "#LOL", "#Skit", "#FunnyVideos", "#Jokes", "#Humor", "#StandUpComedy", "#Relatable", "#Meme", "#Prank", "#TikTokComedy", "#FunnyMoments", "#Laugh", "#JustForLaughs", "#ComedySkit", "#ViralComedy", "#FunnyReels", "#Comedian", "#Hilarious"]
+      },
+      "dance": {
+        "hashtags": ["#Dance", "#DanceChallenge", "#Choreography", "#Dancer", "#TikTokDance", "#ViralDance", "#DanceCover", "#HipHop", "#DanceLife", "#JustDance", "#DanceMoves", "#TrendingDance", "#DanceTutorial", "#KpopDance", "#ShuffleDance", "#DanceCrew", "#Freestyle", "#DanceVideo", "#DancersOfTikTok", "#InstaDance"]
+      },
+      "diy": {
+        "hashtags": ["#DIY", "#DoItYourself", "#Crafts", "#DIYProjects", "#Handmade", "#LifeHacks", "#Upcycling", "#HomeDecor", "#DIYCrafts", "#Tutorial", "#HowTo", "#Crafter", "#DIYIdeas", "#EasyDIY", "#Crafting", "#DIYInspiration", "#Creative", "#Maker", "#DIYHome", "#Project"]
+      },
+      "education": {
+        "hashtags": ["#LearnOnTikTok", "#Education", "#DidYouKnow", "#Science", "#History", "#Facts", "#Knowledge", "#Mindblown", "#EduTok", "#LearnSomethingNew", "#LifeHack", "#TipsAndTricks", "#CareerTips", "#Space", "#Nature", "#Psychology", "#FunFacts", "#Explained", "#HowItWorks", "#STEM"]
+      },
+      "default": {
+        "hashtags": ["#TikTok2025", "#TikTokCreator", "#ViralTikTok", "#TikTokTrends", "#ContentCreator", "#TikTokMarketing", "#SocialMediaGrowth", "#TikTokSuccess", "#CreatorEconomy", "#TikTokTips", "#ViralContent", "#TikTokStrategy", "#SocialMediaMarketing", "#ContentCreation", "#TikTokInfluencer", "#DigitalMarketing", "#TikTokGrowth", "#SocialMediaTrends", "#ContentStrategy", "#TikTokAlgorithm"]
+      }
+    }
+  },
+  "facebook": {
+    "niches": {
+      "small_business": {
+        "hashtags": ["#SmallBusiness", "#SupportLocal", "#ShopSmall", "#Entrepreneur", "#BusinessOwner", "#LocalBusiness", "#StartupLife", "#WomenInBusiness", "#Handmade", "#SmallBiz", "#MarketingTips", "#FacebookForBusiness", "#CommunityOverCompetition", "#GrowYourBusiness", "#CustomerLove", "#FacebookMarketing", "#SocialMediaForBusiness", "#EntrepreneurLife", "#BusinessTips", "#ShopLocal"]
+      },
+      "community": {
+        "hashtags": ["#Community", "#GetInvolved", "#LocalEvents", "#NonProfit", "#Volunteer", "#CommunityLove", "#SupportYourCommunity", "#GiveBack", "#SocialGood", "#DoGood", "#CommunityFirst", "#LocalHeroes", "#MakeADifference", "#Neighborhood", "#CommunityBuilding", "#JoinUs", "#Events", "#Fundraiser", "#Charity", "#CommunitySupport"]
+      },
+      "default": {
+        "hashtags": ["#Facebook2025", "#FacebookMarketing", "#SocialMediaMarketing", "#ContentCreator", "#FacebookReels", "#DigitalMarketing", "#SocialMediaGrowth", "#FacebookBusiness", "#ContentStrategy", "#FacebookTips", "#SocialMediaStrategy", "#FacebookSuccess", "#ContentCreation", "#FacebookPage", "#SocialMediaInfluencer", "#FacebookAdvertising", "#ContentMarketing", "#SocialMediaTips", "#FacebookEngagement", "#OnlineMarketing"]
+      }
+    }
+  },
+  "multilingual": {
+    "hindi": {
+      "tags": ["वायरल कंटेंट", "ट्रेंडिंग विषय", "सोशल मीडिया", "कंटेंट क्रिएटर", "डिजिटल मार्केटिंग", "ऑनलाइन बिजनेस", "यूट्यूब टिप्स", "इंस्टाग्राम ग्रोथ", "टिकटॉक ट्रेंड्स", "कंटेंट स्ट्रैटेजी", "वीडियो मार्केटिंग", "सोशल मीडिया ग्रोथ", "क्रिएटर इकॉनमी", "कंटेंट मोनेटाइज़ेशन", "ऑडियंस एंगेजमेंट", "भारतीय यूट्यूबर", "मेक इन इंडिया", "हिंदी में सीखें", "देसी कंटेंट", "मनोरंजन"],
+      "hashtags": ["#हिंदीकंटेंट", "#भारतीयक्रिएटर", "#वायरलवीडियो", "#ट्रेंडिंगइंडिया", "#सोशलमीडिया", "#डिजिटलइंडिया", "#हिंदीयूट्यूब", "#इंडियनक्रिएटर", "#बॉलीवुड", "#हिंदीट्रेंड्स", "#भारत", "#हिंदी", "#इंडिया", "#देसी", "#हिंदुस्तान", "#मनोरंजन", "#ज्ञान", "#सीखें", "#ट्रेंडिंग", "#वायरल"]
+    },
+    "spanish": {
+      "tags": ["contenido viral", "tendencias", "redes sociales", "creador de contenido", "marketing digital", "negocio online", "consejos youtube", "crecimiento instagram", "tendencias tiktok", "estrategia contenido", "video marketing", "crecimiento redes sociales", "economía de creadores", "monetización", "engagement", "youtuber español", "hecho en latam", "aprende en español", "contenido latino", "entretenimiento"],
+      "hashtags": ["#ContenidoEspañol", "#CreadorLatino", "#VideoViral", "#TendenciasEspaña", "#RedesSociales", "#MarketingDigital", "#YouTubeEspañol", "#CreadorMexicano", "#ContenidoLatino", "#TendenciasLatam", "#Hispano", "#Aprende", "#Entretenimiento", "#Viral", "#Tendencia"]
+    },
+    "french": {
+        "tags": ["contenu viral", "tendances", "médias sociaux", "créateur de contenu", "marketing numérique", "entreprise en ligne", "conseils youtube", "croissance instagram", "tendances tiktok", "stratégie de contenu", "marketing vidéo", "croissance des médias sociaux", "économie des créateurs", "monétisation", "engagement", "youtubeur français", "fabriqué en france", "apprendre en français", "contenu francophone", "divertissement"],
+        "hashtags": ["#ContenuFrançais", "#CréateurFrançais", "#VidéoVirale", "#TendancesFrance", "#RéseauxSociaux", "#MarketingNumérique", "#YouTubeFrance", "#CréateurFrancophone", "#Francophonie", "#TendancesFR", "#France", "#Apprendre", "#Divertissement", "#Viral", "#Tendance"]
+    },
+    "german": {
+        "tags": ["virale inhalte", "trends", "soziale medien", "content creator", "digitales marketing", "online-geschäft", "youtube-tipps", "instagram-wachstum", "tiktok-trends", "inhaltsstrategie", "videomarketing", "social-media-wachstum", "creator economy", "monetarisierung", "engagement", "deutscher youtuber", "made in germany", "lernen auf deutsch", "deutscher inhalt", "unterhaltung"],
+        "hashtags": ["#DeutscherContent", "#CreatorDE", "#ViralesVideo", "#TrendsDeutschland", "#SozialeMedien", "#DigitalesMarketing", "#YouTubeDE", "#DeutscheCreator", "#Deutschland", "#TrendsDE", "#Lernen", "#Unterhaltung", "#Viral", "#Trend", "#MadeInGermany"]
+    }
   }
 }
