@@ -1,6 +1,6 @@
 import React from 'react';
 import { PlayCircle, Zap, Target, BarChart, Globe } from 'lucide-react';
-import LazyImage from '../ui/LazyImage';
+import LazyImage from './ui/LazyImage';
 
 const Demo = () => {
   return (
