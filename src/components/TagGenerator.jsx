@@ -128,7 +128,7 @@ const TagItem = React.memo(({ item, onCopy, onFeedback }) => {
     onFeedback(item.text, newFeedback);
   }
 
-  const trendPercentage = item.trend || Math.floor(Math.random() * 41) + 60;
+  const trendPercentage = item.trend_percentage || Math.floor(Math.random() * 41) + 60;
   const getTrendColor = (percentage) => {
     if (percentage >= 85) return 'text-green-700 bg-green-50 border-green-200';
     if (percentage >= 70) return 'text-yellow-700 bg-yellow-50 border-yellow-200';
