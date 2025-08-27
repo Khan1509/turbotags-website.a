@@ -6,7 +6,8 @@ const LazySection = ({
   threshold = 0.1, 
   rootMargin = '100px',
   fallback = <LoadingSpinner size="medium" ariaLabel="Loading section..." />,
-  className = ''
+  className = '',
+  minHeight = '200px' // Add minHeight prop to reserve space
 }) => {
   const [isVisible, setIsVisible] = useState(false);
   const [hasLoaded, setHasLoaded] = useState(false);
@@ -19,7 +20,6 @@ const LazySection = ({
         if (entry.isIntersecting && !hasLoaded) {
           setIsVisible(true);
           setHasLoaded(true);
-          // Disconnect after first load to prevent re-rendering
           observer.disconnect();
         }
       },
@@ -43,7 +43,11 @@ const LazySection = ({
   }, [threshold, rootMargin, hasLoaded]);
 
   return (
-    <div ref={sectionRef} className={className}>
+    <div 
+      ref={sectionRef} 
+      className={className} 
+      style={{ minHeight: hasLoaded ? 'auto' : minHeight }}
+    >
       {isVisible ? children : fallback}
     </div>
   );

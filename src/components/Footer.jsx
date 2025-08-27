@@ -24,9 +24,9 @@ const Footer = () => {
         <div>
           <h4 className="font-semibold text-gray-800 mb-4">Quick Links</h4>
           <ul className="space-y-2 text-xs" role="list">
-            <li><Link to="/#home" className="text-gray-600 hover:text-tt-dark-violet transition focus:outline-none focus:ring-2 focus:ring-tt-dark-violet rounded-md px-1 py-1" aria-label="Go to TurboTags homepage">Home</Link></li>
+            <li><Link to="/" className="text-gray-600 hover:text-tt-dark-violet transition focus:outline-none focus:ring-2 focus:ring-tt-dark-violet rounded-md px-1 py-1" aria-label="Go to TurboTags homepage">Home</Link></li>
             <li><Link to="/about" className="text-gray-600 hover:text-tt-dark-violet transition focus:outline-none focus:ring-2 focus:ring-tt-dark-violet rounded-md px-1 py-1" aria-label="Learn about TurboTags company">About Us</Link></li>
-            <li><Link to="/#why-choose" className="text-gray-600 hover:text-tt-dark-violet transition focus:outline-none focus:ring-2 focus:ring-tt-dark-violet rounded-md px-1 py-1" aria-label="Explore TurboTags features and benefits">Features</Link></li>
+            <li><Link to="/features" className="text-gray-600 hover:text-tt-dark-violet transition focus:outline-none focus:ring-2 focus:ring-tt-dark-violet rounded-md px-1 py-1" aria-label="Explore TurboTags features and benefits">Features</Link></li>
             <li><Link to="/blog" className="text-gray-600 hover:text-tt-dark-violet transition focus:outline-none focus:ring-2 focus:ring-tt-dark-violet rounded-md px-1 py-1" aria-label="Read TurboTags blog articles">Blog</Link></li>
             <li><Link to="/#tag-generator" className="text-gray-600 hover:text-tt-dark-violet transition focus:outline-none focus:ring-2 focus:ring-tt-dark-violet rounded-md px-1 py-1" aria-label="Use TurboTags AI generator tool">AI Tag Generator</Link></li>
           </ul>

@@ -60,9 +60,9 @@ const Header = () => {
           </Link>
           
           <nav className="hidden lg:flex items-center space-x-5" role="navigation" aria-label="Main navigation">
-            <NavLink to="/#home" ariaLabel="Go to homepage">Home</NavLink>
+            <NavLink to="/" ariaLabel="Go to homepage">Home</NavLink>
             <NavLink to="/about" ariaLabel="Learn about TurboTags">About</NavLink>
-            <NavLink to="/#why-choose" ariaLabel="Explore TurboTags features">Features</NavLink>
+            <NavLink to="/features" ariaLabel="Explore TurboTags features">Features</NavLink>
             <NavLink to="/blog" ariaLabel="Read our blog posts">Blog</NavLink>
             <a href="https://ko-fi.com/turbotags1509" target="_blank" rel="noopener noreferrer" className="bg-tt-dark-violet text-white px-4 py-2 rounded-lg flex items-center hover:opacity-90 transition focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-tt-dark-violet" aria-label="Support TurboTags on Ko-fi - Opens in new tab">
               <Heart className="mr-2 h-4 w-4" aria-hidden="true" /> Support
@@ -87,9 +87,9 @@ const Header = () => {
             <X size={40} aria-hidden="true" />
           </button>
           <nav className="flex flex-col items-center w-full space-y-4" role="navigation" aria-label="Mobile navigation">
-            <MobileNavLink to="/#home" onClick={closeMenu} ariaLabel="Go to homepage">Home</MobileNavLink>
+            <MobileNavLink to="/" onClick={closeMenu} ariaLabel="Go to homepage">Home</MobileNavLink>
             <MobileNavLink to="/about" onClick={closeMenu} ariaLabel="Learn about TurboTags">About</MobileNavLink>
-            <MobileNavLink to="/#why-choose" onClick={closeMenu} ariaLabel="Explore TurboTags features">Features</MobileNavLink>
+            <MobileNavLink to="/features" onClick={closeMenu} ariaLabel="Explore TurboTags features">Features</MobileNavLink>
             <MobileNavLink to="/blog" onClick={closeMenu} ariaLabel="Read our blog posts">Blog</MobileNavLink>
             <MobileNavLink to="/legal/privacy" onClick={closeMenu} ariaLabel="Read our privacy policy">Privacy Policy</MobileNavLink>
             <MobileNavLink to="/legal/terms" onClick={closeMenu} ariaLabel="Read our terms of service">Terms of Service</MobileNavLink>

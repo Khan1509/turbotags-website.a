@@ -6,6 +6,7 @@ import LoadingSpinner from './components/ui/LoadingSpinner';
 
 // Lazy load pages
 const AboutPage = lazy(() => import('./pages/AboutPage'));
+const FeaturesPage = lazy(() => import('./pages/FeaturesPage')); // New Features Page
 const BlogIndex = lazy(() => import('./pages/blog/BlogIndex'));
 const BlogPostPage = lazy(() => import('./pages/blog/BlogPostPage')); // Dynamic blog post page
 
@@ -21,6 +22,7 @@ function App() {
         <Route element={<MainLayout />}>
           <Route path="/" element={<HomePage />} />
           <Route path="/about" element={<AboutPage />} />
+          <Route path="/features" element={<FeaturesPage />} />
           
           {/* Blog pages - now dynamic */}
           <Route path="/blog" element={<BlogIndex />} />
