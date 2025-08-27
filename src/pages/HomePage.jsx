@@ -57,10 +57,10 @@ function HomePage() {
         <TagGenerator />
         <Suspense fallback={<LoadingSpinner />}>
           <LazySection>
-            <WhyChooseUs />
+            <TrendingTopics />
           </LazySection>
           <LazySection>
-            <TrendingTopics />
+            <WhyChooseUs />
           </LazySection>
           <LazySection>
             <Demo />
