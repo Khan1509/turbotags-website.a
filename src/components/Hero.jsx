@@ -1,5 +1,5 @@
 import React from 'react';
-import { Zap, Play, ArrowRight, Bot, BarChart, BadgeCheck } from 'lucide-react';
+import { Zap, Play, Bot, BarChart, Globe } from 'lucide-react';
 import { motion } from 'framer-motion';
 
 const containerVariants = {
@@ -29,8 +29,8 @@ const Hero = () => {
     >
       <motion.div variants={itemVariants} className="mt-4 flex justify-center space-x-2 sm:space-x-4 flex-wrap gap-2" role="list" aria-label="Key features">
         <span className="inline-flex items-center px-3 py-1 rounded-full text-sm font-semibold bg-tt-dark-violet text-white shadow-sm" role="listitem">
-          <BadgeCheck className="w-4 h-4 mr-2" aria-hidden="true" />
-          Free to Use
+          <Globe className="w-4 h-4 mr-2" aria-hidden="true" />
+          30+ Regions Supported
         </span>
         <span className="inline-flex items-center px-3 py-1 rounded-full text-sm font-semibold bg-tt-dark-violet text-white shadow-sm" role="listitem">
           <Bot className="w-4 h-4 mr-2" aria-hidden="true" />
@@ -46,7 +46,7 @@ const Hero = () => {
         variants={itemVariants}
         className="text-4xl md:text-5xl font-extrabold mt-4 text-tt-dark-violet leading-tight"
       >
-        The #1 FREE AI-Powered Tags & Hashtags Generator
+        The #1 FREE AI-Powered Global Tag Generator
       </motion.h2>
       <motion.p
         variants={itemVariants}
@@ -58,7 +58,7 @@ const Hero = () => {
         variants={itemVariants}
         className="mt-4 max-w-3xl mx-auto text-gray-700 text-base md:text-lg leading-relaxed"
       >
-        Get instant, high-quality, and SEO-optimized tags and hashtags for YouTube, Instagram, TikTok & Facebook. Boost your content's worldwide visibility.
+        Get instant, high-quality, SEO-optimized tags for YouTube, Instagram, TikTok & Facebook. Dominate local and international markets with support for **30+ regions** and **20+ languages**.
       </motion.p>
       
       <motion.div variants={itemVariants} className="mt-8 flex flex-col sm:flex-row justify-center gap-4">

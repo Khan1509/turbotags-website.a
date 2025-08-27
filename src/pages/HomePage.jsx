@@ -6,13 +6,13 @@ import TagGenerator from '../components/TagGenerator';
 import LoadingSpinner from '../components/ui/LoadingSpinner';
 import RatingWidget from '../components/ui/RatingWidget';
 import LazySection from '../components/utils/LazySection';
+import { motion } from 'framer-motion';
 
 const WhyChooseUs = lazy(() => import('../components/WhyChooseUs'));
 const TrendingTopics = lazy(() => import('../components/TrendingTopics'));
 const Faq = lazy(() => import('../components/Faq'));
 const Demo = lazy(() => import('../components/Demo'));
 
-// Optimized Floating Balls - reduced for mobile performance
 const FloatingBalls = React.memo(() => {
   const [isMobile, setIsMobile] = React.useState(false);
 
@@ -23,7 +23,6 @@ const FloatingBalls = React.memo(() => {
     return () => window.removeEventListener('resize', checkMobile);
   }, []);
 
-  // Don't render on mobile for performance
   if (isMobile) return null;
 
   return (
@@ -51,10 +50,19 @@ function HomePage() {
     <div className="relative">
       <FloatingBalls />
       <main className="container mx-auto max-w-7xl space-y-8 px-4 sm:space-y-12 sm:px-6 md:px-8">
-        <Hero />
-        <Stats />
-        <Platforms />
-        <TagGenerator />
+        <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }}>
+          <Hero />
+        </motion.div>
+        <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5, delay: 0.1 }}>
+          <Stats />
+        </motion.div>
+        <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5, delay: 0.2 }}>
+          <Platforms />
+        </motion.div>
+        <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5, delay: 0.3 }}>
+          <TagGenerator />
+        </motion.div>
+        
         <Suspense fallback={<LoadingSpinner />}>
           <LazySection>
             <TrendingTopics />
@@ -69,9 +77,16 @@ function HomePage() {
             <Faq />
           </LazySection>
         </Suspense>
-        <section className="bg-white p-6 rounded-xl shadow-md">
+
+        <motion.section 
+            className="bg-white p-6 rounded-xl shadow-md"
+            initial={{ opacity: 0, y: 50 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.3 }}
+            transition={{ duration: 0.5 }}
+        >
           <RatingWidget />
-        </section>
+        </motion.section>
       </main>
     </div>
   );

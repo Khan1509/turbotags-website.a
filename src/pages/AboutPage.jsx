@@ -1,14 +1,20 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { Bot, Zap, ShieldCheck, Globe } from 'lucide-react';
+import { motion } from 'framer-motion';
 
 const AboutPage = () => {
   return (
-    <main className="container mx-auto max-w-4xl p-6 py-10">
+    <motion.main 
+      className="container mx-auto max-w-4xl p-6 py-10"
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ duration: 0.5 }}
+    >
       <div className="bg-white p-8 rounded-xl shadow-lg">
         <div className="text-center">
           <h1 className="text-4xl md:text-5xl font-extrabold text-tt-dark-violet mb-4">About TurboTags</h1>
-          <p className="text-lg text-gray-600">Smarter Reach. Faster Growth. Built for Creators.</p>
+          <p className="text-lg text-gray-600">Smarter Reach. Faster Growth. Built for a Global Audience.</p>
         </div>
 
         <div className="mt-12 space-y-10">
@@ -26,12 +32,12 @@ const AboutPage = () => {
 
           <div className="flex flex-col md:flex-row-reverse items-center gap-8">
             <div className="flex-shrink-0 bg-tt-dark-violet text-white p-6 rounded-full">
-              <Zap className="h-12 w-12" />
+              <Globe className="h-12 w-12" />
             </div>
             <div>
-              <h2 className="text-2xl font-bold text-tt-dark-violet mb-2">How It Works</h2>
+              <h2 className="text-2xl font-bold text-tt-dark-violet mb-2">A Tool for the World</h2>
               <p className="text-gray-700 leading-relaxed">
-                TurboTags leverages a cascade of cutting-edge AI models through OpenRouter to analyze your content topic. It understands context, identifies trends, and generates SEO-optimized tags and hashtags tailored to specific platforms like YouTube, Instagram, and TikTok. If our primary AI services are busy, a robust fallback system ensures you always get high-quality suggestions, guaranteeing 99.9% uptime.
+                The internet has no borders, and your content shouldn't either. TurboTags is designed for a global audience, with support for over **20 languages** and **30 targetable regions**. Whether you're creating content for a local community in Mumbai or a global audience from Berlin, our tool helps you find the right keywords to connect.
               </p>
             </div>
           </div>
@@ -52,11 +58,11 @@ const AboutPage = () => {
         <div className="text-center mt-16">
           <h3 className="text-2xl font-bold text-gray-800 mb-4">Ready to Grow Your Channel?</h3>
           <Link to="/#tag-generator" className="btn-primary">
-            Start Generating For Free <Globe className="ml-2 h-5 w-5" />
+            Start Generating For Free <Zap className="ml-2 h-5 w-5" />
           </Link>
         </div>
       </div>
-    </main>
+    </motion.main>
   );
 };
 

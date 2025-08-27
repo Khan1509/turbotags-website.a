@@ -1,21 +1,29 @@
 import React from 'react';
 import FeatureCard from './ui/FeatureCard';
 import { Bot, Globe, BarChart, Target } from 'lucide-react';
+import { motion } from 'framer-motion';
 
 const features = [
-    { icon: Bot, title: "AI-Powered Generation", description: "Advanced AI algorithms generate highly relevant and trending tags for maximum reach." },
-    { icon: Globe, title: "Global SEO Optimization", description: "Multi-language support and international SEO features to help you reach audiences worldwide." },
-    { icon: BarChart, title: "Real-time Trending Analysis", description: "Live trend monitoring ensures your content stays relevant with the latest viral hashtags." },
-    { icon: Target, title: "Creator & Business Focused", description: "Purpose-built for creators and marketers seeking to maximize their social media ROI." },
+    { icon: Bot, title: "Advanced AI Engine", description: "Our AI understands content nuances to generate highly relevant tags that drive engagement." },
+    { icon: Globe, title: "Global Reach Toolkit", description: "Dominate international markets with support for 30+ regions and 20+ languages." },
+    { icon: BarChart, title: "Trend-Aware Suggestions", description: "Stay ahead of the curve with tags and hashtags informed by real-time trend analysis." },
+    { icon: Target, title: "Creator-Centric Design", description: "A simple, fast, and privacy-focused tool built to streamline your content workflow." },
 ];
 
 const WhyChooseUs = () => {
   return (
-    <section id="why-choose" className="bg-white p-6 rounded-xl shadow-md">
+    <motion.section 
+      id="why-choose" 
+      className="bg-white p-6 rounded-xl shadow-md"
+      initial={{ opacity: 0, y: 50 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, amount: 0.3 }}
+      transition={{ duration: 0.5 }}
+    >
       <div className="text-center mb-8">
         <h2 className="text-4xl font-extrabold text-tt-dark-violet mb-2">Why Choose TurboTags?</h2>
         <p className="text-lg text-gray-600 max-w-3xl mx-auto">
-          Powerful features designed for content creators seeking global reach.
+          Powerful features designed for content creators seeking global reach and maximum impact.
         </p>
       </div>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -23,7 +31,7 @@ const WhyChooseUs = () => {
           <FeatureCard key={index} icon={feature.icon} title={feature.title} description={feature.description} />
         ))}
       </div>
-    </section>
+    </motion.section>
   );
 };
 

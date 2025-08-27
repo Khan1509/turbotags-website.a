@@ -18,28 +18,32 @@ const itemVariants = {
 
 const TrendingTopics = () => {
   return (
-    <section id="trending-topics" className="bg-white p-6 rounded-xl shadow-md">
+    <motion.section 
+      id="trending-topics" 
+      className="bg-white p-6 rounded-xl shadow-md"
+      initial="hidden"
+      whileInView="visible"
+      viewport={{ once: true, amount: 0.2 }}
+      variants={containerVariants}
+    >
       <div className="text-center mb-8">
-        <h2 className="text-4xl font-extrabold text-tt-dark-violet mb-2">Trending Topic Ideas</h2>
-        <p className="text-lg text-gray-600 max-w-3xl mx-auto">
-          Stuck on what to create next? Here's what's currently trending across major platforms.
-        </p>
-        <p className="text-sm text-gray-500 mt-2 flex items-center justify-center">
+        <motion.h2 variants={itemVariants} className="text-4xl font-extrabold text-tt-dark-violet mb-2">Trending Topic Ideas</motion.h2>
+        <motion.p variants={itemVariants} className="text-lg text-gray-600 max-w-3xl mx-auto">
+          Stuck on what to create next? Here's what's currently hot across major platforms.
+        </motion.p>
+        <motion.p variants={itemVariants} className="text-sm text-gray-500 mt-2 flex items-center justify-center">
           <RefreshCw className="h-4 w-4 mr-2 animate-spin" style={{ animationDuration: '3s' }} />
           <span>Content ideas updated every 24 hours.</span>
-        </p>
+        </motion.p>
       </div>
       <motion.div 
-        className="grid grid-cols-1 md:grid-cols-3 gap-6"
+        className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6"
         variants={containerVariants}
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true }}
       >
         {trendingTopicsData.map((platformData) => (
           <motion.div 
             key={platformData.platform} 
-            className="bg-gray-50 border border-gray-200 rounded-lg p-6"
+            className="bg-gray-50 border border-gray-200 rounded-lg p-6 h-full flex flex-col"
             variants={itemVariants}
             whileHover={{ y: -5, boxShadow: "0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1)" }}
             transition={{ type: "spring", stiffness: 300 }}
@@ -48,7 +52,7 @@ const TrendingTopics = () => {
               <platformData.icon className={`h-8 w-8 mr-3 ${platformData.color}`} />
               <h3 className="text-2xl font-bold text-gray-800">{platformData.platform}</h3>
             </div>
-            <ul className="space-y-4">
+            <ul className="space-y-4 flex-grow">
               {platformData.topics.map((topic, index) => (
                 <li key={index} className="flex items-start">
                   <Lightbulb className="h-5 w-5 text-yellow-500 mr-3 mt-1 flex-shrink-0" />
@@ -62,7 +66,7 @@ const TrendingTopics = () => {
           </motion.div>
         ))}
       </motion.div>
-    </section>
+    </motion.section>
   );
 };
 

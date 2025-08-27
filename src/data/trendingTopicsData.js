@@ -1,5 +1,5 @@
 import React from 'react';
-import { Youtube, Instagram, Clapperboard } from 'lucide-react';
+import { Youtube, Instagram, Clapperboard, Globe } from 'lucide-react';
 import TikTokIcon from '../components/icons/TikTokIcon';
 
 export const trendingTopicsData = [
@@ -31,6 +31,16 @@ export const trendingTopicsData = [
       { title: 'Niche History Facts', description: 'Quick, surprising facts about obscure historical events.' },
       { title: '"CoreCore" Aesthetic Edits', description: 'Artistic, abstract video collages with a specific mood.' },
       { title: 'Hyper-Local "Hidden Gems"', description: 'Showcasing unique spots in your city or neighborhood.' },
+    ]
+  },
+  {
+    platform: 'Global Film & TV',
+    icon: Globe,
+    color: 'text-blue-500',
+    topics: [
+      { title: 'New Streaming Series Theories', description: 'Breakdowns and predictions for popular new shows.' },
+      { title: 'Comparing Book vs. Adaptation', description: 'Analyzing the differences between novels and their screen versions.' },
+      { title: 'Hidden Meanings in Movie Endings', description: 'Explainer videos on complex or ambiguous film conclusions.' },
     ]
   },
 ];

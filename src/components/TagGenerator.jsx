@@ -44,7 +44,26 @@ const REGIONS = [
   { value: 'germany', label: 'Germany', flag: '🇩🇪' },
   { value: 'france', label: 'France', flag: '🇫🇷' },
   { value: 'brazil', label: 'Brazil', flag: '🇧🇷' },
-  { value: 'japan', label: 'Japan', flag: '🇯🇵' }
+  { value: 'japan', label: 'Japan', flag: '🇯🇵' },
+  { value: 'mexico', label: 'Mexico', flag: '🇲🇽' },
+  { value: 'spain', label: 'Spain', flag: '🇪🇸' },
+  { value: 'italy', label: 'Italy', flag: '🇮🇹' },
+  { value: 'south_korea', label: 'South Korea', flag: '🇰🇷' },
+  { value: 'indonesia', label: 'Indonesia', flag: '🇮🇩' },
+  { value: 'nigeria', label: 'Nigeria', flag: '🇳🇬' },
+  { value: 'south_africa', label: 'South Africa', flag: '🇿🇦' },
+  { value: 'uae', label: 'UAE', flag: '🇦🇪' },
+  { value: 'saudi_arabia', label: 'Saudi Arabia', flag: '🇸🇦' },
+  { value: 'turkey', label: 'Turkey', flag: '🇹🇷' },
+  { value: 'russia', label: 'Russia', flag: '🇷🇺' },
+  { value: 'netherlands', label: 'Netherlands', flag: '🇳🇱' },
+  { value: 'poland', label: 'Poland', flag: '🇵🇱' },
+  { value: 'argentina', label: 'Argentina', flag: '🇦🇷' },
+  { value: 'colombia', label: 'Colombia', flag: '🇨🇴' },
+  { value: 'philippines', label: 'Philippines', flag: '🇵🇭' },
+  { value: 'egypt', label: 'Egypt', flag: '🇪🇬' },
+  { value: 'thailand', label: 'Thailand', flag: '🇹🇭' },
+  { value: 'vietnam', label: 'Vietnam', flag: '🇻🇳' },
 ];
 
 const LANGUAGES = [
@@ -131,7 +150,7 @@ const TagItem = React.memo(({ item, onCopy, onFeedback }) => {
   const handleFeedback = (feedbackType) => {
     const newFeedback = item.feedback === feedbackType ? 'none' : feedbackType;
     onFeedback(item.text, newFeedback);
-  }
+  };
 
   const trendPercentage = item.trend_percentage || Math.floor(Math.random() * 41) + 60;
   const getTrendColor = (percentage) => {
@@ -242,7 +261,6 @@ const TagGenerator = () => {
         language: state.language
       });
 
-      // **ENHANCED LOGIC**: Process the structured JSON from the API
       const tagsWithFeedback = result.tags.map(item => ({ ...item, feedback: 'none' }));
       const hashtagsWithFeedback = result.hashtags.map(item => ({ ...item, feedback: 'none' }));
 
