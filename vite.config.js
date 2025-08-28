@@ -104,8 +104,6 @@ export default defineConfig(({ mode }) => {
             'animations': ['framer-motion'],
             // Icons library
             'icons': ['lucide-react'],
-            // Firebase (if used heavily)
-            'firebase': ['firebase'],
             // Utilities and API
             'utils': ['src/services/apiService.js', 'src/data/blogPosts.js', 'src/data/shareServices.js', 'src/data/trendingTopicsData.js']
           }
@@ -124,7 +122,6 @@ export default defineConfig(({ mode }) => {
         'framer-motion',
         'lucide-react'
       ],
-      exclude: ['firebase'],
       esbuildOptions: {
         target: 'es2020'
       }
