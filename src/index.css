@@ -37,15 +37,15 @@
 }
 
 /* Enhanced, more performant floating animation */
-@keyframes drift {
+@keyframes gentle-drift {
   0% {
-    transform: translate(0, 0);
+    transform: translate(0, 0) rotate(0deg);
   }
   50% {
-    transform: translate(var(--x-end), var(--y-end));
+    transform: translate(var(--tw-translate-x, 20px), var(--tw-translate-y, -10px)) rotate(10deg);
   }
   100% {
-    transform: translate(0, 0);
+    transform: translate(0, 0) rotate(0deg);
   }
 }
 

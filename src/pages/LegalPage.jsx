@@ -1,12 +1,12 @@
 import React from 'react';
-import AboutSection from '../components/sections/AboutSection';
+import LegalSection from '../components/sections/LegalSection';
 import usePageMeta from '../hooks/usePageMeta';
 import { motion } from 'framer-motion';
 
-const AboutPage = () => {
+const LegalPage = () => {
   usePageMeta(
-    'About TurboTags - Our Mission & Vision for Creators',
-    'Learn about the mission behind TurboTags, our commitment to privacy, and how we are building the best free AI-powered tools for content creators worldwide.'
+    'Legal Information - TurboTags',
+    'Read the Terms of Service, Privacy Policy, Cookie Policy, and Legal Disclaimer for TurboTags.app.'
   );
 
   return (
@@ -17,9 +17,9 @@ const AboutPage = () => {
       transition={{ duration: 0.5 }}
       className="container mx-auto max-w-7xl space-y-8 px-4 py-8 sm:space-y-12 sm:px-6 md:px-8"
     >
-      <AboutSection />
+      <LegalSection />
     </motion.div>
   );
 };
 
-export default AboutPage;
+export default LegalPage;

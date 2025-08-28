@@ -9,10 +9,9 @@ const BASE_URL = 'https://turbotags.app';
 
 const routes = [
   { url: '/', priority: '1.0', changefreq: 'daily' },
-  { url: '/#about', priority: '0.7', changefreq: 'monthly' },
-  { url: '/#features', priority: '0.8', changefreq: 'weekly' },
-  { url: '/#faq', priority: '0.7', changefreq: 'monthly' },
-  { url: '/#legal', priority: '0.3', changefreq: 'yearly' },
+  { url: '/about', priority: '0.7', changefreq: 'monthly' },
+  { url: '/features', priority: '0.8', changefreq: 'weekly' },
+  { url: '/legal', priority: '0.3', changefreq: 'yearly' },
 ];
 
 const generateSitemap = () => {

@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { Mail, Heart, Twitter, Linkedin } from 'lucide-react';
 
 const Footer = () => {
@@ -23,21 +24,21 @@ const Footer = () => {
         <div>
           <h4 className="font-semibold text-gray-800 mb-4">Quick Links</h4>
           <ul className="space-y-2 text-xs" role="list">
-            <li><a href="#home" className="text-gray-600 hover:text-tt-dark-violet transition focus:outline-none focus:ring-2 focus:ring-tt-dark-violet rounded-md px-1 py-1" aria-label="Go to top of page">Home</a></li>
-            <li><a href="#about" className="text-gray-600 hover:text-tt-dark-violet transition focus:outline-none focus:ring-2 focus:ring-tt-dark-violet rounded-md px-1 py-1" aria-label="Learn about TurboTags company">About Us</a></li>
-            <li><a href="#features" className="text-gray-600 hover:text-tt-dark-violet transition focus:outline-none focus:ring-2 focus:ring-tt-dark-violet rounded-md px-1 py-1" aria-label="Explore TurboTags features and benefits">Features</a></li>
-            <li><a href="#faq" className="text-gray-600 hover:text-tt-dark-violet transition focus:outline-none focus:ring-2 focus:ring-tt-dark-violet rounded-md px-1 py-1" aria-label="Read Frequently Asked Questions">FAQ</a></li>
-            <li><a href="#tag-generator" className="text-gray-600 hover:text-tt-dark-violet transition focus:outline-none focus:ring-2 focus:ring-tt-dark-violet rounded-md px-1 py-1" aria-label="Use TurboTags AI generator tool">AI Tag Generator</a></li>
+            <li><Link to="/" className="text-gray-600 hover:text-tt-dark-violet transition focus:outline-none focus:ring-2 focus:ring-tt-dark-violet rounded-md px-1 py-1" aria-label="Go to homepage">Home</Link></li>
+            <li><Link to="/about" className="text-gray-600 hover:text-tt-dark-violet transition focus:outline-none focus:ring-2 focus:ring-tt-dark-violet rounded-md px-1 py-1" aria-label="Learn about TurboTags company">About Us</Link></li>
+            <li><Link to="/features" className="text-gray-600 hover:text-tt-dark-violet transition focus:outline-none focus:ring-2 focus:ring-tt-dark-violet rounded-md px-1 py-1" aria-label="Explore TurboTags features and benefits">Features</Link></li>
+            <li><Link to="/#faq" className="text-gray-600 hover:text-tt-dark-violet transition focus:outline-none focus:ring-2 focus:ring-tt-dark-violet rounded-md px-1 py-1" aria-label="Read Frequently Asked Questions">FAQ</Link></li>
+            <li><Link to="/#tag-generator" className="text-gray-600 hover:text-tt-dark-violet transition focus:outline-none focus:ring-2 focus:ring-tt-dark-violet rounded-md px-1 py-1" aria-label="Use TurboTags AI generator tool">AI Tag Generator</Link></li>
           </ul>
         </div>
 
         <div>
           <h4 className="font-semibold text-gray-800 mb-4">Legal</h4>
           <ul className="space-y-2 text-xs" role="list">
-            <li><a href="#legal" className="text-gray-600 hover:text-tt-dark-violet transition focus:outline-none focus:ring-2 focus:ring-tt-dark-violet rounded-md px-1 py-1" aria-label="Read TurboTags privacy policy">Privacy Policy</a></li>
-            <li><a href="#legal" className="text-gray-600 hover:text-tt-dark-violet transition focus:outline-none focus:ring-2 focus:ring-tt-dark-violet rounded-md px-1 py-1" aria-label="Read TurboTags terms of service">Terms of Service</a></li>
-            <li><a href="#legal" className="text-gray-600 hover:text-tt-dark-violet transition focus:outline-none focus:ring-2 focus:ring-tt-dark-violet rounded-md px-1 py-1" aria-label="Read TurboTags legal disclaimer">Legal Disclaimer</a></li>
-            <li><a href="#legal" className="text-gray-600 hover:text-tt-dark-violet transition focus:outline-none focus:ring-2 focus:ring-tt-dark-violet rounded-md px-1 py-1" aria-label="Read TurboTags cookie policy">Cookie Policy</a></li>
+            <li><Link to="/legal#privacy" className="text-gray-600 hover:text-tt-dark-violet transition focus:outline-none focus:ring-2 focus:ring-tt-dark-violet rounded-md px-1 py-1" aria-label="Read TurboTags privacy policy">Privacy Policy</Link></li>
+            <li><Link to="/legal#terms" className="text-gray-600 hover:text-tt-dark-violet transition focus:outline-none focus:ring-2 focus:ring-tt-dark-violet rounded-md px-1 py-1" aria-label="Read TurboTags terms of service">Terms of Service</Link></li>
+            <li><Link to="/legal#disclaimer" className="text-gray-600 hover:text-tt-dark-violet transition focus:outline-none focus:ring-2 focus:ring-tt-dark-violet rounded-md px-1 py-1" aria-label="Read TurboTags legal disclaimer">Legal Disclaimer</Link></li>
+            <li><Link to="/legal#cookies" className="text-gray-600 hover:text-tt-dark-violet transition focus:outline-none focus:ring-2 focus:ring-tt-dark-violet rounded-md px-1 py-1" aria-label="Read TurboTags cookie policy">Cookie Policy</Link></li>
           </ul>
         </div>
 
@@ -61,7 +62,7 @@ const Footer = () => {
         <p className="text-xs text-gray-500">
           Powered by AI
           <span className="mx-2">•</span>
-          <a href="#legal" className="hover:text-tt-dark-violet transition focus:outline-none focus:ring-2 focus:ring-tt-dark-violet rounded-md px-1 py-1" aria-label="Read our legal disclaimer">Legal Disclaimer</a>
+          <Link to="/legal#disclaimer" className="hover:text-tt-dark-violet transition focus:outline-none focus:ring-2 focus:ring-tt-dark-violet rounded-md px-1 py-1" aria-label="Read our legal disclaimer">Legal Disclaimer</Link>
         </p>
       </div>
     </footer>
