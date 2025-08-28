@@ -74,21 +74,47 @@ export default defineConfig(({ mode }) => {
       terserOptions: {
         compress: {
           drop_console: true,
+          drop_debugger: true,
+          pure_funcs: ['console.log', 'console.info'],
+          passes: 2
         },
+        mangle: {
+          safari10: true
+        },
+        format: {
+          comments: false
+        }
       },
       sourcemap: false,
       cssCodeSplit: true,
-      chunkSizeWarningLimit: 500,
+      chunkSizeWarningLimit: 1000,
       rollupOptions: {
         output: {
-          chunkFileNames: 'assets/js/[name]-[hash].js',
+          chunkFileNames: (chunkInfo) => {
+            const facadeModuleId = chunkInfo.facadeModuleId ? chunkInfo.facadeModuleId.split('/').pop().replace('.jsx', '').replace('.js', '') : 'chunk';
+            return `assets/js/${facadeModuleId}-[hash].js`;
+          },
           entryFileNames: 'assets/js/[name]-[hash].js',
-          assetFileNames: 'assets/[ext]/[name]-[hash].[ext]'
+          assetFileNames: 'assets/[ext]/[name]-[hash].[ext]',
+          manualChunks: {
+            // Core React libraries
+            'react-vendor': ['react', 'react-dom'],
+            'router': ['react-router-dom'],
+            // Animation library
+            'animations': ['framer-motion'],
+            // Icons library
+            'icons': ['lucide-react'],
+            // Firebase (if used heavily)
+            'firebase': ['firebase'],
+            // Utilities and API
+            'utils': ['src/services/apiService.js', 'src/data/blogPosts.js', 'src/data/shareServices.js', 'src/data/trendingTopicsData.js']
+          }
         },
         external: []
       },
       cssMinify: 'esbuild',
-      reportCompressedSize: false
+      reportCompressedSize: false,
+      assetsInlineLimit: 2048 // Inline small assets
     },
     optimizeDeps: {
       include: [
@@ -98,7 +124,10 @@ export default defineConfig(({ mode }) => {
         'framer-motion',
         'lucide-react'
       ],
-      exclude: ['firebase']
+      exclude: ['firebase'],
+      esbuildOptions: {
+        target: 'es2020'
+      }
     },
     server: {
       cors: true,
