@@ -5,6 +5,28 @@ import usePageMeta from '../hooks/usePageMeta';
 import { motion } from 'framer-motion';
 import { Calendar, Tag, User, ArrowLeft } from 'lucide-react';
 
+// This component now renders the structured data from blogPosts.js
+const ContentRenderer = ({ content }) => {
+  return content.map((block, index) => {
+    switch (block.type) {
+      case 'p':
+        return <p key={index}>{block.children}</p>;
+      case 'h3':
+        return <h3 key={index} className="text-3xl font-bold mt-8 mb-4">{block.children}</h3>;
+      case 'ul':
+        return (
+          <ul key={index} className="list-disc list-inside space-y-2 pl-4">
+            {block.items.map((item, i) => <li key={i}>{item}</li>)}
+          </ul>
+        );
+      case 'example':
+        return <p key={index} className="p-4 bg-gray-100 rounded-lg text-sm font-mono my-4 break-words">{block.children}</p>;
+      default:
+        return null;
+    }
+  });
+};
+
 const BlogPostPage = () => {
   const { slug } = useParams();
   const post = blogPosts.find(p => p.slug === slug);
@@ -49,8 +71,8 @@ const BlogPostPage = () => {
 
           <img src={post.image} alt={post.title} className="w-full h-auto rounded-xl shadow-lg mb-8" />
 
-          <div className="prose prose-lg max-w-none text-gray-800 leading-relaxed">
-            {post.content}
+          <div className="prose prose-lg max-w-none text-gray-800 leading-relaxed space-y-6">
+            <ContentRenderer content={post.content} />
           </div>
         </article>
       </div>
