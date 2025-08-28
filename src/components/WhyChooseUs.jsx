@@ -2,7 +2,6 @@ import React from 'react';
 import FeatureCard from './ui/FeatureCard';
 import { Bot, Globe, BarChart, Target, ArrowRight } from 'lucide-react';
 import { motion } from 'framer-motion';
-import { Link } from 'react-router-dom';
 
 const features = [
     { icon: Bot, title: "Advanced AI Engine", description: "Our AI understands content nuances to generate highly relevant tags that drive engagement." },
@@ -33,9 +32,9 @@ const WhyChooseUs = () => {
         ))}
       </div>
       <div className="mt-8 text-center">
-        <Link to="/features" className="btn-primary">
+        <a href="#features" className="btn-primary">
           Explore All Features <ArrowRight className="ml-2 h-5 w-5" />
-        </Link>
+        </a>
       </div>
     </motion.section>
   );

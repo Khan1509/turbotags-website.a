@@ -35,6 +35,27 @@ export const generateContent = async (prompt, options = {}) => {
     throw new Error(errorBody.message || 'Network response was not ok.');
   }
 
-  // **SIMPLIFIED LOGIC**: The API now always returns a structured JSON object.
+  return await response.json();
+};
+
+/**
+ * Fetches the latest trending topics from the backend API.
+ * @returns {Promise<object>} The trending topics data.
+ * @throws {Error} If the network response is not ok.
+ */
+export const getTrendingTopics = async () => {
+  const response = await fetch('/api/trending', {
+    method: 'GET',
+    headers: {
+      'Accept': 'application/json'
+    }
+  });
+
+  if (!response.ok) {
+    const errorBody = await response.json().catch(() => ({ error: 'Failed to parse error response' }));
+    console.error('Trending Topics API Error:', errorBody);
+    throw new Error(errorBody.message || 'Failed to fetch trending topics.');
+  }
+
   return await response.json();
 };

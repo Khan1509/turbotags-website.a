@@ -6,6 +6,10 @@
       "use": "@vercel/node"
     },
     {
+      "src": "api/trending.js",
+      "use": "@vercel/node"
+    },
+    {
       "src": "package.json",
       "use": "@vercel/static-build",
       "config": {
@@ -17,6 +21,10 @@
     {
       "src": "/api/generate",
       "dest": "/api/generate.js"
+    },
+    {
+      "src": "/api/trending",
+      "dest": "/api/trending.js"
     },
     {
       "handle": "filesystem"

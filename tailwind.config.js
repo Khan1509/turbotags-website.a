@@ -19,6 +19,8 @@ export default {
         'button-glow': 'button-glow 0.7s ease-in-out infinite alternate',
         'text-glow': 'text-glow 1.5s ease-in-out infinite alternate',
         'rocket-float': 'rocket-float 2s ease-in-out infinite',
+        'shimmer': 'shimmer 2s infinite',
+        'gentle-float': 'gentle-float ease-in-out infinite alternate',
       },
       keyframes: {
         'button-glow': {
@@ -32,6 +34,14 @@ export default {
         'rocket-float': {
           '0%, 100%': { transform: 'translateY(0)' },
           '50%': { transform: 'translateY(-10px)' },
+        },
+        'shimmer': {
+          '100%': { transform: 'translateX(100%)' },
+        },
+        'gentle-float': {
+          '0%': { transform: 'translate(0, 0) scale(1)' },
+          '50%': { transform: 'translate(10px, -15px) scale(1.05)' },
+          '100%': { transform: 'translate(0, 0) scale(1)' },
         },
       }
     },

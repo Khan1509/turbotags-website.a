@@ -419,7 +419,7 @@ const TagGenerator = () => {
 
       <AnimatePresence>
         {(state.tags.length > 0 || state.hashtags.length > 0) && (
-          <motion.div initial={{ opacity: 0, height: 0 }} animate={{ opacity: 1, height: 'auto' }} exit={{ opacity: 0, height: 0 }} className="mt-6 bg-gray-50 p-4 sm:p-6 rounded-xl shadow-inner">
+          <motion.div layout initial={{ opacity: 0, height: 0 }} animate={{ opacity: 1, height: 'auto' }} exit={{ opacity: 0, height: 0 }} className="mt-6 bg-gray-50 p-4 sm:p-6 rounded-xl shadow-inner">
             {activeTab === 'youtube' ? (
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 {state.tags.length > 0 && (

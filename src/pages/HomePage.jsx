@@ -7,11 +7,16 @@ import LoadingSpinner from '../components/ui/LoadingSpinner';
 import RatingWidget from '../components/ui/RatingWidget';
 import LazySection from '../components/utils/LazySection';
 import { motion } from 'framer-motion';
+import Share from '../components/Share';
+import TrendingTopics from '../components/TrendingTopics';
+
+// Import new section components
+import AboutSection from '../components/sections/AboutSection';
+import FeaturesSection from '../components/sections/FeaturesSection';
+import LegalSection from '../components/sections/LegalSection';
 
 const WhyChooseUs = lazy(() => import('../components/WhyChooseUs'));
-const TrendingTopics = lazy(() => import('../components/TrendingTopics'));
 const Faq = lazy(() => import('../components/Faq'));
-const Demo = lazy(() => import('../components/Demo'));
 
 const FloatingBalls = React.memo(() => {
   const [isMobile, setIsMobile] = React.useState(false);
@@ -25,23 +30,29 @@ const FloatingBalls = React.memo(() => {
 
   if (isMobile) return null;
 
+  const ballColors = [
+    'bg-tt-medium-violet/10',
+    'bg-tt-light-violet/10',
+    'bg-tt-dark-violet/5',
+  ];
+
   return (
-    <ul className="floating-balls absolute top-0 left-0 -z-10 h-full w-full overflow-hidden pointer-events-none">
-      {Array.from({ length: 5 }).map((_, i) => (
-        <li
+    <div className="absolute top-0 left-0 w-full h-screen -z-10 overflow-hidden pointer-events-none" aria-hidden="true">
+      {Array.from({ length: 15 }).map((_, i) => (
+        <div
           key={i}
-          className="absolute block list-none rounded-full bg-tt-medium-violet/20 will-change-transform"
+          className={`absolute block list-none rounded-full will-change-transform ${ballColors[i % ballColors.length]}`}
           style={{
             left: `${Math.random() * 100}%`,
-            width: `${Math.random() * 80 + 40}px`,
-            height: `${Math.random() * 80 + 40}px`,
-            animation: `fall ${Math.random() * 25 + 20}s linear infinite`,
-            animationDelay: `${Math.random() * 10}s`,
-            top: '-150px',
+            top: `${Math.random() * 50 - 25}%`,
+            width: `${Math.random() * 150 + 50}px`,
+            height: `${Math.random() * 150 + 50}px`,
+            animation: `gentle-float ${Math.random() * 20 + 15}s ease-in-out infinite alternate`,
+            animationDelay: `${Math.random() * 15}s`,
           }}
         />
       ))}
-    </ul>
+    </div>
   );
 });
 
@@ -56,6 +67,7 @@ function HomePage() {
         <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5, delay: 0.1 }}>
           <Stats />
         </motion.div>
+        <Share />
         <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5, delay: 0.2 }}>
           <Platforms />
         </motion.div>
@@ -63,18 +75,23 @@ function HomePage() {
           <TagGenerator />
         </motion.div>
         
+        <TrendingTopics />
+        
         <Suspense fallback={<LoadingSpinner />}>
-          <LazySection>
-            <TrendingTopics />
-          </LazySection>
-          <LazySection>
+          <LazySection minHeight="420px">
             <WhyChooseUs />
           </LazySection>
           <LazySection>
-            <Demo />
+            <AboutSection />
           </LazySection>
           <LazySection>
+            <FeaturesSection />
+          </LazySection>
+          <LazySection minHeight="480px">
             <Faq />
+          </LazySection>
+          <LazySection>
+            <LegalSection />
           </LazySection>
         </Suspense>
 
