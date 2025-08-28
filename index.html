@@ -89,6 +89,10 @@
     }
     </script>
 
+    <!-- Google AdSense -->
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7231854986385753"
+         crossorigin="anonymous"></script>
+
     <!-- Performance optimized analytics -->
     <script>
       window.dataLayer = window.dataLayer || [];
@@ -105,13 +109,6 @@
         ga.async = true;
         ga.src = 'https://www.googletagmanager.com/gtag/js?id=G-YXQPT1LPT8';
         document.head.appendChild(ga);
-
-        // Load AdSense
-        var ads = document.createElement('script');
-        ads.async = true;
-        ads.src = 'https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7231854986385753';
-        ads.crossOrigin = 'anonymous';
-        document.head.appendChild(ads);
 
         // Send page view after everything loads
         gtag('event', 'page_view');
