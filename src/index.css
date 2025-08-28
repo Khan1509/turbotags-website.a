@@ -11,6 +11,24 @@
     @apply bg-gray-50 font-sans text-gray-800 antialiased;
     overflow-x: hidden;
     line-height: 1.6;
+    /* Performance optimizations */
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+  }
+
+  /* Optimize scrolling performance */
+  * {
+    scroll-behavior: smooth;
+  }
+
+  /* Prevent layout shift during animations */
+  .will-change-transform {
+    will-change: transform;
+  }
+
+  .will-change-auto {
+    will-change: auto;
   }
 }
 
@@ -102,6 +120,21 @@
   }
 }
 
+/* Optimized loading animation */
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+}
+
+/* Smooth skeleton loading */
+.animate-pulse {
+  animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
 
 @media (max-width: 768px) {
   .floating-balls {
@@ -144,5 +177,26 @@
 
   .floating-balls {
     display: none !important;
+  }
+
+  /* Disable expensive transforms for reduced motion */
+  .will-change-transform {
+    will-change: auto !important;
+  }
+}
+
+/* Performance optimizations for high-DPI displays */
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+  img {
+    image-rendering: -webkit-optimize-contrast;
+    image-rendering: crisp-edges;
+  }
+}
+
+/* Preload critical fonts */
+@supports (font-display: swap) {
+  @font-face {
+    font-family: 'Inter';
+    font-display: swap;
   }
 }
