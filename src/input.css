@@ -1,9 +1,0 @@
-/* This file is being deprecated - styles moved to index.css for better performance */
-/* Keeping minimal content to avoid build errors until all imports are updated */
-
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
-
-/* Redirect notice - this file should not be used anymore */
-/* All styles have been consolidated into index.css for better performance */
