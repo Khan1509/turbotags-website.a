@@ -76,38 +76,44 @@ export default async function handler(req, res) {
     let generatedText = null;
     let lastError = null;
 
-    for (const model of modelsToTry) {
-      try {
-        const response = await fetch("https://openrouter.ai/api/v1/chat/completions", {
-          method: 'POST',
-          headers: { 'Authorization': `Bearer ${process.env.OPENROUTER_API_KEY}`, 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            model: model,
-            messages: [{ role: "system", content: systemPrompt }],
-            temperature: 0.7,
-            max_tokens: 2048,
-            response_format: { type: "json_object" } // **CRITICAL**: Force JSON output
-          })
-        });
+    // **FIX**: Check for valid API key before attempting to fetch
+    if (!process.env.OPENROUTER_API_KEY || process.env.OPENROUTER_API_KEY === 'YOUR_API_KEY' || process.env.OPENROUTER_API_KEY === 'API_KEY_ADDED') {
+      console.warn('[AI Generate] OPENROUTER_API_KEY is missing or a placeholder. Skipping AI fetch and using fallback.');
+      lastError = new Error('API key not configured in .env file.');
+    } else {
+      for (const model of modelsToTry) {
+        try {
+          const response = await fetch("https://openrouter.ai/api/v1/chat/completions", {
+            method: 'POST',
+            headers: { 'Authorization': `Bearer ${process.env.OPENROUTER_API_KEY}`, 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              model: model,
+              messages: [{ role: "system", content: systemPrompt }],
+              temperature: 0.7,
+              max_tokens: 2048,
+              response_format: { type: "json_object" } // **CRITICAL**: Force JSON output
+            })
+          });
 
-        if (!response.ok) {
-          const errorData = await response.text();
-          throw new Error(`API error with ${model}: ${response.status} - ${errorData}`);
+          if (!response.ok) {
+            const errorData = await response.text();
+            throw new Error(`API error with ${model}: ${response.status} - ${errorData}`);
+          }
+
+          const data = await response.json();
+          const content = data.choices?.[0]?.message?.content;
+
+          if (content && content.trim()) {
+            generatedText = content.trim();
+            console.log(`[AI Success] Model ${model} generated content.`);
+            break;
+          } else {
+            throw new Error(`API response from ${model} was empty.`);
+          }
+        } catch (error) {
+          console.error(`Error with model ${model}:`, error.message);
+          lastError = error;
         }
-
-        const data = await response.json();
-        const content = data.choices?.[0]?.message?.content;
-
-        if (content && content.trim()) {
-          generatedText = content.trim();
-          console.log(`[AI Success] Model ${model} generated content.`);
-          break;
-        } else {
-          throw new Error(`API response from ${model} was empty.`);
-        }
-      } catch (error) {
-        console.error(`Error with model ${model}:`, error.message);
-        lastError = error;
       }
     }
 
@@ -131,7 +137,7 @@ export default async function handler(req, res) {
     }
     
     // **IMPROVED FALLBACK LOGIC**
-    console.warn("All models failed or parsing failed. Using local JSON fallback.", lastError?.message);
+    console.warn("AI generation did not succeed. Using local JSON fallback.", lastError?.message);
     const fallbackPath = path.join(__dirname, 'fallback.json');
     const fallbackContent = fs.readFileSync(fallbackPath, 'utf-8');
     const fallbackData = JSON.parse(fallbackContent);
@@ -158,7 +164,7 @@ export default async function handler(req, res) {
       tags: fallbackTags,
       hashtags: fallbackHashtags,
       fallback: true,
-      message: `Using ${language} sample content due to high demand. Please try again.`
+      message: `Using sample content. To enable live AI generation, please add your OpenRouter API key to the .env file.`
     });
 
   } catch (error) {

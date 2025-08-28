@@ -51,6 +51,12 @@ const fallbackTopics = {
 };
 
 async function getFreshTopics() {
+  // **FIX**: Check for valid API key before attempting to fetch
+  if (!process.env.OPENROUTER_API_KEY || process.env.OPENROUTER_API_KEY === 'YOUR_API_KEY' || process.env.OPENROUTER_API_KEY === 'API_KEY_ADDED') {
+    console.warn('[API/Trending] OPENROUTER_API_KEY is missing or a placeholder. Using fallback topics.');
+    return fallbackTopics;
+  }
+
   console.log('[API/Trending] Fetching fresh topics from AI...');
   const systemPrompt = `You are an expert on social media trends. Generate a list of current, globally trending content ideas for YouTube, Instagram, and TikTok. Also include a "Global Film & TV" category.
 - **Task**: Create a JSON object containing a single key "topics".

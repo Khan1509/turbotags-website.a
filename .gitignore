@@ -1,50 +1,36 @@
-# Dependency directories
-node_modules/
+# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
 
-# Build output (if you build Tailwind or bundle assets)
-dist/
-build/
+# dependencies
+/node_modules
+/.pnp
+.pnp.js
 
-# Cache
-.cache/
-.vite/
+# testing
+/coverage
 
-# System & IDE files
+# production
+/build
+/dist
+
+# misc
 .DS_Store
-Thumbs.db
-.vscode/
+*.pem
 
-# Environment configuration
+# debug
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# local env files
 .env
-.env.local
-.env.*.local
+.env*.local
+.env.development.local
+.env.test.local
+.env.production.local
 
-# Logs
-*.log
+# vercel
+.vercel
 
-# Screenshots & static generated assets
-screenshots/
-desktop.png
-mobile.png
-placeholder.svg
-
-# Output artifacts
-*.min.css
-*.min.js
-
-# Backup or temporary files
-*.swp
-*.tmp
-*.bak
-
-# OS-generated files
-ehthumbs.db
-Icon?
-
-# Vercel/Netlify output (if built locally)
-.vercel/output/
-.netlify/
-
-# Tailwind CSS generated files
-/output.css       # Old location (root)
-src/output.css    # New location
+# cache files
+.vite/
+/tmp/
