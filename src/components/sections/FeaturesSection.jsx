@@ -1,6 +1,7 @@
 import React from 'react';
 import { Bot, Globe, BarChart, Video, ShieldCheck, Zap } from 'lucide-react';
 import { motion } from 'framer-motion';
+import { Link } from 'react-router-dom';
 
 const FeatureDetailCard = ({ icon: Icon, title, children }) => (
   <motion.div 
@@ -35,7 +36,7 @@ const FeaturesSection = () => {
         <div className="container mx-auto max-w-5xl space-y-12">
             <FeatureDetailCard icon={Bot} title="Advanced AI Engine">
                 <p>At the core of TurboTags is a sophisticated AI that thinks like a marketing strategist. We use a cascade of leading language models to analyze the nuances of your content topic.</p>
-                <p>This means our AI doesn't just find keywords; it understands context, intent, and platform-specific language to generate tags and hashtags that truly resonate with your target audience and the algorithms.</p>
+                <p>This means our AI doesn't just find keywords; it understands context, intent, and platform-specific language to generate tags and hashtags that truly resonate with your target audience and the algorithms. <Link to="/#tag-generator" className="text-tt-medium-violet font-semibold hover:underline">Try the AI generator now</Link>.</p>
             </FeatureDetailCard>
 
             <FeatureDetailCard icon={Globe} title="Global Reach Toolkit">
@@ -48,7 +49,7 @@ const FeaturesSection = () => {
 
             <FeatureDetailCard icon={BarChart} title="Trend-Aware Suggestions">
                 <p>Don't just guess what's popular. Our AI is prompted to consider current trends, providing a "Trend Percentage" for every tag and hashtag.</p>
-                <p>This data-driven insight allows you to prioritize keywords with the highest potential for engagement and virality, ensuring your content stays relevant and gets discovered.</p>
+                <p>This data-driven insight allows you to prioritize keywords with the highest potential for engagement and virality, ensuring your content stays relevant and gets discovered. For more on trends, <Link to="/blog" className="text-tt-medium-violet font-semibold hover:underline">read our blog</Link>.</p>
             </FeatureDetailCard>
 
             <FeatureDetailCard icon={Video} title="Content Format Optimization">
@@ -60,15 +61,15 @@ const FeaturesSection = () => {
                 <p>Your creative strategy is your most valuable asset. We protect it by building privacy into the core of our service.</p>
                 <ul className="list-disc list-inside pl-4 space-y-1">
                     <li><strong>No Sign-Up Required:</strong> Use the tool instantly without creating an account.</li>
-                    <li><strong>No Prompts Stored:</strong> Your content ideas are sent to the AI for processing and are never logged or saved on our servers.</li>
+                    <li><strong>No Prompts Stored:</strong> Your content ideas are sent to the AI for processing and are never logged or saved on our servers. Read our full <Link to="/legal#privacy" className="text-tt-medium-violet font-semibold hover:underline">Privacy Policy</Link>.</li>
                 </ul>
             </FeatureDetailCard>
 
             <div className="text-center pt-8">
                 <h2 className="text-3xl font-bold text-gray-800 mb-4">Ready to Elevate Your Content?</h2>
-                <a href="#tag-generator" className="btn-primary text-lg">
+                <Link to="/#tag-generator" className="btn-primary text-lg">
                     Try the Generator for Free <Zap className="ml-2 h-5 w-5" />
-                </a>
+                </Link>
             </div>
         </div>
     </section>

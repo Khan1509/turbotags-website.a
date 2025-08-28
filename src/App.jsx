@@ -8,6 +8,8 @@ const HomePage = lazy(() => import('./pages/HomePage'));
 const AboutPage = lazy(() => import('./pages/AboutPage'));
 const FeaturesPage = lazy(() => import('./pages/FeaturesPage'));
 const LegalPage = lazy(() => import('./pages/LegalPage'));
+const BlogIndexPage = lazy(() => import('./pages/BlogIndexPage'));
+const BlogPostPage = lazy(() => import('./pages/BlogPostPage'));
 const NotFoundPage = lazy(() => import('./pages/NotFoundPage'));
 
 function App() {
@@ -19,6 +21,8 @@ function App() {
           <Route path="/about" element={<AboutPage />} />
           <Route path="/features" element={<FeaturesPage />} />
           <Route path="/legal" element={<LegalPage />} />
+          <Route path="/blog" element={<BlogIndexPage />} />
+          <Route path="/blog/:slug" element={<BlogPostPage />} />
           <Route path="/generator" element={<Navigate to="/" replace />} />
           <Route path="*" element={<NotFoundPage />} />
         </Route>

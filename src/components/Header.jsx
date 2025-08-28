@@ -63,6 +63,7 @@ const Header = () => {
             <CustomNavLink to="/" ariaLabel="Go to homepage">Home</CustomNavLink>
             <CustomNavLink to="/about" ariaLabel="Go to About page">About</CustomNavLink>
             <CustomNavLink to="/features" ariaLabel="Go to Features page">Features</CustomNavLink>
+            <CustomNavLink to="/blog" ariaLabel="Go to Blog">Blog</CustomNavLink>
             <CustomNavLink to="/#faq" ariaLabel="Go to FAQ section">FAQ</CustomNavLink>
             <a href="https://ko-fi.com/turbotags1509" target="_blank" rel="noopener noreferrer" className="bg-tt-dark-violet text-white px-4 py-2 rounded-lg flex items-center hover:opacity-90 transition focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-tt-dark-violet" aria-label="Support TurboTags on Ko-fi - Opens in new tab">
               <Heart className="mr-2 h-4 w-4" aria-hidden="true" /> Support
@@ -90,6 +91,7 @@ const Header = () => {
             <MobileNavLink to="/" onClick={closeMenu} ariaLabel="Go to homepage">Home</MobileNavLink>
             <MobileNavLink to="/about" onClick={closeMenu} ariaLabel="Go to About page">About</MobileNavLink>
             <MobileNavLink to="/features" onClick={closeMenu} ariaLabel="Go to Features page">Features</MobileNavLink>
+            <MobileNavLink to="/blog" onClick={closeMenu} ariaLabel="Go to Blog">Blog</MobileNavLink>
             <MobileNavLink to="/#faq" onClick={closeMenu} ariaLabel="Go to FAQ section">FAQ</MobileNavLink>
             <MobileNavLink to="/legal" onClick={closeMenu} ariaLabel="Go to Legal page">Legal</MobileNavLink>
             <a href="https://ko-fi.com/turbotags1509" onClick={closeMenu} target="_blank" rel="noopener noreferrer" className="block w-full py-4 text-center text-xl transition hover:bg-white/10 focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-tt-dark-violet rounded-md" aria-label="Support TurboTags on Ko-fi - Opens in new tab">
