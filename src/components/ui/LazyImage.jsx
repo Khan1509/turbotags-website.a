@@ -1,59 +1,88 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef, useEffect, useCallback } from 'react';
 
-const LazyImage = ({ 
-  src, 
-  alt, 
-  className = '', 
-  placeholder = 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTAwIiBoZWlnaHQ9IjEwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSIjZjNmNGY2Ii8+PC9zdmc+',
-  ...props 
+// Optimized placeholder with better compression
+const DEFAULT_PLACEHOLDER = 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzIwIiBoZWlnaHQ9IjIwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZGVmcz48bGluZWFyR3JhZGllbnQgaWQ9ImciIHgxPSIwJSIgeTE9IjAlIiB4Mj0iMTAwJSIgeTI9IjEwMCUiPjxzdG9wIG9mZnNldD0iMCUiIHN0b3AtY29sb3I9IiNmM2Y0ZjYiLz48c3RvcCBvZmZzZXQ9IjEwMCUiIHN0b3AtY29sb3I9IiNlNWU3ZWIiLz48L2xpbmVhckdyYWRpZW50PjwvZGVmcz48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSJ1cmwoI2cpIi8+PC9zdmc+';
+
+const LazyImage = React.memo(({
+  src,
+  alt,
+  className = '',
+  placeholder = DEFAULT_PLACEHOLDER,
+  threshold = 0.1,
+  rootMargin = '100px',
+  sizes,
+  srcSet,
+  ...props
 }) => {
   const [imageSrc, setImageSrc] = useState(placeholder);
-  const [imageRef, setImageRef] = useState(null);
   const [isLoaded, setIsLoaded] = useState(false);
+  const [hasError, setHasError] = useState(false);
+  const imageRef = useRef(null);
+  const observerRef = useRef(null);
+
+  const handleLoad = useCallback(() => {
+    setIsLoaded(true);
+  }, []);
+
+  const handleError = useCallback(() => {
+    setHasError(true);
+    setIsLoaded(true); // Still set loaded to remove loading state
+  }, []);
 
   useEffect(() => {
-    let observer;
-    if (imageRef && 'IntersectionObserver' in window) {
-      observer = new IntersectionObserver(
-        entries => {
-          entries.forEach(entry => {
-            if (entry.isIntersecting) {
-              setImageSrc(src);
-              observer.unobserve(imageRef);
-            }
-          });
-        },
-        { threshold: 0.1, rootMargin: '50px' }
-      );
-      observer.observe(imageRef);
-    } else if (imageRef) {
+    const imageElement = imageRef.current;
+
+    if (!imageElement || !('IntersectionObserver' in window)) {
       // Fallback for browsers without IntersectionObserver
       setImageSrc(src);
+      return;
     }
 
-    return () => {
-      if (observer && observer.unobserve && imageRef) {
-        observer.unobserve(imageRef);
+    observerRef.current = new IntersectionObserver(
+      (entries) => {
+        const [entry] = entries;
+        if (entry.isIntersecting) {
+          setImageSrc(src);
+          observerRef.current?.disconnect();
+        }
+      },
+      {
+        threshold,
+        rootMargin
       }
-    };
-  }, [imageRef, src]);
+    );
 
-  const handleLoad = () => {
-    setIsLoaded(true);
-  };
+    observerRef.current.observe(imageElement);
+
+    return () => {
+      observerRef.current?.disconnect();
+    };
+  }, [src, threshold, rootMargin]);
+
+  // Reset states when src changes
+  useEffect(() => {
+    setIsLoaded(false);
+    setHasError(false);
+    setImageSrc(placeholder);
+  }, [src, placeholder]);
 
   return (
     <img
-      ref={setImageRef}
+      ref={imageRef}
       src={imageSrc}
       alt={alt}
-      className={`transition-opacity duration-300 ${isLoaded ? 'opacity-100' : 'opacity-50'} ${className}`}
+      sizes={sizes}
+      srcSet={srcSet}
+      className={`transition-opacity duration-300 will-change-auto ${
+        isLoaded ? 'opacity-100' : 'opacity-50'
+      } ${hasError ? 'bg-gray-200' : ''} ${className}`}
       onLoad={handleLoad}
+      onError={handleError}
       loading="lazy"
       decoding="async"
       {...props}
     />
   );
-};
+});
 
 export default LazyImage;
