@@ -5,6 +5,8 @@ export default {
     "./src/**/*.{js,ts,jsx,tsx}",
     "./public/**/*.html",
   ],
+  // Enable JIT mode for better performance
+  mode: 'jit',
   theme: {
     extend: {
       colors: {
@@ -21,6 +23,8 @@ export default {
         'rocket-float': 'rocket-float 2s ease-in-out infinite',
         'shimmer': 'shimmer 2s infinite',
         'gentle-float': 'gentle-float ease-in-out infinite alternate',
+        'fade-in': 'fade-in-up 0.6s ease-out forwards',
+        'slide-up': 'slide-up 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards',
       },
       keyframes: {
         'button-glow': {
@@ -42,6 +46,16 @@ export default {
           '0%': { transform: 'translate(0, 0) scale(1)' },
           '50%': { transform: 'translate(10px, -15px) scale(1.05)' },
           '100%': { transform: 'translate(0, 0) scale(1)' },
+        },
+        'slide-up': {
+          '0%': {
+            opacity: '0',
+            transform: 'translate3d(0, 20px, 0)'
+          },
+          '100%': {
+            opacity: '1',
+            transform: 'translate3d(0, 0, 0)'
+          },
         },
       }
     },

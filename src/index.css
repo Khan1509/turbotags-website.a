@@ -11,12 +11,35 @@
     @apply bg-gray-50 font-sans text-gray-800 antialiased;
     overflow-x: hidden;
     line-height: 1.6;
+    /* Performance optimizations */
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+  }
+
+  /* Optimize scrolling performance */
+  * {
+    scroll-behavior: smooth;
+  }
+
+  /* Prevent layout shift during animations */
+  .will-change-transform {
+    will-change: transform;
+  }
+
+  .will-change-auto {
+    will-change: auto;
   }
 }
 
 @layer components {
   .btn {
-    @apply inline-flex items-center justify-center rounded-lg px-6 py-3 font-semibold shadow-md transition-all duration-200 hover:-translate-y-0.5 hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-offset-2;
+    @apply inline-flex items-center justify-center rounded-lg px-6 py-3 font-semibold shadow-md transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2;
+    will-change: transform, box-shadow;
+  }
+
+  .btn:hover {
+    animation: button-lift 0.2s ease-out forwards, gentle-glow 0.2s ease-out forwards;
   }
 
   .btn-primary {
@@ -28,25 +51,88 @@
   }
 
   .tag-item {
-    @apply flex items-center justify-between rounded-md bg-white p-3 shadow-sm transition-all duration-200 hover:translate-x-1 hover:shadow-md border border-gray-200;
+    @apply flex items-center justify-between rounded-md bg-white p-3 shadow-sm transition-all duration-150 border border-gray-200;
+    will-change: transform, box-shadow;
+  }
+
+  @media (hover: hover) {
+    .tag-item:hover {
+      transform: translate3d(2px, 0, 0);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    }
   }
 
   .feature-card {
-    @apply bg-white rounded-xl p-6 shadow-lg transition-all duration-200 hover:-translate-y-1 hover:shadow-xl border border-gray-200 focus-within:ring-2 focus-within:ring-tt-dark-violet focus-within:ring-offset-2;
+    @apply bg-white rounded-xl p-6 shadow-lg transition-all duration-200 border border-gray-200 focus-within:ring-2 focus-within:ring-tt-dark-violet focus-within:ring-offset-2;
+    will-change: transform, box-shadow;
+  }
+
+  @media (hover: hover) {
+    .feature-card:hover {
+      transform: translate3d(0, -4px, 0);
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+    }
   }
 }
 
-/* Enhanced, more performant floating animation */
+/* Optimized floating animation with hardware acceleration */
 @keyframes gentle-drift {
   0% {
-    transform: translate(0, 0) rotate(0deg);
+    transform: translate3d(0, 0, 0) rotate(0deg);
   }
   50% {
-    transform: translate(var(--tw-translate-x, 20px), var(--tw-translate-y, -10px)) rotate(10deg);
+    transform: translate3d(15px, -8px, 0) rotate(8deg);
   }
   100% {
-    transform: translate(0, 0) rotate(0deg);
+    transform: translate3d(0, 0, 0) rotate(0deg);
   }
+}
+
+/* Performance optimized button hover animation */
+@keyframes button-lift {
+  0% {
+    transform: translate3d(0, 0, 0);
+  }
+  100% {
+    transform: translate3d(0, -2px, 0);
+  }
+}
+
+/* Optimized glow effect for buttons */
+@keyframes gentle-glow {
+  0% {
+    box-shadow: 0 2px 4px rgba(99, 102, 241, 0.15);
+  }
+  100% {
+    box-shadow: 0 8px 20px rgba(99, 102, 241, 0.25);
+  }
+}
+
+/* Smooth fade in animation */
+@keyframes fade-in-up {
+  0% {
+    opacity: 0;
+    transform: translate3d(0, 20px, 0);
+  }
+  100% {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+/* Optimized loading animation */
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+}
+
+/* Smooth skeleton loading */
+.animate-pulse {
+  animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
 }
 
 
@@ -59,9 +145,19 @@
     @apply px-4 py-2 text-sm;
   }
 
+  /* Faster animations on mobile for better performance */
   * {
-    animation-duration: 0.1s !important;
-    transition-duration: 0.1s !important;
+    animation-duration: 0.2s !important;
+    transition-duration: 0.15s !important;
+  }
+
+  /* Disable expensive effects on mobile */
+  .feature-card:hover {
+    transform: none !important;
+  }
+
+  .tag-item:hover {
+    transform: none !important;
   }
 }
 
@@ -81,5 +177,26 @@
 
   .floating-balls {
     display: none !important;
+  }
+
+  /* Disable expensive transforms for reduced motion */
+  .will-change-transform {
+    will-change: auto !important;
+  }
+}
+
+/* Performance optimizations for high-DPI displays */
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+  img {
+    image-rendering: -webkit-optimize-contrast;
+    image-rendering: crisp-edges;
+  }
+}
+
+/* Preload critical fonts */
+@supports (font-display: swap) {
+  @font-face {
+    font-family: 'Inter';
+    font-display: swap;
   }
 }
