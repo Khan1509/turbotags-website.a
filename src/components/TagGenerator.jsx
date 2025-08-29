@@ -162,9 +162,9 @@ const TagItem = React.memo(({ item, onCopy, onFeedback }) => {
 
   const trendPercentage = item.trend_percentage || Math.floor(Math.random() * 41) + 60;
   const getTrendColor = (percentage) => {
-    if (percentage >= 85) return 'text-green-700 bg-green-50 border-green-200';
-    if (percentage >= 70) return 'text-yellow-700 bg-yellow-50 border-yellow-200';
-    return 'text-red-700 bg-red-50 border-red-200';
+    if (percentage >= 85) return 'text-green-800 bg-green-100 border-green-300';
+    if (percentage >= 70) return 'text-yellow-800 bg-yellow-100 border-yellow-300';
+    return 'text-red-800 bg-red-100 border-red-300';
   };
 
   return (
@@ -176,7 +176,7 @@ const TagItem = React.memo(({ item, onCopy, onFeedback }) => {
       className="flex flex-col sm:flex-row items-start sm:items-center justify-between rounded-md bg-white p-3 shadow-sm transition-all duration-200 hover:shadow-md border border-gray-200"
     >
       <div className="flex items-center flex-grow min-w-0 mr-2">
-        <span className="text-gray-800 text-sm sm:text-base font-medium break-all mr-3" role="text" aria-label={`Tag: ${item.text}`}>{item.text}</span>
+        <span className="text-gray-800 text-sm sm:text-base font-medium break-all mr-3" aria-label={`Tag: ${item.text}`}>{item.text}</span>
         <span className={`px-2 py-1 rounded-full text-xs font-semibold border ${getTrendColor(trendPercentage)}`} aria-label={`Trending at ${trendPercentage} percent`}>
           {trendPercentage}%
         </span>

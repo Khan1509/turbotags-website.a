@@ -2,7 +2,7 @@ import React from 'react';
 
 // Pre-generate ball positions and animations for better performance
 const generateBallConfig = () => {
-  return Array.from({ length: 8 }, (_, i) => ({ // Reduced from 15 to 8
+  return Array.from({ length: 5 }, (_, i) => ({ // Reduced from 8 to 5
     id: i,
     left: Math.random() * 100,
     top: Math.random() * 100,

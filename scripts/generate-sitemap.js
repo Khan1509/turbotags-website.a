@@ -1,7 +1,7 @@
 import fs from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
-import { blogPosts } from '../src/data/blogPosts.js';
+import { blogPostIndex } from '../src/data/blogPostIndex.js';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const projectRoot = path.resolve(__dirname, '..');
@@ -16,7 +16,7 @@ const staticRoutes = [
   { url: '/blog', priority: '0.9', changefreq: 'weekly' },
 ];
 
-const dynamicRoutes = blogPosts.map(post => ({
+const dynamicRoutes = blogPostIndex.map(post => ({
   url: `/blog/${post.slug}`,
   priority: '0.8',
   changefreq: 'monthly',

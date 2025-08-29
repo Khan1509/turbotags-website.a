@@ -1,11 +1,11 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { useParams, Link, Navigate } from 'react-router-dom';
-import { blogPosts } from '../data/blogPosts';
+import { blogPostIndex } from '../data/blogPostIndex';
 import usePageMeta from '../hooks/usePageMeta';
 import { motion } from 'framer-motion';
-import { Calendar, Tag, User, ArrowLeft } from 'lucide-react';
+import { Calendar, Tag, User, ArrowLeft, Loader2 } from 'lucide-react';
+import LoadingSpinner from '../components/ui/LoadingSpinner';
 
-// This component now renders the structured data from blogPosts.js
 const ContentRenderer = ({ content }) => {
   return content.map((block, index) => {
     switch (block.type) {
@@ -29,9 +29,37 @@ const ContentRenderer = ({ content }) => {
 
 const BlogPostPage = () => {
   const { slug } = useParams();
-  const post = blogPosts.find(p => p.slug === slug);
+  const post = blogPostIndex.find(p => p.slug === slug);
+  
+  const [content, setContent] = useState(null);
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState(null);
 
   usePageMeta(post?.title, post?.description, post?.image);
+
+  useEffect(() => {
+    if (post) {
+      setIsLoading(true);
+      fetch(`/data/blog/${slug}.json`)
+        .then(response => {
+          if (!response.ok) {
+            throw new Error('Failed to fetch blog content');
+          }
+          return response.json();
+        })
+        .then(data => {
+          setContent(data);
+          setError(null);
+        })
+        .catch(err => {
+          console.error(err);
+          setError('Could not load the article content.');
+        })
+        .finally(() => {
+          setIsLoading(false);
+        });
+    }
+  }, [slug, post]);
 
   if (!post) {
     return <Navigate to="/404" replace />;
@@ -69,10 +97,17 @@ const BlogPostPage = () => {
             </div>
           </header>
 
-          <img src={post.image} alt={post.title} className="w-full h-auto rounded-xl shadow-lg mb-8" />
+          <img 
+            src={post.image} 
+            alt={post.title} 
+            className="w-full h-auto rounded-xl shadow-lg mb-8" 
+            fetchpriority="high"
+          />
 
           <div className="prose prose-lg max-w-none text-gray-800 leading-relaxed space-y-6">
-            <ContentRenderer content={post.content} />
+            {isLoading && <LoadingSpinner />}
+            {error && <p className="text-red-500">{error}</p>}
+            {content && <ContentRenderer content={content} />}
           </div>
         </article>
       </div>

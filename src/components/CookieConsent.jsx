@@ -64,8 +64,7 @@ const CookieConsent = () => {
         >
           <div className="container mx-auto flex flex-col sm:flex-row items-center justify-between gap-4">
             <p className="text-sm text-center sm:text-left">
-              🍪 We use cookies to enhance your experience and analyze our traffic.
-              <Link to="/legal/cookies" className="underline hover:text-gray-300 ml-1">Learn more</Link>.
+              🍪 We use cookies to enhance your experience and analyze our traffic. <Link to="/legal#cookies" className="underline hover:text-gray-300">Read our cookie policy for details</Link>.
             </p>
             <div className="flex space-x-4 flex-shrink-0">
               <button onClick={handleAccept} className="bg-tt-dark-violet text-white px-4 py-2 rounded-lg text-sm hover:bg-tt-medium-violet transition">

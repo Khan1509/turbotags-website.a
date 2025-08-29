@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { blogPosts } from '../data/blogPosts';
+import { blogPostIndex } from '../data/blogPostIndex';
 import usePageMeta from '../hooks/usePageMeta';
 import { Calendar, Tag, ArrowRight } from 'lucide-react';
 
@@ -43,7 +43,7 @@ const BlogIndexPage = () => {
           initial="hidden"
           animate="visible"
         >
-          {blogPosts.map((post) => (
+          {blogPostIndex.map((post) => (
             <motion.div
               key={post.slug}
               variants={itemVariants}
@@ -52,7 +52,13 @@ const BlogIndexPage = () => {
               className="bg-white rounded-xl shadow-lg overflow-hidden flex flex-col"
             >
               <Link to={`/blog/${post.slug}`} className="block">
-                <img src={post.image} alt={post.title} className="w-full h-48 object-cover" />
+                <img 
+                  src={post.image} 
+                  alt={post.title} 
+                  className="w-full h-48 object-cover" 
+                  loading="lazy"
+                  decoding="async"
+                />
               </Link>
               <div className="p-6 flex flex-col flex-grow">
                 <div className="flex items-center text-xs text-gray-500 mb-2">
