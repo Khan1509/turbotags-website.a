@@ -19,14 +19,14 @@
   ],
   "screenshots": [
     {
-      "src": "https://img-wrapper.vercel.app/image?url=https://img-wrapper.vercel.app/image?url=https://img-wrapper.vercel.app/image?url=https://img-wrapper.vercel.app/image?url=https://img-wrapper.vercel.app/image?url=https://placehold.co/1280x720.png?text=TurboTags+Desktop",
+      "src": "https://img-wrapper.vercel.app/image?url=https://placehold.co/1280x720/151440/FFFFFF/png?text=TurboTags+Desktop+Interface",
       "sizes": "1280x720",
       "type": "image/png",
       "form_factor": "wide",
       "label": "TurboTags Desktop View"
     },
     {
-      "src": "https://img-wrapper.vercel.app/image?url=https://img-wrapper.vercel.app/image?url=https://img-wrapper.vercel.app/image?url=https://img-wrapper.vercel.app/image?url=https://img-wrapper.vercel.app/image?url=https://placehold.co/390x844.png?text=TurboTags+Mobile",
+      "src": "https://img-wrapper.vercel.app/image?url=https://placehold.co/390x844/151440/FFFFFF/png?text=TurboTags+Mobile+Interface",
       "sizes": "390x844",
       "type": "image/png",
       "form_factor": "narrow",

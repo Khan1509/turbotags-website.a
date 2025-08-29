@@ -47,9 +47,13 @@ const BlogIndexPage = () => {
             <motion.div
               key={post.slug}
               variants={itemVariants}
-              className="bg-white rounded-xl shadow-lg overflow-hidden flex flex-col transition-transform hover:-translate-y-1 hover:shadow-2xl"
+              whileHover={{ y: -5, scale: 1.03, boxShadow: "0 10px 20px rgba(0,0,0,0.1)" }}
+              transition={{ type: 'spring', stiffness: 300 }}
+              className="bg-white rounded-xl shadow-lg overflow-hidden flex flex-col"
             >
-              <img src={post.image} alt={post.title} className="w-full h-48 object-cover" />
+              <Link to={`/blog/${post.slug}`} className="block">
+                <img src={post.image} alt={post.title} className="w-full h-48 object-cover" />
+              </Link>
               <div className="p-6 flex flex-col flex-grow">
                 <div className="flex items-center text-xs text-gray-500 mb-2">
                   <Tag className="h-4 w-4 mr-1" />
@@ -58,7 +62,11 @@ const BlogIndexPage = () => {
                   <Calendar className="h-4 w-4 mr-1" />
                   <span>{post.date}</span>
                 </div>
-                <h2 className="text-xl font-bold text-gray-800 mb-2 flex-grow">{post.title}</h2>
+                <h2 className="text-xl font-bold text-gray-800 mb-2 flex-grow">
+                  <Link to={`/blog/${post.slug}`} className="hover:text-tt-dark-violet transition-colors">
+                    {post.title}
+                  </Link>
+                </h2>
                 <p className="text-sm text-gray-600 mb-4">{post.description}</p>
                 <Link to={`/blog/${post.slug}`} className="mt-auto inline-flex items-center font-semibold text-tt-medium-violet hover:text-tt-dark-violet">
                   Read More <ArrowRight className="h-4 w-4 ml-1" />

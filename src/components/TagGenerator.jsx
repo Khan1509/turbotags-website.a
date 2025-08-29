@@ -1,5 +1,5 @@
 import React, { useState, useReducer, useRef, useEffect } from 'react';
-import { Youtube, Instagram, Facebook, Tags, RotateCw, Copy, Loader2, ThumbsUp, ThumbsDown, Globe, ChevronDown, Type } from 'lucide-react';
+import { Youtube, Instagram, Facebook, Tags, RotateCw, Copy, Loader2, ThumbsUp, ThumbsDown, Globe, ChevronDown, Type, Sparkles } from 'lucide-react';
 import TikTokIcon from './icons/TikTokIcon';
 import MessageBox from './ui/MessageBox';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -94,7 +94,9 @@ const initialState = {
   topic: '',
   tags: [],
   hashtags: [],
+  titles: [],
   isLoading: false,
+  isTitleLoading: false,
   error: null,
   message: null,
   contentFormat: 'long-form',
@@ -113,13 +115,19 @@ function reducer(state, action) {
     case 'SET_LANGUAGE':
       return { ...state, language: action.payload };
     case 'START_GENERATION':
-      return { ...state, isLoading: true, error: null, message: null, tags: [], hashtags: [] };
+      return { ...state, isLoading: true, error: null, message: null, tags: [], hashtags: [], titles: [] };
     case 'GENERATION_SUCCESS':
       return { ...state, isLoading: false, tags: action.payload.tags, hashtags: action.payload.hashtags };
     case 'GENERATION_ERROR':
-      return { ...state, isLoading: false, error: action.payload.error, tags: action.payload.tags, hashtags: action.payload.hashtags, message: { text: action.payload.message, type: 'error' } };
+      return { ...state, isLoading: false, error: action.payload.error, message: { text: action.payload.message, type: 'error' } };
+    case 'START_TITLE_GENERATION':
+      return { ...state, isTitleLoading: true, error: null, message: null, titles: [] };
+    case 'TITLE_GENERATION_SUCCESS':
+      return { ...state, isTitleLoading: false, titles: action.payload.titles };
+    case 'TITLE_GENERATION_ERROR':
+      return { ...state, isTitleLoading: false, error: action.payload.error, message: { text: action.payload.message, type: 'error' } };
     case 'SET_MESSAGE':
-        return { ...state, message: action.payload };
+      return { ...state, message: action.payload };
     case 'RESET':
       return { ...initialState, topic: state.topic, message: { text: 'Generator reset!', type: 'info' } };
     case 'CLEAR_MESSAGE':
@@ -202,6 +210,36 @@ const TagItem = React.memo(({ item, onCopy, onFeedback }) => {
   );
 });
 
+const TitleItem = React.memo(({ item, onCopy }) => {
+    const [copied, setCopied] = useState(false);
+  
+    const handleCopy = () => {
+      navigator.clipboard.writeText(item.text);
+      setCopied(true);
+      onCopy();
+      setTimeout(() => setCopied(false), 2000);
+    };
+  
+    return (
+      <motion.div
+        layout
+        initial={{ opacity: 0, y: 10 }}
+        animate={{ opacity: 1, y: 0 }}
+        exit={{ opacity: 0 }}
+        className="flex items-center justify-between rounded-md bg-white p-3 shadow-sm transition-all duration-200 hover:shadow-md border border-gray-200"
+      >
+        <span className="text-gray-800 text-sm sm:text-base font-medium break-all mr-3">{item.text}</span>
+        <button
+          onClick={handleCopy}
+          className="copy-btn bg-indigo-100 text-indigo-700 px-3 py-2 rounded-md text-sm font-semibold hover:bg-indigo-200 transition duration-200 ease-in-out flex-shrink-0 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+          aria-label={`Copy title "${item.text}"`}
+        >
+          {copied ? 'Copied!' : 'Copy'}
+        </button>
+      </motion.div>
+    );
+  });
+
 
 const TagGenerator = () => {
   const [activeTab, setActiveTab] = useState('youtube');
@@ -249,52 +287,45 @@ const TagGenerator = () => {
       handleMessage('Please enter a topic to generate content.', 'error');
       return;
     }
-
-    const startTime = performance.now();
     dispatch({ type: 'START_GENERATION' });
-
     try {
-      const result = await generateContent(state.topic, {
-        platform: activeTab,
-        contentFormat: state.contentFormat,
-        region: state.region,
-        language: state.language
-      });
-
-      const tagsWithFeedback = result.tags.map(item => ({ ...item, feedback: 'none' }));
-      const hashtagsWithFeedback = result.hashtags.map(item => ({ ...item, feedback: 'none' }));
-
+      const result = await generateContent(state.topic, { platform: activeTab, contentFormat: state.contentFormat, region: state.region, language: state.language }, 'tags_and_hashtags');
+      const tagsWithFeedback = (result.tags || []).map(item => ({ ...item, feedback: 'none' }));
+      const hashtagsWithFeedback = (result.hashtags || []).map(item => ({ ...item, feedback: 'none' }));
       dispatch({ type: 'GENERATION_SUCCESS', payload: { tags: tagsWithFeedback, hashtags: hashtagsWithFeedback } });
-
-      const endTime = performance.now();
-      const duration = (endTime - startTime).toFixed(2);
-      
       if (result.fallback) {
         handleMessage(result.message || `Using ${state.language} sample content.`, 'warning');
       } else {
-        const message = activeTab === 'youtube' ?
-          `Generated ${result.tags.length} tags and ${result.hashtags.length} hashtags in ${duration}ms!` :
-          `Generated ${result.hashtags.length} hashtags in ${duration}ms!`;
+        const message = activeTab === 'youtube' ? `Generated ${result.tags.length} tags and ${result.hashtags.length} hashtags!` : `Generated ${result.hashtags.length} hashtags!`;
         handleMessage(message, 'success');
       }
-
     } catch (error) {
-      const endTime = performance.now();
-      const duration = (endTime - startTime).toFixed(2);
-      console.error('Generation failed after', duration + 'ms:', error);
-      
-      dispatch({ type: 'GENERATION_ERROR', payload: {
-        error: 'Failed to generate content.',
-        message: `AI service unavailable. Please try again shortly.`,
-        tags: [],
-        hashtags: []
-      }});
+      dispatch({ type: 'GENERATION_ERROR', payload: { error: 'Failed to generate content.', message: `AI service unavailable. Please try again shortly.` }});
+    }
+  };
+
+  const handleGenerateTitles = async () => {
+    if (!state.topic.trim()) {
+      handleMessage('Please enter a topic to generate titles.', 'error');
+      return;
+    }
+    dispatch({ type: 'START_TITLE_GENERATION' });
+    try {
+      const result = await generateContent(state.topic, { platform: activeTab, contentFormat: state.contentFormat, region: state.region, language: state.language }, 'titles');
+      dispatch({ type: 'TITLE_GENERATION_SUCCESS', payload: { titles: result.titles || [] } });
+      if (result.fallback) {
+        handleMessage(result.message || `Using sample titles.`, 'warning');
+      } else {
+        handleMessage(`Generated ${result.titles.length} titles!`, 'success');
+      }
+    } catch (error) {
+      dispatch({ type: 'TITLE_GENERATION_ERROR', payload: { error: 'Failed to generate titles.', message: `AI service unavailable. Please try again shortly.` }});
     }
   };
 
   const copyAll = (type) => {
-    const list = type === 'tags' ? state.tags : state.hashtags;
-    const textToCopy = list.map(item => item.text).join(', ');
+    const list = state[type];
+    const textToCopy = list.map(item => item.text).join(type === 'titles' ? '\n' : ', ');
     if (textToCopy) {
       navigator.clipboard.writeText(textToCopy);
       handleMessage(`All ${type} copied to clipboard!`, 'success');
@@ -313,8 +344,8 @@ const TagGenerator = () => {
         )}
       </AnimatePresence>
 
-      <h2 className="text-3xl font-bold text-tt-dark-violet mb-2 text-center">AI-Powered Tag Generator</h2>
-      <p className="text-center text-gray-600 mb-8">Generate hyper-targeted tags and hashtags optimized for your specific content format, region, and language.</p>
+      <h2 className="text-3xl font-bold text-tt-dark-violet mb-2 text-center">AI-Powered Content Generator</h2>
+      <p className="text-center text-gray-600 mb-8">Generate hyper-targeted titles, tags, and hashtags optimized for your specific content format, region, and language.</p>
 
       <div className="flex border-b border-gray-200 mb-6 bg-gray-50 rounded-t-lg overflow-hidden" role="tablist" aria-label="Social media platforms">
         {TABS.map(tab => (
@@ -341,15 +372,23 @@ const TagGenerator = () => {
               <span className="text-gray-800">{CONTENT_FORMATS[activeTab].find(f => f.value === state.contentFormat)?.label}</span>
               <ChevronDown className={`h-4 w-4 text-gray-500 transition-transform ${showFormatDropdown ? 'rotate-180' : ''}`} />
             </button>
-            {showFormatDropdown && (
-              <div className="absolute z-10 w-full mt-1 bg-white border border-gray-300 rounded-lg shadow-lg">
-                {CONTENT_FORMATS[activeTab].map((format) => (
-                  <button key={format.value} onClick={() => { dispatch({ type: 'SET_CONTENT_FORMAT', payload: format.value }); setShowFormatDropdown(false); }} className={`w-full p-3 text-left hover:bg-gray-50 first:rounded-t-lg last:rounded-b-lg ${state.contentFormat === format.value ? 'bg-tt-dark-violet/5 text-tt-dark-violet font-semibold' : 'text-gray-800'}`}>
-                    {format.label}
-                  </button>
-                ))}
-              </div>
-            )}
+            <AnimatePresence>
+              {showFormatDropdown && (
+                <motion.div
+                  initial={{ opacity: 0, y: -10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -10 }}
+                  transition={{ duration: 0.2 }}
+                  className="absolute z-10 w-full mt-1 bg-white border border-gray-300 rounded-lg shadow-lg"
+                >
+                  {CONTENT_FORMATS[activeTab].map((format) => (
+                    <button key={format.value} onClick={() => { dispatch({ type: 'SET_CONTENT_FORMAT', payload: format.value }); setShowFormatDropdown(false); }} className={`w-full p-3 text-left hover:bg-gray-50 first:rounded-t-lg last:rounded-b-lg ${state.contentFormat === format.value ? 'bg-tt-dark-violet/5 text-tt-dark-violet font-semibold' : 'text-gray-800'}`}>
+                      {format.label}
+                    </button>
+                  ))}
+                </motion.div>
+              )}
+            </AnimatePresence>
           </div>
         </div>
 
@@ -363,15 +402,23 @@ const TagGenerator = () => {
               </div>
               <ChevronDown className={`h-4 w-4 text-gray-500 transition-transform ${showRegionDropdown ? 'rotate-180' : ''}`} />
             </button>
-            {showRegionDropdown && (
-              <div className="absolute z-10 w-full mt-1 bg-white border border-gray-300 rounded-lg shadow-lg max-h-60 overflow-y-auto">
-                {REGIONS.map((region) => (
-                  <button key={region.value} onClick={() => { dispatch({ type: 'SET_REGION', payload: region.value }); setShowRegionDropdown(false); }} className={`w-full p-3 text-left hover:bg-gray-50 first:rounded-t-lg last:rounded-b-lg flex items-center ${state.region === region.value ? 'bg-tt-dark-violet/5 text-tt-dark-violet font-semibold' : 'text-gray-800'}`}>
-                    <span className="mr-2">{region.flag}</span>{region.label}
-                  </button>
-                ))}
-              </div>
-            )}
+            <AnimatePresence>
+              {showRegionDropdown && (
+                <motion.div
+                  initial={{ opacity: 0, y: -10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -10 }}
+                  transition={{ duration: 0.2 }}
+                  className="absolute z-10 w-full mt-1 bg-white border border-gray-300 rounded-lg shadow-lg max-h-60 overflow-y-auto"
+                >
+                  {REGIONS.map((region) => (
+                    <button key={region.value} onClick={() => { dispatch({ type: 'SET_REGION', payload: region.value }); setShowRegionDropdown(false); }} className={`w-full p-3 text-left hover:bg-gray-50 first:rounded-t-lg last:rounded-b-lg flex items-center ${state.region === region.value ? 'bg-tt-dark-violet/5 text-tt-dark-violet font-semibold' : 'text-gray-800'}`}>
+                      <span className="mr-2">{region.flag}</span>{region.label}
+                    </button>
+                  ))}
+                </motion.div>
+              )}
+            </AnimatePresence>
           </div>
         </div>
 
@@ -385,15 +432,23 @@ const TagGenerator = () => {
               </div>
               <ChevronDown className={`h-4 w-4 text-gray-500 transition-transform ${showLanguageDropdown ? 'rotate-180' : ''}`} />
             </button>
-            {showLanguageDropdown && (
-              <div className="absolute z-10 w-full mt-1 bg-white border border-gray-300 rounded-lg shadow-lg max-h-60 overflow-y-auto">
-                {LANGUAGES.map((language) => (
-                  <button key={language.value} onClick={() => { dispatch({ type: 'SET_LANGUAGE', payload: language.value }); setShowLanguageDropdown(false); }} className={`w-full p-3 text-left hover:bg-gray-50 first:rounded-t-lg last:rounded-b-lg flex items-center ${state.language === language.value ? 'bg-tt-dark-violet/5 text-tt-dark-violet font-semibold' : 'text-gray-800'}`}>
-                    <span className="mr-2">{language.flag}</span>{language.label}
-                  </button>
-                ))}
-              </div>
-            )}
+            <AnimatePresence>
+              {showLanguageDropdown && (
+                <motion.div
+                  initial={{ opacity: 0, y: -10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -10 }}
+                  transition={{ duration: 0.2 }}
+                  className="absolute z-10 w-full mt-1 bg-white border border-gray-300 rounded-lg shadow-lg max-h-60 overflow-y-auto"
+                >
+                  {LANGUAGES.map((language) => (
+                    <button key={language.value} onClick={() => { dispatch({ type: 'SET_LANGUAGE', payload: language.value }); setShowLanguageDropdown(false); }} className={`w-full p-3 text-left hover:bg-gray-50 first:rounded-t-lg last:rounded-b-lg flex items-center ${state.language === language.value ? 'bg-tt-dark-violet/5 text-tt-dark-violet font-semibold' : 'text-gray-800'}`}>
+                      <span className="mr-2">{language.flag}</span>{language.label}
+                    </button>
+                  ))}
+                </motion.div>
+              )}
+            </AnimatePresence>
           </div>
         </div>
       </div>
@@ -404,24 +459,40 @@ const TagGenerator = () => {
         <div className={`text-right text-sm mt-1 ${state.topic.length > 490 ? 'text-red-500' : 'text-gray-500'}`}>
           {state.topic.length} / 500
         </div>
-        <p id="topic-help" className="text-sm text-gray-600 mt-2">Describe your content topic to generate relevant tags and hashtags</p>
+        <p id="topic-help" className="text-sm text-gray-600 mt-2">Describe your content topic to generate relevant titles, tags and hashtags</p>
       </div>
 
       <div className="flex flex-col sm:flex-row justify-center gap-4 my-6">
-        <button onClick={handleGenerate} disabled={state.isLoading} className="btn-primary">
+        <button onClick={handleGenerate} disabled={state.isLoading || state.isTitleLoading} className="btn-primary">
           {state.isLoading ? <Loader2 className="mr-2 h-5 w-5 animate-spin" /> : <Tags className="mr-2 h-5 w-5" />}
-          {state.isLoading ? 'Generating...' : `Generate ${activeTab === 'youtube' ? 'Content' : '#Tags'}`}
+          {state.isLoading ? 'Generating...' : `Generate Tags / #Tags`}
         </button>
-        <button onClick={() => dispatch({ type: 'RESET' })} disabled={state.isLoading} className="btn-secondary">
+        <button onClick={handleGenerateTitles} disabled={state.isLoading || state.isTitleLoading} className="btn-secondary bg-tt-light-violet text-white hover:bg-opacity-90">
+            {state.isTitleLoading ? <Loader2 className="mr-2 h-5 w-5 animate-spin" /> : <Sparkles className="mr-2 h-5 w-5" />}
+            {state.isTitleLoading ? 'Generating...' : 'Generate Titles'}
+        </button>
+        <button onClick={() => dispatch({ type: 'RESET' })} disabled={state.isLoading || state.isTitleLoading} className="btn-secondary">
           <RotateCw className="mr-2 h-5 w-5" /> Reset
         </button>
       </div>
 
       <AnimatePresence>
-        {(state.tags.length > 0 || state.hashtags.length > 0) && (
+        {(state.tags.length > 0 || state.hashtags.length > 0 || state.titles.length > 0) && (
           <motion.div layout initial={{ opacity: 0, height: 0 }} animate={{ opacity: 1, height: 'auto' }} exit={{ opacity: 0, height: 0 }} className="mt-6 bg-gray-50 p-4 sm:p-6 rounded-xl shadow-inner">
+            {state.titles.length > 0 && (
+                <div>
+                    <h3 className="text-xl font-bold text-gray-800 mb-4 text-center">Generated Titles ({state.titles.length})</h3>
+                    <div className="min-h-[100px] border border-gray-200 rounded-lg p-2 sm:p-4 bg-white flex flex-col space-y-2 mb-6">
+                        {state.titles.map((item, i) => <TitleItem key={`title-${i}`} item={item} onCopy={() => handleMessage('Title copied!', 'success')} />)}
+                    </div>
+                    <div className="mt-4 text-center">
+                      <button onClick={() => copyAll('titles')} className="btn-primary py-2 px-4 text-sm"><Copy className="mr-2 h-4 w-4" /> Copy All Titles</button>
+                    </div>
+                </div>
+            )}
+
             {activeTab === 'youtube' ? (
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6">
                 {state.tags.length > 0 && (
                   <div>
                     <h3 className="text-xl font-bold text-gray-800 mb-4 text-center">Tags ({state.tags.length})</h3>
@@ -447,7 +518,7 @@ const TagGenerator = () => {
               </div>
             ) : (
               state.hashtags.length > 0 && (
-                <div>
+                <div className="mt-6">
                   <h3 className="text-xl font-bold text-gray-800 mb-4 text-center">#Tags ({state.hashtags.length})</h3>
                   <div className="min-h-[100px] border border-gray-200 rounded-lg p-2 sm:p-4 bg-white flex flex-col space-y-2">
                     {state.hashtags.map((item, i) => <TagItem key={`htag-${i}`} item={item} onCopy={() => handleMessage('Hashtag copied!', 'success')} onFeedback={(text, feedback) => handleFeedback('hashtags', text, feedback)} />)}

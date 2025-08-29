@@ -2,7 +2,7 @@
 
 <div align="center">
 
-⚡ **Smarter Tags. Better Reach. Faster Growth.** ⚡
+⚡ **Smarter Titles & Tags. Better Reach. Faster Growth.** ⚡
 
 </div>
 
@@ -23,7 +23,8 @@ This project is a complete rewrite of the original TurboTags website, upgraded t
 
 This version enhances all original features with a superior architecture:
 
-- **Advanced AI Generation**: Utilizes a cascading system of models via OpenRouter (Mistral, Llama 3, Gemini, Claude) for intelligent, context-aware tag and hashtag suggestions, with a robust JSON fallback.
+- **Advanced AI Generation**: Utilizes a cascading system of models via OpenRouter for intelligent, context-aware tag, hashtag, and **title** suggestions, with a robust JSON fallback.
+- **AI Title Generator**: Creates 5 engaging, SEO-optimized, and click-worthy titles for your content.
 - **Global Reach Engine**: Hyper-targeted generation for **30+ regions** and **20+ languages**, allowing creators to dominate local and international markets.
 - **Multi-Platform Support**: Optimized generation for YouTube, Instagram, TikTok, and Facebook.
 - **Blazing-Fast SPA**: Near-instant navigation with lazy-loaded components for optimal performance.

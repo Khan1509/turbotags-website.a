@@ -34,35 +34,43 @@ export default async function handler(req, res) {
   }
 
   try {
-    const { prompt, platform = 'youtube', language = 'english', contentFormat = 'default', region = 'global' } = req.body;
+    const { prompt, platform = 'youtube', language = 'english', contentFormat = 'default', region = 'global', task = 'tags_and_hashtags' } = req.body;
 
     if (!prompt) {
       return res.status(400).json({ error: 'Bad Request', message: 'Missing prompt in request body' });
     }
 
-    // **ENHANCED MODEL SELECTION LOGIC**
     let modelsToTry;
     if (language.toLowerCase() === 'english') {
-      // Prioritize cost-effective and fast models for English
       modelsToTry = ["meta-llama/llama-3.1-8b-instruct", "mistralai/mistral-7b-instruct", "google/gemini-flash-1.5"];
     } else {
-      // Gemini is generally better for multilingual tasks
       modelsToTry = ["google/gemini-flash-1.5", "meta-llama/llama-3.1-8b-instruct"];
     }
 
-    // **NEW DYNAMIC & BULLETPROOF SYSTEM PROMPT**
+    let systemPrompt;
     let jsonStructureExample;
     let mainInstruction;
 
-    if (platform === 'youtube') {
-      mainInstruction = "Provide two JSON arrays: 'tags' (for video metadata) and 'hashtags' (for the description).";
-      jsonStructureExample = '{"tags": [{"text": "example tag", "trend_percentage": 88}, ...], "hashtags": [{"text": "#exampleHashtag", "trend_percentage": 92}, ...]}';
-    } else {
-      mainInstruction = "Provide a single JSON array: 'hashtags'.";
-      jsonStructureExample = '{"hashtags": [{"text": "#exampleHashtag", "trend_percentage": 92}, ...]}';
-    }
-
-    const systemPrompt = `You are a world-class social media SEO strategist. Your response MUST be a single, valid JSON object and nothing else. Do not include any introductory text, explanations, or markdown.
+    if (task === 'titles') {
+      mainInstruction = "Provide a single JSON array: 'titles'. Each title should be engaging, SEO-optimized, and click-worthy.";
+      jsonStructureExample = '{"titles": [{"text": "Example Title 1"}, {"text": "Example Title 2"}]}';
+      systemPrompt = `You are a world-class social media copywriter and SEO strategist. Your response MUST be a single, valid JSON object and nothing else. Do not include any introductory text, explanations, or markdown.
+- **Task**: Generate 5 highly engaging, SEO-optimized, and click-worthy titles for a ${platform} post.
+- **Topic**: "${prompt}"
+- **Content Format**: Optimize for a "${contentFormat}" format.
+- **Target Region**: Focus on trends popular in "${region}".
+- **Language**: All generated text MUST be in ${language}.
+- **Instruction**: ${mainInstruction}
+- **Format**: Your entire response must be ONLY the JSON object, like this example: ${jsonStructureExample}`;
+    } else { // Default to tags_and_hashtags
+      if (platform === 'youtube') {
+        mainInstruction = "Provide two JSON arrays: 'tags' (for video metadata) and 'hashtags' (for the description).";
+        jsonStructureExample = '{"tags": [{"text": "example tag", "trend_percentage": 88}], "hashtags": [{"text": "#exampleHashtag", "trend_percentage": 92}]}';
+      } else {
+        mainInstruction = "Provide a single JSON array: 'hashtags'.";
+        jsonStructureExample = '{"hashtags": [{"text": "#exampleHashtag", "trend_percentage": 92}]}';
+      }
+      systemPrompt = `You are a world-class social media SEO strategist. Your response MUST be a single, valid JSON object and nothing else. Do not include any introductory text, explanations, or markdown.
 - **Task**: Generate highly relevant and engaging content for a ${platform} post.
 - **Topic**: "${prompt}"
 - **Content Format**: Optimize for a "${contentFormat}" format.
@@ -72,11 +80,11 @@ export default async function handler(req, res) {
 - **Quantity**: Generate between 15 and 20 items for each array (max 25).
 - **Trend Score**: Each item must have a "trend_percentage" key with an integer value between 60 and 100, representing its current relevance and potential for reach.
 - **Format**: Your entire response must be ONLY the JSON object, like this example: ${jsonStructureExample}`;
+    }
 
     let generatedText = null;
     let lastError = null;
 
-    // **FIX**: Check for valid API key before attempting to fetch
     if (!process.env.OPENROUTER_API_KEY || process.env.OPENROUTER_API_KEY === 'YOUR_API_KEY' || process.env.OPENROUTER_API_KEY === 'API_KEY_ADDED') {
       console.warn('[AI Generate] OPENROUTER_API_KEY is missing or a placeholder. Skipping AI fetch and using fallback.');
       lastError = new Error('API key not configured in .env file.');
@@ -91,7 +99,7 @@ export default async function handler(req, res) {
               messages: [{ role: "system", content: systemPrompt }],
               temperature: 0.7,
               max_tokens: 2048,
-              response_format: { type: "json_object" } // **CRITICAL**: Force JSON output
+              response_format: { type: "json_object" }
             })
           });
 
@@ -105,7 +113,7 @@ export default async function handler(req, res) {
 
           if (content && content.trim()) {
             generatedText = content.trim();
-            console.log(`[AI Success] Model ${model} generated content.`);
+            console.log(`[AI Success] Model ${model} generated content for task: ${task}.`);
             break;
           } else {
             throw new Error(`API response from ${model} was empty.`);
@@ -118,54 +126,66 @@ export default async function handler(req, res) {
     }
 
     if (generatedText) {
-      // **NEW ROBUST PARSING LOGIC**
       try {
         const parsedData = JSON.parse(generatedText);
-        
-        const tags = (parsedData.tags || []).filter(t => t && typeof t.text === 'string' && typeof t.trend_percentage === 'number');
-        const hashtags = (parsedData.hashtags || []).filter(h => h && typeof h.text === 'string' && typeof h.trend_percentage === 'number');
-
-        if ((platform === 'youtube' && tags.length > 0) || (platform !== 'youtube' && hashtags.length > 0)) {
+        if (task === 'titles') {
+          const titles = (parsedData.titles || []).filter(t => t && typeof t.text === 'string');
+          if (titles.length > 0) {
+            console.log(`[Parsing Success] Parsed ${titles.length} titles.`);
+            return res.status(200).json({ titles, fallback: false });
+          }
+        } else {
+          const tags = (parsedData.tags || []).filter(t => t && typeof t.text === 'string' && typeof t.trend_percentage === 'number');
+          const hashtags = (parsedData.hashtags || []).filter(h => h && typeof h.text === 'string' && typeof h.trend_percentage === 'number');
+          if ((platform === 'youtube' && tags.length > 0) || (platform !== 'youtube' && hashtags.length > 0)) {
             console.log(`[Parsing Success] Parsed ${tags.length} tags and ${hashtags.length} hashtags.`);
             return res.status(200).json({ tags, hashtags, fallback: false });
-        } else {
-            throw new Error("Parsed JSON was empty or had incorrect structure.");
+          }
         }
+        throw new Error("Parsed JSON was empty or had incorrect structure.");
       } catch (e) {
         console.error("Failed to parse AI JSON response:", e, "Raw Text:", generatedText);
       }
     }
     
-    // **IMPROVED FALLBACK LOGIC**
-    console.warn("AI generation did not succeed. Using local JSON fallback.", lastError?.message);
+    console.warn(`AI generation for task '${task}' did not succeed. Using local JSON fallback.`, lastError?.message);
     const fallbackPath = path.join(__dirname, 'fallback.json');
     const fallbackContent = fs.readFileSync(fallbackPath, 'utf-8');
     const fallbackData = JSON.parse(fallbackContent);
 
-    let fallbackTags = [];
-    let fallbackHashtags = [];
-    const langData = fallbackData.multilingual[language.toLowerCase()] || fallbackData.multilingual['english'];
-
-    if (platform === 'youtube') {
-      const nicheData = getFallbackNiche(prompt, fallbackData.youtube.niches);
-      fallbackTags = (nicheData.tags || langData.tags).slice(0, 25);
-      fallbackHashtags = (nicheData.hashtags || langData.hashtags).slice(0, 25);
+    if (task === 'titles') {
+      const nicheData = getFallbackNiche(prompt, fallbackData[platform]?.niches || fallbackData.youtube.niches);
+      const fallbackTitles = (nicheData.titles || fallbackData.youtube.niches.default.titles).slice(0, 5);
+      return res.status(200).json({
+        titles: fallbackTitles,
+        fallback: true,
+        message: `Using sample titles. To enable live AI generation, please add your OpenRouter API key to the .env file.`
+      });
     } else {
-      const platformNiches = fallbackData[platform]?.niches;
-      if (platformNiches) {
-        const nicheData = getFallbackNiche(prompt, platformNiches);
+      let fallbackTags = [];
+      let fallbackHashtags = [];
+      const langData = fallbackData.multilingual[language.toLowerCase()] || fallbackData.multilingual['english'];
+
+      if (platform === 'youtube') {
+        const nicheData = getFallbackNiche(prompt, fallbackData.youtube.niches);
+        fallbackTags = (nicheData.tags || langData.tags).slice(0, 25);
         fallbackHashtags = (nicheData.hashtags || langData.hashtags).slice(0, 25);
       } else {
-        fallbackHashtags = (langData.hashtags || []).slice(0, 25);
+        const platformNiches = fallbackData[platform]?.niches;
+        if (platformNiches) {
+          const nicheData = getFallbackNiche(prompt, platformNiches);
+          fallbackHashtags = (nicheData.hashtags || langData.hashtags).slice(0, 25);
+        } else {
+          fallbackHashtags = (langData.hashtags || []).slice(0, 25);
+        }
       }
+      return res.status(200).json({
+        tags: fallbackTags,
+        hashtags: fallbackHashtags,
+        fallback: true,
+        message: `Using sample content. To enable live AI generation, please add your OpenRouter API key to the .env file.`
+      });
     }
-
-    return res.status(200).json({
-      tags: fallbackTags,
-      hashtags: fallbackHashtags,
-      fallback: true,
-      message: `Using sample content. To enable live AI generation, please add your OpenRouter API key to the .env file.`
-    });
 
   } catch (error) {
     console.error('Fatal error in generate.js:', error);

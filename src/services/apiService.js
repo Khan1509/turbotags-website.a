@@ -6,24 +6,26 @@
  * @param {string} options.contentFormat - Content format (long-form, short, reel, etc.).
  * @param {string} options.region - Target region (global, usa, uk, etc.).
  * @param {string} options.language - Content language (english, spanish, etc.).
- * @returns {Promise<object>} The generated content from the API as a structured object: { tags: [], hashtags: [], fallback: boolean, message?: string }.
+ * @param {string} task - The type of content to generate ('tags_and_hashtags' or 'titles').
+ * @returns {Promise<object>} The generated content from the API as a structured object.
  * @throws {Error} If the network response is not ok.
  */
-export const generateContent = async (prompt, options = {}) => {
+export const generateContent = async (prompt, options = {}, task) => {
   const requestBody = {
     prompt,
     platform: options.platform || 'youtube',
     contentFormat: options.contentFormat || 'long-form',
     region: options.region || 'global',
     language: options.language || 'english',
-    version: '2.2.0' // API versioning for future compatibility
+    task: task || 'tags_and_hashtags',
+    version: '2.3.0' // API versioning for future compatibility
   };
 
   const response = await fetch('/api/generate', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
-      'X-API-Version': '2.2.0',
+      'X-API-Version': '2.3.0',
       'Accept': 'application/json'
     },
     body: JSON.stringify(requestBody),

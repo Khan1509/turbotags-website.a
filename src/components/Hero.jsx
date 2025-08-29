@@ -1,5 +1,5 @@
 import React from 'react';
-import { Zap, Play, Bot, BarChart, Globe } from 'lucide-react';
+import { Zap, Bot, BarChart, Globe } from 'lucide-react';
 import { motion } from 'framer-motion';
 
 // Optimized animation variants with better easing
@@ -79,7 +79,7 @@ const Hero = React.memo(() => {
 
       <motion.div
         variants={itemVariants}
-        className="mt-8 flex flex-col sm:flex-row justify-center gap-4"
+        className="mt-8 flex justify-center"
       >
         <a
           href="#tag-generator"
@@ -87,13 +87,6 @@ const Hero = React.memo(() => {
           aria-label="Start generating tags and hashtags now"
         >
           Start Generating Now <Zap className="ml-2 h-5 w-5" aria-hidden="true" />
-        </a>
-        <a
-          href="#demo"
-          className="btn-secondary focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2"
-          aria-label="Watch product demonstration video"
-        >
-          Watch Demo <Play className="ml-2 h-5 w-5" aria-hidden="true" />
         </a>
       </motion.div>
     </motion.section>
