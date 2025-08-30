@@ -10,6 +10,7 @@ import { motion } from 'framer-motion';
 import Share from '../components/Share';
 import TrendingTopics from '../components/TrendingTopics';
 import FloatingBalls from '../components/ui/FloatingBalls';
+import NativeAd from '../components/ui/NativeAd';
 
 // UX: Enhanced animation variants
 const fadeInUp = {
@@ -63,6 +64,11 @@ function HomePage() {
 
         <motion.div variants={fadeInUp}>
           <TagGenerator />
+        </motion.div>
+
+        {/* Native Ad Banner */}
+        <motion.div variants={fadeInUp}>
+          <NativeAd />
         </motion.div>
 
         <motion.div
