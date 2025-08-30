@@ -21,9 +21,9 @@ const WhyChooseUs = () => {
       transition={{ duration: 0.5 }}
     >
       <div className="text-center mb-8">
-        <h2 className="text-4xl font-extrabold text-tt-dark-violet mb-2">Why Choose TurboTags?</h2>
+        <h2 className="text-4xl font-extrabold text-tt-dark-violet mb-2">Why is TurboTags the Best Hashtag Generator?</h2>
         <p className="text-lg text-gray-600 max-w-3xl mx-auto">
-          Powerful features designed for content creators seeking global reach and maximum impact.
+          We offer powerful features designed for creators seeking a free, powerful YouTube tag and Instagram hashtag generator for global reach.
         </p>
       </div>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">

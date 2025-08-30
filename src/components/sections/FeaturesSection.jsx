@@ -28,9 +28,9 @@ const FeaturesSection = () => {
     <section id="features" className="bg-gray-50 py-12 px-4">
         <div className="text-center mb-12">
             {/* SEO: Changed from h2 to h1 */}
-            <h1 className="text-5xl font-extrabold text-tt-dark-violet mb-4">Features Built for Growth</h1>
+            <h1 className="text-5xl font-extrabold text-tt-dark-violet mb-4">Features of the Best Free Hashtag Generator</h1>
             <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-                Discover the tools that make TurboTags the ultimate asset for creators aiming for global success.
+                Discover the tools that make TurboTags the ultimate asset for creators looking for a free YouTube tag generator or a trending TikTok hashtag generator.
             </p>
         </div>
 
@@ -55,7 +55,7 @@ const FeaturesSection = () => {
 
             <FeatureDetailCard icon={Video} title="Content Format Optimization">
                 <p>A YouTube Short needs a different strategy than a long-form video. An Instagram Reel is not the same as a Feed Post. TurboTags understands this.</p>
-                <p>Select your exact content format—whether it's a Reel, Short, Story, or standard video—and our AI will tailor its suggestions to match the optimization strategies best suited for that format.</p>
+                <p>Select your exact content format—whether it's a Reel, Short, Story, or standard video—and our AI will tailor its suggestions to match the optimization strategies best suited for that format. This makes it the ideal hashtag generator for Instagram Reels and the best source for YouTube Shorts viral tags.</p>
             </FeatureDetailCard>
 
             <FeatureDetailCard icon={ShieldCheck} title="Privacy-First by Design">

@@ -76,7 +76,7 @@ const Hero = React.memo(() => {
         variants={itemVariants}
         className="mt-4 max-w-3xl mx-auto text-gray-700 text-base md:text-lg leading-relaxed will-change-transform"
       >
-        TurboTags is a free AI tool that instantly generates high-quality, SEO-optimized tags and hashtags for YouTube, Instagram, TikTok, and Facebook. Our generator helps you dominate local and international markets with support for over **30 regions** and **20 languages**, maximizing your content's global reach.
+        TurboTags is the best free AI hashtag generator for creators. Get <strong>viral tags for YouTube</strong>, <strong>trending TikTok hashtags</strong>, and the best hashtags for Instagram to get more likes and followers. Our YouTube tag generator helps you get more views, and you can easily copy and paste your results.
       </motion.p>
 
       <motion.div

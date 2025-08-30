@@ -3,20 +3,24 @@ import FaqItem from './ui/FaqItem';
 
 const faqData = [
   {
-    question: "How does TurboTags generate tags and hashtags?",
-    answer: "TurboTags uses advanced AI algorithms powered by OpenRouter (Mistral 7B Instruct primary, Google Gemini Flash fallback) to analyze your content description and generate relevant, SEO-optimized tags and hashtags. Our system considers current trends, search volume, and platform-specific optimization strategies."
+    question: "How does the TurboTags AI hashtag generator work?",
+    answer: "TurboTags uses advanced AI to analyze your content description. It understands context, identifies key themes, and cross-references them with current trends for platforms like YouTube, Instagram, and TikTok. This allows our free hashtag generator to provide relevant, SEO-optimized tags and hashtags designed to get views."
+  },
+  {
+    question: "How can I find viral tags for YouTube and YouTube Shorts?",
+    answer: "Our YouTube Tag Generator is designed to find viral tags that get views. When you select 'YouTube' and the 'Short' content format, our AI specifically looks for trending keywords and hashtags like #shorts to maximize your reach. It's the best way to generate YouTube tags for views, for free."
+  },
+  {
+    question: "Is this the best free hashtag generator for Instagram and TikTok?",
+    answer: "We believe so! TurboTags is a free hashtag generator for Instagram Reels, posts, and stories. It also serves as a powerful TikTok hashtag generator, finding trending hashtags to help you go viral. You can generate hashtags and copy and paste them directly into your posts."
+  },
+  {
+    question: "Can I generate hashtags for Facebook Reels?",
+    answer: "Yes! Our hashtag generator for Facebook Reels helps you find trending hashtags to increase the visibility of your content on the platform. Just select the 'Facebook' platform and 'Reels' format to get started."
   },
   {
     question: "Is TurboTags really free to use?",
-    answer: "Yes! TurboTags is completely free to use. We believe in supporting content creators and helping them grow their audience without financial barriers. All core features including tag generation, hashtag creation, and search history are available at no cost."
-  },
-  {
-    question: "Which platforms does TurboTags support?",
-    answer: "Currently, TurboTags supports YouTube (tags and hashtags), Instagram (hashtags), TikTok (hashtags), and Facebook (hashtags). Each platform has optimized algorithms to ensure the best possible tag and hashtag suggestions for maximum reach and engagement."
-  },
-  {
-    question: "How many tags and hashtags can I generate?",
-    answer: "TurboTags generates 15-20 optimized tags and hashtags per request (25 maximum), which is ideal for most platforms. YouTube allows up to 500 characters in tags, while Instagram and TikTok have their own best practices that our system follows automatically."
+    answer: "Yes! TurboTags is a completely free hashtag and tag generator. We believe in supporting content creators and helping them grow their audience without financial barriers. All core features are available at no cost."
   }
 ];
 
