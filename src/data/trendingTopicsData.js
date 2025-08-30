@@ -1,11 +1,8 @@
-import React from 'react';
-import { Youtube, Instagram, Clapperboard, Globe } from 'lucide-react';
-import TikTokIcon from '../components/icons/TikTokIcon';
-
+// This file is now pure data. The component using this data is responsible
+// for mapping platform names to the correct icon components.
 export const trendingTopicsData = [
   {
     platform: 'YouTube',
-    icon: Youtube,
     color: 'text-red-500',
     topics: [
       { title: 'AI Tools Explained', description: 'Deep dives into new AI tools and their impact on productivity.' },
@@ -15,7 +12,6 @@ export const trendingTopicsData = [
   },
   {
     platform: 'Instagram',
-    icon: Instagram,
     color: 'text-pink-500',
     topics: [
       { title: '"Day in the Life" Reels', description: 'Authentic, less-polished glimpses into daily routines.' },
@@ -25,7 +21,6 @@ export const trendingTopicsData = [
   },
   {
     platform: 'TikTok',
-    icon: TikTokIcon,
     color: 'text-black',
     topics: [
       { title: 'Niche History Facts', description: 'Quick, surprising facts about obscure historical events.' },
@@ -35,7 +30,6 @@ export const trendingTopicsData = [
   },
   {
     platform: 'Global Film & TV',
-    icon: Globe,
     color: 'text-blue-500',
     topics: [
       { title: 'New Streaming Series Theories', description: 'Breakdowns and predictions for popular new shows.' },

@@ -55,7 +55,8 @@ const LegalSection = () => {
   return (
     <section id="legal" className="bg-white p-6 sm:p-8 rounded-xl shadow-md">
       <div className="text-center mb-8">
-        <h2 className="text-4xl font-extrabold text-tt-dark-violet">Legal Information</h2>
+        {/* SEO: Changed from h2 to h1 */}
+        <h1 className="text-4xl font-extrabold text-tt-dark-violet">Legal Information</h1>
         <p className="text-lg text-gray-600 mt-2">Our commitment to transparency.</p>
       </div>
 

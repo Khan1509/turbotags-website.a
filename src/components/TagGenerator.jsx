@@ -123,7 +123,8 @@ function reducer(state, action) {
     case 'START_TITLE_GENERATION':
       return { ...state, isTitleLoading: true, error: null, message: null, titles: [] };
     case 'TITLE_GENERATION_SUCCESS':
-      return { ...state, isTitleLoading: false, titles: action.payload.titles };
+      const titlesWithFeedback = (action.payload.titles || []).map(item => ({ ...item, feedback: 'none' }));
+      return { ...state, isTitleLoading: false, titles: titlesWithFeedback };
     case 'TITLE_GENERATION_ERROR':
       return { ...state, isTitleLoading: false, error: action.payload.error, message: { text: action.payload.message, type: 'error' } };
     case 'SET_MESSAGE':
@@ -135,6 +136,7 @@ function reducer(state, action) {
     case 'SET_FEEDBACK': {
       const { listType, text, feedback } = action.payload;
       const listToUpdate = state[listType];
+      if (!listToUpdate) return state;
       const updatedList = listToUpdate.map(item => 
         item.text === text ? { ...item, feedback } : item
       );
@@ -144,6 +146,12 @@ function reducer(state, action) {
       throw new Error();
   }
 }
+
+const getTrendColor = (percentage) => {
+    if (percentage >= 85) return 'text-green-800 bg-green-100 border-green-300';
+    if (percentage >= 70) return 'text-yellow-800 bg-yellow-100 border-yellow-300';
+    return 'text-red-800 bg-red-100 border-red-300';
+};
 
 const TagItem = React.memo(({ item, onCopy, onFeedback }) => {
   const [copied, setCopied] = useState(false);
@@ -161,11 +169,6 @@ const TagItem = React.memo(({ item, onCopy, onFeedback }) => {
   };
 
   const trendPercentage = item.trend_percentage || Math.floor(Math.random() * 41) + 60;
-  const getTrendColor = (percentage) => {
-    if (percentage >= 85) return 'text-green-800 bg-green-100 border-green-300';
-    if (percentage >= 70) return 'text-yellow-800 bg-yellow-100 border-yellow-300';
-    return 'text-red-800 bg-red-100 border-red-300';
-  };
 
   return (
     <motion.div
@@ -210,7 +213,7 @@ const TagItem = React.memo(({ item, onCopy, onFeedback }) => {
   );
 });
 
-const TitleItem = React.memo(({ item, onCopy }) => {
+const TitleItem = React.memo(({ item, onCopy, onFeedback }) => {
     const [copied, setCopied] = useState(false);
   
     const handleCopy = () => {
@@ -219,6 +222,13 @@ const TitleItem = React.memo(({ item, onCopy }) => {
       onCopy();
       setTimeout(() => setCopied(false), 2000);
     };
+
+    const handleFeedback = (feedbackType) => {
+        const newFeedback = item.feedback === feedbackType ? 'none' : feedbackType;
+        onFeedback(item.text, newFeedback);
+    };
+
+    const trendPercentage = item.trend_percentage || Math.floor(Math.random() * 31) + 70;
   
     return (
       <motion.div
@@ -226,19 +236,42 @@ const TitleItem = React.memo(({ item, onCopy }) => {
         initial={{ opacity: 0, y: 10 }}
         animate={{ opacity: 1, y: 0 }}
         exit={{ opacity: 0 }}
-        className="flex items-center justify-between rounded-md bg-white p-3 shadow-sm transition-all duration-200 hover:shadow-md border border-gray-200"
+        className="flex flex-col sm:flex-row items-start sm:items-center justify-between rounded-md bg-white p-3 shadow-sm transition-all duration-200 hover:shadow-md border border-gray-200"
       >
-        <span className="text-gray-800 text-sm sm:text-base font-medium break-all mr-3">{item.text}</span>
-        <button
-          onClick={handleCopy}
-          className="copy-btn bg-indigo-100 text-indigo-700 px-3 py-2 rounded-md text-sm font-semibold hover:bg-indigo-200 transition duration-200 ease-in-out flex-shrink-0 focus:outline-none focus:ring-2 focus:ring-indigo-500"
-          aria-label={`Copy title "${item.text}"`}
-        >
-          {copied ? 'Copied!' : 'Copy'}
-        </button>
+        <div className="flex items-center flex-grow min-w-0 mr-2">
+            <span className="text-gray-800 text-sm sm:text-base font-medium break-all mr-3">{item.text}</span>
+            <span className={`px-2 py-1 rounded-full text-xs font-semibold border ${getTrendColor(trendPercentage)}`} aria-label={`Trending at ${trendPercentage} percent`}>
+                {trendPercentage}%
+            </span>
+        </div>
+        <div className="flex items-center self-end sm:self-center mt-2 sm:mt-0 flex-shrink-0" role="group" aria-label="Title actions">
+            <button
+                onClick={() => handleFeedback('liked')}
+                className={`p-2 rounded-md transition-colors focus:outline-none focus:ring-2 focus:ring-green-500 ${item.feedback === 'liked' ? 'bg-green-100 text-green-700' : 'text-gray-500 hover:bg-gray-100 hover:text-green-600'}`}
+                aria-label={`Mark title "${item.text}" as good`}
+                aria-pressed={item.feedback === 'liked'}
+            >
+                <ThumbsUp className="h-4 w-4" aria-hidden="true" />
+            </button>
+            <button
+                onClick={() => handleFeedback('disliked')}
+                className={`p-2 rounded-md transition-colors ml-1 focus:outline-none focus:ring-2 focus:ring-red-500 ${item.feedback === 'disliked' ? 'bg-red-100 text-red-700' : 'text-gray-500 hover:bg-gray-100 hover:text-red-600'}`}
+                aria-label={`Mark title "${item.text}" as bad`}
+                aria-pressed={item.feedback === 'disliked'}
+            >
+                <ThumbsDown className="h-4 w-4" aria-hidden="true" />
+            </button>
+            <button
+                onClick={handleCopy}
+                className="copy-btn bg-indigo-100 text-indigo-700 px-3 py-2 rounded-md text-sm font-semibold hover:bg-indigo-200 transition duration-200 ease-in-out ml-3 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                aria-label={`Copy title "${item.text}"`}
+            >
+                {copied ? 'Copied!' : 'Copy'}
+            </button>
+        </div>
       </motion.div>
     );
-  });
+});
 
 
 const TagGenerator = () => {
@@ -455,9 +488,9 @@ const TagGenerator = () => {
 
       <div className="p-1">
         <label htmlFor="topicInput" className="block text-gray-700 text-lg font-semibold mb-2">Enter your content topic</label>
-        <textarea id="topicInput" ref={textareaRef} rows={3} value={state.topic} onChange={(e) => dispatch({ type: 'SET_TOPIC', payload: e.target.value })} placeholder="e.g., 'Video about making homemade pizza. Key points: dough recipe, sauce, toppings, baking tips.'" className="w-full p-4 border-2 border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-tt-dark-violet focus:border-tt-dark-violet text-base min-h-[8rem] resize-none overflow-y-hidden transition-colors" aria-describedby="topic-help" required maxLength="500" />
-        <div className={`text-right text-sm mt-1 ${state.topic.length > 490 ? 'text-red-500' : 'text-gray-500'}`}>
-          {state.topic.length} / 500
+        <textarea id="topicInput" ref={textareaRef} rows={3} value={state.topic} onChange={(e) => dispatch({ type: 'SET_TOPIC', payload: e.target.value })} placeholder="e.g., 'Video about making homemade pizza. Key points: dough recipe, sauce, toppings, baking tips.'" className="w-full p-4 border-2 border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-tt-dark-violet focus:border-tt-dark-violet text-base min-h-[8rem] resize-none overflow-y-hidden transition-colors" aria-describedby="topic-help" required maxLength="1000" />
+        <div className={`text-right text-sm mt-1 ${state.topic.length > 990 ? 'text-red-500' : 'text-gray-500'}`}>
+          {state.topic.length} / 1000
         </div>
         <p id="topic-help" className="text-sm text-gray-600 mt-2">Describe your content topic to generate relevant titles, tags and hashtags</p>
       </div>
@@ -465,9 +498,9 @@ const TagGenerator = () => {
       <div className="flex flex-col sm:flex-row justify-center gap-4 my-6">
         <button onClick={handleGenerate} disabled={state.isLoading || state.isTitleLoading} className="btn-primary">
           {state.isLoading ? <Loader2 className="mr-2 h-5 w-5 animate-spin" /> : <Tags className="mr-2 h-5 w-5" />}
-          {state.isLoading ? 'Generating...' : `Generate Tags / #Tags`}
+          {state.isLoading ? 'Generating...' : (activeTab === 'youtube' ? 'Generate Tags / #Tags' : 'Generate #Tags')}
         </button>
-        <button onClick={handleGenerateTitles} disabled={state.isLoading || state.isTitleLoading} className="btn-secondary bg-tt-light-violet text-white hover:bg-opacity-90">
+        <button onClick={handleGenerateTitles} disabled={state.isLoading || state.isTitleLoading} className="btn-secondary">
             {state.isTitleLoading ? <Loader2 className="mr-2 h-5 w-5 animate-spin" /> : <Sparkles className="mr-2 h-5 w-5" />}
             {state.isTitleLoading ? 'Generating...' : 'Generate Titles'}
         </button>
@@ -483,7 +516,7 @@ const TagGenerator = () => {
                 <div>
                     <h3 className="text-xl font-bold text-gray-800 mb-4 text-center">Generated Titles ({state.titles.length})</h3>
                     <div className="min-h-[100px] border border-gray-200 rounded-lg p-2 sm:p-4 bg-white flex flex-col space-y-2 mb-6">
-                        {state.titles.map((item, i) => <TitleItem key={`title-${i}`} item={item} onCopy={() => handleMessage('Title copied!', 'success')} />)}
+                        {state.titles.map((item, i) => <TitleItem key={`title-${i}`} item={item} onCopy={() => handleMessage('Title copied!', 'success')} onFeedback={(text, feedback) => handleFeedback('titles', text, feedback)} />)}
                     </div>
                     <div className="mt-4 text-center">
                       <button onClick={() => copyAll('titles')} className="btn-primary py-2 px-4 text-sm"><Copy className="mr-2 h-4 w-4" /> Copy All Titles</button>

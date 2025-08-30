@@ -27,7 +27,8 @@ const FeaturesSection = () => {
   return (
     <section id="features" className="bg-gray-50 py-12 px-4">
         <div className="text-center mb-12">
-            <h2 className="text-5xl font-extrabold text-tt-dark-violet mb-4">Features Built for Growth</h2>
+            {/* SEO: Changed from h2 to h1 */}
+            <h1 className="text-5xl font-extrabold text-tt-dark-violet mb-4">Features Built for Growth</h1>
             <p className="text-xl text-gray-600 max-w-3xl mx-auto">
                 Discover the tools that make TurboTags the ultimate asset for creators aiming for global success.
             </p>

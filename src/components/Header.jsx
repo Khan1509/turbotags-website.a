@@ -54,9 +54,10 @@ const Header = () => {
         <div className="flex justify-between items-center">
           <Link to="/" className="flex items-center gap-3 focus:outline-none focus:ring-2 focus:ring-tt-dark-violet focus:ring-offset-2 rounded-lg p-2" aria-label="TurboTags - Go to homepage">
             <img src="/favicon.svg" alt="TurboTags Logo" className="w-10 h-10 md:w-12 md:h-12 transition-transform hover:animate-pulse" />
-            <h1 className="text-4xl md:text-5xl font-extrabold text-tt-dark-violet leading-tight transition-transform hover:scale-105">
+            {/* SEO: Changed from h1 to a div for semantic correctness. The main H1 should be on the page content. */}
+            <div className="text-4xl md:text-5xl font-extrabold text-tt-dark-violet leading-tight transition-transform hover:scale-105">
               TurboTags
-            </h1>
+            </div>
           </Link>
           
           <nav className="hidden lg:flex items-center space-x-5" role="navigation" aria-label="Main navigation">

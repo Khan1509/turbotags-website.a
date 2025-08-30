@@ -1,8 +1,17 @@
 import React, { useState } from 'react';
-import { Copy, MoreHorizontal } from 'lucide-react';
+import { Copy, MoreHorizontal, Twitter, Facebook, Linkedin, Share2, Send } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { primaryServices, allServices, getShareUrls } from '../data/shareServices';
 import ShareModal from './ShareModal';
+
+// Map string identifiers from data file to actual icon components
+const iconComponents = {
+  Twitter,
+  Facebook,
+  Linkedin,
+  Share2, // Used for WhatsApp, Reddit
+  Send,   // Used for Telegram
+};
 
 const Share = () => {
   const [copied, setCopied] = useState(false);
@@ -32,19 +41,23 @@ const Share = () => {
         <p className="text-gray-600 mb-6">Thank you! Your support helps us grow and keep the tool free for everyone. 🙏</p>
         
         <div className="flex flex-wrap justify-center items-center gap-3 sm:gap-4 mb-6">
-          {primaryButtons.map((social) => (
-            <a
-              key={social.id}
-              href={shareUrls[social.id]}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex items-center justify-center p-3 rounded-full text-white transition-transform hover:scale-110"
-              style={{ backgroundColor: social.color }}
-              aria-label={`Share on ${social.name}`}
-            >
-              <social.icon className="h-5 w-5" />
-            </a>
-          ))}
+          {primaryButtons.map((social) => {
+            const Icon = iconComponents[social.icon];
+            if (!Icon) return null; // Safety check
+            return (
+              <a
+                key={social.id}
+                href={shareUrls[social.id]}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center justify-center p-3 rounded-full text-white transition-transform hover:scale-110"
+                style={{ backgroundColor: social.color }}
+                aria-label={`Share on ${social.name}`}
+              >
+                <Icon className="h-5 w-5" />
+              </a>
+            );
+          })}
           <button
             onClick={() => setIsModalOpen(true)}
             className="flex items-center justify-center p-3 rounded-full text-gray-700 bg-gray-200 hover:bg-gray-300 transition-transform hover:scale-110"

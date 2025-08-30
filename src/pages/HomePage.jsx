@@ -11,18 +11,23 @@ import Share from '../components/Share';
 import TrendingTopics from '../components/TrendingTopics';
 import FloatingBalls from '../components/ui/FloatingBalls';
 
-// Optimized animation variants
+// UX: Enhanced animation variants
 const fadeInUp = {
-  initial: { opacity: 0, y: 20 },
-  animate: { opacity: 1, y: 0 },
-  transition: { duration: 0.4, ease: [0.25, 0.46, 0.45, 0.94] }
+  initial: { opacity: 0, y: 30 },
+  animate: { 
+    opacity: 1, 
+    y: 0,
+    transition: { 
+      duration: 0.6, 
+      ease: [0.25, 0.46, 0.45, 0.94] 
+    }
+  },
 };
 
 const staggerContainer = {
   animate: {
     transition: {
-      staggerChildren: 0.15,
-      delayChildren: 0.1
+      staggerChildren: 0.1,
     }
   }
 };
@@ -34,7 +39,7 @@ function HomePage() {
   return (
     <div className="relative">
       <FloatingBalls />
-      <motion.main
+      <motion.div
         className="container mx-auto max-w-7xl space-y-8 px-4 sm:space-y-12 sm:px-6 md:px-8"
         variants={staggerContainer}
         initial="initial"
@@ -62,7 +67,6 @@ function HomePage() {
 
         <motion.div
           variants={fadeInUp}
-          transition={{ duration: 0.4, delay: 0.2 }}
         >
           <TrendingTopics />
         </motion.div>
@@ -86,11 +90,11 @@ function HomePage() {
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.3 }}
-          transition={{ duration: 0.4, ease: "easeOut" }}
+          transition={{ duration: 0.5, ease: "easeOut" }}
         >
           <RatingWidget />
         </motion.section>
-      </motion.main>
+      </motion.div>
     </div>
   );
 }

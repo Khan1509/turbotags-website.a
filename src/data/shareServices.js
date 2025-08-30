@@ -1,5 +1,3 @@
-import { Twitter, Facebook, Linkedin, Mail, MessageSquare, Send, Pocket, Printer, Link, Share2 } from 'lucide-react';
-
 const shareUrl = 'https://turbotags.app/';
 const shareTitle = 'TurboTags - #1 FREE AI Tag & Hashtag Generator';
 const shareText = 'Check out TurboTags! A free AI-powered tag and hashtag generator for creators. #TurboTags #AI #ContentCreator';
@@ -40,29 +38,31 @@ export const getShareUrls = () => ({
 
 export const primaryServices = ['twitter', 'facebook', 'linkedin', 'whatsapp', 'reddit', 'telegram'];
 
+// The 'icon' property is now a string identifier. The component that renders
+// this data will map the string to the actual icon component.
 export const allServices = [
-  { name: 'Twitter', icon: Twitter, color: '#1DA1F2', keywords: ['twitter', 'x'], id: 'twitter' },
-  { name: 'Facebook', icon: Facebook, color: '#1877F2', keywords: ['facebook', 'meta'], id: 'facebook' },
-  { name: 'LinkedIn', icon: Linkedin, color: '#0A66C2', keywords: ['linkedin'], id: 'linkedin' },
-  { name: 'WhatsApp', icon: Share2, color: '#25D366', keywords: ['whatsapp', 'message'], id: 'whatsapp' },
-  { name: 'Reddit', icon: Share2, color: '#FF4500', keywords: ['reddit'], id: 'reddit' },
-  { name: 'Telegram', icon: Send, color: '#2AABEE', keywords: ['telegram', 'message', 'send'], id: 'telegram' },
-  { name: 'Email', icon: Mail, color: '#7f7f7f', keywords: ['email', 'mail', 'gmail', 'outlook'], id: 'email' },
-  { name: 'Pinterest', icon: Share2, color: '#E60023', keywords: ['pinterest', 'pin'], id: 'pinterest' },
-  { name: 'Tumblr', icon: Share2, color: '#36465D', keywords: ['tumblr'], id: 'tumblr' },
-  { name: 'Pocket', icon: Pocket, color: '#EF3F56', keywords: ['pocket', 'save'], id: 'pocket' },
-  { name: 'Messenger', icon: MessageSquare, color: '#00B2FF', keywords: ['messenger', 'facebook'], id: 'messenger' },
-  { name: 'Skype', icon: Share2, color: '#00AFF0', keywords: ['skype'], id: 'skype' },
-  { name: 'VKontakte', icon: Share2, color: '#4680C2', keywords: ['vk', 'vkontakte', 'russian'], id: 'vk' },
-  { name: 'Blogger', icon: Share2, color: '#FF6600', keywords: ['blogger', 'blog'], id: 'blogger' },
-  { name: 'Evernote', icon: Share2, color: '#00A82D', keywords: ['evernote', 'note'], id: 'evernote' },
-  { name: 'Hacker News', icon: Share2, color: '#FF6600', keywords: ['hacker', 'news', 'yc'], id: 'hackernews' },
-  { name: 'Line', icon: Share2, color: '#00B900', keywords: ['line', 'message'], id: 'line' },
-  { name: 'Xing', icon: Share2, color: '#026466', keywords: ['xing'], id: 'xing' },
-  { name: 'Viber', icon: Share2, color: '#7360F2', keywords: ['viber', 'message'], id: 'viber' },
-  { name: 'Weibo', icon: Share2, color: '#E6162D', keywords: ['weibo', 'china'], id: 'weibo' },
-  { name: 'WordPress', icon: Share2, color: '#21759B', keywords: ['wordpress', 'blog'], id: 'wordpress' },
-  { name: 'SMS', icon: MessageSquare, color: '#55c57a', keywords: ['sms', 'text', 'message'], id: 'sms' },
-  { name: 'Print', icon: Printer, color: '#555', keywords: ['print'], id: 'print' },
-  { name: 'Copy Link', icon: Link, color: '#6b7280', keywords: ['copy', 'link'], id: 'copy' },
+  { name: 'Twitter', icon: 'Twitter', color: '#1DA1F2', keywords: ['twitter', 'x'], id: 'twitter' },
+  { name: 'Facebook', icon: 'Facebook', color: '#1877F2', keywords: ['facebook', 'meta'], id: 'facebook' },
+  { name: 'LinkedIn', icon: 'Linkedin', color: '#0A66C2', keywords: ['linkedin'], id: 'linkedin' },
+  { name: 'WhatsApp', icon: 'Share2', color: '#25D366', keywords: ['whatsapp', 'message'], id: 'whatsapp' },
+  { name: 'Reddit', icon: 'Share2', color: '#FF4500', keywords: ['reddit'], id: 'reddit' },
+  { name: 'Telegram', icon: 'Send', color: '#2AABEE', keywords: ['telegram', 'message', 'send'], id: 'telegram' },
+  { name: 'Email', icon: 'Mail', color: '#7f7f7f', keywords: ['email', 'mail', 'gmail', 'outlook'], id: 'email' },
+  { name: 'Pinterest', icon: 'Share2', color: '#E60023', keywords: ['pinterest', 'pin'], id: 'pinterest' },
+  { name: 'Tumblr', icon: 'Share2', color: '#36465D', keywords: ['tumblr'], id: 'tumblr' },
+  { name: 'Pocket', icon: 'Pocket', color: '#EF3F56', keywords: ['pocket', 'save'], id: 'pocket' },
+  { name: 'Messenger', icon: 'MessageSquare', color: '#00B2FF', keywords: ['messenger', 'facebook'], id: 'messenger' },
+  { name: 'Skype', icon: 'Share2', color: '#00AFF0', keywords: ['skype'], id: 'skype' },
+  { name: 'VKontakte', icon: 'Share2', color: '#4680C2', keywords: ['vk', 'vkontakte', 'russian'], id: 'vk' },
+  { name: 'Blogger', icon: 'Share2', color: '#FF6600', keywords: ['blogger', 'blog'], id: 'blogger' },
+  { name: 'Evernote', icon: 'Share2', color: '#00A82D', keywords: ['evernote', 'note'], id: 'evernote' },
+  { name: 'Hacker News', icon: 'Share2', color: '#FF6600', keywords: ['hacker', 'news', 'yc'], id: 'hackernews' },
+  { name: 'Line', icon: 'Share2', color: '#00B900', keywords: ['line', 'message'], id: 'line' },
+  { name: 'Xing', icon: 'Share2', color: '#026466', keywords: ['xing'], id: 'xing' },
+  { name: 'Viber', icon: 'Share2', color: '#7360F2', keywords: ['viber', 'message'], id: 'viber' },
+  { name: 'Weibo', icon: 'Share2', color: '#E6162D', keywords: ['weibo', 'china'], id: 'weibo' },
+  { name: 'WordPress', icon: 'Share2', color: '#21759B', keywords: ['wordpress', 'blog'], id: 'wordpress' },
+  { name: 'SMS', icon: 'MessageSquare', color: '#55c57a', keywords: ['sms', 'text', 'message'], id: 'sms' },
+  { name: 'Print', icon: 'Printer', color: '#555', keywords: ['print'], id: 'print' },
+  { name: 'Copy Link', icon: 'Link', color: '#6b7280', keywords: ['copy', 'link'], id: 'copy' },
 ];

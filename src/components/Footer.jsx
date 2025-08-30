@@ -1,11 +1,24 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { Mail, Heart, Twitter, Linkedin, Link2 } from 'lucide-react';
 import LinkToUsModal from './LinkToUsModal';
 
 const Footer = () => {
   const contactEmail = 'mailto:helloturbotags@gmail.com';
   const [isLinkModalOpen, setIsLinkModalOpen] = useState(false);
+  const location = useLocation();
+
+  const handleFaqClick = (e) => {
+    // If we're already on the homepage, prevent the default link behavior
+    // and manually scroll to the FAQ section for a smoother experience.
+    if (location.pathname === '/') {
+      e.preventDefault();
+      document.getElementById('faq')?.scrollIntoView({ behavior: 'smooth' });
+    }
+    // If we are on any other page, the Link component will navigate to the homepage,
+    // and the ScrollToAnchor utility will handle scrolling to the #faq hash.
+  };
+
 
   return (
     <>
@@ -31,7 +44,7 @@ const Footer = () => {
               <li><Link to="/about" className="text-gray-600 hover:text-tt-dark-violet transition focus:outline-none focus:ring-2 focus:ring-tt-dark-violet rounded-md px-1 py-1" aria-label="Learn about TurboTags company">About Us</Link></li>
               <li><Link to="/features" className="text-gray-600 hover:text-tt-dark-violet transition focus:outline-none focus:ring-2 focus:ring-tt-dark-violet rounded-md px-1 py-1" aria-label="Explore TurboTags features and benefits">Features</Link></li>
                <li><Link to="/blog" className="text-gray-600 hover:text-tt-dark-violet transition focus:outline-none focus:ring-2 focus:ring-tt-dark-violet rounded-md px-1 py-1" aria-label="Read our blog for creator tips">Blog</Link></li>
-              <li><Link to="/#faq" className="text-gray-600 hover:text-tt-dark-violet transition focus:outline-none focus:ring-2 focus:ring-tt-dark-violet rounded-md px-1 py-1" aria-label="Read Frequently Asked Questions">FAQ</Link></li>
+              <li><Link to="/#faq" onClick={handleFaqClick} className="text-gray-600 hover:text-tt-dark-violet transition focus:outline-none focus:ring-2 focus:ring-tt-dark-violet rounded-md px-1 py-1" aria-label="Read Frequently Asked Questions">FAQ</Link></li>
             </ul>
           </div>
 

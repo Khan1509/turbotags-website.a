@@ -52,8 +52,9 @@ export default async function handler(req, res) {
     let mainInstruction;
 
     if (task === 'titles') {
-      mainInstruction = "Provide a single JSON array: 'titles'. Each title should be engaging, SEO-optimized, and click-worthy.";
-      jsonStructureExample = '{"titles": [{"text": "Example Title 1"}, {"text": "Example Title 2"}]}';
+      mainInstruction = "Provide a single JSON array: 'titles'. Each title object must include a 'text' (string) and a 'trend_percentage' (integer between 70 and 100).";
+      jsonStructureExample = '{"titles": [{"text": "Example Title 1 #shorts", "trend_percentage": 85}, {"text": "Example Title 2", "trend_percentage": 91}]}';
+      // SEO: Enhanced prompt for better titles
       systemPrompt = `You are a world-class social media copywriter and SEO strategist. Your response MUST be a single, valid JSON object and nothing else. Do not include any introductory text, explanations, or markdown.
 - **Task**: Generate 5 highly engaging, SEO-optimized, and click-worthy titles for a ${platform} post.
 - **Topic**: "${prompt}"
@@ -61,6 +62,9 @@ export default async function handler(req, res) {
 - **Target Region**: Focus on trends popular in "${region}".
 - **Language**: All generated text MUST be in ${language}.
 - **Instruction**: ${mainInstruction}
+- **SEO Goal**: Titles should be emotionally engaging (using curiosity, urgency, or value) while being clear, descriptive, and keyword-rich.
+- **Constraint for YouTube**: If the platform is 'youtube', titles MUST be 100 characters or less.
+- **Constraint for YouTube Shorts**: If the platform is 'youtube' and content format is 'short', the title text MUST end with the hashtag '#shorts'.
 - **Format**: Your entire response must be ONLY the JSON object, like this example: ${jsonStructureExample}`;
     } else { // Default to tags_and_hashtags
       if (platform === 'youtube') {
@@ -70,6 +74,7 @@ export default async function handler(req, res) {
         mainInstruction = "Provide a single JSON array: 'hashtags'.";
         jsonStructureExample = '{"hashtags": [{"text": "#exampleHashtag", "trend_percentage": 92}]}';
       }
+      // SEO: Enhanced prompt for better tags/hashtags
       systemPrompt = `You are a world-class social media SEO strategist. Your response MUST be a single, valid JSON object and nothing else. Do not include any introductory text, explanations, or markdown.
 - **Task**: Generate highly relevant and engaging content for a ${platform} post.
 - **Topic**: "${prompt}"
@@ -77,6 +82,7 @@ export default async function handler(req, res) {
 - **Target Region**: Focus on trends popular in "${region}".
 - **Language**: All generated text MUST be in ${language}.
 - **Instruction**: ${mainInstruction}
+- **SEO Goal**: Ensure a mix of broad, high-traffic keywords and specific, long-tail keywords for a balanced SEO strategy.
 - **Quantity**: Generate between 15 and 20 items for each array (max 25).
 - **Trend Score**: Each item must have a "trend_percentage" key with an integer value between 60 and 100, representing its current relevance and potential for reach.
 - **Format**: Your entire response must be ONLY the JSON object, like this example: ${jsonStructureExample}`;
@@ -129,7 +135,7 @@ export default async function handler(req, res) {
       try {
         const parsedData = JSON.parse(generatedText);
         if (task === 'titles') {
-          const titles = (parsedData.titles || []).filter(t => t && typeof t.text === 'string');
+          const titles = (parsedData.titles || []).filter(t => t && typeof t.text === 'string' && typeof t.trend_percentage === 'number');
           if (titles.length > 0) {
             console.log(`[Parsing Success] Parsed ${titles.length} titles.`);
             return res.status(200).json({ titles, fallback: false });

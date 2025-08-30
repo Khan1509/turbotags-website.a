@@ -17,24 +17,15 @@ export default {
       fontFamily: {
         sans: ['Inter', 'sans-serif'],
       },
+      // UX: Enhanced animation suite
       animation: {
-        'button-glow': 'button-glow 0.7s ease-in-out infinite alternate',
-        'text-glow': 'text-glow 1.5s ease-in-out infinite alternate',
         'rocket-float': 'rocket-float 2s ease-in-out infinite',
         'shimmer': 'shimmer 2s infinite',
-        'gentle-float': 'gentle-float ease-in-out infinite alternate',
-        'fade-in': 'fade-in-up 0.6s ease-out forwards',
-        'slide-up': 'slide-up 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards',
+        'gentle-drift': 'gentle-drift 25s ease-in-out infinite alternate',
+        'fade-in-up': 'fade-in-up 0.6s ease-out forwards',
+        'button-lift-glow': 'button-lift 0.2s ease-out forwards, gentle-glow 0.2s ease-out forwards',
       },
       keyframes: {
-        'button-glow': {
-          '0%': { boxShadow: '0 0 5px #6366F1, 0 0 10px #6366F1' },
-          '100%': { boxShadow: '0 0 20px #8B5CF6, 0 0 30px #8B5CF6' },
-        },
-        'text-glow': {
-          'from': { textShadow: '0 0 5px #fff, 0 0 10px #fff, 0 0 15px #8B5CF6, 0 0 20px #8B5CF6' },
-          'to': { textShadow: '0 0 10px #fff, 0 0 15px #fff, 0 0 20px #6366F1, 0 0 25px #6366F1' },
-        },
         'rocket-float': {
           '0%, 100%': { transform: 'translateY(0)' },
           '50%': { transform: 'translateY(-10px)' },
@@ -42,21 +33,27 @@ export default {
         'shimmer': {
           '100%': { transform: 'translateX(100%)' },
         },
-        'gentle-float': {
-          '0%': { transform: 'translate(0, 0) scale(1)' },
-          '50%': { transform: 'translate(10px, -15px) scale(1.05)' },
-          '100%': { transform: 'translate(0, 0) scale(1)' },
+        'gentle-drift': {
+          '0%': { transform: 'translate3d(0, 0, 0) rotate(0deg)' },
+          '50%': { transform: 'translate3d(20px, -10px, 0) rotate(10deg)' },
+          '100%': { transform: 'translate3d(-5px, 15px, 0) rotate(-5deg)' },
         },
-        'slide-up': {
+        'fade-in-up': {
           '0%': {
             opacity: '0',
-            transform: 'translate3d(0, 20px, 0)'
+            transform: 'translate3d(0, 25px, 0)'
           },
           '100%': {
             opacity: '1',
             transform: 'translate3d(0, 0, 0)'
           },
         },
+        'button-lift': {
+          '100%': { transform: 'translateY(-2px)' }
+        },
+        'gentle-glow': {
+          '100%': { boxShadow: '0 8px 20px rgba(99, 102, 241, 0.25)' }
+        }
       }
     },
   },

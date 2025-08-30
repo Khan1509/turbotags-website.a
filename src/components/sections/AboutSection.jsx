@@ -1,11 +1,13 @@
 import React from 'react';
 import { Bot, Globe, ShieldCheck } from 'lucide-react';
+import { Link } from 'react-router-dom';
 
 const AboutSection = () => {
   return (
     <section id="about" className="bg-white p-6 sm:p-8 rounded-xl shadow-md">
       <div className="text-center">
-        <h2 className="text-4xl font-extrabold text-tt-dark-violet mb-4">About TurboTags</h2>
+        {/* SEO: Changed from h2 to h1 */}
+        <h1 className="text-4xl font-extrabold text-tt-dark-violet mb-4">About TurboTags</h1>
         <p className="text-lg text-gray-600 max-w-3xl mx-auto">Smarter Reach. Faster Growth. Built for a Global Audience.</p>
       </div>
 
@@ -41,7 +43,7 @@ const AboutSection = () => {
           <div>
             <h3 className="text-2xl font-bold text-tt-dark-violet mb-2">Our Commitment to Privacy</h3>
             <p className="text-gray-700 leading-relaxed">
-              We are creators ourselves, and we value privacy. TurboTags requires no sign-up or personal information. Your content ideas are sent to our API for processing and are never stored or logged. Your creative strategy remains yours alone. For more details, read our full <a href="#privacy" className="text-tt-medium-violet hover:underline font-medium">Privacy Policy</a>.
+              We are creators ourselves, and we value privacy. TurboTags requires no sign-up or personal information. Your content ideas are sent to our API for processing and are never stored or logged. Your creative strategy remains yours alone. For more details, read our full <Link to="/legal#privacy" className="text-tt-medium-violet hover:underline font-medium">Privacy Policy</Link>.
             </p>
           </div>
         </div>

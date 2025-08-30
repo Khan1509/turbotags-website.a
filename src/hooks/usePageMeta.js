@@ -26,6 +26,11 @@ const usePageMeta = (title, description, imageUrl) => {
     if (imageUrl) {
         document.querySelector('meta[property="og:image"]')?.setAttribute('content', imageUrl);
         document.querySelector('meta[name="twitter:image"]')?.setAttribute('content', imageUrl);
+    } else {
+        // SEO: Set a default image if none is provided for a page
+        const defaultImageUrl = 'https://turbotags.app/screenshots/desktop.png';
+        document.querySelector('meta[property="og:image"]')?.setAttribute('content', defaultImageUrl);
+        document.querySelector('meta[name="twitter:image"]')?.setAttribute('content', defaultImageUrl);
     }
 
   }, [title, description, imageUrl]);

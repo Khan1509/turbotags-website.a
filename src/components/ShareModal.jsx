@@ -1,7 +1,12 @@
 import React, { useState, useMemo } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { X, Search } from 'lucide-react';
+import { X, Search, Twitter, Facebook, Linkedin, Mail, MessageSquare, Send, Pocket, Printer, Link, Share2 } from 'lucide-react';
 import { allServices, getShareUrls } from '../data/shareServices';
+
+// Map string identifiers from data file to actual icon components
+const iconComponents = {
+  Twitter, Facebook, Linkedin, Mail, MessageSquare, Send, Pocket, Printer, Link, Share2
+};
 
 const ShareModal = ({ isOpen, onClose }) => {
   const [searchTerm, setSearchTerm] = useState('');
@@ -78,22 +83,26 @@ const ShareModal = ({ isOpen, onClose }) => {
                     layout
                     className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4"
                   >
-                    {filteredServices.map(service => (
-                      <motion.button
-                        layout
-                        key={service.id}
-                        initial={{ opacity: 0, scale: 0.8 }}
-                        animate={{ opacity: 1, scale: 1 }}
-                        exit={{ opacity: 0, scale: 0.8 }}
-                        onClick={() => handleShare(service.id)}
-                        className="flex flex-col items-center justify-center text-center p-3 rounded-lg hover:bg-gray-100 transition-colors space-y-2"
-                      >
-                        <div className="w-12 h-12 rounded-full flex items-center justify-center text-white" style={{ backgroundColor: service.color }}>
-                          <service.icon className="h-6 w-6" />
-                        </div>
-                        <span className="text-xs font-medium text-gray-700">{service.name}</span>
-                      </motion.button>
-                    ))}
+                    {filteredServices.map(service => {
+                      const Icon = iconComponents[service.icon];
+                      if (!Icon) return null; // Safety check
+                      return (
+                        <motion.button
+                          layout
+                          key={service.id}
+                          initial={{ opacity: 0, scale: 0.8 }}
+                          animate={{ opacity: 1, scale: 1 }}
+                          exit={{ opacity: 0, scale: 0.8 }}
+                          onClick={() => handleShare(service.id)}
+                          className="flex flex-col items-center justify-center text-center p-3 rounded-lg hover:bg-gray-100 transition-colors space-y-2"
+                        >
+                          <div className="w-12 h-12 rounded-full flex items-center justify-center text-white" style={{ backgroundColor: service.color }}>
+                            <Icon className="h-6 w-6" />
+                          </div>
+                          <span className="text-xs font-medium text-gray-700">{service.name}</span>
+                        </motion.button>
+                      );
+                    })}
                   </motion.div>
                 ) : (
                   <div className="text-center py-10 text-gray-500">
