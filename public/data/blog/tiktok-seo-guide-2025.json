@@ -1,0 +1,23 @@
+[
+  { "type": "p", "children": "Gone are the days when TikTok was just about viral dances. It's now a powerful search engine, especially for Gen Z. If you're not optimizing your content for search, you're missing out on a massive opportunity. Here’s your guide to TikTok SEO in 2025." },
+  { "type": "h3", "children": "1. Keywords are Everything" },
+  { "type": "p", "children": "Just like Google, TikTok's algorithm relies on keywords to understand what your video is about. You need to place them strategically:" },
+  { "type": "ul", "items": [
+    "On-screen Text: Add text overlays with your target keywords. This is one of the strongest signals for the algorithm.",
+    "Spoken Words: The algorithm transcribes your audio. Say your keywords clearly in your video.",
+    "Caption: Your caption is prime real estate. Write a descriptive sentence that includes your main keyword.",
+    "Hashtags: Use a mix of 3-5 broad and niche hashtags. Don't overdo it. Examples: `#seotips`, `#tiktokgrowth`, `#booktok`."
+  ]},
+  { "type": "h3", "children": "2. The First 3 Seconds Matter Most" },
+  { "type": "p", "children": "You need a strong hook. Your opening must be visually and audibly engaging to stop users from scrolling. This high watch time signals to the algorithm that your content is valuable." },
+  { "type": "h3", "children": "3. Use Trending Sounds and Effects" },
+  { "type": "p", "children": "TikTok prioritizes content that uses its native features. Tapping into a trending sound or effect can give your video an instant boost. Keep an eye on your For You Page to see what's currently popular." },
+  { "type": "h3", "children": "4. Hashtag Strategy for TikTok" },
+  { "type": "p", "children": "Less is more on TikTok. A good strategy is:" },
+  { "type": "ul", "items": [
+    "1-2 Broad Hashtags: Relate to the general topic (e.g., `#cooking`).",
+    "2-3 Niche Hashtags: Get specific (e.g., `#veganrecipes`, `#easyairfryer`).",
+    "Avoid generic tags like `#fyp` or `#foryou`. They are too saturated and provide no SEO value."
+  ]},
+  { "type": "p", "children": "Using TurboTags can help you find that perfect blend of trending and niche hashtags to maximize your reach. By treating TikTok like a search engine, you can create content that has a much longer shelf life and consistently brings in new viewers." }
+]
