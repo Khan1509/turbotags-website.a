@@ -377,8 +377,8 @@ const TagGenerator = () => {
         )}
       </AnimatePresence>
 
-      <h2 className="text-3xl font-bold text-tt-dark-violet mb-2 text-center">The Ultimate YouTube Tag &amp; TikTok Hashtag Generator</h2>
-      <p className="text-center text-gray-600 mb-8">Generate hyper-targeted titles, viral tags for YouTube Shorts, and trending hashtags for TikTok, Instagram Reels, and Facebook. Our AI helps you find the best hashtags for views and engagement.</p>
+      <h2 className="text-3xl font-bold text-tt-dark-violet mb-2 text-center">Your All-in-One AI Content Generator</h2>
+      <p className="text-center text-gray-600 mb-8">Get hyper-targeted titles, find viral tags for YouTube, and discover trending hashtags for TikTok, Instagram, and Facebook. Our AI helps you find the best content for maximum views and engagement.</p>
 
       <div className="flex border-b border-gray-200 mb-6 bg-gray-50 rounded-t-lg overflow-hidden" role="tablist" aria-label="Social media platforms">
         {TABS.map(tab => (

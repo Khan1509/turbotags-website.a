@@ -1,7 +1,7 @@
 {
-  "name": "TurboTags - AI-Powered Tags & Hashtags Generator",
+  "name": "TurboTags - AI Tag & Hashtag Generator",
   "short_name": "TurboTags",
-  "description": "TurboTags: Free AI-powered hashtag and tag generator for YouTube, Instagram, TikTok, Facebook. Create viral content with SEO-optimized tags for 30+ regions and 20+ languages. Boost reach, grow followers, increase engagement worldwide.",
+  "description": "The #1 free AI generator for YouTube tags, TikTok hashtags, and Instagram hashtags. Generate viral tags, trending hashtags, and SEO-optimized titles for global audiences.",
   "start_url": "/",
   "display": "standalone",
   "background_color": "#151440",
@@ -19,14 +19,14 @@
   ],
   "screenshots": [
     {
-      "src": "https://img-wrapper.vercel.app/image?url=https://img-wrapper.vercel.app/image?url=https://placehold.co/1280x720/151440/FFFFFF/png?text=TurboTags+Desktop+Interface",
+      "src": "https://img-wrapper.vercel.app/image?url=https://img-wrapper.vercel.app/image?url=https://img-wrapper.vercel.app/image?url=https://img-wrapper.vercel.app/image?url=https://placehold.co/1280x720/151440/FFFFFF/png?text=TurboTags+Desktop+Interface",
       "sizes": "1280x720",
       "type": "image/png",
       "form_factor": "wide",
       "label": "TurboTags Desktop View"
     },
     {
-      "src": "https://img-wrapper.vercel.app/image?url=https://img-wrapper.vercel.app/image?url=https://placehold.co/390x844/151440/FFFFFF/png?text=TurboTags+Mobile+Interface",
+      "src": "https://img-wrapper.vercel.app/image?url=https://img-wrapper.vercel.app/image?url=https://img-wrapper.vercel.app/image?url=https://img-wrapper.vercel.app/image?url=https://placehold.co/390x844/151440/FFFFFF/png?text=TurboTags+Mobile+Interface",
       "sizes": "390x844",
       "type": "image/png",
       "form_factor": "narrow",

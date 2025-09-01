@@ -1,5 +1,5 @@
 import React from 'react';
-import { Bot, Globe, BarChart, Video, ShieldCheck, Zap } from 'lucide-react';
+import { Bot, Globe, BarChart, Video, ShieldCheck, Zap, Type } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
 
@@ -27,17 +27,17 @@ const FeaturesSection = () => {
   return (
     <section id="features" className="bg-gray-50 py-12 px-4">
         <div className="text-center mb-12">
-            {/* SEO: Changed from h2 to h1 */}
-            <h1 className="text-5xl font-extrabold text-tt-dark-violet mb-4">Features of the Best Free Hashtag Generator</h1>
+            {/* SEO: Updated H1 and description */}
+            <h1 className="text-5xl font-extrabold text-tt-dark-violet mb-4">TurboTags Features</h1>
             <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-                Discover the tools that make TurboTags the ultimate asset for creators looking for a free YouTube tag generator or a trending TikTok hashtag generator.
+                Discover the tools that make us the best free YouTube tags generator and provider of AI-powered Instagram hashtag ideas for 2025.
             </p>
         </div>
 
         <div className="container mx-auto max-w-5xl space-y-12">
-            <FeatureDetailCard icon={Bot} title="Advanced AI Engine">
-                <p>At the core of TurboTags is a sophisticated AI that thinks like a marketing strategist. We use a cascade of leading language models to analyze the nuances of your content topic.</p>
-                <p>This means our AI doesn't just find keywords; it understands context, intent, and platform-specific language to generate tags and hashtags that truly resonate with your target audience and the algorithms. <Link to="/#tag-generator" className="text-tt-medium-violet font-semibold hover:underline">Try the AI generator now</Link>.</p>
+            <FeatureDetailCard icon={Bot} title="AI Title & Tag Engine">
+                <p>Our sophisticated AI thinks like a marketing strategist. It analyzes your topic to generate not just tags, but also 5 SEO-optimized titles designed to increase click-through rates.</p>
+                <p>This dual capability makes TurboTags more than just a tag generator; it's your all-in-one video optimization partner. <Link to="/#tag-generator" className="text-tt-medium-violet font-semibold hover:underline">Try the AI generator now</Link>.</p>
             </FeatureDetailCard>
 
             <FeatureDetailCard icon={Globe} title="Global Reach Toolkit">
@@ -49,13 +49,13 @@ const FeaturesSection = () => {
             </FeatureDetailCard>
 
             <FeatureDetailCard icon={BarChart} title="Trend-Aware Suggestions">
-                <p>Don't just guess what's popular. Our AI is prompted to consider current trends, providing a "Trend Percentage" for every tag and hashtag.</p>
-                <p>This data-driven insight allows you to prioritize keywords with the highest potential for engagement and virality, ensuring your content stays relevant and gets discovered. For more on trends, <Link to="/blog" className="text-tt-medium-violet font-semibold hover:underline">read our blog</Link>.</p>
+                <p>Don't just guess what's popular. Our AI is prompted to consider current trends, providing a "Trend Percentage" for every tag, hashtag, and title.</p>
+                <p>This data-driven insight allows you to prioritize keywords with the highest potential for engagement and virality. For more on trends, <Link to="/blog" className="text-tt-medium-violet font-semibold hover:underline">read our blog</Link>.</p>
             </FeatureDetailCard>
 
             <FeatureDetailCard icon={Video} title="Content Format Optimization">
                 <p>A YouTube Short needs a different strategy than a long-form video. An Instagram Reel is not the same as a Feed Post. TurboTags understands this.</p>
-                <p>Select your exact content format—whether it's a Reel, Short, Story, or standard video—and our AI will tailor its suggestions to match the optimization strategies best suited for that format. This makes it the ideal hashtag generator for Instagram Reels and the best source for YouTube Shorts viral tags.</p>
+                <p>Select your exact content format—whether it's a Reel, Short, Story, or standard video—and our AI will tailor its suggestions to match the optimization strategies best suited for that format.</p>
             </FeatureDetailCard>
 
             <FeatureDetailCard icon={ShieldCheck} title="Privacy-First by Design">

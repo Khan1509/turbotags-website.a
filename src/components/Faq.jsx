@@ -3,24 +3,24 @@ import FaqItem from './ui/FaqItem';
 
 const faqData = [
   {
-    question: "How does the TurboTags AI hashtag generator work?",
-    answer: "TurboTags uses advanced AI to analyze your content description. It understands context, identifies key themes, and cross-references them with current trends for platforms like YouTube, Instagram, and TikTok. This allows our free hashtag generator to provide relevant, SEO-optimized tags and hashtags designed to get views."
+    question: "How does this free YouTube tags generator work?",
+    answer: "Our free YouTube tags generator uses advanced AI to analyze your video's topic. It identifies key themes and cross-references them with current trends to provide relevant, SEO-optimized tags and hashtags designed to get more views."
   },
   {
-    question: "How can I find viral tags for YouTube and YouTube Shorts?",
-    answer: "Our YouTube Tag Generator is designed to find viral tags that get views. When you select 'YouTube' and the 'Short' content format, our AI specifically looks for trending keywords and hashtags like #shorts to maximize your reach. It's the best way to generate YouTube tags for views, for free."
+    question: "How can I find good Instagram hashtag ideas for 2025?",
+    answer: "TurboTags is the perfect tool for finding Instagram hashtag ideas for 2025. Our AI analyzes your topic and suggests a mix of popular, niche, and trending hashtags. Just select the 'Instagram' platform and enter your post idea to get a fresh list of suggestions tailored for growth."
+  },
+  {
+    question: "Can this tool also work as an AI title generator?",
+    answer: "Yes! Beyond tags, TurboTags features a powerful AI title generator. It creates 5 engaging, SEO-friendly titles for your content based on your topic, platform, and target region. It's an all-in-one tool for content optimization."
   },
   {
     question: "Is this the best free hashtag generator for Instagram and TikTok?",
     answer: "We believe so! TurboTags is a free hashtag generator for Instagram Reels, posts, and stories. It also serves as a powerful TikTok hashtag generator, finding trending hashtags to help you go viral. You can generate hashtags and copy and paste them directly into your posts."
   },
   {
-    question: "Can I generate hashtags for Facebook Reels?",
-    answer: "Yes! Our hashtag generator for Facebook Reels helps you find trending hashtags to increase the visibility of your content on the platform. Just select the 'Facebook' platform and 'Reels' format to get started."
-  },
-  {
     question: "Is TurboTags really free to use?",
-    answer: "Yes! TurboTags is a completely free hashtag and tag generator. We believe in supporting content creators and helping them grow their audience without financial barriers. All core features are available at no cost."
+    answer: "Yes! All core features of TurboTags, including the free YouTube tags generator, the Instagram hashtag idea generator, and the AI title generator, are available at no cost. We are committed to helping creators grow."
   }
 ];
 

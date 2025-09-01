@@ -1,4 +1,4 @@
-# TurboTags v2.0 - React Edition
+# TurboTags v2.1 - React Edition
 
 <div align="center">
 
@@ -6,7 +6,7 @@
 
 </div>
 
-This project is a complete rewrite of the original TurboTags website, upgraded to a modern, high-performance React Single-Page Application using Vite and Tailwind CSS.
+This project is a complete rewrite of the original TurboTags website, upgraded to a modern, high-performance React Single-Page Application using Vite and Tailwind CSS. It's the ultimate free tool for creators looking for a tag and hashtag generator for YouTube, TikTok, Instagram, and Facebook.
 
 ## Core Technology
 
@@ -23,9 +23,9 @@ This project is a complete rewrite of the original TurboTags website, upgraded t
 
 This version enhances all original features with a superior architecture:
 
-- **Advanced AI Generation**: Utilizes a cascading system of models via OpenRouter for intelligent, context-aware tag, hashtag, and **title** suggestions, with a robust JSON fallback.
-- **AI Title Generator**: Creates 5 engaging, SEO-optimized, and click-worthy titles for your content.
-- **Global Reach Engine**: Hyper-targeted generation for **30+ regions** and **20+ languages**, allowing creators to dominate local and international markets.
+- **Advanced AI Generation**: Utilizes a cascading system of models via OpenRouter for intelligent, context-aware tag and hashtag suggestions, with a robust JSON fallback.
+- **AI Title Generator**: Creates 5 engaging, SEO-optimized, and click-worthy titles for your content, a feature missing from many other free tools.
+- **Global Reach Engine**: Hyper-targeted generation for **30+ regions** and **20+ languages**, allowing creators to dominate local and international markets with multilingual hashtags.
 - **Multi-Platform Support**: Optimized generation for YouTube, Instagram, TikTok, and Facebook.
 - **Blazing-Fast SPA**: Near-instant navigation with lazy-loaded components for optimal performance.
 - **PWA Ready**: Includes a fully configured web manifest for a native app-like installation experience.

@@ -48,7 +48,7 @@ const Hero = React.memo(() => {
         </motion.span>
         <motion.span whileHover={{ y: -3, scale: 1.05 }} className="inline-flex items-center px-3 py-1 rounded-full text-sm font-semibold bg-tt-dark-violet text-white shadow-sm will-change-transform" role="listitem">
           <Bot className="w-4 h-4 mr-2" aria-hidden="true" />
-          AI-Powered
+          AI Title & Tag Generation
         </motion.span>
         <motion.span whileHover={{ y: -3, scale: 1.05 }} className="inline-flex items-center px-3 py-1 rounded-full text-sm font-semibold bg-tt-dark-violet text-white shadow-sm will-change-transform" role="listitem">
           <BarChart className="w-4 h-4 mr-2" aria-hidden="true" />
@@ -56,12 +56,12 @@ const Hero = React.memo(() => {
         </motion.span>
       </motion.div>
 
-      {/* SEO: Changed from h2 to h1 for semantic correctness and SEO alignment with page title */}
+      {/* SEO: Updated H1 to include all platforms */}
       <motion.h1
         variants={itemVariants}
         className="text-4xl md:text-5xl font-extrabold mt-4 text-tt-dark-violet leading-tight will-change-transform"
       >
-        Free AI Hashtag & Tag Generator
+        Free AI Tags &amp; Hashtags Generator for YouTube, TikTok, Instagram &amp; Facebook
       </motion.h1>
 
       <motion.p
@@ -71,12 +71,12 @@ const Hero = React.memo(() => {
         Smarter Reach. Faster Growth. <span className="inline-block animate-rocket-float" role="img" aria-label="rocket">🚀</span>
       </motion.p>
 
-      {/* SEO: Rewritten to be a direct "answer" for search engines and featured snippets */}
+      {/* SEO: Updated paragraph to be more inclusive */}
       <motion.p
         variants={itemVariants}
         className="mt-4 max-w-3xl mx-auto text-gray-700 text-base md:text-lg leading-relaxed will-change-transform"
       >
-        TurboTags is the best free AI hashtag generator for creators. Get <strong>viral tags for YouTube</strong>, <strong>trending TikTok hashtags</strong>, and the best hashtags for Instagram to get more likes and followers. Our YouTube tag generator helps you get more views, and you can easily copy and paste your results.
+        Generate <strong>viral tags</strong>, <strong>trending hashtags</strong>, and <strong>SEO-optimized titles</strong> for YouTube, TikTok, Instagram, and Facebook. Our AI helps you get more views and reach a global audience.
       </motion.p>
 
       <motion.div
