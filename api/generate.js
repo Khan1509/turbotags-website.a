@@ -54,13 +54,13 @@ export default async function handler(req, res) {
     if (task === 'titles') {
       mainInstruction = "Provide a single JSON array: 'titles'. Each title object must include a 'text' (string) and a 'trend_percentage' (integer between 70 and 100).";
       jsonStructureExample = '{"titles": [{"text": "Example Title 1 #shorts", "trend_percentage": 85}, {"text": "Example Title 2", "trend_percentage": 91}]}';
-      // SEO: Enhanced prompt for better titles
+      // SEO: Enhanced prompt for better titles with strict language rule
       systemPrompt = `You are a world-class social media copywriter and SEO strategist. Your response MUST be a single, valid JSON object and nothing else. Do not include any introductory text, explanations, or markdown.
 - **Task**: Generate 5 highly engaging, SEO-optimized, and click-worthy titles for a ${platform} post.
 - **Topic**: "${prompt}"
 - **Content Format**: Optimize for a "${contentFormat}" format.
 - **Target Region**: Focus on trends popular in "${region}".
-- **Language**: All generated text MUST be in ${language}.
+- **CRITICAL LANGUAGE RULE**: All generated text MUST be exclusively in the specified language: **${language}**. Do NOT use English or any other language unless it is the one specified. This is the most important rule.
 - **Instruction**: ${mainInstruction}
 - **SEO Goal**: Titles should be emotionally engaging (using curiosity, urgency, or value) while being clear, descriptive, and keyword-rich.
 - **Constraint for YouTube**: If the platform is 'youtube', titles MUST be 100 characters or less.
@@ -74,13 +74,13 @@ export default async function handler(req, res) {
         mainInstruction = "Provide a single JSON array: 'hashtags'.";
         jsonStructureExample = '{"hashtags": [{"text": "#exampleHashtag", "trend_percentage": 92}]}';
       }
-      // SEO: Enhanced prompt for better tags/hashtags
+      // SEO: Enhanced prompt for better tags/hashtags with strict language rule
       systemPrompt = `You are a world-class social media SEO strategist. Your response MUST be a single, valid JSON object and nothing else. Do not include any introductory text, explanations, or markdown.
 - **Task**: Generate highly relevant and engaging content for a ${platform} post.
 - **Topic**: "${prompt}"
 - **Content Format**: Optimize for a "${contentFormat}" format.
 - **Target Region**: Focus on trends popular in "${region}".
-- **Language**: All generated text MUST be in ${language}.
+- **CRITICAL LANGUAGE RULE**: All generated text MUST be exclusively in the specified language: **${language}**. Do NOT use English or any other language unless it is the one specified. This is the most important rule.
 - **Instruction**: ${mainInstruction}
 - **SEO Goal**: Ensure a mix of broad, high-traffic keywords and specific, long-tail keywords for a balanced SEO strategy.
 - **Quantity**: Generate between 15 and 20 items for each array (max 25).
