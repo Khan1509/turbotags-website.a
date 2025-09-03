@@ -1,19 +1,6 @@
+# Allow all web crawlers to access all content
 User-agent: *
-Allow: /
+Disallow:
 
-# Important pages for crawling
-Allow: /
-Allow: /about
-Allow: /blog/
-Allow: /legal/
-
-# Block admin and API endpoints
-Disallow: /api/
-Disallow: /_next/
-Disallow: /.well-known/
-
-# Sitemap location
+# Specify the location of the sitemap
 Sitemap: https://turbotags.app/sitemap.xml
-
-# Crawl delay for better server performance
-Crawl-delay: 1

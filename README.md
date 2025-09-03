@@ -1,4 +1,4 @@
-# TurboTags v2.1 - React Edition
+# TurboTags v2.2 - React Edition
 
 <div align="center">
 
@@ -27,9 +27,9 @@ This version enhances all original features with a superior architecture:
 - **AI Title Generator**: Creates 5 engaging, SEO-optimized, and click-worthy titles for your content, a feature missing from many other free tools.
 - **Global Reach Engine**: Hyper-targeted generation for **30+ regions** and **20+ languages**. Our AI strictly adheres to your language selection, ensuring truly localized content.
 - **Multi-Platform Support**: Optimized generation for YouTube, Instagram, TikTok, and Facebook.
+- **Targeted Content Marketing**: Features a regularly updated blog with articles targeting high-intent keywords to attract organic search traffic.
 - **Blazing-Fast SPA**: Near-instant navigation with lazy-loaded components for optimal performance.
 - **PWA Ready**: Includes a fully configured web manifest for a native app-like installation experience.
-- **Responsive & Accessible**: Mobile-first design with support for `prefers-reduced-motion`.
 - **SEO Optimized**: Retains all original SEO meta tags, JSON-LD schema, and adds server-side redirects for old URLs.
 - **Privacy-Focused**: No user accounts or logging of user prompts.
 
