@@ -35,7 +35,16 @@ export const blogPostIndex = [
     date: 'July 22, 2025',
     image: 'https://img-wrapper.vercel.app/image?url=https://img-wrapper.vercel.app/image?url=https://placehold.co/1200x630/000000/FFFFFF/png?text=TikTok+SEO+Guide',
   },
-  {
+{
+  id: "best-free-ai-tag-generator-youtube-tiktok-instagram-2025",
+  slug: "best-free-ai-tag-generator-youtube-tiktok-instagram-2025",
+  title: "The Ultimate Free AI Tag Generator for YouTube, TikTok, Instagram & Facebook in 2025",
+  excerpt: "Discover why TurboTags is the #1 free AI tag generator for content creators...",
+  publishDate: "2025-01-15",
+  category: "Tag Generator",
+  featured: true,
+  readingTime: "8 min"
+}
     slug: 'facebook-for-creators-2025',
     title: 'Is Facebook Still Worth It? How to Dominate with Reels in 2025',
     description: 'Is Facebook still relevant for creators? Absolutely. This guide covers how to leverage Facebook Reels and video to grow your audience and build a community.',
