@@ -131,7 +131,10 @@ export default defineConfig(({ mode }) => {
       }
     },
     server: {
+      host: '0.0.0.0',
+      port: 5000,
       cors: true,
+      allowedHosts: 'all',
       headers: {
         'Content-Security-Policy': "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://*.google.com https://*.googleapis.com https://*.gstatic.com https://www.googletagmanager.com https://www.google-analytics.com https://pagead2.googlesyndication.com https://*.doubleclick.net https://ep1.adtrafficquality.google; style-src 'self' 'unsafe-inline'; img-src 'self' data: https://*.googleapis.com https://img-wrapper.vercel.app https://placehold.co https://pagead2.googlesyndication.com https://*.doubleclick.net; font-src 'self'; connect-src 'self' https://openrouter.ai https://*.google.com https://*.googleapis.com https://firebase.googleapis.com https://*.firebaseio.com https://*.doubleclick.net https://ep1.adtrafficquality.google https://www.google-analytics.com https://pagead2.googlesyndication.com; frame-src 'self' https://*.google.com https://*.googleapis.com https://*.doubleclick.net https://googleads.g.doubleclick.net; object-src 'none'; base-uri 'self';"
       }
