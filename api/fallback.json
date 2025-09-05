@@ -2,59 +2,250 @@
   "youtube": {
     "niches": {
       "gaming": {
-        "tags": [{"text":"gaming","trend_percentage":95},{"text":"video games","trend_percentage":92},{"text":"gamer","trend_percentage":88},{"text":"live stream","trend_percentage":85},{"text":"gameplay","trend_percentage":90}],
-        "hashtags": [{"text":"#gaming","trend_percentage":98},{"text":"#gamer","trend_percentage":94},{"text":"#videogames","trend_percentage":91},{"text":"#livestream","trend_percentage":87},{"text":"#gameplay","trend_percentage":92}],
-        "titles": [{"text":"My Most INSANE Clutch Ever!","trend_percentage":95},{"text":"Unboxing The NEW Gaming Console","trend_percentage":92},{"text":"Can We Beat This IMPOSSIBLE Level?","trend_percentage":90},{"text":"The Funniest Gaming Moments of the Week","trend_percentage":88},{"text":"Ranking Every Game in the Series","trend_percentage":85}]
+        "titles": [
+          {"text": "The Ultimate Guide to Mastering [Game Name]", "trend_percentage": 92},
+          {"text": "We Broke The Game with This Glitch!", "trend_percentage": 88},
+          {"text": "Unboxing the Rarest Collector's Edition", "trend_percentage": 85},
+          {"text": "Ranking Every Weapon in [Game Name] Season 5", "trend_percentage": 95},
+          {"text": "My Funniest Gaming Fails of the Month", "trend_percentage": 89}
+        ],
+        "tags": ["gaming", "video games", "gamer", "live stream", "gameplay", "esports", "pc gaming", "console gaming", "indie games", "gaming news", "walkthrough", "speedrun"],
+        "hashtags": ["#Gaming", "#VideoGames", "#GamerLife", "#LiveStream", "#Gameplay", "#eSports"]
+      },
+      "cooking": {
+        "titles": [
+          {"text": "5-Minute Meals for Busy People", "trend_percentage": 94},
+          {"text": "I Tried a 100-Year-Old Recipe!", "trend_percentage": 91},
+          {"text": "The Secret to Perfect Sourdough Bread", "trend_percentage": 87},
+          {"text": "Cooking Challenge: Budget vs. Luxury Ingredients", "trend_percentage": 93},
+          {"text": "Recreating Viral TikTok Recipes", "trend_percentage": 96}
+        ],
+        "tags": ["cooking", "recipe", "food", "baking", "kitchen hacks", "healthy eating", "easy recipes", "chef", "home cooking", "food review", "meal prep", "vegan recipes"],
+        "hashtags": ["#Cooking", "#Recipe", "#Foodie", "#Baking", "#HomeChef", "#KitchenHacks"]
+      },
+      "tech_reviews": {
+        "titles": [
+          {"text": "[New Phone] Review: Is It Worth The Hype?", "trend_percentage": 98},
+          {"text": "The Ultimate Desk Setup for Productivity 2025", "trend_percentage": 90},
+          {"text": "Top 5 Gadgets You Didn't Know You Needed", "trend_percentage": 92},
+          {"text": "Building a 4K Video Editing PC on a Budget", "trend_percentage": 88},
+          {"text": "AI is Changing Everything: Here's How", "trend_percentage": 94}
+        ],
+        "tags": ["tech", "gadgets", "review", "unboxing", "smart home", "smartphone", "laptop", "pc build", "tech news", "software", "ai", "apple", "android"],
+        "hashtags": ["#Tech", "#Gadgets", "#Review", "#Unboxing", "#SmartHome", "#AI"]
+      },
+      "fitness": {
+        "titles": [
+          {"text": "15-Minute Full Body Workout (No Equipment)", "trend_percentage": 95},
+          {"text": "What I Eat in a Day to Stay Lean", "trend_percentage": 90},
+          {"text": "I Tried The [Athlete]'s Workout Routine for a Week", "trend_percentage": 89},
+          {"text": "The Truth About [Fitness Myth]", "trend_percentage": 86},
+          {"text": "Yoga for Beginners: 10 Essential Poses", "trend_percentage": 91}
+        ],
+        "tags": ["fitness", "workout", "health", "gym", "bodybuilding", "yoga", "cardio", "nutrition", "weight loss", "home workout", "fitness motivation", "calisthenics"],
+        "hashtags": ["#Fitness", "#Workout", "#Health", "#GymLife", "#Motivation", "#Yoga"]
+      },
+      "diy_crafts": {
+        "titles": [
+          {"text": "Transforming My Room with DIY Decor", "trend_percentage": 92},
+          {"text": "10 Easy Crafts to Sell Online", "trend_percentage": 90},
+          {"text": "Upcycling Old Furniture into Treasure", "trend_percentage": 88},
+          {"text": "How to Make Your Own Natural Candles", "trend_percentage": 85},
+          {"text": "DIY Gifts People Actually Want", "trend_percentage": 91}
+        ],
+        "tags": ["diy", "crafts", "how to", "upcycling", "home decor", "handmade", "art", "woodworking", "sewing", "pottery", "diy projects", "life hacks"],
+        "hashtags": ["#DIY", "#Crafts", "#Handmade", "#HomeDecor", "#Upcycling", "#DoItYourself"]
       },
       "default": {
-        "tags": [{"text":"video content","trend_percentage":80},{"text":"creator","trend_percentage":78},{"text":"new video","trend_percentage":75},{"text":"content creator","trend_percentage":82},{"text":"tutorial","trend_percentage":70}],
-        "hashtags": [{"text":"#content","trend_percentage":85},{"text":"#video","trend_percentage":88},{"text":"#creator","trend_percentage":81},{"text":"#newvideo","trend_percentage":76},{"text":"#tutorial","trend_percentage":72}],
-        "titles": [{"text":"My Honest Review of This Product","trend_percentage":85},{"text":"How to Get Started with [Topic]","trend_percentage":91},{"text":"You WON'T BELIEVE What Happened!","trend_percentage":88},{"text":"A Day in My Life","trend_percentage":82},{"text":"5 Tips for Beginners","trend_percentage":90}]
+        "titles": [
+          {"text": "My Honest Review of This Product", "trend_percentage": 85},
+          {"text": "How to Get Started with [Topic]", "trend_percentage": 91},
+          {"text": "You WON'T BELIEVE What Happened!", "trend_percentage": 88},
+          {"text": "A Day in My Life", "trend_percentage": 82},
+          {"text": "5 Tips for Beginners", "trend_percentage": 90}
+        ],
+        "tags": ["video content", "creator", "new video", "content creator", "tutorial", "vlog", "review", "how to", "guide", "tips and tricks", "educational"],
+        "hashtags": ["#Content", "#Video", "#Creator", "#NewVideo", "#Tutorial", "#Vlog"]
       }
     }
   },
   "instagram": {
     "niches": {
       "fashion": {
-        "hashtags": [{"text":"#fashion","trend_percentage":99},{"text":"#style","trend_percentage":97},{"text":"#ootd","trend_percentage":95},{"text":"#instafashion","trend_percentage":93},{"text":"#fashionblogger","trend_percentage":90}]
+        "titles": [
+          {"text": "My Top 5 Outfits for this Season", "trend_percentage": 94},
+          {"text": "Styling One Dress, Three Ways", "trend_percentage": 92},
+          {"text": "GRWM: Coffee Date Edition", "trend_percentage": 90}
+        ],
+        "hashtags": ["#fashion", "#style", "#ootd", "#instafashion", "#fashionblogger", "#lookbook", "#streetstyle"]
+      },
+      "food": {
+        "titles": [
+          {"text": "The Easiest 30-Second Pasta Sauce", "trend_percentage": 95},
+          {"text": "My Go-To Healthy Lunch Idea", "trend_percentage": 89},
+          {"text": "Rating Viral Food Hacks", "trend_percentage": 93}
+        ],
+        "hashtags": ["#foodie", "#recipe", "#instafood", "#foodphotography", "#healthyrecipes", "#eats", "#foodblogger"]
+      },
+      "travel": {
+        "titles": [
+          {"text": "3 Must-See Spots in [City]", "trend_percentage": 96},
+          {"text": "How I Travel on a Budget", "trend_percentage": 91},
+          {"text": "This view was worth the hike!", "trend_percentage": 88}
+        ],
+        "hashtags": ["#travel", "#wanderlust", "#travelgram", "#explore", "#adventure", "#beautifuldestinations", "#passionpassport"]
+      },
+      "art_photography": {
+        "titles": [
+          {"text": "My Favorite Shot from this Month", "trend_percentage": 87},
+          {"text": "Behind the Scenes of my Photoshoot", "trend_percentage": 89},
+          {"text": "How I Edit My Photos (Before & After)", "trend_percentage": 94}
+        ],
+        "hashtags": ["#photography", "#art", "#photooftheday", "#artistsoninstagram", "#shotoniphone", "#moodygrams", "#portraitphotography"]
+      },
+      "beauty": {
+        "titles": [
+          {"text": "My 5-Minute Everyday Makeup Routine", "trend_percentage": 95},
+          {"text": "Trying the [Viral Product] - Is it worth it?", "trend_percentage": 92},
+          {"text": "Skincare Empties: Would I Repurchase?", "trend_percentage": 88}
+        ],
+        "hashtags": ["#beauty", "#makeup", "#skincare", "#mua", "#beautytips", "#makeuptutorial", "#skincareroutine"]
       },
       "default": {
-        "hashtags": [{"text":"#instagood","trend_percentage":98},{"text":"#photooftheday","trend_percentage":96},{"text":"#picoftheday","trend_percentage":94},{"text":"#instadaily","trend_percentage":92},{"text":"#instalike","trend_percentage":90}]
+        "titles": [
+          {"text": "A little moment from today.", "trend_percentage": 85},
+          {"text": "Weekend vibes incoming!", "trend_percentage": 90},
+          {"text": "Just a little photo dump.", "trend_percentage": 92}
+        ],
+        "hashtags": ["#instagood", "#photooftheday", "#picoftheday", "#instadaily", "#instalike", "#love", "#beautiful"]
       }
     }
   },
   "tiktok": {
     "niches": {
-      "dance": {
-        "hashtags": [{"text":"#dancechallenge","trend_percentage":99},{"text":"#tiktokdance","trend_percentage":98},{"text":"#dancer","trend_percentage":95},{"text":"#dancetutorial","trend_percentage":92},{"text":"#choreography","trend_percentage":90}]
+      "comedy": {
+        "titles": [
+          {"text": "Things I just don't understand", "trend_percentage": 93},
+          {"text": "If toddlers had jobs", "trend_percentage": 90},
+          {"text": "My brain during a test", "trend_percentage": 88}
+        ],
+        "hashtags": ["#comedy", "#funny", "#skit", "#relatable", "#humor"]
+      },
+      "life_hacks": {
+        "titles": [
+          {"text": "You've been using this wrong your whole life", "trend_percentage": 96},
+          {"text": "The one kitchen hack that saved me hours", "trend_percentage": 91},
+          {"text": "Travel hack you need for your next trip", "trend_percentage": 89}
+        ],
+        "hashtags": ["#lifehack", "#hack", "#diy", "#tipsandtricks", "#learnontiktok"]
+      },
+      "educational": {
+        "titles": [
+          {"text": "One historical fact that will blow your mind", "trend_percentage": 92},
+          {"text": "How [Concept] actually works, in 60 seconds", "trend_percentage": 90},
+          {"text": "The science behind [Phenomenon]", "trend_percentage": 87}
+        ],
+        "hashtags": ["#learnontiktok", "#education", "#science", "#history", "#edutok"]
+      },
+      "storytime": {
+        "titles": [
+          {"text": "The time I accidentally became a hero", "trend_percentage": 94},
+          {"text": "My most embarrassing moment ever", "trend_percentage": 91},
+          {"text": "How I got my dream job", "trend_percentage": 88}
+        ],
+        "hashtags": ["#storytime", "#truestory", "#story", "#getreadywithme", "#grwm"]
+      },
+      "food_recipes": {
+        "titles": [
+          {"text": "The viral feta pasta, but better", "trend_percentage": 90},
+          {"text": "You only need 3 ingredients for this dessert", "trend_percentage": 95},
+          {"text": "Making the world's tiniest pizza", "trend_percentage": 86}
+        ],
+        "hashtags": ["#foodtiktok", "#easyrecipe", "#foodtok", "#asmrfood", "#cooking"]
       },
       "default": {
-        "hashtags": [{"text":"#tiktok","trend_percentage":99},{"text":"#viral","trend_percentage":98},{"text":"#trending","trend_percentage":97},{"text":"#fyp","trend_percentage":100},{"text":"#foryoupage","trend_percentage":100}]
+        "titles": [
+          {"text": "Just another day on TikTok", "trend_percentage": 85},
+          {"text": "Trying this trend before it's over", "trend_percentage": 94},
+          {"text": "This sound was made for this video", "trend_percentage": 91}
+        ],
+        "hashtags": ["#tiktok", "#viral", "#trending", "#fyp", "#foryoupage"]
       }
     }
   },
   "facebook": {
     "niches": {
-      "food": {
-        "hashtags": [{"text":"#foodie","trend_percentage":95},{"text":"#recipe","trend_percentage":92},{"text":"#homecooking","trend_percentage":88},{"text":"#delicious","trend_percentage":85},{"text":"#foodblogger","trend_percentage":90}]
+      "local_business": {
+        "titles": [
+          {"text": "Meet the team behind [Business Name]!", "trend_percentage": 85},
+          {"text": "A day in the life at our shop", "trend_percentage": 88},
+          {"text": "Customer spotlight! Thanks for your support!", "trend_percentage": 90}
+        ],
+        "hashtags": ["#localbusiness", "#smallbusiness", "#supportlocal", "#shoplocal"]
+      },
+      "community_groups": {
+        "titles": [
+          {"text": "Upcoming event this Saturday!", "trend_percentage": 92},
+          {"text": "Share your favorite memory from our last meetup!", "trend_percentage": 86},
+          {"text": "Welcome to our new members!", "trend_percentage": 84}
+        ],
+        "hashtags": ["#community", "#localevents", "#meetup", "#group"]
+      },
+      "hobby_crafting": {
+        "titles": [
+          {"text": "Our latest group project is complete!", "trend_percentage": 89},
+          {"text": "Tips for beginners in [Hobby]", "trend_percentage": 91},
+          {"text": "Show us what you're working on!", "trend_percentage": 87}
+        ],
+        "hashtags": ["#hobby", "#crafting", "#diy", "#artistsoffacebook"]
+      },
+      "parenting": {
+        "titles": [
+          {"text": "What's your go-to weeknight dinner for kids?", "trend_percentage": 90},
+          {"text": "Relatable parenting moment of the day", "trend_percentage": 93},
+          {"text": "Easy craft idea for a rainy day", "trend_percentage": 88}
+        ],
+        "hashtags": ["#parenting", "#momlife", "#dadlife", "#family"]
+      },
+      "health_wellness": {
+        "titles": [
+          {"text": "Mindful Monday: Start your week with intention", "trend_percentage": 87},
+          {"text": "Join our 7-day wellness challenge!", "trend_percentage": 91},
+          {"text": "Simple tips for better sleep", "trend_percentage": 89}
+        ],
+        "hashtags": ["#wellness", "#healthylifestyle", "#mindfulness", "#selfcare"]
       },
       "default": {
-        "hashtags": [{"text":"#facebookpost","trend_percentage":80},{"text":"#socialmedia","trend_percentage":78},{"text":"#content","trend_percentage":85},{"text":"#marketing","trend_percentage":82},{"text":"#community","trend_percentage":75}]
+        "titles": [
+          {"text": "A little update for our followers", "trend_percentage": 82},
+          {"text": "What are your thoughts on this?", "trend_percentage": 88},
+          {"text": "Throwback to this amazing day!", "trend_percentage": 85}
+        ],
+        "hashtags": ["#facebookpost", "#socialmedia", "#content", "#community"]
       }
     }
   },
   "multilingual": {
-    "english": {
-      "tags": [{"text":"sample tag","trend_percentage":75},{"text":"example","trend_percentage":70}],
-      "hashtags": [{"text":"#sample","trend_percentage":80},{"text":"#example","trend_percentage":75}]
-    },
-    "spanish": {
-      "tags": [{"text":"etiqueta de muestra","trend_percentage":75},{"text":"ejemplo","trend_percentage":70}],
-      "hashtags": [{"text":"#muestra","trend_percentage":80},{"text":"#ejemplo","trend_percentage":75}]
-    },
-    "hindi": {
-        "tags": [{"text":"नमूना टैग","trend_percentage":75},{"text":"उदाहरण","trend_percentage":70}],
-        "hashtags": [{"text":"#नमूना","trend_percentage":80},{"text":"#उदाहरण","trend_percentage":75}]
-    }
+    "english": {"tags": ["sample tag", "example"], "hashtags": ["#sample", "#example"]},
+    "spanish": {"tags": ["etiqueta de muestra", "ejemplo"], "hashtags": ["#muestra", "#ejemplo"]},
+    "french": {"tags": ["exemple de tag", "exemple"], "hashtags": ["#échantillon", "#exemple"]},
+    "german": {"tags": ["Beispiel-Tag", "Beispiel"], "hashtags": ["#Beispiel", "#Muster"]},
+    "italian": {"tags": ["tag di esempio", "esempio"], "hashtags": ["#campione", "#esempio"]},
+    "portuguese": {"tags": ["tag de exemplo", "exemplo"], "hashtags": ["#amostra", "#exemplo"]},
+    "dutch": {"tags": ["voorbeeldtag", "voorbeeld"], "hashtags": ["#voorbeeld", "#monster"]},
+    "russian": {"tags": ["пример тега", "пример"], "hashtags": ["#образец", "#пример"]},
+    "chinese": {"tags": ["示例标签", "例子"], "hashtags": ["#样品", "#例子"]},
+    "japanese": {"tags": ["サンプルタグ", "例"], "hashtags": ["#サンプル", "#例"]},
+    "korean": {"tags": ["샘플 태그", "예시"], "hashtags": ["#샘플", "#예시"]},
+    "arabic": {"tags": ["علامة عينة", "مثال"], "hashtags": ["#عينة", "#مثال"]},
+    "hindi": {"tags": ["नमूना टैग", "उदाहरण"], "hashtags": ["#नमूना", "#उदाहरण"]},
+    "bengali": {"tags": ["নমুনা ট্যাগ", "উদাহরণ"], "hashtags": ["#নমুনা", "#উদাহরণ"]},
+    "tamil": {"tags": ["மாதிரி குறிச்சொல்", "உதாரணம்"], "hashtags": ["#மாதிரி", "#உதாரணம்"]},
+    "telugu": {"tags": ["నమూనా ట్యాగ్", "ఉదాహరణ"], "hashtags": ["#నమూనా", "#ఉదాహరణ"]},
+    "turkish": {"tags": ["örnek etiket", "örnek"], "hashtags": ["#örnek", "#numune"]},
+    "polish": {"tags": ["przykładowy tag", "przykład"], "hashtags": ["#próbka", "#przykład"]},
+    "thai": {"tags": ["แท็กตัวอย่าง", "ตัวอย่าง"], "hashtags": ["#ตัวอย่าง", "#แบบ"]},
+    "vietnamese": {"tags": ["thẻ mẫu", "ví dụ"], "hashtags": ["#mẫu", "#vidu"]},
+    "indonesian": {"tags": ["tag sampel", "contoh"], "hashtags": ["#sampel", "#contoh"]}
   }
 }

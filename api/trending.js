@@ -5,8 +5,13 @@ import { fileURLToPath } from 'node:url';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-// This is a simple mock API for development.
-// In a real production scenario, this would fetch data from a live source.
+// Helper function to pick random items from an array
+const pickRandom = (arr, num = 1) => {
+  if (!arr || arr.length === 0) return [];
+  const shuffled = [...arr].sort(() => 0.5 - Math.random());
+  return shuffled.slice(0, num);
+};
+
 export default async function handler(req, res) {
   res.setHeader('Content-Type', 'application/json');
   res.setHeader('Access-Control-Allow-Origin', '*');
@@ -22,25 +27,55 @@ export default async function handler(req, res) {
   }
 
   try {
-    // For local dev, we read from a file. In Vercel, this file would be bundled.
-    const filePath = path.resolve(process.cwd(), 'src/data/trendingTopicsData.js');
-    
-    if (fs.existsSync(filePath)) {
-      // Dynamically import the ES module
-      const fileUrl = path.toFileUrl(filePath).href;
-      const { trendingTopicsData } = await import(fileUrl);
-      
-      console.log('[API Trending] Successfully fetched trending topics from local data.');
-      return res.status(200).json({ topics: trendingTopicsData });
-    } else {
-      console.error(`[API Trending] Data file not found at: ${filePath}`);
-      return res.status(404).json({ error: 'Not Found', message: 'Trending topics data file not found.' });
-    }
+    const fallbackPath = path.join(__dirname, 'fallback.json');
+    const fallbackContent = fs.readFileSync(fallbackPath, 'utf-8');
+    const fallbackData = JSON.parse(fallbackContent);
+
+    const platformKeys = ['youtube', 'instagram', 'tiktok', 'facebook'];
+    const selectedPlatforms = pickRandom(platformKeys, 4);
+
+    const trendingTopics = selectedPlatforms.map(platformKey => {
+      const platformData = fallbackData[platformKey];
+      const nicheKeys = Object.keys(platformData.niches).filter(k => k !== 'default');
+      const randomNicheKey = pickRandom(nicheKeys)[0] || 'default';
+      const nicheData = platformData.niches[randomNicheKey];
+
+      const topics = pickRandom(nicheData.titles, 3).map(title => ({
+        title: title.text,
+        description: `A trending topic in the ${randomNicheKey.replace(/_/g, ' ')} niche on ${platformKey.charAt(0).toUpperCase() + platformKey.slice(1)}.`,
+      }));
+
+      let icon, color;
+      switch(platformKey) {
+        case 'youtube': icon = 'Youtube'; color = 'text-red-500'; break;
+        case 'instagram': icon = 'Instagram'; color = 'text-pink-500'; break;
+        case 'tiktok': icon = 'TikTokIcon'; color = 'text-black'; break;
+        case 'facebook': icon = 'Facebook'; color = 'text-blue-600'; break;
+        default: icon = 'Globe'; color = 'text-gray-800';
+      }
+
+      return {
+        platform: platformKey.charAt(0).toUpperCase() + platformKey.slice(1),
+        icon: icon,
+        color: color,
+        topics: topics,
+      };
+    });
+
+    console.log('[API Trending] Successfully served randomized trending topics from fallback.json.');
+    return res.status(200).json({ topics: trendingTopics });
+
   } catch (error) {
     console.error('Fatal error in trending.js:', error);
-    return res.status(500).json({
-      error: 'Internal Server Error',
-      message: error.message || 'An unexpected error occurred while fetching trending topics.'
-    });
+    // As a final fallback, return a minimal static response
+    const staticFallback = {
+        topics: [{
+            platform: "Trending",
+            icon: "Globe",
+            color: "text-gray-800",
+            topics: [{ title: "AI Tools Explained", description: "Deep dives into new AI tools." }]
+        }]
+    };
+    return res.status(500).json(staticFallback);
   }
 }
