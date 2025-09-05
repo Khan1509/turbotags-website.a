@@ -8,8 +8,8 @@ const PRECACHE_ASSETS = [
   '/index.html',
   '/manifest.json',
   '/favicon.svg',
-  '/icons/icon-192x192.svg',
-  '/icons/icon-512x512.svg',
+  '/icon-192x192.png',
+  '/icon-512x512.png',
 ];
 
 // On install, pre-cache the app shell.

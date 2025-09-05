@@ -133,7 +133,7 @@ export default defineConfig(({ mode }) => {
     server: {
       cors: true,
       headers: {
-        'Content-Security-Policy': "default-src 'self'; script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://www.google-analytics.com https://pagead2.googlesyndication.com; style-src 'self' 'unsafe-inline'; img-src 'self' data: https://img-wrapper.vercel.app https://placehold.co https://pagead2.googlesyndication.com; font-src 'self'; connect-src 'self' https://openrouter.ai https://www.google-analytics.com https://pagead2.googlesyndication.com https://*.firebaseio.com https://www.googleapis.com https://firebase.googleapis.com https://*.google https://*.doubleclick.net; frame-src 'self' https://www.google.com https://googleads.g.doubleclick.net https://*.doubleclick.net https://*.google.com; object-src 'none'; base-uri 'self';"
+        'Content-Security-Policy': "default-src 'self'; script-src 'self' 'unsafe-inline' https://*.google.com https://*.googleapis.com https://*.gstatic.com https://www.googletagmanager.com https://www.google-analytics.com https://pagead2.googlesyndication.com; style-src 'self' 'unsafe-inline'; img-src 'self' data: https://*.googleapis.com https://img-wrapper.vercel.app https://placehold.co https://pagead2.googlesyndication.com; font-src 'self'; connect-src 'self' https://openrouter.ai https://*.google.com https://*.googleapis.com https://*.firebaseio.com https://*.doubleclick.net; frame-src 'self' https://*.google.com https://*.doubleclick.net; object-src 'none'; base-uri 'self';"
       }
     },
     css: {
