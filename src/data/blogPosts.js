@@ -8,7 +8,7 @@ export const blogPosts = [
     category: 'YouTube SEO',
     author: 'TurboTags Team',
     date: 'July 28, 2025',
-    image: 'https://img-wrapper.vercel.app/image?url=https://placehold.co/1200x630/FF0000/FFFFFF/png?text=YouTube+Gaming+SEO',
+    image: 'https://img-wrapper.vercel.app/image?url=https://img-wrapper.vercel.app/image?url=https://placehold.co/1200x630/FF0000/FFFFFF/png?text=YouTube+Gaming+SEO',
     content: [
       { type: 'p', children: 'The Indian gaming community is one of the fastest-growing in the world. With millions of active players and viewers, the competition on YouTube is fierce. To stand out, you need more than just great gameplay; you need impeccable Search Engine Optimization (SEO). This guide will walk you through the essential strategies to get your gaming channel noticed in 2025.' },
       { type: 'h3', children: '1. Understand Your Niche and Audience' },
@@ -39,7 +39,7 @@ export const blogPosts = [
     category: 'Instagram Growth',
     author: 'TurboTags Team',
     date: 'July 25, 2025',
-    image: 'https://img-wrapper.vercel.app/image?url=https://placehold.co/1200x630/E1306C/FFFFFF/png?text=Instagram+Fashion+Brazil',
+    image: 'https://img-wrapper.vercel.app/image?url=https://img-wrapper.vercel.app/image?url=https://placehold.co/1200x630/E1306C/FFFFFF/png?text=Instagram+Fashion+Brazil',
     content: [
         { type: 'p', children: "Brazil has a vibrant and massive fashion scene on Instagram. To tap into this audience, a smart hashtag strategy is non-negotiable. Simply using generic English hashtags won't cut it. Here’s how to build a strategy that works for the Brazilian market." },
         { type: 'h3', children: '1. The Multi-Layered Hashtag Approach' },
@@ -68,7 +68,7 @@ export const blogPosts = [
     category: 'TikTok Growth',
     author: 'TurboTags Team',
     date: 'July 22, 2025',
-    image: 'https://img-wrapper.vercel.app/image?url=https://placehold.co/1200x630/000000/FFFFFF/png?text=TikTok+SEO+Guide',
+    image: 'https://img-wrapper.vercel.app/image?url=https://img-wrapper.vercel.app/image?url=https://placehold.co/1200x630/000000/FFFFFF/png?text=TikTok+SEO+Guide',
     content: [
       { type: 'p', children: "Gone are the days when TikTok was just about viral dances. It's now a powerful search engine, especially for Gen Z. If you're not optimizing your content for search, you're missing out on a massive opportunity. Here’s your guide to TikTok SEO in 2025." },
       { type: 'h3', children: '1. Keywords are Everything' },
@@ -100,7 +100,7 @@ export const blogPosts = [
     category: 'Facebook Growth',
     author: 'TurboTags Team',
     date: 'July 20, 2025',
-    image: 'https://img-wrapper.vercel.app/image?url=https://placehold.co/1200x630/1877F2/FFFFFF/png?text=Facebook+for+Creators',
+    image: 'https://img-wrapper.vercel.app/image?url=https://img-wrapper.vercel.app/image?url=https://placehold.co/1200x630/1877F2/FFFFFF/png?text=Facebook+for+Creators',
     content: [
       { type: 'p', children: "While newer platforms get all the hype, Facebook remains a powerhouse for content creators, especially for reaching a broader demographic. In 2025, the key to success on Facebook is mastering video, particularly Reels." },
       { type: 'h3', children: '1. Why Facebook Reels are a Goldmine' },

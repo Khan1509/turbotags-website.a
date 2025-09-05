@@ -1,0 +1,60 @@
+{
+  "youtube": {
+    "niches": {
+      "gaming": {
+        "tags": [{"text":"gaming","trend_percentage":95},{"text":"video games","trend_percentage":92},{"text":"gamer","trend_percentage":88},{"text":"live stream","trend_percentage":85},{"text":"gameplay","trend_percentage":90}],
+        "hashtags": [{"text":"#gaming","trend_percentage":98},{"text":"#gamer","trend_percentage":94},{"text":"#videogames","trend_percentage":91},{"text":"#livestream","trend_percentage":87},{"text":"#gameplay","trend_percentage":92}],
+        "titles": [{"text":"My Most INSANE Clutch Ever!","trend_percentage":95},{"text":"Unboxing The NEW Gaming Console","trend_percentage":92},{"text":"Can We Beat This IMPOSSIBLE Level?","trend_percentage":90},{"text":"The Funniest Gaming Moments of the Week","trend_percentage":88},{"text":"Ranking Every Game in the Series","trend_percentage":85}]
+      },
+      "default": {
+        "tags": [{"text":"video content","trend_percentage":80},{"text":"creator","trend_percentage":78},{"text":"new video","trend_percentage":75},{"text":"content creator","trend_percentage":82},{"text":"tutorial","trend_percentage":70}],
+        "hashtags": [{"text":"#content","trend_percentage":85},{"text":"#video","trend_percentage":88},{"text":"#creator","trend_percentage":81},{"text":"#newvideo","trend_percentage":76},{"text":"#tutorial","trend_percentage":72}],
+        "titles": [{"text":"My Honest Review of This Product","trend_percentage":85},{"text":"How to Get Started with [Topic]","trend_percentage":91},{"text":"You WON'T BELIEVE What Happened!","trend_percentage":88},{"text":"A Day in My Life","trend_percentage":82},{"text":"5 Tips for Beginners","trend_percentage":90}]
+      }
+    }
+  },
+  "instagram": {
+    "niches": {
+      "fashion": {
+        "hashtags": [{"text":"#fashion","trend_percentage":99},{"text":"#style","trend_percentage":97},{"text":"#ootd","trend_percentage":95},{"text":"#instafashion","trend_percentage":93},{"text":"#fashionblogger","trend_percentage":90}]
+      },
+      "default": {
+        "hashtags": [{"text":"#instagood","trend_percentage":98},{"text":"#photooftheday","trend_percentage":96},{"text":"#picoftheday","trend_percentage":94},{"text":"#instadaily","trend_percentage":92},{"text":"#instalike","trend_percentage":90}]
+      }
+    }
+  },
+  "tiktok": {
+    "niches": {
+      "dance": {
+        "hashtags": [{"text":"#dancechallenge","trend_percentage":99},{"text":"#tiktokdance","trend_percentage":98},{"text":"#dancer","trend_percentage":95},{"text":"#dancetutorial","trend_percentage":92},{"text":"#choreography","trend_percentage":90}]
+      },
+      "default": {
+        "hashtags": [{"text":"#tiktok","trend_percentage":99},{"text":"#viral","trend_percentage":98},{"text":"#trending","trend_percentage":97},{"text":"#fyp","trend_percentage":100},{"text":"#foryoupage","trend_percentage":100}]
+      }
+    }
+  },
+  "facebook": {
+    "niches": {
+      "food": {
+        "hashtags": [{"text":"#foodie","trend_percentage":95},{"text":"#recipe","trend_percentage":92},{"text":"#homecooking","trend_percentage":88},{"text":"#delicious","trend_percentage":85},{"text":"#foodblogger","trend_percentage":90}]
+      },
+      "default": {
+        "hashtags": [{"text":"#facebookpost","trend_percentage":80},{"text":"#socialmedia","trend_percentage":78},{"text":"#content","trend_percentage":85},{"text":"#marketing","trend_percentage":82},{"text":"#community","trend_percentage":75}]
+      }
+    }
+  },
+  "multilingual": {
+    "english": {
+      "tags": [{"text":"sample tag","trend_percentage":75},{"text":"example","trend_percentage":70}],
+      "hashtags": [{"text":"#sample","trend_percentage":80},{"text":"#example","trend_percentage":75}]
+    },
+    "spanish": {
+      "tags": [{"text":"etiqueta de muestra","trend_percentage":75},{"text":"ejemplo","trend_percentage":70}],
+      "hashtags": [{"text":"#muestra","trend_percentage":80},{"text":"#ejemplo","trend_percentage":75}]
+    },
+    "hindi": {
+        "tags": [{"text":"नमूना टैग","trend_percentage":75},{"text":"उदाहरण","trend_percentage":70}],
+        "hashtags": [{"text":"#नमूना","trend_percentage":80},{"text":"#उदाहरण","trend_percentage":75}]
+    }
+  }
+}

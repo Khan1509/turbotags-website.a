@@ -11,6 +11,8 @@ const ContentRenderer = ({ content }) => {
     switch (block.type) {
       case 'p':
         return <p key={index}>{block.children}</p>;
+      case 'h2':
+        return <h2 key={index} className="text-4xl font-bold mt-10 mb-6">{block.children}</h2>;
       case 'h3':
         return <h3 key={index} className="text-3xl font-bold mt-8 mb-4">{block.children}</h3>;
       case 'ul':
@@ -19,6 +21,8 @@ const ContentRenderer = ({ content }) => {
             {block.items.map((item, i) => <li key={i}>{item}</li>)}
           </ul>
         );
+      case 'image':
+        return <img key={index} src={block.src} alt={block.alt || 'Blog post image'} className="w-full h-auto rounded-xl shadow-lg my-8" loading="lazy" decoding="async" />;
       case 'example':
         return <p key={index} className="p-4 bg-gray-100 rounded-lg text-sm font-mono my-4 break-words">{block.children}</p>;
       default:
