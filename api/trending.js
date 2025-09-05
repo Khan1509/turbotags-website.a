@@ -1,8 +1,9 @@
 import fs from 'node:fs/promises';
 import path from 'node:path';
+import os from 'node:os';
 
-// Vercel provides a writable /tmp directory for serverless functions
-const CACHE_FILE = path.join('/tmp', 'trending_cache.json');
+// Use system temp directory for cross-platform compatibility
+const CACHE_FILE = path.join(os.tmpdir(), 'trending_cache.json');
 const CACHE_DURATION_MS = 24 * 60 * 60 * 1000; // 24 hours
 
 const fallbackTopics = {

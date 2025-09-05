@@ -10,12 +10,7 @@ function vercelApiDevPlugin() {
   return {
     name: 'vercel-api-dev-plugin',
     configureServer(server) {
-      server.middlewares.use(async (req, res, next) => {
-        // Only handle requests to /api/*
-        if (!req.url?.startsWith('/api/')) {
-          return next();
-        }
-
+      server.middlewares.use('/api', async (req, res, next) => {
         console.log(`[API DEV] ${req.method} ${req.url}`);
 
         // Add Express-like methods to response for convenience
@@ -29,30 +24,30 @@ function vercelApiDevPlugin() {
           return res;
         };
 
-        // Route to the correct handler based on URL and method
-        if (req.url.startsWith('/api/generate') && req.method === 'POST') {
-          let body = '';
-          req.on('data', chunk => { body += chunk; });
-          req.on('end', async () => {
-            try {
-              req.body = body ? JSON.parse(body) : {};
-              await generateApiHandler(req, res);
-            } catch (e) {
-              console.error('[API DEV] Body parsing error:', e);
-              res.status(400).json({ error: 'Bad Request', message: 'Invalid JSON in request body' });
-            }
-          });
-        } else if (req.url.startsWith('/api/trending') && req.method === 'GET') {
-          try {
+        try {
+          // Route to the correct handler based on URL and method
+          if (req.url.startsWith('/generate') && req.method === 'POST') {
+            let body = '';
+            req.on('data', chunk => { body += chunk; });
+            req.on('end', async () => {
+              try {
+                req.body = body ? JSON.parse(body) : {};
+                await generateApiHandler(req, res);
+              } catch (e) {
+                console.error('[API DEV] Body parsing error:', e);
+                res.status(400).json({ error: 'Bad Request', message: 'Invalid JSON in request body' });
+              }
+            });
+          } else if (req.url.startsWith('/trending') && req.method === 'GET') {
             req.body = {}; // Ensure req.body exists for handler compatibility
             await trendingApiHandler(req, res);
-          } catch (e) {
-            console.error('[API DEV] Trending handler error:', e);
-            res.status(500).json({ error: 'Internal Server Error' });
+          } else {
+            // If no route matches, return a 404
+            res.status(404).json({ error: 'Not Found', message: `Cannot ${req.method} ${req.url}` });
           }
-        } else {
-          // If no route matches, return a 404
-          res.status(404).json({ error: 'Not Found', message: `Cannot ${req.method} ${req.url}` });
+        } catch (error) {
+          console.error('[API DEV] Middleware error:', error);
+          res.status(500).json({ error: 'Internal Server Error', message: error.message });
         }
       });
     },
