@@ -1,3 +1,6 @@
+import { promises as fs } from 'fs';
+import path from 'path';
+
 async function callOpenRouter(model, systemPrompt) {
   const OPENROUTER_API_KEY = process.env.OPENROUTER_API_KEY;
   if (!OPENROUTER_API_KEY || OPENROUTER_API_KEY === 'YOUR_API_KEY') {
@@ -56,7 +59,20 @@ export default async function handler(req, res) {
     return res.status(200).json(result);
 
   } catch (error) {
-    console.error('Error fetching trending topics:', error.message);
-    return res.status(500).json({ trendingTopics: [] });
+    console.error('Error fetching trending topics, serving fallback:', error.message);
+    try {
+        const fallbackPath = path.join(process.cwd(), 'public', 'data', 'fallback-trending.json');
+        const fallbackData = await fs.readFile(fallbackPath, 'utf-8');
+        const fallbackJson = JSON.parse(fallbackData);
+        
+        res.setHeader('Cache-Control', 'no-cache'); // Do not cache the fallback response
+        return res.status(200).json(fallbackJson);
+    } catch (fallbackReadError) {
+        console.error('CRITICAL: Could not read trending topics fallback file:', fallbackReadError.message);
+        return res.status(500).json({ 
+            trendingTopics: [], 
+            error: 'An unexpected error occurred and the fallback file could not be read.' 
+        });
+    }
   }
 }

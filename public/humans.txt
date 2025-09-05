@@ -1,0 +1,20 @@
+/* TEAM */
+Project: TurboTags
+URL: https://turbotags.app
+Contact: helloturbotags@gmail.com
+Twitter: @TurboTagsApp
+From: Earth
+
+/* THANKS */
+Node.js
+React
+Vite
+Tailwind CSS
+OpenRouter.ai
+Vercel
+
+/* TECHNOLOGY */
+Frontend: React, Vite, Tailwind CSS
+Backend: Vercel Serverless Functions (Node.js)
+AI Provider: OpenRouter.ai
+Hosting: Vercel

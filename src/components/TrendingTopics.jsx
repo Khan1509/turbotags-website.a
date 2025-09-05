@@ -50,6 +50,7 @@ const TrendingTopics = () => {
   const [data, setData] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [isFallback, setIsFallback] = useState(false);
 
   useEffect(() => {
     const fetchTopics = async () => {
@@ -57,6 +58,9 @@ const TrendingTopics = () => {
         setIsLoading(true);
         const result = await getTrendingTopics();
         setData(result.trendingTopics || []);
+        if (result.fallback) {
+          setIsFallback(true);
+        }
         setError(null);
       } catch (err) {
         setError('Could not load trending topics. Please try again later.');
@@ -94,6 +98,12 @@ const TrendingTopics = () => {
         <p className="text-lg text-gray-600 max-w-3xl mx-auto">
           Stuck on what to create next? Get inspired by these AI-curated trending topics for major platforms.
         </p>
+        {isFallback && (
+          <div className="mt-4 bg-yellow-100 border-l-4 border-yellow-500 text-yellow-800 p-3 rounded-r-lg max-w-2xl mx-auto text-left" role="alert">
+            <p className="font-bold">Notice</p>
+            <p className="text-sm">Live trends are currently unavailable. Showing sample ideas.</p>
+          </div>
+        )}
       </div>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
         {data.map((platformData, index) => {

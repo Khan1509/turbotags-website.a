@@ -1,7 +1,9 @@
 import { defineConfig, loadEnv } from 'vite'
 import react from '@vitejs/plugin-react'
 
-// API middleware plugin to emulate Vercel's serverless functions in development
+// API middleware plugin to emulate Vercel's serverless functions IN DEVELOPMENT.
+// This plugin intercepts requests to /api/* and forwards them to the corresponding
+// function in the /api directory. It DOES NOT affect the production build on Vercel.
 function vercelApiDevPlugin() {
   return {
     name: 'vercel-api-dev-plugin',

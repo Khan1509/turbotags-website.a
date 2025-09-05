@@ -1,0 +1,46 @@
+{
+  "trendingTopics": [
+    {
+      "platform": "YouTube",
+      "topics": [
+        { "title": "AI Tool Reviews", "description": "Reviewing the latest AI tools for productivity and creativity." },
+        { "title": "Sustainable Living Hacks", "description": "Easy and affordable tips for a more eco-friendly lifestyle." },
+        { "title": "Deep Dive Documentaries", "description": "Exploring interesting topics with in-depth video essays." },
+        { "title": "Retro Gaming Retrospectives", "description": "A nostalgic look back at classic video games and consoles." },
+        { "title": "Budget Travel Guides", "description": "How to explore the world without breaking the bank." }
+      ]
+    },
+    {
+      "platform": "Instagram",
+      "topics": [
+        { "title": "'Photo Dump' Carousels", "description": "Sharing candid, uncurated moments from your week or month." },
+        { "title": "DIY Home Decor", "description": "Creative and simple projects to beautify your living space." },
+        { "title": "30-Second Recipes", "description": "Quick and visually appealing recipe Reels." },
+        { "title": "Thrift Store Fashion Flips", "description": "Transforming second-hand clothes into trendy outfits." },
+        { "title": "Behind-the-Scenes of a Small Business", "description": "Showcasing the process and passion behind your brand." }
+      ]
+    },
+    {
+      "platform": "TikTok",
+      "topics": [
+        { "title": "Day in the Life Vlogs", "description": "A quick, engaging look into a specific job or lifestyle." },
+        { "title": "Niche Community 'Toks'", "description": "Creating content for highly specific hobbies (e.g., #BookTok, #CleanTok)." },
+        { "title": "Educational Quick-Tips", "description": "Sharing a useful piece of information in under 60 seconds." },
+        { "title": "Viral Sound Lip Syncs", "description": "Using trending audio in a creative or humorous way." },
+        { "title": "GRWM (Get Ready With Me)", "description": "A chatty video showing your makeup or outfit process." }
+      ]
+    },
+    {
+      "platform": "Facebook",
+      "topics": [
+        { "title": "Community-Building Questions", "description": "Posing questions that encourage comments and discussion." },
+        { "title": "Heartwarming Local Stories", "description": "Sharing positive news or stories from your local area." },
+        { "title": "Nostalgic Throwback Posts", "description": "Content that resonates with shared memories of a specific demographic." },
+        { "title": "User-Generated Content Features", "description": "Showcasing photos or stories submitted by your followers." },
+        { "title": "Long-Form Text Posts with a Single Image", "description": "Telling a compelling story to drive engagement." }
+      ]
+    }
+  ],
+  "fallback": true,
+  "message": "AI services are currently unavailable. Using sample trending topics."
+}
