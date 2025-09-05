@@ -9,7 +9,6 @@ import LazySection from '../components/utils/LazySection';
 import { motion } from 'framer-motion';
 import Share from '../components/Share';
 import TrendingTopics from '../components/TrendingTopics';
-import FloatingBalls from '../components/ui/FloatingBalls';
 import NativeAd from '../components/ui/NativeAd';
 import FaqSchema from '../components/schemas/FaqSchema';
 import { faqData } from '../components/Faq'; // Assuming faqData is exported from Faq component
@@ -42,7 +41,6 @@ function HomePage() {
     <>
       <FaqSchema faqData={faqData} />
       <div className="relative">
-        <FloatingBalls />
         <motion.div
           className="container mx-auto max-w-7xl space-y-8 px-4 sm:space-y-12 sm:px-6 md:px-8"
           variants={staggerContainer}

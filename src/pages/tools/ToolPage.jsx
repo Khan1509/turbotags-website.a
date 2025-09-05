@@ -3,7 +3,6 @@ import { motion } from 'framer-motion';
 import usePageMeta from '../../hooks/usePageMeta';
 import TagGenerator from '../../components/TagGenerator';
 import Breadcrumbs from '../../components/ui/Breadcrumbs';
-import FloatingBalls from '../../components/ui/FloatingBalls';
 
 const ToolPage = ({ pageConfig }) => {
   const {
@@ -20,7 +19,6 @@ const ToolPage = ({ pageConfig }) => {
 
   return (
     <div className="relative">
-      <FloatingBalls />
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
