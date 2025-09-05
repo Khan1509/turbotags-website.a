@@ -26,7 +26,7 @@ function vercelApiDevPlugin() {
 
         try {
           // Route to the correct handler based on URL and method
-          if (req.url.startsWith('/generate') && req.method === 'POST') {
+          if ((req.url === '/generate' || req.url.startsWith('/generate?')) && req.method === 'POST') {
             let body = '';
             req.on('data', chunk => { body += chunk; });
             req.on('end', async () => {
@@ -38,12 +38,13 @@ function vercelApiDevPlugin() {
                 res.status(400).json({ error: 'Bad Request', message: 'Invalid JSON in request body' });
               }
             });
-          } else if (req.url.startsWith('/trending') && req.method === 'GET') {
+          } else if ((req.url === '/trending' || req.url.startsWith('/trending?')) && req.method === 'GET') {
             req.body = {}; // Ensure req.body exists for handler compatibility
             await trendingApiHandler(req, res);
           } else {
             // If no route matches, return a 404
-            res.status(404).json({ error: 'Not Found', message: `Cannot ${req.method} ${req.url}` });
+            console.log(`[API DEV] No route found for ${req.method} ${req.url}`);
+            res.status(404).json({ error: 'Not Found', message: `Cannot ${req.method} /api${req.url}` });
           }
         } catch (error) {
           console.error('[API DEV] Middleware error:', error);
