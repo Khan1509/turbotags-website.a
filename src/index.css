@@ -5,30 +5,35 @@
 @layer base {
   html {
     scroll-behavior: smooth;
+    -webkit-tap-highlight-color: transparent;
   }
 
   body {
     @apply bg-gray-50 font-sans text-gray-800 antialiased;
     overflow-x: hidden;
     line-height: 1.6;
-    /* Performance optimizations */
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     text-rendering: optimizeLegibility;
   }
 
-  /* Optimize scrolling performance */
+  /* Fluid Typography for responsive headings */
+  h1, .h1 {
+    font-size: clamp(2.5rem, 1.96rem + 2.68vw, 4rem); /* from 40px to 64px */
+  }
+  h2, .h2 {
+    font-size: clamp(1.875rem, 1.56rem + 1.56vw, 2.75rem); /* from 30px to 44px */
+  }
+  h3, .h3 {
+    font-size: clamp(1.25rem, 1.11rem + 0.71vw, 1.625rem); /* from 20px to 26px */
+  }
+
   * {
     scroll-behavior: smooth;
   }
 
-  /* Prevent layout shift during animations */
   .will-change-transform {
     will-change: transform;
-  }
-
-  .will-change-auto {
-    will-change: auto;
   }
 }
 
@@ -39,7 +44,7 @@
   }
 
   .btn:hover {
-    animation: button-lift 0.2s ease-out forwards, gentle-glow 0.2s ease-out forwards;
+    transform: translateY(-2px);
   }
 
   .btn-primary {
@@ -48,116 +53,6 @@
 
   .btn-secondary {
     @apply btn bg-gray-200 text-gray-800 hover:bg-gray-300 focus:ring-gray-500;
-  }
-
-  .tag-item {
-    @apply flex items-center justify-between rounded-md bg-white p-3 shadow-sm transition-all duration-150 border border-gray-200;
-    will-change: transform, box-shadow;
-  }
-
-  @media (hover: hover) {
-    .tag-item:hover {
-      transform: translate3d(2px, 0, 0);
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-    }
-  }
-
-  .feature-card {
-    @apply bg-white rounded-xl p-6 shadow-lg transition-all duration-200 border border-gray-200 focus-within:ring-2 focus-within:ring-tt-dark-violet focus-within:ring-offset-2;
-    will-change: transform, box-shadow;
-  }
-
-  @media (hover: hover) {
-    .feature-card:hover {
-      transform: translate3d(0, -4px, 0);
-      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
-    }
-  }
-}
-
-/* Optimized floating animation with hardware acceleration */
-@keyframes gentle-drift {
-  0% {
-    transform: translate3d(0, 0, 0) rotate(0deg);
-  }
-  50% {
-    transform: translate3d(15px, -8px, 0) rotate(8deg);
-  }
-  100% {
-    transform: translate3d(0, 0, 0) rotate(0deg);
-  }
-}
-
-/* Performance optimized button hover animation */
-@keyframes button-lift {
-  0% {
-    transform: translate3d(0, 0, 0);
-  }
-  100% {
-    transform: translate3d(0, -2px, 0);
-  }
-}
-
-/* Optimized glow effect for buttons */
-@keyframes gentle-glow {
-  0% {
-    box-shadow: 0 2px 4px rgba(99, 102, 241, 0.15);
-  }
-  100% {
-    box-shadow: 0 8px 20px rgba(99, 102, 241, 0.25);
-  }
-}
-
-/* Smooth fade in animation */
-@keyframes fade-in-up {
-  0% {
-    opacity: 0;
-    transform: translate3d(0, 20px, 0);
-  }
-  100% {
-    opacity: 1;
-    transform: translate3d(0, 0, 0);
-  }
-}
-
-/* Optimized loading animation */
-@keyframes pulse {
-  0%, 100% {
-    opacity: 1;
-  }
-  50% {
-    opacity: 0.5;
-  }
-}
-
-/* Smooth skeleton loading */
-.animate-pulse {
-  animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
-}
-
-
-@media (max-width: 768px) {
-  .floating-balls {
-    display: none !important;
-  }
-
-  .btn {
-    @apply px-4 py-2 text-sm;
-  }
-
-  /* Faster animations on mobile for better performance */
-  * {
-    animation-duration: 0.2s !important;
-    transition-duration: 0.15s !important;
-  }
-
-  /* Disable expensive effects on mobile */
-  .feature-card:hover {
-    transform: none !important;
-  }
-
-  .tag-item:hover {
-    transform: none !important;
   }
 }
 
@@ -173,30 +68,5 @@
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
     scroll-behavior: auto !important;
-  }
-
-  .floating-balls {
-    display: none !important;
-  }
-
-  /* Disable expensive transforms for reduced motion */
-  .will-change-transform {
-    will-change: auto !important;
-  }
-}
-
-/* Performance optimizations for high-DPI displays */
-@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
-  img {
-    image-rendering: -webkit-optimize-contrast;
-    image-rendering: crisp-edges;
-  }
-}
-
-/* Preload critical fonts */
-@supports (font-display: swap) {
-  @font-face {
-    font-family: 'Inter';
-    font-display: swap;
   }
 }

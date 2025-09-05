@@ -2,6 +2,7 @@ import React from 'react';
 import FeatureCard from './ui/FeatureCard';
 import { Bot, Globe, BarChart, Target, ArrowRight } from 'lucide-react';
 import { motion } from 'framer-motion';
+import { Link } from 'react-router-dom';
 
 const features = [
     { icon: Bot, title: "Advanced AI Engine", description: "Our AI understands content nuances to generate highly relevant tags that drive engagement." },
@@ -21,7 +22,7 @@ const WhyChooseUs = () => {
       transition={{ duration: 0.5 }}
     >
       <div className="text-center mb-8">
-        <h2 className="text-4xl font-extrabold text-tt-dark-violet mb-2">Why is TurboTags the Best Hashtag Generator?</h2>
+        <h2 className="h2 font-extrabold text-tt-dark-violet mb-2">Why is TurboTags the Best Hashtag Generator?</h2>
         <p className="text-lg text-gray-600 max-w-3xl mx-auto">
           We offer powerful features designed for creators seeking a free, powerful generator for YouTube tags, TikTok hashtags, Instagram hashtags, and Facebook content.
         </p>
@@ -32,9 +33,9 @@ const WhyChooseUs = () => {
         ))}
       </div>
       <div className="mt-8 text-center">
-        <a href="#features" className="btn-primary">
+        <Link to="/features" className="btn-primary">
           Explore All Features <ArrowRight className="ml-2 h-5 w-5" />
-        </a>
+        </Link>
       </div>
     </motion.section>
   );

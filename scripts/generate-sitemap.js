@@ -16,13 +16,22 @@ const staticRoutes = [
   { url: '/blog', priority: '0.9', changefreq: 'weekly' },
 ];
 
+const toolRoutes = [
+    { url: '/youtube-hashtag-generator', priority: '0.9', changefreq: 'weekly' },
+    { url: '/instagram-hashtag-generator', priority: '0.9', changefreq: 'weekly' },
+    { url: '/tiktok-hashtag-generator', priority: '0.9', changefreq: 'weekly' },
+    { url: '/facebook-hashtag-generator', priority: '0.9', changefreq: 'weekly' },
+    { url: '/ai-title-generator', priority: '0.9', changefreq: 'weekly' },
+    { url: '/free-hashtag-generator', priority: '0.9', changefreq: 'weekly' },
+];
+
 const dynamicRoutes = blogPostIndex.map(post => ({
   url: `/blog/${post.slug}`,
   priority: '0.8',
   changefreq: 'monthly',
 }));
 
-const allRoutes = [...staticRoutes, ...dynamicRoutes];
+const allRoutes = [...staticRoutes, ...toolRoutes, ...dynamicRoutes];
 
 const generateSitemap = () => {
   const sitemapContent = `<?xml version="1.0" encoding="UTF-8"?>

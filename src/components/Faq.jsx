@@ -1,7 +1,7 @@
 import React from 'react';
 import FaqItem from './ui/FaqItem';
 
-const faqData = [
+export const faqData = [
   {
     question: "How does this free YouTube tags generator work?",
     answer: "Our free YouTube tags generator uses advanced AI to analyze your video's topic. It identifies key themes and cross-references them with current trends to provide relevant, SEO-optimized tags and hashtags designed to get more views."
@@ -27,7 +27,7 @@ const faqData = [
 const Faq = () => {
   return (
     <section id="faq" className="bg-white p-6 rounded-xl shadow-md">
-      <h2 className="text-3xl font-bold text-gray-800 mb-6 text-center">Frequently Asked Questions</h2>
+      <h2 className="h2 font-bold text-gray-800 mb-6 text-center">Frequently Asked Questions</h2>
       <div className="max-w-3xl mx-auto">
         {faqData.map((item, index) => (
           <FaqItem key={index} question={item.question} answer={item.answer} />

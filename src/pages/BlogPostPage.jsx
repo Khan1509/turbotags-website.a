@@ -3,8 +3,9 @@ import { useParams, Link, Navigate } from 'react-router-dom';
 import { blogPostIndex } from '../data/blogPostIndex';
 import usePageMeta from '../hooks/usePageMeta';
 import { motion } from 'framer-motion';
-import { Calendar, Tag, User, ArrowLeft, Loader2 } from 'lucide-react';
+import { Calendar, Tag, User, ArrowLeft } from 'lucide-react';
 import LoadingSpinner from '../components/ui/LoadingSpinner';
+import Breadcrumbs from '../components/ui/Breadcrumbs';
 
 const ContentRenderer = ({ content }) => {
   return content.map((block, index) => {
@@ -12,9 +13,9 @@ const ContentRenderer = ({ content }) => {
       case 'p':
         return <p key={index}>{block.children}</p>;
       case 'h2':
-        return <h2 key={index} className="text-4xl font-bold mt-10 mb-6">{block.children}</h2>;
+        return <h2 key={index} className="h2 font-bold mt-10 mb-6">{block.children}</h2>;
       case 'h3':
-        return <h3 key={index} className="text-3xl font-bold mt-8 mb-4">{block.children}</h3>;
+        return <h3 key={index} className="h3 font-bold mt-8 mb-4">{block.children}</h3>;
       case 'ul':
         return (
           <ul key={index} className="list-disc list-inside space-y-2 pl-4">
@@ -69,6 +70,11 @@ const BlogPostPage = () => {
     return <Navigate to="/404" replace />;
   }
 
+  const breadcrumbTrail = [
+    { name: 'Blog', path: '/blog' },
+    { name: post.title, path: `/blog/${post.slug}` }
+  ];
+
   return (
     <motion.div 
       className="bg-white py-12"
@@ -77,10 +83,9 @@ const BlogPostPage = () => {
       transition={{ duration: 0.5 }}
     >
       <div className="container mx-auto max-w-3xl px-4">
-        <Link to="/blog" className="inline-flex items-center text-tt-medium-violet hover:text-tt-dark-violet font-semibold mb-8">
-          <ArrowLeft className="h-4 w-4 mr-2" />
-          Back to Blog
-        </Link>
+        <div className="mb-8">
+          <Breadcrumbs trail={breadcrumbTrail} />
+        </div>
         
         <article>
           <header className="mb-8">
@@ -88,7 +93,7 @@ const BlogPostPage = () => {
               <Tag className="h-4 w-4 mr-1" />
               <span>{post.category}</span>
             </div>
-            <h1 className="text-4xl md:text-5xl font-extrabold text-tt-dark-violet leading-tight mb-4">{post.title}</h1>
+            <h1 className="h1 font-extrabold text-tt-dark-violet leading-tight mb-4">{post.title}</h1>
             <div className="flex items-center text-sm text-gray-500">
               <div className="flex items-center mr-4">
                 <User className="h-4 w-4 mr-1" />

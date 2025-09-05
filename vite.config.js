@@ -62,7 +62,6 @@ function vercelApiDevPlugin() {
 // https://vitejs.dev/config/
 export default defineConfig(({ mode }) => {
   // Load environment variables for the current mode and make them available to process.env
-  // This ensures that server-side code (like our API handlers) can access them.
   const env = loadEnv(mode, process.cwd(), '');
   process.env = { ...process.env, ...env };
 
@@ -75,7 +74,6 @@ export default defineConfig(({ mode }) => {
         compress: {
           drop_console: true,
           drop_debugger: true,
-          pure_funcs: ['console.log', 'console.info'],
           passes: 2
         },
         mangle: {
@@ -87,32 +85,27 @@ export default defineConfig(({ mode }) => {
       },
       sourcemap: false,
       cssCodeSplit: true,
-      chunkSizeWarningLimit: 1000,
+      chunkSizeWarningLimit: 500, // Lowered warning limit
       rollupOptions: {
         output: {
-          chunkFileNames: (chunkInfo) => {
-            const facadeModuleId = chunkInfo.facadeModuleId ? chunkInfo.facadeModuleId.split('/').pop().replace('.jsx', '').replace('.js', '') : 'chunk';
-            return `assets/js/${facadeModuleId}-[hash].js`;
-          },
+          chunkFileNames: 'assets/js/[name]-[hash].js',
           entryFileNames: 'assets/js/[name]-[hash].js',
           assetFileNames: 'assets/[ext]/[name]-[hash].[ext]',
-          manualChunks: {
-            // Core React libraries
-            'react-vendor': ['react', 'react-dom'],
-            'router': ['react-router-dom'],
-            // Animation library
-            'animations': ['framer-motion'],
-            // Icons library
-            'icons': ['lucide-react'],
-            // Utilities and API
-            'utils': ['src/services/apiService.js', 'src/data/blogPosts.js', 'src/data/shareServices.js', 'src/data/trendingTopicsData.js']
+          manualChunks: (id) => {
+            if (id.includes('node_modules')) {
+              if (id.includes('react')) return 'vendor-react';
+              if (id.includes('framer-motion')) return 'vendor-motion';
+              if (id.includes('lucide-react')) return 'vendor-icons';
+              return 'vendor-core';
+            }
+            if (id.includes('/src/pages/')) return 'pages';
+            if (id.includes('/src/components/')) return 'components';
           }
-        },
-        external: []
+        }
       },
       cssMinify: 'esbuild',
-      reportCompressedSize: false,
-      assetsInlineLimit: 2048 // Inline small assets
+      reportCompressedSize: true,
+      assetsInlineLimit: 4096
     },
     optimizeDeps: {
       include: [
@@ -127,28 +120,10 @@ export default defineConfig(({ mode }) => {
       }
     },
     server: {
-      cors: true,
-      headers: {
-        'Cache-Control': 'max-age=31536000',
-        'X-Content-Type-Options': 'nosniff',
-        'X-Frame-Options': 'DENY',
-        'X-XSS-Protection': '1; mode=block'
-      }
-    },
-    preview: {
-      headers: {
-        'Cache-Control': 'max-age=31536000, immutable',
-        'X-Content-Type-Options': 'nosniff',
-        'X-Frame-Options': 'DENY'
-      }
+      cors: true
     },
     css: {
-      devSourcemap: false,
-      preprocessorOptions: {
-        css: {
-          charset: false
-        }
-      }
+      devSourcemap: false
     }
   }
 })
