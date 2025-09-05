@@ -274,8 +274,8 @@ const TitleItem = React.memo(({ item, onCopy, onFeedback }) => {
 });
 
 
-const TagGenerator = () => {
-  const [activeTab, setActiveTab] = useState('youtube');
+const TagGenerator = ({ initialTab = 'youtube', initialTask = 'tags_and_hashtags' }) => {
+  const [activeTab, setActiveTab] = useState(initialTab);
   const [state, dispatch] = useReducer(reducer, initialState);
   const textareaRef = useRef(null);
   const [showFormatDropdown, setShowFormatDropdown] = useState(false);
@@ -496,11 +496,11 @@ const TagGenerator = () => {
       </div>
 
       <div className="flex flex-col sm:flex-row justify-center gap-4 my-6">
-        <button onClick={handleGenerate} disabled={state.isLoading || state.isTitleLoading} className="btn-primary">
+        <button onClick={handleGenerate} disabled={state.isLoading || state.isTitleLoading} className={initialTask === 'tags_and_hashtags' ? 'btn-primary' : 'btn-secondary'}>
           {state.isLoading ? <Loader2 className="mr-2 h-5 w-5 animate-spin" /> : <Tags className="mr-2 h-5 w-5" />}
           {state.isLoading ? 'Generating...' : (activeTab === 'youtube' ? 'Generate Tags / #Tags' : 'Generate #Tags')}
         </button>
-        <button onClick={handleGenerateTitles} disabled={state.isLoading || state.isTitleLoading} className="btn-secondary">
+        <button onClick={handleGenerateTitles} disabled={state.isLoading || state.isTitleLoading} className={initialTask === 'titles' ? 'btn-primary' : 'btn-secondary'}>
             {state.isTitleLoading ? <Loader2 className="mr-2 h-5 w-5 animate-spin" /> : <Sparkles className="mr-2 h-5 w-5" />}
             {state.isTitleLoading ? 'Generating...' : 'Generate Titles'}
         </button>
