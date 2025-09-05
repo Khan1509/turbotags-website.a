@@ -19,13 +19,28 @@
 
   /* Fluid Typography for responsive headings */
   h1, .h1 {
-    font-size: clamp(2.5rem, 1.96rem + 2.68vw, 4rem); /* from 40px to 64px */
+    font-size: clamp(2rem, 1.5rem + 2.5vw, 3.5rem); /* from 32px to 56px - more mobile friendly */
   }
   h2, .h2 {
-    font-size: clamp(1.875rem, 1.56rem + 1.56vw, 2.75rem); /* from 30px to 44px */
+    font-size: clamp(1.5rem, 1.25rem + 1.25vw, 2.25rem); /* from 24px to 36px */
   }
   h3, .h3 {
-    font-size: clamp(1.25rem, 1.11rem + 0.71vw, 1.625rem); /* from 20px to 26px */
+    font-size: clamp(1.125rem, 1rem + 0.625vw, 1.5rem); /* from 18px to 24px */
+  }
+  
+  /* Improved text scaling for mobile */
+  p, .text-base {
+    font-size: clamp(0.875rem, 0.825rem + 0.25vw, 1rem); /* from 14px to 16px */
+  }
+  
+  .text-sm {
+    font-size: clamp(0.75rem, 0.7rem + 0.25vw, 0.875rem); /* from 12px to 14px */
+  }
+  
+  /* Better button and tap target sizes for mobile */
+  .btn-mobile-friendly {
+    min-height: 44px; /* Apple's recommended minimum tap target */
+    min-width: 44px;
   }
 
   * {

@@ -1,0 +1,76 @@
+You are an expert on social media trends with in-depth knowledge of platforms like YouTube, Instagram, TikTok, and Facebook, as well as global and multilingual content. Your task is to generate a comprehensive JSON object of current, actionable content ideas that can serve as a fallback dataset.
+
+Instructions:
+
+Your entire response must be a single, valid JSON object. Do not include any other text, explanations, or markdown outside of the JSON.
+
+The JSON must have the top-level keys: "youtube", "instagram", "tiktok", "facebook", and "multilingual".
+
+For youtube, instagram, tiktok, and facebook:
+
+Each key must contain a nested "niches" object.
+
+The "niches" object must contain at least five different, popular content niches for that platform (e.g., "gaming", "tech", "fashion", "cooking", "travel").
+
+Each niche must contain "titles", "tags", and "hashtags", except for Instagram which should only contain "titles" and "hashtags".
+
+The values for "titles", "tags", and "hashtags" must be an array of objects. Each object in these arrays must have a "text" key (string) and a "trend_percentage" key (integer from 0-100).
+
+Ensure each platform also includes a "default" niche with generic, adaptable content.
+
+For multilingual:
+
+This key must contain a nested object with at least 10 different language keys (e.g., "english", "hindi", "spanish", "french", "german", "portuguese", "dutch", "turkish", "thai", "vietnamese", "indonesian").
+
+For each language, include "tags" and "hashtags" as arrays of objects, formatted with "text" and "trend_percentage" keys. The content should be simple, generic keywords translated into the corresponding language.
+
+Content and Formatting Requirements:
+
+YouTube: Niches should be broad (e.g., "gaming", "tech", "vlogging") and have at least 5 titles, 10 tags, and 5 hashtags each.
+
+Instagram: Niches should be visual content-focused (e.g., "fashion", "beauty", "travel") and have at least 3 titles and 5 hashtags each.
+
+TikTok: Niches should be short-form and trend-based (e.g., "dance", "comedy", "diy") and have at least 3 titles and 4 hashtags each.
+
+Facebook: Niches should be community-oriented (e.g., "community", "small_business") and have at least 3 titles and 4 hashtags each.
+
+The final JSON must be perfectly formatted and ready to be parsed.
+
+Prompt for trending.js
+You are a data system that generates a JavaScript object of trending topics for a web application. Your task is to provide the data structure for a fallback system.
+
+Instructions:
+
+Generate ONLY a single JavaScript object. The variable name must be fallbackTopics. Do not include any import, export, function, or other code outside the object definition.
+
+The object must contain a top-level key named "topics", which must be an array.
+
+The "topics" array must contain at least four objects, each representing a social media platform.
+
+Each platform object must contain the following keys:
+
+"platform" (string): The name of the social media platform (e.g., "YouTube", "Instagram", "TikTok", "Facebook").
+
+"icon" (string): The name of an icon to represent the platform (e.g., "Youtube", "Instagram", "TikTokIcon", "Facebook").
+
+"color" (string): A Tailwind CSS class for the color (e.g., "text-red-500", "text-pink-500", "text-black", "text-blue-600").
+
+"topics" (array): An array of objects, each representing a trending topic for that platform.
+
+Each topic object within the "topics" array must have two keys:
+
+"title" (string): A brief, descriptive title for the topic.
+
+"description" (string): A one-sentence summary of the topic.
+
+Content Examples:
+
+YouTube: Topics should be based on deep dives, hacks, or long-form documentaries (e.g., "AI Tools Explained", "Sustainable Living Hacks").
+
+Instagram: Topics should be based on visual, short-form content (e.g., "'Day in the Life' Reels", "30-Second Recipes").
+
+TikTok: Topics should be based on current, fast-moving trends (e.g., "Mindful Moments", "Viral Dance Challenges").
+
+Facebook: Topics should be based on community or business content (e.g., "Local Community Events", "Small Business Spotlights").
+
+The final output must be a valid JavaScript object assigned to the fallbackTopics variable.

@@ -15,9 +15,10 @@ const FaqSchema = ({ faqData }) => {
   };
 
   return (
-    <script type="application/ld+json">
-      {JSON.stringify(faqJsonLd)}
-    </script>
+    <script 
+      type="application/ld+json"
+      dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
+    />
   );
 };
 

@@ -13,9 +13,10 @@ const BreadcrumbSchema = ({ trail }) => {
   };
 
   return (
-    <script type="application/ld+json">
-      {JSON.stringify(breadcrumbJsonLd)}
-    </script>
+    <script 
+      type="application/ld+json"
+      dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
+    />
   );
 };
 

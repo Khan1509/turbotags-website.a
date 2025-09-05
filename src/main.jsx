@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom/client';
 import { BrowserRouter } from 'react-router-dom';
 import App from './App.jsx';
 import './index.css';
-import { analytics } from './firebaseConfig.js'; // Import to initialize Firebase Analytics
+// Defer Firebase Analytics initialization
 
 import '@fontsource/inter/400.css';
 import '@fontsource/inter/600.css';
@@ -16,6 +16,13 @@ ReactDOM.createRoot(document.getElementById('root')).render(
     </BrowserRouter>
   </React.StrictMode>,
 );
+
+// Initialize Firebase Analytics after app render
+if (typeof window !== 'undefined' && import.meta.env.PROD) {
+  import('./firebaseConfig.js').then(({ analytics }) => {
+    console.log('Firebase Analytics initialized');
+  }).catch(err => console.log('Firebase Analytics failed to load:', err));
+}
 
 if ('serviceWorker' in navigator && import.meta.env.PROD) {
   window.addEventListener('load', () => {

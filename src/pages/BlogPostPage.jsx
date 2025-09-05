@@ -6,6 +6,7 @@ import { motion } from 'framer-motion';
 import { Calendar, Tag, User, ArrowLeft } from 'lucide-react';
 import LoadingSpinner from '../components/ui/LoadingSpinner';
 import Breadcrumbs from '../components/ui/Breadcrumbs';
+import BreadcrumbSchema from '../components/schemas/BreadcrumbSchema';
 
 const ContentRenderer = ({ content }) => {
   return content.map((block, index) => {
@@ -71,17 +72,20 @@ const BlogPostPage = () => {
   }
 
   const breadcrumbTrail = [
+    { name: 'Home', path: '/' },
     { name: 'Blog', path: '/blog' },
     { name: post.title, path: `/blog/${post.slug}` }
   ];
 
   return (
-    <motion.div 
-      className="bg-white py-12"
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      transition={{ duration: 0.5 }}
-    >
+    <>
+      <BreadcrumbSchema trail={breadcrumbTrail} />
+      <motion.div 
+        className="bg-white py-12"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 0.5 }}
+      >
       <div className="container mx-auto max-w-3xl px-4">
         <div className="mb-8">
           <Breadcrumbs trail={breadcrumbTrail} />
@@ -120,7 +124,8 @@ const BlogPostPage = () => {
           </div>
         </article>
       </div>
-    </motion.div>
+      </motion.div>
+    </>
   );
 };
 

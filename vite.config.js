@@ -104,13 +104,17 @@ export default defineConfig(({ mode }) => {
           assetFileNames: 'assets/[ext]/[name]-[hash].[ext]',
           manualChunks: (id) => {
             if (id.includes('node_modules')) {
-              if (id.includes('react')) return 'vendor-react';
+              if (id.includes('react') || id.includes('react-dom') || id.includes('react-router')) return 'vendor-react';
               if (id.includes('framer-motion')) return 'vendor-motion';
               if (id.includes('lucide-react')) return 'vendor-icons';
+              if (id.includes('firebase')) return 'vendor-firebase';
               return 'vendor-core';
             }
+            if (id.includes('/src/pages/tools/')) return 'tools-pages';
             if (id.includes('/src/pages/')) return 'pages';
+            if (id.includes('/src/components/TagGenerator')) return 'tag-generator';
             if (id.includes('/src/components/')) return 'components';
+            if (id.includes('/src/services/')) return 'services';
           }
         }
       },
@@ -136,7 +140,11 @@ export default defineConfig(({ mode }) => {
       cors: true,
       allowedHosts: 'all',
       headers: {
-        'Content-Security-Policy': "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://*.google.com https://*.googleapis.com https://*.gstatic.com https://www.googletagmanager.com https://www.google-analytics.com https://pagead2.googlesyndication.com https://*.doubleclick.net https://ep1.adtrafficquality.google; style-src 'self' 'unsafe-inline'; img-src 'self' data: https://*.googleapis.com https://img-wrapper.vercel.app https://placehold.co https://pagead2.googlesyndication.com https://*.doubleclick.net; font-src 'self'; connect-src 'self' https://openrouter.ai https://*.google.com https://*.googleapis.com https://firebase.googleapis.com https://*.firebaseio.com https://*.doubleclick.net https://ep1.adtrafficquality.google https://www.google-analytics.com https://pagead2.googlesyndication.com; frame-src 'self' https://*.google.com https://*.googleapis.com https://*.doubleclick.net https://googleads.g.doubleclick.net; object-src 'none'; base-uri 'self';"
+        'Content-Security-Policy': "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://*.google.com https://*.googleapis.com https://*.gstatic.com https://www.googletagmanager.com https://www.google-analytics.com https://pagead2.googlesyndication.com https://*.doubleclick.net https://ep1.adtrafficquality.google; style-src 'self' 'unsafe-inline'; img-src 'self' data: https://*.googleapis.com https://img-wrapper.vercel.app https://placehold.co https://pagead2.googlesyndication.com https://*.doubleclick.net; font-src 'self'; connect-src 'self' https://openrouter.ai https://*.google.com https://*.googleapis.com https://firebase.googleapis.com https://*.firebaseio.com https://*.doubleclick.net https://ep1.adtrafficquality.google https://www.google-analytics.com https://pagead2.googlesyndication.com; frame-src 'self' https://*.google.com https://*.googleapis.com https://*.doubleclick.net https://googleads.g.doubleclick.net; object-src 'none'; base-uri 'self';",
+        'X-Frame-Options': 'SAMEORIGIN',
+        'X-Content-Type-Options': 'nosniff',
+        'Referrer-Policy': 'strict-origin-when-cross-origin',
+        'Permissions-Policy': 'geolocation=(), microphone=(), camera=()'
       }
     },
     css: {
