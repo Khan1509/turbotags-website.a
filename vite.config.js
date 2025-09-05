@@ -96,7 +96,7 @@ export default defineConfig(({ mode }) => {
       },
       sourcemap: false,
       cssCodeSplit: true,
-      chunkSizeWarningLimit: 500, // Lowered warning limit
+      chunkSizeWarningLimit: 300, // Further reduced for better performance
       rollupOptions: {
         output: {
           chunkFileNames: 'assets/js/[name]-[hash].js',
@@ -120,7 +120,7 @@ export default defineConfig(({ mode }) => {
       },
       cssMinify: 'esbuild',
       reportCompressedSize: true,
-      assetsInlineLimit: 4096
+      assetsInlineLimit: 2048
     },
     optimizeDeps: {
       include: [

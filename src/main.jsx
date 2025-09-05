@@ -17,29 +17,30 @@ ReactDOM.createRoot(document.getElementById('root')).render(
   </React.StrictMode>,
 );
 
-// Initialize Firebase Analytics after app render
+// Initialize Firebase Analytics after app render - silent in production
 if (typeof window !== 'undefined' && import.meta.env.PROD) {
-  import('./firebaseConfig.js').then(({ analytics }) => {
-    console.log('Firebase Analytics initialized');
-  }).catch(err => console.log('Firebase Analytics failed to load:', err));
+  import('./firebaseConfig.js').then(() => {
+    // Analytics initialized
+  }).catch(() => {
+    // Analytics failed to load
+  });
 }
 
 if ('serviceWorker' in navigator && import.meta.env.PROD) {
   window.addEventListener('load', () => {
     navigator.serviceWorker.register('/sw.js')
       .then(registration => {
-        console.log('SW registered successfully');
         registration.addEventListener('updatefound', () => {
           const newWorker = registration.installing;
           newWorker.addEventListener('statechange', () => {
             if (newWorker.state === 'installed' && navigator.serviceWorker.controller) {
-              console.log('New version available!');
+              // New version available
             }
           });
         });
       })
-      .catch(registrationError => {
-        console.error('SW registration failed:', registrationError);
+      .catch(() => {
+        // SW registration failed
       });
   });
 }

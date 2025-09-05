@@ -1,6 +1,0 @@
-# Allow all web crawlers to access all content
-User-agent: *
-Disallow:
-
-# Specify the location of the sitemap
-Sitemap: https://turbotags.app/sitemap.xml
