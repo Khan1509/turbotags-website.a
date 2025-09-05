@@ -1,6 +1,6 @@
 // **STABLE RELEASE**: Network-First, with robust error handling.
-// v2.6.4-stable: Ignores cross-origin requests to prevent CSP/fetch errors.
-const CACHE_NAME = 'turbotags-v2.6.4-stable';
+// v2.7.0-stable: Incremented version to deploy performance and asset updates.
+const CACHE_NAME = 'turbotags-v2.7.0-stable';
 
 // Essential assets to pre-cache for the app shell to work offline.
 const PRECACHE_ASSETS = [

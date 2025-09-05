@@ -2,6 +2,11 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 
+// This API endpoint serves randomized trending topic ideas from a large, curated JSON file.
+// On each request, it selects a new random set of topics. This simulates a "daily update"
+// for users, providing fresh content ideas without the need for a stateful backend or database,
+// which is ideal for a high-performance, serverless architecture.
+
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 

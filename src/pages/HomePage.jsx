@@ -40,63 +40,61 @@ function HomePage() {
   return (
     <>
       <FaqSchema faqData={faqData} />
-      <div className="relative">
-        <motion.div
-          className="container mx-auto max-w-7xl space-y-8 px-4 sm:space-y-12 sm:px-6 md:px-8"
-          variants={staggerContainer}
-          initial="initial"
-          animate="animate"
-        >
-          <motion.div variants={fadeInUp}>
-            <Hero />
-          </motion.div>
-
-          <motion.div variants={fadeInUp}>
-            <Stats />
-          </motion.div>
-
-          <motion.div variants={fadeInUp}>
-            <Share />
-          </motion.div>
-
-          <motion.div variants={fadeInUp}>
-            <Platforms />
-          </motion.div>
-
-          <motion.div variants={fadeInUp}>
-            <TagGenerator />
-          </motion.div>
-
-          <motion.div variants={fadeInUp}>
-            <NativeAd />
-          </motion.div>
-
-          <motion.div variants={fadeInUp}>
-            <TrendingTopics />
-          </motion.div>
-
-          <Suspense fallback={<LoadingSpinner />}>
-            <motion.div variants={fadeInUp}>
-              <LazySection minHeight="420px">
-                <WhyChooseUs />
-              </LazySection>
-            </motion.div>
-
-            <motion.div variants={fadeInUp}>
-              <LazySection minHeight="480px">
-                <Faq />
-              </LazySection>
-            </motion.div>
-          </Suspense>
-
-          <motion.section
-            className="bg-white p-6 rounded-xl shadow-md"
-            variants={fadeInUp}
-          >
-            <RatingWidget />
-          </motion.section>
+      <motion.div
+        className="container mx-auto max-w-7xl space-y-8 px-4 sm:space-y-12 sm:px-6 md:px-8"
+        variants={staggerContainer}
+        initial="initial"
+        animate="animate"
+      >
+        <motion.div variants={fadeInUp}>
+          <Hero />
         </motion.div>
-      </div>
+
+        <motion.div variants={fadeInUp}>
+          <Stats />
+        </motion.div>
+
+        <motion.div variants={fadeInUp}>
+          <Share />
+        </motion.div>
+
+        <motion.div variants={fadeInUp}>
+          <Platforms />
+        </motion.div>
+
+        <motion.div variants={fadeInUp}>
+          <TagGenerator />
+        </motion.div>
+
+        <motion.div variants={fadeInUp}>
+          <NativeAd />
+        </motion.div>
+
+        <motion.div variants={fadeInUp}>
+          <TrendingTopics />
+        </motion.div>
+
+        <Suspense fallback={<LoadingSpinner />}>
+          <motion.div variants={fadeInUp}>
+            <LazySection minHeight="420px">
+              <WhyChooseUs />
+            </LazySection>
+          </motion.div>
+
+          <motion.div variants={fadeInUp}>
+            <LazySection minHeight="480px">
+              <Faq />
+            </LazySection>
+          </motion.div>
+        </Suspense>
+
+        <motion.section
+          className="bg-white p-6 rounded-xl shadow-md"
+          variants={fadeInUp}
+        >
+          <RatingWidget />
+        </motion.section>
+      </motion.div>
     </>
   );
 }
