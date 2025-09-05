@@ -20,6 +20,10 @@ const getFallbackNiche = (prompt, niches) => {
 };
 
 export default async function handler(req, res) {
+  console.log('[API/Generate] Handler called on Vercel:', !!process.env.VERCEL);
+  console.log('[API/Generate] Request method:', req.method);
+  console.log('[API/Generate] API Key present:', !!process.env.OPENROUTER_API_KEY);
+  
   res.setHeader('Content-Type', 'application/json');
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');

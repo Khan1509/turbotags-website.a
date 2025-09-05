@@ -2,8 +2,8 @@ import fs from 'node:fs/promises';
 import path from 'node:path';
 import os from 'node:os';
 
-// Use system temp directory for cross-platform compatibility
-const CACHE_FILE = path.join(os.tmpdir(), 'trending_cache.json');
+// Use /tmp for Vercel serverless functions, fallback to os.tmpdir() for local dev
+const CACHE_FILE = process.env.VERCEL ? '/tmp/trending_cache.json' : path.join(os.tmpdir(), 'trending_cache.json');
 const CACHE_DURATION_MS = 24 * 60 * 60 * 1000; // 24 hours
 
 const fallbackTopics = {
@@ -101,10 +101,15 @@ Example format: {"topics": [{"platform": "YouTube", "topics": [{"title": "Exampl
 }
 
 export default async function handler(req, res) {
+  console.log('[API/Trending] Handler called on Vercel:', !!process.env.VERCEL);
+  console.log('[API/Trending] Request method:', req.method);
+  console.log('[API/Trending] API Key present:', !!process.env.OPENROUTER_API_KEY);
+  
   res.setHeader('Content-Type', 'application/json');
   res.setHeader('Access-Control-Allow-Origin', '*');
 
   if (req.method !== 'GET') {
+    console.log('[API/Trending] Method not allowed:', req.method);
     return res.status(405).json({ error: 'Method Not Allowed' });
   }
 
