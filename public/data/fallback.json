@@ -1,0 +1,18 @@
+{
+  "tags": [
+    { "text": "fallback tag", "trend_percentage": 75 },
+    { "text": "sample content", "trend_percentage": 72 },
+    { "text": "ai generated", "trend_percentage": 78 }
+  ],
+  "hashtags": [
+    { "text": "#fallback", "trend_percentage": 80 },
+    { "text": "#sample", "trend_percentage": 71 },
+    { "text": "#ai", "trend_percentage": 85 }
+  ],
+  "titles": [
+    { "text": "This is a Sample Fallback Title", "trend_percentage": 76 },
+    { "text": "AI Could Not Generate a Title, So Here Is This", "trend_percentage": 70 }
+  ],
+  "fallback": true,
+  "message": "AI services are currently unavailable. Using sample fallback content."
+}

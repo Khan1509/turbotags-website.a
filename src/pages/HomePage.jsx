@@ -11,7 +11,7 @@ import Share from '../components/Share';
 import TrendingTopics from '../components/TrendingTopics';
 import NativeAd from '../components/ui/NativeAd';
 import FaqSchema from '../components/schemas/FaqSchema';
-import { faqData } from '../components/Faq'; // Assuming faqData is exported from Faq component
+import { faqData } from '../components/Faq';
 
 const WhyChooseUs = lazy(() => import('../components/WhyChooseUs'));
 const Faq = lazy(() => import('../components/Faq'));
@@ -70,9 +70,11 @@ function HomePage() {
           <NativeAd />
         </motion.div>
 
-        <motion.div variants={fadeInUp}>
-          <TrendingTopics />
-        </motion.div>
+        <LazySection minHeight="400px" fallback={<LoadingSpinner />}>
+          <motion.div variants={fadeInUp}>
+            <TrendingTopics />
+          </motion.div>
+        </LazySection>
 
         <Suspense fallback={<LoadingSpinner />}>
           <motion.div variants={fadeInUp}>

@@ -18,14 +18,12 @@ export const generateContent = async (prompt, options = {}, task) => {
     region: options.region || 'global',
     language: options.language || 'english',
     task: task || 'tags_and_hashtags',
-    version: '2.3.0' // API versioning for future compatibility
   };
 
   const response = await fetch('/api/generate', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
-      'X-API-Version': '2.3.0',
       'Accept': 'application/json'
     },
     body: JSON.stringify(requestBody),
