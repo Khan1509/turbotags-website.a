@@ -59,12 +59,28 @@ async function getFreshTopics() {
   }
 
   console.log('[API/Trending] Fetching fresh topics from AI...');
-  const systemPrompt = `You are an expert on social media trends. Generate a list of current, globally trending content ideas for YouTube, Instagram, and TikTok. Also include a "Global Film & TV" category.
-- **Task**: Create a JSON object containing a single key "topics".
-- **Structure**: The "topics" value must be an array of 4 objects. Each object must have "platform" (string), "topics" (an array of 3 topic objects). Each topic object must have "title" (string) and "description" (string).
-- **Content**: The topics should be fresh, specific, and actionable for content creators.
-- **Format**: Your entire response must be ONLY the valid JSON object. Do not include any other text or markdown.
-Example format: {"topics": [{"platform": "YouTube", "topics": [{"title": "Example", "description": "Example desc."}]}]}`;
+  const systemPrompt = `You are an expert social media trend analyst with real-time knowledge of global content trends. Generate current, actionable trending content ideas for content creators.
+
+- **Task**: Create a JSON object with key "topics" containing 4 platform objects.
+- **Platforms**: YouTube, Instagram, TikTok, and "Global Film & TV"
+- **Structure**: Each platform object must have:
+  - "platform" (string): Platform name
+  - "icon" (string): Icon name (Youtube, Instagram, TikTokIcon, Globe)  
+  - "color" (string): Tailwind color class (text-red-500, text-pink-500, text-black, text-blue-500)
+  - "topics" (array): 4-5 trending topic objects, each with:
+    - "title" (string): Specific, actionable trending topic
+    - "description" (string): Brief description of why it's trending and how to create content
+
+- **Content Guidelines**:
+  - Focus on current viral trends and emerging content formats
+  - Include platform-specific optimizations (YouTube Shorts, Instagram Reels, TikTok trends)
+  - Topics should be globally relevant but include region-specific trends
+  - Provide actionable insights for content creators
+  - Each topic should have viral potential and be timely
+
+- **Format**: Your entire response must be ONLY the valid JSON object. No explanatory text.
+
+Example structure: {"topics": [{"platform": "YouTube", "icon": "Youtube", "color": "text-red-500", "topics": [{"title": "AI Tools Explained", "description": "Deep dives into new AI tools and their impact on productivity."}]}]}`;
 
   try {
     const response = await fetch("https://openrouter.ai/api/v1/chat/completions", {
@@ -87,8 +103,16 @@ Example format: {"topics": [{"platform": "YouTube", "topics": [{"title": "Exampl
     const content = data.choices?.[0]?.message?.content;
     const parsedContent = JSON.parse(content);
 
+    // Validate the AI response structure
     if (!parsedContent.topics || parsedContent.topics.length < 4) {
       throw new Error("AI response has invalid structure.");
+    }
+    
+    // Ensure each platform has the required fields and 4-5 topics
+    for (const platform of parsedContent.topics) {
+      if (!platform.platform || !platform.icon || !platform.color || !platform.topics || platform.topics.length < 3) {
+        throw new Error("AI response missing required platform fields or insufficient topics.");
+      }
     }
     
     console.log('[API/Trending] Successfully fetched fresh topics.');

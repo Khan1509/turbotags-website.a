@@ -46,9 +46,11 @@ export default async function handler(req, res) {
 
     let modelsToTry;
     if (language.toLowerCase() === 'english') {
-      modelsToTry = ["meta-llama/llama-3.1-8b-instruct", "mistralai/mistral-7b-instruct", "google/gemini-flash-1.5"];
+      // For English: Mistral first, then Gemini Flash as fallback
+      modelsToTry = ["mistralai/mistral-7b-instruct", "google/gemini-flash-1.5", "anthropic/claude-3-haiku", "meta-llama/llama-3.1-8b-instruct"];
     } else {
-      modelsToTry = ["google/gemini-flash-1.5", "meta-llama/llama-3.1-8b-instruct"];
+      // For other languages: Gemini Flash first (better multilingual), then other models
+      modelsToTry = ["google/gemini-flash-1.5", "anthropic/claude-3-haiku", "mistralai/mistral-7b-instruct", "meta-llama/llama-3.1-8b-instruct"];
     }
 
     let systemPrompt;
@@ -58,15 +60,17 @@ export default async function handler(req, res) {
     if (task === 'titles') {
       mainInstruction = "Provide a single JSON array: 'titles'. Each title object must include a 'text' (string) and a 'trend_percentage' (integer between 70 and 100).";
       jsonStructureExample = '{"titles": [{"text": "Example Title 1 #shorts", "trend_percentage": 85}, {"text": "Example Title 2", "trend_percentage": 91}]}';
-      // SEO: Enhanced prompt for better titles with strict language rule
-      systemPrompt = `You are a world-class social media copywriter and SEO strategist. Your response MUST be a single, valid JSON object and nothing else. Do not include any introductory text, explanations, or markdown.
+      // SEO: Enhanced prompt for better titles with strict language rule and trend analysis
+      systemPrompt = `You are a world-class social media copywriter and SEO strategist with deep knowledge of ${platform} trends and ${region} audience preferences. Your response MUST be a single, valid JSON object and nothing else. Do not include any introductory text, explanations, or markdown.
 - **Task**: Generate 5 highly engaging, SEO-optimized, and click-worthy titles for a ${platform} post.
 - **Topic**: "${prompt}"
-- **Content Format**: Optimize for a "${contentFormat}" format.
-- **Target Region**: Focus on trends popular in "${region}".
+- **Content Format**: Optimize specifically for a "${contentFormat}" format.
+- **Target Region**: Focus on trends popular in "${region}" and adapt cultural nuances.
+- **Platform**: Consider ${platform} algorithm preferences and user behavior patterns.
 - **CRITICAL LANGUAGE RULE**: All generated text MUST be exclusively in the specified language: **${language}**. Do NOT use English or any other language unless it is the one specified. This is the most important rule.
 - **Instruction**: ${mainInstruction}
-- **SEO Goal**: Titles should be emotionally engaging (using curiosity, urgency, or value) while being clear, descriptive, and keyword-rich.
+- **Trend Analysis**: Each title must have a trend_percentage between 70-100 based on current viral potential, regional relevance, and platform-specific trending factors.
+- **SEO Goal**: Titles should be emotionally engaging (using curiosity, urgency, or value) while being clear, descriptive, and keyword-rich for ${platform}.
 - **Constraint for YouTube**: If the platform is 'youtube', titles MUST be 100 characters or less.
 - **Constraint for YouTube Shorts**: If the platform is 'youtube' and content format is 'short', the title text MUST end with the hashtag '#shorts'.
 - **Format**: Your entire response must be ONLY the JSON object, like this example: ${jsonStructureExample}`;
@@ -78,17 +82,26 @@ export default async function handler(req, res) {
         mainInstruction = "Provide a single JSON array: 'hashtags'.";
         jsonStructureExample = '{"hashtags": [{"text": "#exampleHashtag", "trend_percentage": 92}]}';
       }
-      // SEO: Enhanced prompt for better tags/hashtags with strict language rule
-      systemPrompt = `You are a world-class social media SEO strategist. Your response MUST be a single, valid JSON object and nothing else. Do not include any introductory text, explanations, or markdown.
-- **Task**: Generate highly relevant and engaging content for a ${platform} post.
+      // SEO: Enhanced prompt for better tags/hashtags with strict language rule and comprehensive trend analysis
+      systemPrompt = `You are a world-class social media SEO strategist with expertise in ${platform} algorithm optimization and ${region} market trends. Your response MUST be a single, valid JSON object and nothing else. Do not include any introductory text, explanations, or markdown.
+- **Task**: Generate highly relevant and engaging content for a ${platform} post based on current trends and platform-specific optimization.
 - **Topic**: "${prompt}"
-- **Content Format**: Optimize for a "${contentFormat}" format.
-- **Target Region**: Focus on trends popular in "${region}".
+- **Content Format**: Optimize specifically for a "${contentFormat}" format on ${platform}.
+- **Target Region**: Focus on trends popular in "${region}" and adapt to local search behaviors and cultural preferences.
+- **Platform Analysis**: Consider ${platform}-specific algorithm preferences, user engagement patterns, and content discovery mechanisms.
 - **CRITICAL LANGUAGE RULE**: All generated text MUST be exclusively in the specified language: **${language}**. Do NOT use English or any other language unless it is the one specified. This is the most important rule.
 - **Instruction**: ${mainInstruction}
-- **SEO Goal**: Ensure a mix of broad, high-traffic keywords and specific, long-tail keywords for a balanced SEO strategy.
+- **SEO Strategy**: Ensure a balanced mix of:
+  1. High-traffic, broad keywords with strong search volume
+  2. Specific, long-tail keywords for niche targeting
+  3. Trending keywords specific to ${region} and ${platform}
+  4. Content format-specific optimization keywords
 - **Quantity**: Generate between 15 and 20 items for each array (max 25).
-- **Trend Score**: Each item must have a "trend_percentage" key with an integer value between 60 and 100, representing its current relevance and potential for reach.
+- **Trend Analysis**: Each item must have a "trend_percentage" key with an integer value between 70 and 100, representing:
+  - Current viral potential on ${platform}
+  - Regional relevance in ${region}  
+  - Content format alignment with "${contentFormat}"
+  - Real-time trending status and growth potential
 - **Format**: Your entire response must be ONLY the JSON object, like this example: ${jsonStructureExample}`;
     }
 
