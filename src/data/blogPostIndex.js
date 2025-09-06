@@ -6,7 +6,7 @@ export const blogPostIndex = [
     category: 'YouTube SEO',
     author: 'TurboTags Team',
     date: 'August 15, 2025',
-    image: 'https://img-wrapper.vercel.app/image?url=https://img-wrapper.vercel.app/image?url=https://img-wrapper.vercel.app/image?url=https://img-wrapper.vercel.app/image?url=https://img-wrapper.vercel.app/image?url=https://placehold.co/1200x630/FF0000/FFFFFF/png?text=Ultimate+YouTube+SEO+Tool',
+    image: 'https://img-wrapper.vercel.app/image?url=https://placehold.co/1200x630/FF0000/FFFFFF/png?text=Ultimate+YouTube+SEO+Tool',
   },
   {
     slug: 'best-youtube-tag-generator-2025',
@@ -15,7 +15,7 @@ export const blogPostIndex = [
     category: 'YouTube SEO',
     author: 'TurboTags Team',
     date: 'August 12, 2025',
-    image: 'https://img-wrapper.vercel.app/image?url=https://img-wrapper.vercel.app/image?url=https://img-wrapper.vercel.app/image?url=https://img-wrapper.vercel.app/image?url=https://img-wrapper.vercel.app/image?url=https://placehold.co/1200x630/FF0000/FFFFFF/png?text=Best+YouTube+Tag+Generator',
+    image: 'https://img-wrapper.vercel.app/image?url=https://placehold.co/1200x630/FF0000/FFFFFF/png?text=Best+YouTube+Tag+Generator',
   },
   {
     slug: 'instagram-trending-hashtag-generator-2025',
@@ -24,7 +24,7 @@ export const blogPostIndex = [
     category: 'Instagram Growth',
     author: 'TurboTags Team',
     date: 'August 10, 2025',
-    image: 'https://img-wrapper.vercel.app/image?url=https://img-wrapper.vercel.app/image?url=https://img-wrapper.vercel.app/image?url=https://img-wrapper.vercel.app/image?url=https://img-wrapper.vercel.app/image?url=https://placehold.co/1200x630/E1306C/FFFFFF/png?text=Instagram+Trending+Hashtags',
+    image: 'https://img-wrapper.vercel.app/image?url=https://placehold.co/1200x630/E1306C/FFFFFF/png?text=Instagram+Trending+Hashtags',
   },
   {
     slug: 'best-tiktok-hashtag-generator-2025',
@@ -33,7 +33,7 @@ export const blogPostIndex = [
     category: 'TikTok Growth',
     author: 'TurboTags Team',
     date: 'August 8, 2025',
-    image: 'https://img-wrapper.vercel.app/image?url=https://img-wrapper.vercel.app/image?url=https://img-wrapper.vercel.app/image?url=https://img-wrapper.vercel.app/image?url=https://img-wrapper.vercel.app/image?url=https://placehold.co/1200x630/000000/FFFFFF/png?text=Best+TikTok+Hashtag+Generator',
+    image: 'https://img-wrapper.vercel.app/image?url=https://placehold.co/1200x630/000000/FFFFFF/png?text=Best+TikTok+Hashtag+Generator',
   },
   {
     slug: 'best-facebook-hashtag-generator-2025',
@@ -42,7 +42,7 @@ export const blogPostIndex = [
     category: 'Facebook Growth',
     author: 'TurboTags Team',
     date: 'August 5, 2025',
-    image: 'https://img-wrapper.vercel.app/image?url=https://img-wrapper.vercel.app/image?url=https://img-wrapper.vercel.app/image?url=https://img-wrapper.vercel.app/image?url=https://img-wrapper.vercel.app/image?url=https://placehold.co/1200x630/1877F2/FFFFFF/png?text=Best+Facebook+Hashtag+Generator',
+    image: 'https://img-wrapper.vercel.app/image?url=https://placehold.co/1200x630/1877F2/FFFFFF/png?text=Best+Facebook+Hashtag+Generator',
   },
   {
     slug: 'turbotags-rapidtags-tubebuddy-tag-generator-2025',
@@ -51,7 +51,7 @@ export const blogPostIndex = [
     category: 'Tool Comparison',
     author: 'TurboTags Team',
     date: 'August 2, 2025',
-    image: 'https://img-wrapper.vercel.app/image?url=https://img-wrapper.vercel.app/image?url=https://img-wrapper.vercel.app/image?url=https://img-wrapper.vercel.app/image?url=https://img-wrapper.vercel.app/image?url=https://placehold.co/1200x630/6366F1/FFFFFF/png?text=TurboTags+vs+The+Competition',
+    image: 'https://img-wrapper.vercel.app/image?url=https://placehold.co/1200x630/6366F1/FFFFFF/png?text=TurboTags+vs+The+Competition',
   },
   {
     slug: 'how-to-get-1m-views-with-turbotags',
@@ -60,6 +60,6 @@ export const blogPostIndex = [
     category: 'Case Study',
     author: 'Guest Creator',
     date: 'September 01, 2025',
-    image: 'https://img-wrapper.vercel.app/image?url=https://img-wrapper.vercel.app/image?url=https://img-wrapper.vercel.app/image?url=https://img-wrapper.vercel.app/image?url=https://img-wrapper.vercel.app/image?url=https://placehold.co/1200x630/FBBF24/FFFFFF/png?text=Case+Study:+1M+Views!',
+    image: 'https://img-wrapper.vercel.app/image?url=https://placehold.co/1200x630/FBBF24/FFFFFF/png?text=Case+Study:+1M+Views!',
   }
 ];

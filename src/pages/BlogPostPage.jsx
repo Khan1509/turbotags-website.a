@@ -73,7 +73,6 @@ const BlogPostPage = () => {
   }
 
   const breadcrumbTrail = [
-    { name: 'Home', path: '/' },
     { name: 'Blog', path: '/blog' },
     { name: post.title, path: `/blog/${post.slug}` }
   ];
@@ -116,7 +115,6 @@ const BlogPostPage = () => {
             fetchpriority="high"
           />
           
-          {/* FIX: Add break-words for mobile overflow */}
           <div className="prose prose-lg max-w-none text-gray-800 leading-relaxed space-y-6 break-words">
             {isLoading && <LoadingSpinner />}
             {error && <p className="text-red-500">{error}</p>}
@@ -124,7 +122,6 @@ const BlogPostPage = () => {
           </div>
         </article>
 
-        {/* SEO: Add internal link suggestions */}
         <InternalLinkSuggestions />
       </div>
     </motion.div>

@@ -13,6 +13,12 @@
       "use": "@vercel/node"
     }
   ],
+  "rewrites": [
+    {
+      "source": "/((?!api/|assets/|icons/|data/|sitemap.xml|robots.txt|manifest.json|favicon.svg|sw.js|.*\\.html$).*)",
+      "destination": "/index.html"
+    }
+  ],
   "headers": [
     {
       "source": "/(.*)",
