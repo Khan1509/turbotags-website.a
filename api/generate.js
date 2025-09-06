@@ -47,9 +47,19 @@ export default async function handler(req, res) {
     }
 
     const isEnglish = language === 'english';
-    // FIX: Use the explicit free-tier model for Mistral, which is more reliable.
-    const primaryModel = isEnglish ? "mistralai/mistral-7b-instruct:free" : "google/gemini-flash-1.5";
-    const fallbackModel = isEnglish ? "google/gemini-flash-1.5" : "mistralai/mistral-7b-instruct:free";
+
+    // Define model chains for reliability
+    const englishModels = [
+      "mistralai/mistral-7b-instruct:free",
+      "google/gemini-flash-1.5",
+      "anthropic/claude-3-haiku-20240307"
+    ];
+    const nonEnglishModels = [
+      "google/gemini-flash-1.5",
+      "anthropic/claude-3-haiku-20240307",
+      "mistralai/mistral-7b-instruct:free" // Last resort for non-english
+    ];
+    const modelsToTry = isEnglish ? englishModels : nonEnglishModels;
     
     const systemPrompt = `You are an expert social media content strategist. Your task is to generate SEO-optimized content based on a user's prompt.
     The user is targeting:
@@ -58,31 +68,41 @@ export default async function handler(req, res) {
     - Region: ${region}
     - Language: ${language}
 
+    CRITICAL: The entire response, including all generated text, MUST be in the specified language: ${language}.
+
     Analyze the user's prompt and generate content that is highly relevant, engaging, and likely to trend.
     For each item (tag, hashtag, or title), you MUST provide a "trend_percentage" between 70 and 100.
 
-    Your response MUST be a valid JSON object.
-    If the task is 'tags_and_hashtags', the JSON should have two keys: "tags" (an array of objects) and "hashtags" (an array of objects). For platforms other than YouTube, the "tags" array can be empty.
-    If the task is 'titles', the JSON should have one key: "titles" (an array of 5 objects).
+    Your response MUST be a valid JSON object. Do NOT include any explanations or markdown formatting. Only the raw JSON object.
 
-    Each object in the arrays must have two keys: "text" (the generated content as a string) and "trend_percentage" (a number between 70 and 100).
-    Example for 'tags_and_hashtags' task: {"tags": [{"text": "example tag", "trend_percentage": 85}], "hashtags": [{"text": "#exampleHashtag", "trend_percentage": 92}]}
-    Example for 'titles' task: {"titles": [{"text": "This is an Example Title", "trend_percentage": 88}]}
-    Do NOT include any explanations or markdown formatting. Only the raw JSON object.`;
+    QUANTITY RULES:
+    - If the task is 'titles', the JSON must have one key: "titles" (an array of 5 to 7 objects, max 10).
+    - If the task is 'tags_and_hashtags' for 'youtube', the JSON must have two keys: "tags" (an array of 15 to 20 objects, max 25) and "hashtags" (an array of 15 to 20 objects, max 25).
+    - If the task is 'tags_and_hashtags' for 'instagram', 'tiktok', or 'facebook', the JSON must have one key: "hashtags" (an array of 15 to 20 objects, max 25). The "tags" array must be empty.
+
+    JSON STRUCTURE:
+    - Each object in the arrays must have two keys: "text" (the generated content as a string) and "trend_percentage" (a number between 70 and 100).
+    - Example for 'tags_and_hashtags' task on YouTube: {"tags": [{"text": "example tag", "trend_percentage": 85}], "hashtags": [{"text": "#exampleHashtag", "trend_percentage": 92}]}
+    - Example for 'titles' task: {"titles": [{"text": "This is an Example Title", "trend_percentage": 88}]}`;
 
     let result;
-    try {
-      result = await callOpenRouter(primaryModel, systemPrompt, prompt);
-    } catch (primaryError) {
-      console.warn(`Primary model (${primaryModel}) failed: ${primaryError.message}. Trying fallback.`);
+    let lastError = null;
+
+    for (const model of modelsToTry) {
       try {
-        result = await callOpenRouter(fallbackModel, systemPrompt, prompt);
-      } catch (fallbackError) {
-        console.error(`Fallback model (${fallbackModel}) also failed: ${fallbackError.message}. Using static fallback.`);
-        const fallbackPath = path.join(process.cwd(), 'public', 'data', 'fallback.json');
-        const fallbackData = await fs.readFile(fallbackPath, 'utf-8');
-        result = JSON.parse(fallbackData);
+        result = await callOpenRouter(model, systemPrompt, prompt);
+        lastError = null; // Clear last error on success
+        break; // Exit loop on success
+      } catch (error) {
+        console.warn(`Model ${model} failed: ${error.message}. Trying next model.`);
+        lastError = error;
       }
+    }
+
+    if (!result) {
+      console.error(`All models failed. Last error: ${lastError.message}. Using static fallback.`);
+      const fallbackPath = path.join(process.cwd(), 'public', 'data', 'fallback.json');
+      result = JSON.parse(await fs.readFile(fallbackPath, 'utf-8'));
     }
     
     res.setHeader('Cache-Control', 'no-cache');
