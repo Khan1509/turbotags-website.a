@@ -3,7 +3,7 @@ import ToolPage from './ToolPage';
 
 const pageConfig = {
   pageTitle: 'AI Title Generator | Free SEO-Optimized & Click-Worthy Titles',
-  pageDescription: 'Generate 5 catchy, SEO-optimized, and click-worthy titles for your YouTube videos, blog posts, or social media content with our free AI title generator.',
+  pageDescription: 'Generate 5 catchy, SEO-optimized, and click-worthy titles for your YouTube videos, blog posts, or social media content with our free AI title generator for 2025.',
   heroTitle: 'Free AI Title Generator',
   heroSubtitle: 'Never struggle with a boring title again. Our AI generates 5 compelling, SEO-friendly titles to grab attention and boost your click-through rate.',
   introContent: (
@@ -15,6 +15,7 @@ const pageConfig = {
     initialTask: 'titles'
   },
   breadcrumbTrail: [
+    { name: 'Home', path: '/' },
     { name: 'AI Title Generator', path: '/ai-title-generator' }
   ]
 };

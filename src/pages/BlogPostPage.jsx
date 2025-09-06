@@ -6,13 +6,14 @@ import { motion } from 'framer-motion';
 import { Calendar, Tag, User, ArrowLeft } from 'lucide-react';
 import LoadingSpinner from '../components/ui/LoadingSpinner';
 import Breadcrumbs from '../components/ui/Breadcrumbs';
-import BreadcrumbSchema from '../components/schemas/BreadcrumbSchema';
+import LazyImage from '../components/ui/LazyImage';
+import InternalLinkSuggestions from '../components/ui/InternalLinkSuggestions';
 
 const ContentRenderer = ({ content }) => {
   return content.map((block, index) => {
     switch (block.type) {
       case 'p':
-        return <p key={index}>{block.children}</p>;
+        return <p key={index} dangerouslySetInnerHTML={{ __html: block.children }}></p>;
       case 'h2':
         return <h2 key={index} className="h2 font-bold mt-10 mb-6">{block.children}</h2>;
       case 'h3':
@@ -20,11 +21,11 @@ const ContentRenderer = ({ content }) => {
       case 'ul':
         return (
           <ul key={index} className="list-disc list-inside space-y-2 pl-4">
-            {block.items.map((item, i) => <li key={i}>{item}</li>)}
+            {block.items.map((item, i) => <li key={i} dangerouslySetInnerHTML={{ __html: item }}></li>)}
           </ul>
         );
       case 'image':
-        return <img key={index} src={block.src} alt={block.alt || 'Blog post image'} className="w-full h-auto rounded-xl shadow-lg my-8" loading="lazy" decoding="async" />;
+        return <LazyImage key={index} src={block.src} alt={block.alt || 'Blog post image'} className="w-full h-auto rounded-xl shadow-lg my-8" />;
       case 'example':
         return <p key={index} className="p-4 bg-gray-100 rounded-lg text-sm font-mono my-4 break-words">{block.children}</p>;
       default:
@@ -78,14 +79,12 @@ const BlogPostPage = () => {
   ];
 
   return (
-    <>
-      <BreadcrumbSchema trail={breadcrumbTrail} />
-      <motion.div 
-        className="bg-white py-12"
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 0.5 }}
-      >
+    <motion.div 
+      className="bg-white py-12"
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ duration: 0.5 }}
+    >
       <div className="container mx-auto max-w-3xl px-4">
         <div className="mb-8">
           <Breadcrumbs trail={breadcrumbTrail} />
@@ -110,22 +109,25 @@ const BlogPostPage = () => {
             </div>
           </header>
 
-          <img 
+          <LazyImage 
             src={post.image} 
             alt={post.title} 
             className="w-full h-auto rounded-xl shadow-lg mb-8" 
             fetchpriority="high"
           />
-
-          <div className="prose prose-lg max-w-none text-gray-800 leading-relaxed space-y-6">
+          
+          {/* FIX: Add break-words for mobile overflow */}
+          <div className="prose prose-lg max-w-none text-gray-800 leading-relaxed space-y-6 break-words">
             {isLoading && <LoadingSpinner />}
             {error && <p className="text-red-500">{error}</p>}
             {content && <ContentRenderer content={content} />}
           </div>
         </article>
+
+        {/* SEO: Add internal link suggestions */}
+        <InternalLinkSuggestions />
       </div>
-      </motion.div>
-    </>
+    </motion.div>
   );
 };
 

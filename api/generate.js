@@ -4,8 +4,8 @@ import path from 'path';
 // Helper to call OpenRouter API
 async function callOpenRouter(model, systemPrompt, userPrompt) {
   const OPENROUTER_API_KEY = process.env.OPENROUTER_API_KEY;
-  if (!OPENROUTER_API_KEY || OPENROUTER_API_KEY === 'YOUR_API_KEY') {
-    throw new Error('OPENROUTER_API_KEY is not set in environment variables.');
+  if (!OPENROUTER_API_KEY || OPENROUTER_API_KEY.startsWith('YOUR_')) {
+    throw new Error('OPENROUTER_API_KEY is not set or is a placeholder.');
   }
 
   const response = await fetch("https://openrouter.ai/api/v1/chat/completions", {
@@ -47,8 +47,9 @@ export default async function handler(req, res) {
     }
 
     const isEnglish = language === 'english';
-    const primaryModel = isEnglish ? "mistralai/mistral-7b-instruct" : "google/gemini-flash-1.5";
-    const fallbackModel = isEnglish ? "google/gemini-flash-1.5" : "meta-llama/llama-3.1-8b-instruct";
+    // FIX: Use the explicit free-tier model for Mistral, which is more reliable.
+    const primaryModel = isEnglish ? "mistralai/mistral-7b-instruct:free" : "google/gemini-flash-1.5";
+    const fallbackModel = isEnglish ? "google/gemini-flash-1.5" : "mistralai/mistral-7b-instruct:free";
     
     const systemPrompt = `You are an expert social media content strategist. Your task is to generate SEO-optimized content based on a user's prompt.
     The user is targeting:

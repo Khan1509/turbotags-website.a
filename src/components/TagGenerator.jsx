@@ -179,7 +179,8 @@ const TagItem = React.memo(({ item, onCopy, onFeedback }) => {
       className="flex flex-col sm:flex-row items-start sm:items-center justify-between rounded-md bg-white p-3 shadow-sm transition-all duration-200 hover:shadow-md border border-gray-200"
     >
       <div className="flex items-center flex-grow min-w-0 mr-2">
-        <span className="text-gray-800 text-sm sm:text-base font-medium break-all mr-3" aria-label={`Tag: ${item.text}`}>{item.text}</span>
+        {/* FIX: Added break-words to prevent overflow on mobile */}
+        <span className="text-gray-800 text-sm sm:text-base font-medium break-words mr-3" aria-label={`Tag: ${item.text}`}>{item.text}</span>
         <span className={`px-2 py-1 rounded-full text-xs font-semibold border ${getTrendColor(trendPercentage)}`} aria-label={`Trending at ${trendPercentage} percent`}>
           {trendPercentage}%
         </span>
@@ -239,7 +240,8 @@ const TitleItem = React.memo(({ item, onCopy, onFeedback }) => {
         className="flex flex-col sm:flex-row items-start sm:items-center justify-between rounded-md bg-white p-3 shadow-sm transition-all duration-200 hover:shadow-md border border-gray-200"
       >
         <div className="flex items-center flex-grow min-w-0 mr-2">
-            <span className="text-gray-800 text-sm sm:text-base font-medium break-all mr-3">{item.text}</span>
+            {/* FIX: Added break-words to prevent overflow on mobile */}
+            <span className="text-gray-800 text-sm sm:text-base font-medium break-words mr-3">{item.text}</span>
             <span className={`px-2 py-1 rounded-full text-xs font-semibold border ${getTrendColor(trendPercentage)}`} aria-label={`Trending at ${trendPercentage} percent`}>
                 {trendPercentage}%
             </span>

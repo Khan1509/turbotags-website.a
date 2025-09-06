@@ -2,8 +2,8 @@ import React from 'react';
 import ToolPage from './ToolPage';
 
 const pageConfig = {
-  pageTitle: 'Free Hashtag Generator | AI Tool for All Social Media',
-  pageDescription: 'The only free hashtag generator you need. Get AI-powered hashtag suggestions for Instagram, TikTok, YouTube, Facebook, and more in one place.',
+  pageTitle: 'Free Hashtag Generator | Best AI Tool for All Social Media (2025)',
+  pageDescription: 'The only free hashtag generator you need for 2025. Get AI-powered hashtag suggestions for Instagram, TikTok, YouTube, Facebook, and more in one place.',
   heroTitle: 'The Ultimate Free Hashtag Generator',
   heroSubtitle: 'Your all-in-one solution for social media growth. Generate hashtags for YouTube, Instagram, TikTok, and Facebook with a single click.',
   introContent: (
@@ -13,6 +13,7 @@ const pageConfig = {
   ),
   tagGeneratorProps: {},
   breadcrumbTrail: [
+    { name: 'Home', path: '/' },
     { name: 'Free Hashtag Generator', path: '/free-hashtag-generator' }
   ]
 };

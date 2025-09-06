@@ -6,8 +6,8 @@ const AboutSection = () => {
   return (
     <section id="about" className="bg-white p-6 sm:p-8 rounded-xl shadow-md">
       <div className="text-center">
-        {/* SEO: Changed from h2 to h1 */}
-        <h1 className="text-4xl font-extrabold text-tt-dark-violet mb-4">About TurboTags</h1>
+        {/* SEO: Changed from h1 to h2 for correct semantic structure. The H1 is now on the page component. */}
+        <h2 className="text-4xl font-extrabold text-tt-dark-violet mb-4">Our Mission & Vision</h2>
         <p className="text-lg text-gray-600 max-w-3xl mx-auto">Smarter Reach. Faster Growth. Built for a Global Audience.</p>
       </div>
 

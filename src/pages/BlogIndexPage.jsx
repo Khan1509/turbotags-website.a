@@ -4,6 +4,7 @@ import { motion } from 'framer-motion';
 import { blogPostIndex } from '../data/blogPostIndex';
 import usePageMeta from '../hooks/usePageMeta';
 import { Calendar, Tag, ArrowRight } from 'lucide-react';
+import LazyImage from '../components/ui/LazyImage';
 
 const BlogIndexPage = () => {
   usePageMeta(
@@ -52,12 +53,11 @@ const BlogIndexPage = () => {
               className="bg-white rounded-xl shadow-lg overflow-hidden flex flex-col"
             >
               <Link to={`/blog/${post.slug}`} className="block">
-                <img 
+                {/* PERFORMANCE: Use LazyImage component */}
+                <LazyImage 
                   src={post.image} 
                   alt={post.title} 
-                  className="w-full h-48 object-cover" 
-                  loading="lazy"
-                  decoding="async"
+                  className="w-full h-48 object-cover"
                 />
               </Link>
               <div className="p-6 flex flex-col flex-grow">

@@ -27,8 +27,8 @@ const FeaturesSection = () => {
   return (
     <section id="features" className="bg-gray-50 py-12 px-4">
         <div className="text-center mb-12">
-            {/* SEO: Updated H1 and description */}
-            <h1 className="text-5xl font-extrabold text-tt-dark-violet mb-4">TurboTags Features</h1>
+            {/* SEO: Changed from h1 to h2 for correct semantic structure. */}
+            <h2 className="text-5xl font-extrabold text-tt-dark-violet mb-4">TurboTags Features</h2>
             <p className="text-xl text-gray-600 max-w-3xl mx-auto">
                 Discover the tools that make us the best free YouTube tags generator and provider of AI-powered Instagram hashtag ideas for 2025.
             </p>
