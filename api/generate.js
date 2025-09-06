@@ -75,6 +75,10 @@ export default async function handler(req, res) {
 
     Your response MUST be a valid JSON object. Do NOT include any explanations or markdown formatting. Only the raw JSON object.
 
+    SPECIFIC RULES:
+    - If the platform is 'youtube' and the task is 'titles', all generated titles MUST be 100 characters or less.
+    - If the platform is 'youtube', the contentFormat is 'short', and the task is 'titles', every generated title MUST end with the exact text " #shorts".
+
     QUANTITY RULES:
     - If the task is 'titles', the JSON must have one key: "titles" (an array of 5 to 7 objects, max 10).
     - If the task is 'tags_and_hashtags' for 'youtube', the JSON must have two keys: "tags" (an array of 15 to 20 objects, max 25) and "hashtags" (an array of 15 to 20 objects, max 25).
