@@ -2,6 +2,7 @@ import React, { lazy, Suspense } from 'react';
 import { Routes, Route, BrowserRouter, Navigate } from 'react-router-dom';
 import MainLayout from './components/layouts/MainLayout';
 import LoadingSpinner from './components/ui/LoadingSpinner';
+import { Analytics } from '@vercel/analytics/react';
 
 // Lazy load page components for better performance
 const HomePage = lazy(() => import('./pages/HomePage'));
@@ -46,6 +47,7 @@ function App() {
           <Route path="*" element={<NotFoundPage />} />
         </Route>
       </Routes>
+      <Analytics />
     </Suspense>
   );
 }
