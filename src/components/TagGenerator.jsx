@@ -399,91 +399,94 @@ const TagGenerator = ({ initialTab = 'youtube', initialTask = 'tags_and_hashtags
         ))}
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
-        <div className="relative dropdown-container">
-          <label className="block text-gray-700 text-sm font-semibold mb-2">Content Format</label>
-          <div className="relative">
-            <button onClick={() => setShowFormatDropdown(!showFormatDropdown)} className="w-full p-3 border border-gray-300 rounded-lg bg-white text-left flex items-center justify-between hover:border-tt-medium-violet focus:outline-none focus:ring-2 focus:ring-tt-dark-violet">
-              <span className="text-gray-800">{CONTENT_FORMATS[activeTab].find(f => f.value === state.contentFormat)?.label}</span>
-              <ChevronDown className={`h-4 w-4 text-gray-500 transition-transform ${showFormatDropdown ? 'rotate-180' : ''}`} />
-            </button>
-            <AnimatePresence>
-              {showFormatDropdown && (
-                <motion.div
-                  initial={{ opacity: 0, y: -10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: -10 }}
-                  transition={{ duration: 0.2 }}
-                  className="absolute z-10 w-full mt-1 bg-white border border-gray-300 rounded-lg shadow-lg"
-                >
-                  {CONTENT_FORMATS[activeTab].map((format) => (
-                    <button key={format.value} onClick={() => { dispatch({ type: 'SET_CONTENT_FORMAT', payload: format.value }); setShowFormatDropdown(false); }} className={`w-full p-3 text-left hover:bg-gray-50 first:rounded-t-lg last:rounded-b-lg ${state.contentFormat === format.value ? 'bg-tt-dark-violet/5 text-tt-dark-violet font-semibold' : 'text-gray-800'}`}>
-                      {format.label}
-                    </button>
-                  ))}
-                </motion.div>
-              )}
-            </AnimatePresence>
+      <div className="border border-gray-200 rounded-lg p-4 mb-6 bg-gray-50/50">
+        <h3 className="text-sm font-bold text-gray-600 mb-4 text-center uppercase tracking-wider">Advanced Options</h3>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+          <div className="relative dropdown-container">
+            <label className="block text-gray-700 text-sm font-semibold mb-2">Content Format</label>
+            <div className="relative">
+              <button onClick={() => setShowFormatDropdown(!showFormatDropdown)} className="w-full p-3 border border-gray-300 rounded-lg bg-white text-left flex items-center justify-between hover:border-tt-medium-violet focus:outline-none focus:ring-2 focus:ring-tt-dark-violet">
+                <span className="text-gray-800">{CONTENT_FORMATS[activeTab].find(f => f.value === state.contentFormat)?.label}</span>
+                <ChevronDown className={`h-4 w-4 text-gray-500 transition-transform ${showFormatDropdown ? 'rotate-180' : ''}`} />
+              </button>
+              <AnimatePresence>
+                {showFormatDropdown && (
+                  <motion.div
+                    initial={{ opacity: 0, y: -10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: -10 }}
+                    transition={{ duration: 0.2 }}
+                    className="absolute z-10 w-full mt-1 bg-white border border-gray-300 rounded-lg shadow-lg"
+                  >
+                    {CONTENT_FORMATS[activeTab].map((format) => (
+                      <button key={format.value} onClick={() => { dispatch({ type: 'SET_CONTENT_FORMAT', payload: format.value }); setShowFormatDropdown(false); }} className={`w-full p-3 text-left hover:bg-gray-50 first:rounded-t-lg last:rounded-b-lg ${state.contentFormat === format.value ? 'bg-tt-dark-violet/5 text-tt-dark-violet font-semibold' : 'text-gray-800'}`}>
+                        {format.label}
+                      </button>
+                    ))}
+                  </motion.div>
+                )}
+              </AnimatePresence>
+            </div>
           </div>
-        </div>
 
-        <div className="relative dropdown-container">
-          <label className="block text-gray-700 text-sm font-semibold mb-2">Target Region</label>
-          <div className="relative">
-            <button onClick={() => setShowRegionDropdown(!showRegionDropdown)} className="w-full p-3 border border-gray-300 rounded-lg bg-white text-left flex items-center justify-between hover:border-tt-medium-violet focus:outline-none focus:ring-2 focus:ring-tt-dark-violet">
-              <div className="flex items-center">
-                <Globe className="h-4 w-4 mr-2 text-gray-500" />
-                <span className="text-gray-800">{REGIONS.find(r => r.value === state.region)?.flag} {REGIONS.find(r => r.value === state.region)?.label}</span>
-              </div>
-              <ChevronDown className={`h-4 w-4 text-gray-500 transition-transform ${showRegionDropdown ? 'rotate-180' : ''}`} />
-            </button>
-            <AnimatePresence>
-              {showRegionDropdown && (
-                <motion.div
-                  initial={{ opacity: 0, y: -10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: -10 }}
-                  transition={{ duration: 0.2 }}
-                  className="absolute z-10 w-full mt-1 bg-white border border-gray-300 rounded-lg shadow-lg max-h-60 overflow-y-auto"
-                >
-                  {REGIONS.map((region) => (
-                    <button key={region.value} onClick={() => { dispatch({ type: 'SET_REGION', payload: region.value }); setShowRegionDropdown(false); }} className={`w-full p-3 text-left hover:bg-gray-50 first:rounded-t-lg last:rounded-b-lg flex items-center ${state.region === region.value ? 'bg-tt-dark-violet/5 text-tt-dark-violet font-semibold' : 'text-gray-800'}`}>
-                      <span className="mr-2">{region.flag}</span>{region.label}
-                    </button>
-                  ))}
-                </motion.div>
-              )}
-            </AnimatePresence>
+          <div className="relative dropdown-container">
+            <label className="block text-gray-700 text-sm font-semibold mb-2">Target Region</label>
+            <div className="relative">
+              <button onClick={() => setShowRegionDropdown(!showRegionDropdown)} className="w-full p-3 border border-gray-300 rounded-lg bg-white text-left flex items-center justify-between hover:border-tt-medium-violet focus:outline-none focus:ring-2 focus:ring-tt-dark-violet">
+                <div className="flex items-center">
+                  <Globe className="h-4 w-4 mr-2 text-gray-500" />
+                  <span className="text-gray-800">{REGIONS.find(r => r.value === state.region)?.flag} {REGIONS.find(r => r.value === state.region)?.label}</span>
+                </div>
+                <ChevronDown className={`h-4 w-4 text-gray-500 transition-transform ${showRegionDropdown ? 'rotate-180' : ''}`} />
+              </button>
+              <AnimatePresence>
+                {showRegionDropdown && (
+                  <motion.div
+                    initial={{ opacity: 0, y: -10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: -10 }}
+                    transition={{ duration: 0.2 }}
+                    className="absolute z-10 w-full mt-1 bg-white border border-gray-300 rounded-lg shadow-lg max-h-60 overflow-y-auto"
+                  >
+                    {REGIONS.map((region) => (
+                      <button key={region.value} onClick={() => { dispatch({ type: 'SET_REGION', payload: region.value }); setShowRegionDropdown(false); }} className={`w-full p-3 text-left hover:bg-gray-50 first:rounded-t-lg last:rounded-b-lg flex items-center ${state.region === region.value ? 'bg-tt-dark-violet/5 text-tt-dark-violet font-semibold' : 'text-gray-800'}`}>
+                        <span className="mr-2">{region.flag}</span>{region.label}
+                      </button>
+                    ))}
+                  </motion.div>
+                )}
+              </AnimatePresence>
+            </div>
           </div>
-        </div>
 
-        <div className="relative dropdown-container">
-          <label className="block text-gray-700 text-sm font-semibold mb-2">Language</label>
-          <div className="relative">
-            <button onClick={() => setShowLanguageDropdown(!showLanguageDropdown)} className="w-full p-3 border border-gray-300 rounded-lg bg-white text-left flex items-center justify-between hover:border-tt-medium-violet focus:outline-none focus:ring-2 focus:ring-tt-dark-violet">
-              <div className="flex items-center">
-                <Type className="h-4 w-4 mr-2 text-gray-500" />
-                <span className="text-gray-800">{LANGUAGES.find(l => l.value === state.language)?.flag} {LANGUAGES.find(l => l.value === state.language)?.label}</span>
-              </div>
-              <ChevronDown className={`h-4 w-4 text-gray-500 transition-transform ${showLanguageDropdown ? 'rotate-180' : ''}`} />
-            </button>
-            <AnimatePresence>
-              {showLanguageDropdown && (
-                <motion.div
-                  initial={{ opacity: 0, y: -10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: -10 }}
-                  transition={{ duration: 0.2 }}
-                  className="absolute z-10 w-full mt-1 bg-white border border-gray-300 rounded-lg shadow-lg max-h-60 overflow-y-auto"
-                >
-                  {LANGUAGES.map((language) => (
-                    <button key={language.value} onClick={() => { dispatch({ type: 'SET_LANGUAGE', payload: language.value }); setShowLanguageDropdown(false); }} className={`w-full p-3 text-left hover:bg-gray-50 first:rounded-t-lg last:rounded-b-lg flex items-center ${state.language === language.value ? 'bg-tt-dark-violet/5 text-tt-dark-violet font-semibold' : 'text-gray-800'}`}>
-                      <span className="mr-2">{language.flag}</span>{language.label}
-                    </button>
-                  ))}
-                </motion.div>
-              )}
-            </AnimatePresence>
+          <div className="relative dropdown-container">
+            <label className="block text-gray-700 text-sm font-semibold mb-2">Language</label>
+            <div className="relative">
+              <button onClick={() => setShowLanguageDropdown(!showLanguageDropdown)} className="w-full p-3 border border-gray-300 rounded-lg bg-white text-left flex items-center justify-between hover:border-tt-medium-violet focus:outline-none focus:ring-2 focus:ring-tt-dark-violet">
+                <div className="flex items-center">
+                  <Type className="h-4 w-4 mr-2 text-gray-500" />
+                  <span className="text-gray-800">{LANGUAGES.find(l => l.value === state.language)?.flag} {LANGUAGES.find(l => l.value === state.language)?.label}</span>
+                </div>
+                <ChevronDown className={`h-4 w-4 text-gray-500 transition-transform ${showLanguageDropdown ? 'rotate-180' : ''}`} />
+              </button>
+              <AnimatePresence>
+                {showLanguageDropdown && (
+                  <motion.div
+                    initial={{ opacity: 0, y: -10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: -10 }}
+                    transition={{ duration: 0.2 }}
+                    className="absolute z-10 w-full mt-1 bg-white border border-gray-300 rounded-lg shadow-lg max-h-60 overflow-y-auto"
+                  >
+                    {LANGUAGES.map((language) => (
+                      <button key={language.value} onClick={() => { dispatch({ type: 'SET_LANGUAGE', payload: language.value }); setShowLanguageDropdown(false); }} className={`w-full p-3 text-left hover:bg-gray-50 first:rounded-t-lg last:rounded-b-lg flex items-center ${state.language === language.value ? 'bg-tt-dark-violet/5 text-tt-dark-violet font-semibold' : 'text-gray-800'}`}>
+                        <span className="mr-2">{language.flag}</span>{language.label}
+                      </button>
+                    ))}
+                  </motion.div>
+                )}
+              </AnimatePresence>
+            </div>
           </div>
         </div>
       </div>
