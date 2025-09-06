@@ -4,6 +4,24 @@ import usePageMeta from '../../hooks/usePageMeta';
 import TagGenerator from '../../components/TagGenerator';
 import Breadcrumbs from '../../components/ui/Breadcrumbs';
 
+const containerVariants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: { staggerChildren: 0.1, delayChildren: 0.2 },
+  },
+};
+
+const itemVariants = {
+  hidden: { y: 20, opacity: 0 },
+  visible: {
+    y: 0,
+    opacity: 1,
+    transition: { duration: 0.5, ease: 'easeOut' },
+  },
+};
+
+
 const ToolPage = ({ pageConfig }) => {
   const {
     pageTitle,
@@ -19,26 +37,30 @@ const ToolPage = ({ pageConfig }) => {
 
   return (
     <motion.div
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
+      initial="hidden"
+      animate="visible"
       exit={{ opacity: 0 }}
-      transition={{ duration: 0.5 }}
+      variants={containerVariants}
       className="container mx-auto max-w-7xl space-y-8 px-4 py-8 sm:space-y-12 sm:px-6 md:px-8"
     >
-      <Breadcrumbs trail={breadcrumbTrail} />
+      <motion.div variants={itemVariants}>
+        <Breadcrumbs trail={breadcrumbTrail} />
+      </motion.div>
       
-      <header className="text-center">
+      <motion.header variants={itemVariants} className="text-center">
         <h1 className="h1 font-extrabold text-tt-dark-violet">{heroTitle}</h1>
         <p className="mt-4 text-lg md:text-xl text-gray-700 max-w-3xl mx-auto">{heroSubtitle}</p>
-      </header>
+      </motion.header>
 
-      <section className="bg-white p-6 rounded-xl shadow-md">
+      <motion.section variants={itemVariants} className="bg-white p-6 rounded-xl shadow-md">
         <div className="prose prose-lg max-w-none text-gray-800 leading-relaxed">
           {introContent}
         </div>
-      </section>
+      </motion.section>
       
-      <TagGenerator {...tagGeneratorProps} />
+      <motion.div variants={itemVariants}>
+        <TagGenerator {...tagGeneratorProps} />
+      </motion.div>
     </motion.div>
   );
 };
