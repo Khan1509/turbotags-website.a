@@ -380,7 +380,7 @@ const TagGenerator = ({ initialTab = 'youtube', initialTask = 'tags_and_hashtags
       <h2 className="text-3xl font-bold text-tt-dark-violet mb-2 text-center">Your All-in-One AI Content Generator</h2>
       <p className="text-center text-gray-600 mb-8">Get hyper-targeted titles, find viral tags for YouTube, and discover trending hashtags for TikTok, Instagram, and Facebook. Our AI helps you find the best content for maximum views and engagement.</p>
 
-      <div className="flex border-b border-gray-200 mb-6 bg-gray-50 rounded-t-lg overflow-hidden" role="tablist" aria-label="Social media platforms">
+      <div className="flex border-b border-gray-200 mb-6 bg-gray-50 rounded-t-lg overflow-x-auto" role="tablist" aria-label="Social media platforms">
         {TABS.map(tab => (
           <button
             key={tab.id}
@@ -388,7 +388,7 @@ const TagGenerator = ({ initialTab = 'youtube', initialTask = 'tags_and_hashtags
             role="tab"
             aria-selected={activeTab === tab.id}
             aria-controls={`${tab.id}-panel`}
-            className={`tab-button flex-1 p-2 sm:p-4 text-center font-bold border-b-4 transition-colors duration-300 flex flex-col items-center justify-center focus:outline-none focus:ring-2 focus:ring-tt-dark-violet focus:ring-inset ${activeTab === tab.id ? 'text-tt-dark-violet border-tt-dark-violet bg-tt-dark-violet/5' : 'text-gray-600 border-transparent hover:bg-gray-100 hover:text-gray-800'}`}
+            className={`tab-button flex-1 p-1 sm:p-4 text-center font-bold border-b-4 transition-colors duration-300 flex flex-col items-center justify-center focus:outline-none focus:ring-2 focus:ring-tt-dark-violet focus:ring-inset min-w-[100px] ${activeTab === tab.id ? 'text-tt-dark-violet border-tt-dark-violet bg-tt-dark-violet/5' : 'text-gray-600 border-transparent hover:bg-gray-100 hover:text-gray-800'}`}
           >
             <tab.icon className={`h-6 w-6 sm:h-7 sm:w-7 mb-1 ${activeTab === tab.id ? 'text-tt-dark-violet' : 'text-gray-500'}`} aria-hidden="true" />
             <span className="text-xs sm:text-base">{tab.name}</span>
