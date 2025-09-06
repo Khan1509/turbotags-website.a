@@ -1,21 +1,8 @@
 {
   "version": 2,
-  "builds": [
-    {
-      "src": "package.json",
-      "use": "@vercel/static-build",
-      "config": {
-        "distDir": "dist"
-      }
-    },
-    {
-      "src": "api/**/*.js",
-      "use": "@vercel/node"
-    }
-  ],
   "rewrites": [
     {
-      "source": "/((?!api/|assets/|icons/|data/|sitemap.xml|robots.txt|manifest.json|favicon.svg|sw.js|.*\\.html$).*)",
+      "source": "/((?!api/|assets/|icons/|data/|sitemap.xml|robots.txt|manifest.json|favicon.svg|sw.js|.*\\.html$|.*\\.txt$|.*\\.xml$).*)",
       "destination": "/index.html"
     }
   ],
@@ -23,6 +10,7 @@
     {
       "source": "/(.*)",
       "headers": [
+        { "key": "Content-Security-Policy", "value": "default-src 'self'; script-src 'self' https://pagead2.googlesyndication.com https://www.googletagmanager.com; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; font-src 'self'; connect-src 'self' https://openrouter.ai https://*.google-analytics.com https://*.analytics.google.com https://*.googletagmanager.com; frame-src https:; object-src 'none'; base-uri 'self'; form-action 'self';" },
         { "key": "X-Content-Type-Options", "value": "nosniff" },
         { "key": "X-Frame-Options", "value": "SAMEORIGIN" },
         { "key": "X-XSS-Protection", "value": "1; mode=block" },

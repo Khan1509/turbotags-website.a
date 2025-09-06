@@ -1,20 +1,14 @@
-/* TEAM */
-Project: TurboTags
-URL: https://turbotags.app
+# humanstxt.org
+# The humans behind the screen
+
+# TEAM
+Creator: TurboTags Team
 Contact: helloturbotags@gmail.com
 Twitter: @TurboTagsApp
 From: Earth
 
-/* THANKS */
-Node.js
-React
-Vite
-Tailwind CSS
-OpenRouter.ai
-Vercel
-
-/* TECHNOLOGY */
-Frontend: React, Vite, Tailwind CSS
-Backend: Vercel Serverless Functions (Node.js)
-AI Provider: OpenRouter.ai
-Hosting: Vercel
+# SITE
+Last update: 2025-07-17
+Standards: HTML5, CSS3, ES2022
+Components: React, Vite, Tailwind CSS
+Software: VS Code, Vercel
