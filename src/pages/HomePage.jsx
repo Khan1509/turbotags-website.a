@@ -12,7 +12,7 @@ import TrendingTopics from '../components/TrendingTopics';
 import NativeAd from '../components/ui/NativeAd';
 import FaqSchema from '../components/schemas/FaqSchema';
 import { faqData } from '../components/Faq';
-import ToolLinkGrid from '../components/ui/ToolLinkGrid'; // Import the new component
+import ToolLinkGrid from '../components/ui/ToolLinkGrid';
 
 const WhyChooseUs = lazy(() => import('../components/WhyChooseUs'));
 const Faq = lazy(() => import('../components/Faq'));
