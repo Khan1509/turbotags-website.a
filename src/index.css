@@ -9,7 +9,7 @@
   }
 
   body {
-    @apply bg-gradient-to-br from-gray-50 via-blue-50/30 to-purple-50/20 font-sans text-gray-800 antialiased;
+    @apply bg-gradient-to-br from-tt-silver-light via-gray-50 to-tt-charcoal/5 font-sans text-tt-charcoal antialiased;
     overflow-x: hidden;
     line-height: 1.6;
     -webkit-font-smoothing: antialiased;
@@ -88,15 +88,15 @@
   }
 
   .btn-primary {
-    @apply btn bg-gradient-to-r from-tt-dark-violet to-tt-medium-violet text-white hover:from-tt-medium-violet hover:to-tt-light-violet focus:ring-tt-dark-violet;
+    @apply btn bg-gradient-to-r from-tt-navy to-tt-navy-light text-white hover:from-tt-navy-dark hover:to-tt-navy focus:ring-tt-navy shadow-lg hover:shadow-xl;
   }
 
   .btn-secondary {
-    @apply btn bg-white text-gray-700 border border-gray-200 hover:bg-gray-50 hover:border-gray-300 focus:ring-gray-500;
+    @apply btn bg-gradient-to-r from-tt-silver-light to-tt-silver text-tt-charcoal border border-tt-silver hover:from-tt-silver hover:to-tt-silver-dark hover:border-tt-silver-dark focus:ring-tt-silver;
   }
 
   .btn-accent {
-    @apply btn bg-gradient-to-r from-tt-accent to-blue-500 text-white hover:from-blue-500 hover:to-tt-accent focus:ring-tt-accent;
+    @apply btn bg-gradient-to-r from-tt-charcoal to-tt-charcoal-light text-white hover:from-tt-charcoal-dark hover:to-tt-charcoal focus:ring-tt-charcoal;
   }
 
   /* Modern card styles */
@@ -111,7 +111,7 @@
 
   /* Gradient text */
   .text-gradient {
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    background: linear-gradient(135deg, #000080 0%, #36454F 50%, #C0C0C0 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;

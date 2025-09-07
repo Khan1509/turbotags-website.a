@@ -94,7 +94,7 @@ const TrendingTopics = () => {
   return (
     <section className="bg-white p-6 rounded-xl shadow-md">
       <div className="text-center mb-8">
-        <h2 className="h2 font-extrabold text-tt-dark-violet mb-2">Trending Topic Ideas for {new Date().getFullYear()}</h2>
+        <h2 className="h2 font-extrabold text-gradient mb-2">Trending Topic Ideas for {new Date().getFullYear()}</h2>
         <p className="text-lg text-gray-600 max-w-3xl mx-auto">
           Stuck on what to create next? Get inspired by these AI-curated trending topics for major platforms.
         </p>

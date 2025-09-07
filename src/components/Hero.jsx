@@ -42,15 +42,15 @@ const Hero = React.memo(() => {
         role="list"
         aria-label="Key features"
       >
-        <motion.span whileHover={{ y: -3, scale: 1.05 }} className="inline-flex items-center px-4 py-2 rounded-full text-sm font-semibold bg-gradient-to-r from-tt-accent to-blue-500 text-white shadow-lg will-change-transform" role="listitem">
+        <motion.span whileHover={{ y: -3, scale: 1.05 }} className="inline-flex items-center px-4 py-2 rounded-full text-sm font-semibold bg-gradient-to-r from-tt-navy to-tt-navy-light text-white shadow-lg will-change-transform" role="listitem">
           <Globe className="w-4 h-4 mr-2" aria-hidden="true" />
           30+ Regions Supported
         </motion.span>
-        <motion.span whileHover={{ y: -3, scale: 1.05 }} className="inline-flex items-center px-4 py-2 rounded-full text-sm font-semibold bg-gradient-to-r from-tt-dark-violet to-tt-medium-violet text-white shadow-lg will-change-transform" role="listitem">
+        <motion.span whileHover={{ y: -3, scale: 1.05 }} className="inline-flex items-center px-4 py-2 rounded-full text-sm font-semibold bg-gradient-to-r from-tt-charcoal to-tt-charcoal-light text-white shadow-lg will-change-transform" role="listitem">
           <Bot className="w-4 h-4 mr-2" aria-hidden="true" />
           AI Title & Tag Generation
         </motion.span>
-        <motion.span whileHover={{ y: -3, scale: 1.05 }} className="inline-flex items-center px-4 py-2 rounded-full text-sm font-semibold bg-gradient-to-r from-tt-success to-green-500 text-white shadow-lg will-change-transform" role="listitem">
+        <motion.span whileHover={{ y: -3, scale: 1.05 }} className="inline-flex items-center px-4 py-2 rounded-full text-sm font-semibold bg-gradient-to-r from-tt-silver to-tt-silver-dark text-tt-charcoal shadow-lg will-change-transform" role="listitem">
           <BarChart className="w-4 h-4 mr-2" aria-hidden="true" />
           SEO Optimized
         </motion.span>

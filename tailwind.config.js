@@ -8,15 +8,21 @@ export default {
   theme: {
     extend: {
       colors: {
-        'tt-dark-violet': '#1e1b4b', // Improved contrast from #151440
-        'tt-medium-violet': '#5b21b6', // Better contrast from #6366F1  
-        'tt-light-violet': '#7c3aed', // Enhanced contrast from #8B5CF6
-        'tt-accent': '#06b6d4', // Modern cyan accent
+        // New sophisticated color palette
+        'tt-navy': '#000080', // Navy Blue - primary brand color
+        'tt-navy-dark': '#000066', // Darker navy for depth
+        'tt-navy-light': '#1a1aff', // Lighter navy for variations
+        'tt-silver': '#C0C0C0', // Silver - accent and highlights
+        'tt-silver-dark': '#a8a8a8', // Darker silver
+        'tt-silver-light': '#e8e8e8', // Lighter silver
+        'tt-charcoal': '#36454F', // Charcoal Gray - neutral foundation
+        'tt-charcoal-dark': '#2c3940', // Darker charcoal
+        'tt-charcoal-light': '#4a5760', // Lighter charcoal
+        // Functional colors that complement the scheme
         'tt-success': '#10b981', // Success green
         'tt-warning': '#f59e0b', // Warning amber
         'tt-error': '#ef4444', // Error red
-        'tt-gradient-start': '#667eea',
-        'tt-gradient-end': '#764ba2',
+        'tt-info': '#3b82f6', // Info blue
       },
       fontFamily: {
         sans: ['Inter', 'sans-serif'],
