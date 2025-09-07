@@ -41,7 +41,9 @@ const TipBox = ({
     <motion.div
       initial={{ opacity: 0, y: 10 }}
       animate={{ opacity: 1, y: 0 }}
-      className={`bg-gradient-to-r ${colorClass} p-4 rounded-lg border-l-4 shadow-sm my-4`}
+      whileHover={{ scale: 1.02, y: -2 }}
+      transition={{ type: "spring", stiffness: 300, damping: 20 }}
+      className={`bg-gradient-to-r ${colorClass} p-4 rounded-xl border-l-4 shadow-lg my-4 cursor-pointer`}
     >
       <div className="flex items-start space-x-3">
         <IconComponent className="h-5 w-5 mt-0.5 flex-shrink-0" />

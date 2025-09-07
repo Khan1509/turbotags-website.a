@@ -59,11 +59,16 @@ export default defineConfig(({ mode }) => {
           passes: 3,
           pure_funcs: ['console.log', 'console.warn'],
           unsafe_arrows: true,
-          unsafe_methods: true
+          unsafe_methods: true,
+          reduce_vars: true,
+          reduce_funcs: true
         },
         mangle: {
           safari10: true,
-          toplevel: true
+          toplevel: true,
+          properties: {
+            regex: /^_/
+          }
         },
         format: {
           comments: false
@@ -71,7 +76,7 @@ export default defineConfig(({ mode }) => {
       },
       sourcemap: false,
       cssCodeSplit: true,
-      chunkSizeWarningLimit: 250,
+      chunkSizeWarningLimit: 200,
       rollupOptions: {
         output: {
           chunkFileNames: 'assets/js/[name]-[hash].js',
@@ -97,7 +102,10 @@ export default defineConfig(({ mode }) => {
       },
       cssMinify: 'esbuild',
       reportCompressedSize: true,
-      assetsInlineLimit: 4096
+      assetsInlineLimit: 8192,
+      modulePreload: {
+        polyfill: false
+      }
     },
     optimizeDeps: {
       include: [
