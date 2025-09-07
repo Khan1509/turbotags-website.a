@@ -109,7 +109,15 @@ export default defineConfig(({ mode }) => {
       host: '0.0.0.0',
       port: 5000,
       cors: true,
-      allowedHosts: 'all'
+      allowedHosts: 'all',
+      hmr: {
+        port: 5000
+      },
+      headers: {
+        'Cache-Control': 'no-cache, no-store, must-revalidate',
+        'Pragma': 'no-cache',
+        'Expires': '0'
+      }
     },
     css: {
       devSourcemap: false
