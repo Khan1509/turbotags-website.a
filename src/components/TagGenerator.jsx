@@ -281,6 +281,15 @@ const TagGenerator = ({ initialTab = 'youtube', initialTask = 'tags_and_hashtags
   const [showFormatDropdown, setShowFormatDropdown] = useState(false);
   const [showRegionDropdown, setShowRegionDropdown] = useState(false);
   const [showLanguageDropdown, setShowLanguageDropdown] = useState(false);
+  const [showCopyFormat, setShowCopyFormat] = useState(false);
+  const [selectedCopyFormat, setSelectedCopyFormat] = useState('space');
+
+  const copyFormats = {
+    space: { label: 'Space Separated', example: '#hashtag #hashtag2', separator: ' ' },
+    line: { label: 'Line Separated', example: '#hashtag\n#hashtag2', separator: '\n' },
+    comma: { label: 'Comma Separated', example: '#hashtag, #hashtag2', separator: ', ' },
+    numbered: { label: 'Numbered List', example: '1. #hashtag\n2. #hashtag2', separator: 'numbered' }
+  };
 
   useEffect(() => {
     const defaultFormat = CONTENT_FORMATS[activeTab][0].value;
@@ -293,6 +302,7 @@ const TagGenerator = ({ initialTab = 'youtube', initialTask = 'tags_and_hashtags
         setShowFormatDropdown(false);
         setShowRegionDropdown(false);
         setShowLanguageDropdown(false);
+        setShowCopyFormat(false);
       }
     };
     document.addEventListener('mousedown', handleClickOutside);
@@ -356,12 +366,20 @@ const TagGenerator = ({ initialTab = 'youtube', initialTask = 'tags_and_hashtags
     }
   };
 
-  const copyAll = (type) => {
+  const copyAll = (type, format = selectedCopyFormat) => {
     const list = state[type];
-    const textToCopy = list.map(item => item.text).join(type === 'titles' ? '\n' : ', ');
+    let textToCopy;
+    
+    if (format === 'numbered') {
+      textToCopy = list.map((item, index) => `${index + 1}. ${item.text}`).join('\n');
+    } else {
+      const separator = copyFormats[format].separator;
+      textToCopy = list.map(item => item.text).join(separator);
+    }
+    
     if (textToCopy) {
       navigator.clipboard.writeText(textToCopy);
-      handleMessage(`All ${type} copied to clipboard!`, 'success');
+      handleMessage(`All ${type} copied as ${copyFormats[format].label.toLowerCase()}!`, 'success');
     }
   };
 
@@ -522,7 +540,47 @@ const TagGenerator = ({ initialTab = 'youtube', initialTask = 'tags_and_hashtags
                         {state.titles.map((item, i) => <TitleItem key={`title-${i}`} item={item} onCopy={() => handleMessage('Title copied!', 'success')} onFeedback={(text, feedback) => handleFeedback('titles', text, feedback)} />)}
                     </div>
                     <div className="mt-4 text-center">
-                      <button onClick={() => copyAll('titles')} className="btn-primary py-2 px-4 text-sm"><Copy className="mr-2 h-4 w-4" /> Copy All Titles</button>
+                      <div className="flex flex-col sm:flex-row items-center justify-center gap-2">
+                        <div className="relative">
+                          <button 
+                            onClick={() => setShowCopyFormat(!showCopyFormat)}
+                            className="btn-secondary py-2 px-3 text-sm flex items-center"
+                          >
+                            <Type className="mr-2 h-4 w-4" /> 
+                            {copyFormats[selectedCopyFormat].label} 
+                            <ChevronDown className="ml-1 h-3 w-3" />
+                          </button>
+                          <AnimatePresence>
+                            {showCopyFormat && (
+                              <motion.div
+                                initial={{ opacity: 0, y: -10 }}
+                                animate={{ opacity: 1, y: 0 }}
+                                exit={{ opacity: 0, y: -10 }}
+                                className="absolute z-10 mt-1 w-48 bg-white border border-gray-300 rounded-lg shadow-lg"
+                              >
+                                {Object.entries(copyFormats).map(([key, format]) => (
+                                  <button
+                                    key={key}
+                                    onClick={() => {
+                                      setSelectedCopyFormat(key);
+                                      setShowCopyFormat(false);
+                                    }}
+                                    className={`w-full text-left px-3 py-2 text-sm hover:bg-gray-50 first:rounded-t-lg last:rounded-b-lg ${
+                                      selectedCopyFormat === key ? 'bg-indigo-50 text-indigo-700 font-semibold' : 'text-gray-700'
+                                    }`}
+                                  >
+                                    <div>{format.label}</div>
+                                    <div className="text-xs text-gray-500 mt-1">{format.example}</div>
+                                  </button>
+                                ))}
+                              </motion.div>
+                            )}
+                          </AnimatePresence>
+                        </div>
+                        <button onClick={() => copyAll('titles')} className="btn-primary py-2 px-4 text-sm">
+                          <Copy className="mr-2 h-4 w-4" /> Copy All Titles
+                        </button>
+                      </div>
                     </div>
                 </div>
             )}
@@ -536,7 +594,9 @@ const TagGenerator = ({ initialTab = 'youtube', initialTask = 'tags_and_hashtags
                       {state.tags.map((item, i) => <TagItem key={`tag-${i}`} item={item} onCopy={() => handleMessage('Tag copied!', 'success')} onFeedback={(text, feedback) => handleFeedback('tags', text, feedback)} />)}
                     </div>
                     <div className="mt-4 text-center">
-                      <button onClick={() => copyAll('tags')} className="btn-primary py-2 px-4 text-sm"><Copy className="mr-2 h-4 w-4" /> Copy All Tags</button>
+                      <button onClick={() => copyAll('tags')} className="btn-primary py-2 px-4 text-sm">
+                        <Copy className="mr-2 h-4 w-4" /> Copy All Tags ({copyFormats[selectedCopyFormat].label})
+                      </button>
                     </div>
                   </div>
                 )}
@@ -547,7 +607,9 @@ const TagGenerator = ({ initialTab = 'youtube', initialTask = 'tags_and_hashtags
                       {state.hashtags.map((item, i) => <TagItem key={`htag-${i}`} item={item} onCopy={() => handleMessage('Hashtag copied!', 'success')} onFeedback={(text, feedback) => handleFeedback('hashtags', text, feedback)} />)}
                     </div>
                     <div className="mt-4 text-center">
-                      <button onClick={() => copyAll('hashtags')} className="btn-primary py-2 px-4 text-sm"><Copy className="mr-2 h-4 w-4" /> Copy All #Tags</button>
+                      <button onClick={() => copyAll('hashtags')} className="btn-primary py-2 px-4 text-sm">
+                        <Copy className="mr-2 h-4 w-4" /> Copy All #Tags ({copyFormats[selectedCopyFormat].label})
+                      </button>
                     </div>
                   </div>
                 )}
@@ -560,7 +622,9 @@ const TagGenerator = ({ initialTab = 'youtube', initialTask = 'tags_and_hashtags
                     {state.hashtags.map((item, i) => <TagItem key={`htag-${i}`} item={item} onCopy={() => handleMessage('Hashtag copied!', 'success')} onFeedback={(text, feedback) => handleFeedback('hashtags', text, feedback)} />)}
                   </div>
                   <div className="mt-4 text-center">
-                    <button onClick={() => copyAll('hashtags')} className="btn-primary py-2 px-4 text-sm"><Copy className="mr-2 h-4 w-4" /> Copy All #Tags</button>
+                    <button onClick={() => copyAll('hashtags')} className="btn-primary py-2 px-4 text-sm">
+                      <Copy className="mr-2 h-4 w-4" /> Copy All #Tags ({copyFormats[selectedCopyFormat].label})
+                    </button>
                   </div>
                 </div>
               )
