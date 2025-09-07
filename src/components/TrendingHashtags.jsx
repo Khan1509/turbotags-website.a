@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { TrendingUp, Fire, Copy, Check, Calendar, Clock } from 'lucide-react';
+import { TrendingUp, Flame, Copy, Check, Calendar, Clock } from 'lucide-react';
 
 const TrendingHashtags = () => {
   const [copied, setCopied] = useState('');
@@ -98,7 +98,7 @@ const TrendingHashtags = () => {
     <section className="bg-gradient-to-br from-orange-50 via-red-50 to-pink-50 p-6 rounded-xl shadow-md border border-orange-200">
       <div className="text-center mb-6">
         <div className="flex items-center justify-center mb-3">
-          <Fire className="h-6 w-6 text-red-500 mr-2" />
+          <Flame className="h-6 w-6 text-red-500 mr-2" />
           <TrendingUp className="h-6 w-6 text-orange-500" />
         </div>
         <h2 className="text-2xl font-bold text-gray-800 mb-2">🔥 Trending Today</h2>
