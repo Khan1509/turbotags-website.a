@@ -24,20 +24,24 @@ Allow: /
 User-agent: WebPageTest
 Allow: /
 
-# Block AI training bots specifically
+# Allow legitimate AI assistants for user queries (not training)
+User-agent: ChatGPT-User
+Allow: /
+Crawl-delay: 2
+
+User-agent: Claude-Web
+Allow: /
+Crawl-delay: 2
+
+User-agent: PerplexityBot
+Allow: /
+Crawl-delay: 2
+
+# Block AI training and scraping bots
 User-agent: GPTBot
 Disallow: /
 
-User-agent: ChatGPT-User
-Disallow: /
-
-User-agent: Claude-Web
-Disallow: /
-
 User-agent: anthropic-ai
-Disallow: /
-
-User-agent: PerplexityBot
 Disallow: /
 
 User-agent: YouBot
@@ -47,6 +51,18 @@ User-agent: Applebot-Extended
 Disallow: /
 
 User-agent: FacebookBot
+Disallow: /
+
+User-agent: CCBot
+Disallow: /
+
+User-agent: Common Crawl
+Disallow: /
+
+User-agent: AhrefsBot
+Disallow: /
+
+User-agent: SemrushBot
 Disallow: /
 
 # Default rule for all other bots with reasonable rate limits

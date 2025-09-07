@@ -11,6 +11,12 @@ export default {
         'tt-dark-violet': '#1e1b4b', // Improved contrast from #151440
         'tt-medium-violet': '#5b21b6', // Better contrast from #6366F1  
         'tt-light-violet': '#7c3aed', // Enhanced contrast from #8B5CF6
+        'tt-accent': '#06b6d4', // Modern cyan accent
+        'tt-success': '#10b981', // Success green
+        'tt-warning': '#f59e0b', // Warning amber
+        'tt-error': '#ef4444', // Error red
+        'tt-gradient-start': '#667eea',
+        'tt-gradient-end': '#764ba2',
       },
       fontFamily: {
         sans: ['Inter', 'sans-serif'],
