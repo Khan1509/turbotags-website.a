@@ -1,6 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { usePageMeta } from '../hooks/usePageMeta';
+import usePageMeta from '../hooks/usePageMeta';
 import { ChevronDown, ChevronUp, Hash, HelpCircle } from 'lucide-react';
 import { useState } from 'react';
 

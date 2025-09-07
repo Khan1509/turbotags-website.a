@@ -1,6 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { usePageMeta } from '../hooks/usePageMeta';
+import usePageMeta from '../hooks/usePageMeta';
 import TagGenerator from '../components/TagGenerator';
 import CreatorTips from '../components/CreatorTips';
 import { Instagram, TrendingUp, Hash, Play } from 'lucide-react';
