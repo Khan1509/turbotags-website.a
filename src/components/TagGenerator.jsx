@@ -1,10 +1,14 @@
 import React, { useState, useReducer, useRef, useEffect } from 'react';
-import { Youtube, Instagram, Facebook, Tags, RotateCw, Copy, Loader2, ThumbsUp, ThumbsDown, Globe, ChevronDown, Type, Sparkles } from 'lucide-react';
+import { Youtube, Instagram, Facebook, Tags, RotateCw, Copy, Loader2, Sparkles } from 'lucide-react';
 import TikTokIcon from './icons/TikTokIcon';
 import MessageBox from './ui/MessageBox';
-import { motion, AnimatePresence } from 'framer-motion';
 import { generateContent } from '../services/apiService';
 import CreatorTips from './CreatorTips';
+import RegionSelector from './selectors/RegionSelector';
+import LanguageSelector from './selectors/LanguageSelector';
+import ContentFormatSelector from './selectors/ContentFormatSelector';
+import TagList from './ui/TagList';
+import QuickTopics from './ui/QuickTopics';
 
 const TABS = [
   { id: 'youtube', name: 'YouTube', icon: Youtube, description: 'Tags & #Tags' },
@@ -13,83 +17,6 @@ const TABS = [
   { id: 'facebook', name: 'Facebook', icon: Facebook, description: '#Hashtags' },
 ];
 
-const CONTENT_FORMATS = {
-  youtube: [
-    { value: 'long-form', label: 'Long-form Video' },
-    { value: 'short', label: 'YouTube Short' },
-    { value: 'live', label: 'Live Stream' }
-  ],
-  instagram: [
-    { value: 'reel', label: 'Reels' },
-    { value: 'feed', label: 'Feed Post' },
-    { value: 'story', label: 'Story' }
-  ],
-  tiktok: [
-    { value: 'video', label: 'Standard Video' },
-    { value: 'live', label: 'LIVE Stream' }
-  ],
-  facebook: [
-    { value: 'feed', label: 'Feed Post' },
-    { value: 'reel', label: 'Reels' },
-    { value: 'story', label: 'Story' }
-  ]
-};
-
-const REGIONS = [
-  { value: 'global', label: 'Global', flag: '🌍' },
-  { value: 'usa', label: 'United States', flag: '🇺🇸' },
-  { value: 'uk', label: 'United Kingdom', flag: '🇬🇧' },
-  { value: 'canada', label: 'Canada', flag: '🇨🇦' },
-  { value: 'australia', label: 'Australia', flag: '🇦🇺' },
-  { value: 'india', label: 'India', flag: '🇮🇳' },
-  { value: 'germany', label: 'Germany', flag: '🇩🇪' },
-  { value: 'france', label: 'France', flag: '🇫🇷' },
-  { value: 'brazil', label: 'Brazil', flag: '🇧🇷' },
-  { value: 'japan', label: 'Japan', flag: '🇯🇵' },
-  { value: 'mexico', label: 'Mexico', flag: '🇲🇽' },
-  { value: 'spain', label: 'Spain', flag: '🇪🇸' },
-  { value: 'italy', label: 'Italy', flag: '🇮🇹' },
-  { value: 'south_korea', label: 'South Korea', flag: '🇰🇷' },
-  { value: 'indonesia', label: 'Indonesia', flag: '🇮🇩' },
-  { value: 'nigeria', label: 'Nigeria', flag: '🇳🇬' },
-  { value: 'south_africa', label: 'South Africa', flag: '🇿🇦' },
-  { value: 'uae', label: 'UAE', flag: '🇦🇪' },
-  { value: 'saudi_arabia', label: 'Saudi Arabia', flag: '🇸🇦' },
-  { value: 'turkey', label: 'Turkey', flag: '🇹🇷' },
-  { value: 'russia', label: 'Russia', flag: '🇷🇺' },
-  { value: 'netherlands', label: 'Netherlands', flag: '🇳🇱' },
-  { value: 'poland', label: 'Poland', flag: '🇵🇱' },
-  { value: 'argentina', label: 'Argentina', flag: '🇦🇷' },
-  { value: 'colombia', label: 'Colombia', flag: '🇨🇴' },
-  { value: 'philippines', label: 'Philippines', flag: '🇵🇭' },
-  { value: 'egypt', label: 'Egypt', flag: '🇪🇬' },
-  { value: 'thailand', label: 'Thailand', flag: '🇹🇭' },
-  { value: 'vietnam', label: 'Vietnam', flag: '🇻🇳' },
-];
-
-const LANGUAGES = [
-  { value: 'english', label: 'English', code: 'en', flag: '🇺🇸' },
-  { value: 'hindi', label: 'हिन्दी', code: 'hi', flag: '🇮🇳' },
-  { value: 'spanish', label: 'Español', code: 'es', flag: '🇪🇸' },
-  { value: 'french', label: 'Français', code: 'fr', flag: '🇫🇷' },
-  { value: 'german', label: 'Deutsch', code: 'de', flag: '🇩🇪' },
-  { value: 'tamil', label: 'தமிழ்', code: 'ta', flag: '🇮🇳' },
-  { value: 'telugu', label: 'తెలుగు', code: 'te', flag: '🇮🇳' },
-  { value: 'bengali', label: 'বাংলা', code: 'bn', flag: '🇮🇳' },
-  { value: 'italian', label: 'Italiano', code: 'it', flag: '🇮🇹' },
-  { value: 'portuguese', label: 'Português', code: 'pt', flag: '🇵🇹' },
-  { value: 'japanese', label: '日本語', code: 'ja', flag: '🇯🇵' },
-  { value: 'korean', label: '한국어', code: 'ko', flag: '🇰🇷' },
-  { value: 'chinese', label: '中文', code: 'zh', flag: '🇨🇳' },
-  { value: 'arabic', label: 'العربية', code: 'ar', flag: '🇸🇦' },
-  { value: 'russian', label: 'Русский', code: 'ru', flag: '🇷🇺' },
-  { value: 'dutch', label: 'Nederlands', code: 'nl', flag: '🇳🇱' },
-  { value: 'turkish', label: 'Türkçe', code: 'tr', flag: '🇹🇷' },
-  { value: 'thai', label: 'ไทย', code: 'th', flag: '🇹🇭' },
-  { value: 'vietnamese', label: 'Tiếng Việt', code: 'vi', flag: '🇻🇳' },
-  { value: 'indonesian', label: 'Bahasa Indonesia', code: 'id', flag: '🇮🇩' },
-  { value: 'polish', label: 'Polski', code: 'pl', flag: '🇵🇱' }
-];
 
 const initialState = {
   topic: '',
