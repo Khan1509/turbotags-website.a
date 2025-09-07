@@ -101,24 +101,24 @@ export default async function handler(req, res) {
   console.error(`All models failed for trending topics. Last error: ${lastError?.message}. Using static fallback.`);
   
   try {
-      const fallbackPath = path.join(process.cwd(), 'public', 'data', 'fallback-trending.json');
-      const fallbackData = await fs.readFile(fallbackPath, 'utf-8');
-      const fallbackJson = JSON.parse(fallbackData);
-      
-      // Don't cache fallback responses to encourage API retry
-      res.setHeader('Cache-Control', 'no-cache, no-store, must-revalidate');
-      return res.status(200).json({ 
-        ...fallbackJson, 
-        fallback: true, 
-        message: 'AI services are currently unavailable. Using sample trending topics.' 
-      });
+    const fallbackPath = path.join(process.cwd(), 'public', 'data', 'fallback-trending.json');
+    const fallbackData = await fs.readFile(fallbackPath, 'utf-8');
+    const fallbackJson = JSON.parse(fallbackData);
+    
+    // Don't cache fallback responses to encourage API retry
+    res.setHeader('Cache-Control', 'no-cache, no-store, must-revalidate');
+    return res.status(200).json({ 
+      ...fallbackJson, 
+      fallback: true, 
+      message: 'AI services are currently unavailable. Using sample trending topics.' 
+    });
   } catch (fallbackReadError) {
-      console.error('CRITICAL: Could not read trending topics fallback file:', fallbackReadError.message);
-      res.setHeader('Cache-Control', 'no-cache, no-store, must-revalidate');
-      return res.status(500).json({ 
-          trendingTopics: [], 
-          fallback: true,
-          error: 'An unexpected error occurred and the fallback file could not be read.' 
-      });
+    console.error('CRITICAL: Could not read trending topics fallback file:', fallbackReadError.message);
+    res.setHeader('Cache-Control', 'no-cache, no-store, must-revalidate');
+    return res.status(500).json({ 
+      trendingTopics: [], 
+      fallback: true,
+      error: 'An unexpected error occurred and the fallback file could not be read.' 
+    });
   }
 }
