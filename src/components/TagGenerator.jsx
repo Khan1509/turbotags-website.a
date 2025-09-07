@@ -178,8 +178,8 @@ const TagItem = React.memo(({ item, onCopy, onFeedback }) => {
       exit={{ opacity: 0 }}
       className="flex flex-col sm:flex-row items-start sm:items-center justify-between rounded-md bg-white p-3 shadow-sm transition-all duration-200 hover:shadow-md border border-gray-200"
     >
-      <div className="flex items-center flex-grow min-w-0 mr-2 break-words">
-        <span className="text-gray-800 text-sm sm:text-base font-medium mr-3" aria-label={`Tag: ${item.text}`}>{item.text}</span>
+      <div className="flex items-center flex-grow min-w-0 mr-2">
+        <span className="text-gray-800 text-sm sm:text-base font-medium break-words mr-3" aria-label={`Tag: ${item.text}`}>{item.text}</span>
         <span className={`px-2 py-1 rounded-full text-xs font-semibold border ${getTrendColor(trendPercentage)}`} aria-label={`Trending at ${trendPercentage} percent`}>
           {trendPercentage}%
         </span>
@@ -238,8 +238,8 @@ const TitleItem = React.memo(({ item, onCopy, onFeedback }) => {
         exit={{ opacity: 0 }}
         className="flex flex-col sm:flex-row items-start sm:items-center justify-between rounded-md bg-white p-3 shadow-sm transition-all duration-200 hover:shadow-md border border-gray-200"
       >
-        <div className="flex items-center flex-grow min-w-0 mr-2 break-words">
-            <span className="text-gray-800 text-sm sm:text-base font-medium mr-3">{item.text}</span>
+        <div className="flex items-center flex-grow min-w-0 mr-2">
+            <span className="text-gray-800 text-sm sm:text-base font-medium break-words mr-3">{item.text}</span>
             <span className={`px-2 py-1 rounded-full text-xs font-semibold border ${getTrendColor(trendPercentage)}`} aria-label={`Trending at ${trendPercentage} percent`}>
                 {trendPercentage}%
             </span>
@@ -388,10 +388,10 @@ const TagGenerator = ({ initialTab = 'youtube', initialTask = 'tags_and_hashtags
             role="tab"
             aria-selected={activeTab === tab.id}
             aria-controls={`${tab.id}-panel`}
-            className={`tab-button flex-1 p-2 sm:p-4 text-center font-bold border-b-4 transition-colors duration-300 flex flex-col items-center justify-center focus:outline-none focus:ring-2 focus:ring-tt-dark-violet focus:ring-inset min-w-[90px] sm:min-w-[100px] ${activeTab === tab.id ? 'text-tt-dark-violet border-tt-dark-violet bg-tt-dark-violet/5' : 'text-gray-600 border-transparent hover:bg-gray-100 hover:text-gray-800'}`}
+            className={`tab-button flex-1 p-1 sm:p-4 text-center font-bold border-b-4 transition-colors duration-300 flex flex-col items-center justify-center focus:outline-none focus:ring-2 focus:ring-tt-dark-violet focus:ring-inset min-w-[100px] ${activeTab === tab.id ? 'text-tt-dark-violet border-tt-dark-violet bg-tt-dark-violet/5' : 'text-gray-600 border-transparent hover:bg-gray-100 hover:text-gray-800'}`}
           >
             <tab.icon className={`h-6 w-6 sm:h-7 sm:w-7 mb-1 ${activeTab === tab.id ? 'text-tt-dark-violet' : 'text-gray-500'}`} aria-hidden="true" />
-            <span className="text-xs sm:text-sm">{tab.name}</span>
+            <span className="text-xs sm:text-base">{tab.name}</span>
             <span className="text-xs text-gray-600 mt-1 hidden sm:block">{tab.description}</span>
           </button>
         ))}
