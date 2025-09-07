@@ -273,28 +273,7 @@ const TagGenerator = ({ initialTab = 'youtube', initialTask = 'tags_and_hashtags
         <p id="topic-help" className="text-sm text-gray-600 mt-2">Describe your content topic to generate relevant titles, tags and hashtags</p>
       </div>
 
-      <div className="border border-gray-200 rounded-lg p-4 mb-6 bg-gradient-to-r from-blue-50 to-indigo-50">
-        <h3 className="text-sm font-bold text-gray-700 mb-3 text-center uppercase tracking-wider">🚀 Quick Generate</h3>
-        <p className="text-xs text-gray-600 text-center mb-4">Click any topic below to instantly generate hashtags</p>
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-2">
-          {quickTopics[activeTab]?.map((category) => (
-            <div key={category.category} className="space-y-1">
-              <h4 className="text-xs font-semibold text-gray-600 text-center">{category.category}</h4>
-              {category.topics.map((topic, index) => (
-                <button
-                  key={index}
-                  onClick={() => handleQuickGenerate(topic)}
-                  disabled={state.isLoading || state.isTitleLoading}
-                  className="w-full text-xs px-2 py-2 bg-white border border-gray-200 rounded-md hover:bg-indigo-50 hover:border-indigo-300 transition-colors duration-200 text-gray-700 hover:text-indigo-700 disabled:opacity-50 disabled:cursor-not-allowed"
-                >
-                  {topic.length > 20 ? `${topic.substring(0, 20)}...` : topic}
-                </button>
-              ))}
-            </div>
-          ))}
-        </div>
-        <p className="text-xs text-gray-500 text-center mt-3">💡 These generate instantly based on current trends for {activeTab}</p>
-      </div>
+      <QuickTopics platform={activeTab} onTopicSelect={handleQuickGenerate} />
 
       <CreatorTips platform={activeTab} compact={true} />
 
