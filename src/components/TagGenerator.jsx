@@ -361,10 +361,13 @@ const TagGenerator = ({ initialTab = 'youtube', initialTask = 'tags_and_hashtags
                           <button 
                             onClick={() => setShowCopyFormat(!showCopyFormat)}
                             className="btn-secondary py-2 px-3 text-sm flex items-center"
+                            aria-label={`Select copy format, currently ${copyFormats[selectedCopyFormat].label.toLowerCase()}`}
+                            aria-haspopup="menu"
+                            aria-expanded={showCopyFormat}
                           >
-                            <Type className="mr-2 h-4 w-4" /> 
+                            <Type className="mr-2 h-4 w-4" aria-hidden="true" /> 
                             {copyFormats[selectedCopyFormat].label} 
-                            <ChevronDown className="ml-1 h-3 w-3" />
+                            <ChevronDown className="ml-1 h-3 w-3" aria-hidden="true" />
                           </button>
                           <AnimatePresence>
                             {showCopyFormat && (

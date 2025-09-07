@@ -51,15 +51,17 @@ const RegionSelector = ({ value, onChange, showDropdown, setShowDropdown }) => {
       <button
         onClick={() => setShowDropdown(!showDropdown)}
         className="w-full p-3 border border-gray-300 rounded-md text-left bg-white hover:border-gray-400 focus:outline-none focus:ring-2 focus:ring-tt-medium-violet focus:border-transparent transition-all duration-200 flex items-center justify-between"
+        role="combobox"
         aria-haspopup="listbox"
         aria-expanded={showDropdown}
+        aria-label={`Select target region, currently ${selectedRegion?.label || 'none selected'}`}
       >
         <div className="flex items-center">
-          <Globe className="h-4 w-4 text-gray-500 mr-2" />
-          <span className="mr-1">{selectedRegion?.flag}</span>
+          <Globe className="h-4 w-4 text-gray-500 mr-2" aria-hidden="true" />
+          <span className="mr-1" aria-hidden="true">{selectedRegion?.flag}</span>
           <span>{selectedRegion?.label}</span>
         </div>
-        <ChevronDown className={`h-4 w-4 text-gray-500 transition-transform duration-200 ${showDropdown ? 'rotate-180' : ''}`} />
+        <ChevronDown className={`h-4 w-4 text-gray-500 transition-transform duration-200 ${showDropdown ? 'rotate-180' : ''}`} aria-hidden="true" />
       </button>
       
       {showDropdown && (
@@ -71,9 +73,10 @@ const RegionSelector = ({ value, onChange, showDropdown, setShowDropdown }) => {
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
               className="w-full p-2 border border-gray-300 rounded text-sm focus:outline-none focus:ring-1 focus:ring-tt-medium-violet"
+              aria-label="Search regions by name"
             />
           </div>
-          <div className="max-h-48 overflow-y-auto">
+          <div className="max-h-48 overflow-y-auto" role="listbox" aria-label="Region options">
             {filteredRegions.map((region) => (
               <button
                 key={region.value}
@@ -82,9 +85,11 @@ const RegionSelector = ({ value, onChange, showDropdown, setShowDropdown }) => {
                   setShowDropdown(false);
                   setSearchTerm('');
                 }}
+                role="option"
+                aria-selected={value === region.value}
                 className="w-full text-left px-3 py-2 hover:bg-gray-100 focus:bg-gray-100 focus:outline-none flex items-center"
               >
-                <span className="mr-2">{region.flag}</span>
+                <span className="mr-2" aria-hidden="true">{region.flag}</span>
                 <span>{region.label}</span>
               </button>
             ))}

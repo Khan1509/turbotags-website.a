@@ -1,5 +1,59 @@
+# Allow search engines and essential crawlers
+User-agent: Googlebot
+Allow: /
+Crawl-delay: 1
+
+User-agent: Bingbot
+Allow: /
+Crawl-delay: 1
+
+User-agent: Slurp
+Allow: /
+Crawl-delay: 1
+
+# Allow performance testing tools
+User-agent: GTmetrix
+Allow: /
+
+User-agent: Google-PageSpeed
+Allow: /
+
+User-agent: Lighthouse
+Allow: /
+
+User-agent: WebPageTest
+Allow: /
+
+# Block AI training bots specifically
+User-agent: GPTBot
+Disallow: /
+
+User-agent: ChatGPT-User
+Disallow: /
+
+User-agent: Claude-Web
+Disallow: /
+
+User-agent: anthropic-ai
+Disallow: /
+
+User-agent: PerplexityBot
+Disallow: /
+
+User-agent: YouBot
+Disallow: /
+
+User-agent: Applebot-Extended
+Disallow: /
+
+User-agent: FacebookBot
+Disallow: /
+
+# Default rule for all other bots with reasonable rate limits
 User-agent: *
 Allow: /
 Disallow: /api/
+Disallow: /admin/
+Crawl-delay: 2
 
 Sitemap: https://turbotags.app/sitemap.xml
