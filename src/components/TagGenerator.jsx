@@ -4,6 +4,7 @@ import TikTokIcon from './icons/TikTokIcon';
 import MessageBox from './ui/MessageBox';
 import { motion, AnimatePresence } from 'framer-motion';
 import { generateContent } from '../services/apiService';
+import CreatorTips from './CreatorTips';
 
 const TABS = [
   { id: 'youtube', name: 'YouTube', icon: Youtube, description: 'Tags & #Tags' },
@@ -593,6 +594,8 @@ const TagGenerator = ({ initialTab = 'youtube', initialTask = 'tags_and_hashtags
         </div>
         <p className="text-xs text-gray-500 text-center mt-3">💡 These generate instantly based on current trends for {activeTab}</p>
       </div>
+
+      <CreatorTips platform={activeTab} compact={true} />
 
       <div className="flex flex-col sm:flex-row justify-center gap-4 my-6">
         <button onClick={handleGenerate} disabled={state.isLoading || state.isTitleLoading} className={initialTask === 'tags_and_hashtags' ? 'btn-primary' : 'btn-secondary'}>
