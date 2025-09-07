@@ -1,21 +1,40 @@
-import React, { useState, useReducer, useRef, useEffect } from 'react';
-import { Youtube, Instagram, Facebook, Tags, RotateCw, Copy, Loader2, Sparkles, Type, ChevronDown } from 'lucide-react';
+import React, { useState, useReducer, useRef, useEffect, lazy, Suspense } from 'react';
 import TikTokIcon from './icons/TikTokIcon';
 import MessageBox from './ui/MessageBox';
-import { motion, AnimatePresence } from 'framer-motion';
 import { generateContent } from '../services/apiService';
-import CreatorTips from './CreatorTips';
-import RegionSelector from './selectors/RegionSelector';
-import LanguageSelector from './selectors/LanguageSelector';
-import ContentFormatSelector from './selectors/ContentFormatSelector';
-import TagList from './ui/TagList';
-import QuickTopics from './ui/QuickTopics';
+
+// Lazy load heavy dependencies
+const MotionDiv = lazy(() => import('framer-motion').then(module => ({ default: module.motion.div })));
+const AnimatePresence = lazy(() => import('framer-motion').then(module => ({ default: module.AnimatePresence })));
+
+// Lazy load non-critical components
+const CreatorTips = lazy(() => import('./CreatorTips'));
+const RegionSelector = lazy(() => import('./selectors/RegionSelector'));
+const LanguageSelector = lazy(() => import('./selectors/LanguageSelector'));  
+const ContentFormatSelector = lazy(() => import('./selectors/ContentFormatSelector'));
+const TagList = lazy(() => import('./ui/TagList'));
+const QuickTopics = lazy(() => import('./ui/QuickTopics'));
+
+// Dynamic icon imports
+const YouTubeIcon = lazy(() => import('lucide-react').then(module => ({ default: module.Youtube })));
+const InstagramIcon = lazy(() => import('lucide-react').then(module => ({ default: module.Instagram })));
+const FacebookIcon = lazy(() => import('lucide-react').then(module => ({ default: module.Facebook })));
+const TagsIcon = lazy(() => import('lucide-react').then(module => ({ default: module.Tags })));
+const RotateIcon = lazy(() => import('lucide-react').then(module => ({ default: module.RotateCw })));
+const CopyIcon = lazy(() => import('lucide-react').then(module => ({ default: module.Copy })));
+const LoaderIcon = lazy(() => import('lucide-react').then(module => ({ default: module.Loader2 })));
+const SparklesIcon = lazy(() => import('lucide-react').then(module => ({ default: module.Sparkles })));
+const TypeIcon = lazy(() => import('lucide-react').then(module => ({ default: module.Type })));
+const ChevronDownIcon = lazy(() => import('lucide-react').then(module => ({ default: module.ChevronDown })));
+
+// Icon fallback component
+const IconFallback = () => <div className="w-5 h-5 bg-gray-300 rounded animate-pulse" />;
 
 const TABS = [
-  { id: 'youtube', name: 'YouTube', icon: Youtube, description: 'Tags & #Tags' },
-  { id: 'instagram', name: 'Instagram', icon: Instagram, description: '#Hashtags' },
+  { id: 'youtube', name: 'YouTube', icon: YouTubeIcon, description: 'Tags & #Tags' },
+  { id: 'instagram', name: 'Instagram', icon: InstagramIcon, description: '#Hashtags' },
   { id: 'tiktok', name: 'TikTok', icon: TikTokIcon, description: '#Hashtags' },
-  { id: 'facebook', name: 'Facebook', icon: Facebook, description: '#Hashtags' },
+  { id: 'facebook', name: 'Facebook', icon: FacebookIcon, description: '#Hashtags' },
 ];
 
 
@@ -273,21 +292,32 @@ const TagGenerator = ({ initialTab = 'youtube', initialTask = 'tags_and_hashtags
         <p id="topic-help" className="text-sm text-gray-600 mt-2">Describe your content topic to generate relevant titles, tags and hashtags</p>
       </div>
 
-      <QuickTopics platform={activeTab} onTopicSelect={handleQuickGenerate} />
+      <Suspense fallback={<div className="h-20 bg-gray-100 rounded-lg animate-pulse" />}>
+        <QuickTopics platform={activeTab} onTopicSelect={handleQuickGenerate} />
+      </Suspense>
 
-      <CreatorTips platform={activeTab} compact={true} />
+      <Suspense fallback={<div className="h-16 bg-gray-100 rounded-lg animate-pulse" />}>
+        <CreatorTips platform={activeTab} compact={true} />
+      </Suspense>
 
       <div className="flex flex-col sm:flex-row justify-center gap-4 my-6">
         <button onClick={handleGenerate} disabled={state.isLoading || state.isTitleLoading} className={initialTask === 'tags_and_hashtags' ? 'btn-primary' : 'btn-secondary'}>
-          {state.isLoading ? <Loader2 className="mr-2 h-5 w-5 animate-spin" /> : <Tags className="mr-2 h-5 w-5" />}
+          <Suspense fallback={<IconFallback />}>
+            {state.isLoading ? <LoaderIcon className="mr-2 h-5 w-5 animate-spin" /> : <TagsIcon className="mr-2 h-5 w-5" />}
+          </Suspense>
           {state.isLoading ? 'Generating...' : (activeTab === 'youtube' ? 'Generate Tags / #Tags' : 'Generate #Tags')}
         </button>
         <button onClick={handleGenerateTitles} disabled={state.isLoading || state.isTitleLoading} className={initialTask === 'titles' ? 'btn-primary' : 'btn-secondary'}>
-            {state.isTitleLoading ? <Loader2 className="mr-2 h-5 w-5 animate-spin" /> : <Sparkles className="mr-2 h-5 w-5" />}
-            {state.isTitleLoading ? 'Generating...' : 'Generate Titles'}
+          <Suspense fallback={<IconFallback />}>
+            {state.isTitleLoading ? <LoaderIcon className="mr-2 h-5 w-5 animate-spin" /> : <SparklesIcon className="mr-2 h-5 w-5" />}
+          </Suspense>
+          {state.isTitleLoading ? 'Generating...' : 'Generate Titles'}
         </button>
         <button onClick={() => dispatch({ type: 'RESET' })} disabled={state.isLoading || state.isTitleLoading} className="btn-secondary">
-          <RotateCw className="mr-2 h-5 w-5" /> Reset
+          <Suspense fallback={<IconFallback />}>
+            <RotateIcon className="mr-2 h-5 w-5" />
+          </Suspense>
+          Reset
         </button>
       </div>
 
