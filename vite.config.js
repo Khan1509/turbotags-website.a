@@ -97,16 +97,16 @@ export default defineConfig(({ mode }) => {
       },
       cssMinify: 'esbuild',
       reportCompressedSize: true,
-      assetsInlineLimit: 2048
+      assetsInlineLimit: 4096
     },
     optimizeDeps: {
       include: [
         'react',
         'react-dom',
         'react-router-dom',
-        'framer-motion',
         'lucide-react'
       ],
+      exclude: ['framer-motion'],
       esbuildOptions: {
         target: 'es2020'
       }
@@ -123,6 +123,11 @@ export default defineConfig(({ mode }) => {
         'Cache-Control': 'no-cache, no-store, must-revalidate',
         'Pragma': 'no-cache',
         'Expires': '0'
+      }
+    },
+    preview: {
+      headers: {
+        'Cache-Control': 'public, max-age=31536000, immutable'
       }
     },
     css: {
