@@ -50,6 +50,12 @@
   .will-change-transform {
     will-change: transform;
   }
+
+  /* Fix for text overflow on mobile */
+  .break-words {
+    word-break: break-word;
+    overflow-wrap: break-word;
+  }
 }
 
 @layer components {

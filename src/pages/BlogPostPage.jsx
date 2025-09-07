@@ -28,6 +28,29 @@ const ContentRenderer = ({ content }) => {
         return <LazyImage key={index} src={block.src} alt={block.alt || 'Blog post image'} className="w-full h-auto rounded-xl shadow-lg my-8" />;
       case 'example':
         return <p key={index} className="p-4 bg-gray-100 rounded-lg text-sm font-mono my-4 break-words">{block.children}</p>;
+      case 'table':
+        return (
+          <div key={index} className="overflow-x-auto my-8">
+            <table className="min-w-full border border-gray-300 divide-y divide-gray-300">
+              <thead className="bg-gray-50">
+                <tr>
+                  {block.headers.map((header, hIndex) => (
+                    <th key={hIndex} scope="col" className="px-6 py-3 text-left text-xs font-bold text-gray-600 uppercase tracking-wider">{header}</th>
+                  ))}
+                </tr>
+              </thead>
+              <tbody className="bg-white divide-y divide-gray-200">
+                {block.rows.map((row, rIndex) => (
+                  <tr key={rIndex} className="hover:bg-gray-50">
+                    {row.map((cell, cIndex) => (
+                      <td key={cIndex} className="px-6 py-4 whitespace-nowrap text-sm text-gray-700">{cell}</td>
+                    ))}
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        );
       default:
         return null;
     }

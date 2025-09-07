@@ -2,8 +2,8 @@ import React from 'react';
 import ToolPage from './ToolPage';
 
 const pageConfig = {
-  pageTitle: 'Free YouTube Hashtag Generator | Best AI-Powered SEO Tags (2025)',
-  pageDescription: 'Generate SEO-optimized YouTube tags and hashtags for free with the TurboTags AI generator for 2025. Get more views, increase watch time, and grow your channel faster.',
+  pageTitle: 'Free YouTube Tag Generator | Best AI SEO Tool (2025)',
+  pageDescription: 'Generate SEO-optimized YouTube tags and hashtags for free with the TurboTags AI generator for 2025. Get more views, increase watch time, and grow your channel faster with the best free YouTube SEO tool.',
   heroTitle: 'Free YouTube Hashtag & Tag Generator',
   heroSubtitle: 'Instantly generate hundreds of relevant, high-traffic tags and hashtags to boost your video\'s discoverability and ranking on YouTube.',
   introContent: (
@@ -15,7 +15,6 @@ const pageConfig = {
     initialTab: 'youtube'
   },
   breadcrumbTrail: [
-    { name: 'Home', path: '/' },
     { name: 'YouTube Hashtag Generator', path: '/youtube-hashtag-generator' }
   ]
 };
