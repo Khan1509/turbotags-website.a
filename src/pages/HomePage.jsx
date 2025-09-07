@@ -13,6 +13,7 @@ import NativeAd from '../components/ui/NativeAd';
 import FaqSchema from '../components/schemas/FaqSchema';
 import { faqData } from '../components/Faq';
 import ToolLinkGrid from '../components/ui/ToolLinkGrid';
+import FreeTools from '../components/FreeTools';
 
 const WhyChooseUs = lazy(() => import('../components/WhyChooseUs'));
 const Faq = lazy(() => import('../components/Faq'));
@@ -65,6 +66,10 @@ function HomePage() {
 
         <motion.div variants={fadeInUp}>
           <TagGenerator />
+        </motion.div>
+
+        <motion.div variants={fadeInUp}>
+          <FreeTools />
         </motion.div>
 
         <motion.div variants={fadeInUp}>
