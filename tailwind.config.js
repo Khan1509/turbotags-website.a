@@ -5,8 +5,6 @@ export default {
     "./src/**/*.{js,ts,jsx,tsx}",
     "./public/**/*.html",
   ],
-  // Enable JIT mode for better performance
-  mode: 'jit',
   theme: {
     extend: {
       colors: {
