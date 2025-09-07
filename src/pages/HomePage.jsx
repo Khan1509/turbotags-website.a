@@ -15,6 +15,7 @@ import { faqData } from '../components/Faq';
 import ToolLinkGrid from '../components/ui/ToolLinkGrid';
 import FreeTools from '../components/FreeTools';
 import CreatorTips from '../components/CreatorTips';
+import TrendingHashtags from '../components/TrendingHashtags';
 
 const WhyChooseUs = lazy(() => import('../components/WhyChooseUs'));
 const Faq = lazy(() => import('../components/Faq'));
@@ -71,6 +72,10 @@ function HomePage() {
 
         <motion.div variants={fadeInUp}>
           <FreeTools />
+        </motion.div>
+
+        <motion.div variants={fadeInUp}>
+          <TrendingHashtags />
         </motion.div>
 
         <motion.div variants={fadeInUp}>
