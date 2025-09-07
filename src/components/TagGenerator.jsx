@@ -291,6 +291,61 @@ const TagGenerator = ({ initialTab = 'youtube', initialTask = 'tags_and_hashtags
     numbered: { label: 'Numbered List', example: '1. #hashtag\n2. #hashtag2', separator: 'numbered' }
   };
 
+  const quickTopics = {
+    youtube: [
+      { category: 'Gaming', topics: ['Call of Duty gameplay', 'Minecraft building tutorial', 'Fortnite battle royale', 'Valorant clutch moments'] },
+      { category: 'Tech', topics: ['iPhone 15 review', 'AI tutorial for beginners', 'Best laptops 2024', 'Coding tips and tricks'] },
+      { category: 'Lifestyle', topics: ['Morning routine vlog', 'Productivity tips', 'Home workout routine', 'Study with me session'] },
+      { category: 'Food', topics: ['Easy pasta recipe', 'Healthy meal prep', 'Baking chocolate cookies', 'Coffee brewing guide'] }
+    ],
+    instagram: [
+      { category: 'Fashion', topics: ['OOTD casual spring look', 'Thrift haul transformation', 'Summer dress collection', 'Jewelry styling tips'] },
+      { category: 'Beauty', topics: ['Get ready with me glam', 'Skincare routine night', 'Makeup tutorial natural', 'Hair care routine curly'] },
+      { category: 'Travel', topics: ['Paris vacation highlights', 'Beach day essentials', 'City exploration guide', 'Travel photography tips'] },
+      { category: 'Food', topics: ['Aesthetic cafe breakfast', 'Homemade pizza recipe', 'Healthy smoothie bowl', 'Dinner date outfit'] }
+    ],
+    tiktok: [
+      { category: 'Dance', topics: ['Popular TikTok dance trend', 'Hip hop dance tutorial', 'Viral dance challenge', 'Dance battle compilation'] },
+      { category: 'Comedy', topics: ['Funny relatable moments', 'Comedy skit everyday life', 'Hilarious pet reactions', 'Awkward social situations'] },
+      { category: 'DIY', topics: ['Room makeover budget', 'Craft project easy', 'Upcycling old clothes', 'Quick art tutorial'] },
+      { category: 'Life Hacks', topics: ['Organization tips bedroom', 'Study hacks for students', 'Cooking shortcuts busy', 'Phone photography tricks'] }
+    ],
+    facebook: [
+      { category: 'Business', topics: ['Small business marketing tips', 'Entrepreneur success story', 'Product launch announcement', 'Customer testimonial video'] },
+      { category: 'Family', topics: ['Family vacation memories', 'Kids birthday party ideas', 'Parenting tips toddlers', 'Weekend activities family'] },
+      { category: 'Community', topics: ['Local event announcement', 'Charity fundraiser support', 'Neighborhood clean up day', 'Community garden project'] },
+      { category: 'Education', topics: ['Online learning benefits', 'Study group formation', 'Educational workshop', 'Skill development course'] }
+    ]
+  };
+
+  const handleQuickGenerate = async (topic) => {
+    dispatch({ type: 'SET_TOPIC', payload: topic });
+    // Small delay to show the topic was set, then auto-generate
+    setTimeout(() => {
+      dispatch({ type: 'START_GENERATION' });
+      generateContent(topic, { 
+        platform: activeTab, 
+        contentFormat: state.contentFormat, 
+        region: state.region, 
+        language: state.language 
+      }, 'tags_and_hashtags')
+      .then(result => {
+        const tagsWithFeedback = (result.tags || []).map(item => ({ ...item, feedback: 'none' }));
+        const hashtagsWithFeedback = (result.hashtags || []).map(item => ({ ...item, feedback: 'none' }));
+        dispatch({ type: 'GENERATION_SUCCESS', payload: { tags: tagsWithFeedback, hashtags: hashtagsWithFeedback } });
+        if (result.fallback) {
+          handleMessage(result.message || `Using ${state.language} sample content.`, 'warning');
+        } else {
+          const message = activeTab === 'youtube' ? `Generated ${result.tags.length} tags and ${result.hashtags.length} hashtags!` : `Generated ${result.hashtags.length} hashtags!`;
+          handleMessage(message, 'success');
+        }
+      })
+      .catch(error => {
+        dispatch({ type: 'GENERATION_ERROR', payload: { error: 'Failed to generate content.', message: `AI service unavailable. Please try again shortly.` }});
+      });
+    }, 300);
+  };
+
   useEffect(() => {
     const defaultFormat = CONTENT_FORMATS[activeTab][0].value;
     dispatch({ type: 'SET_CONTENT_FORMAT', payload: defaultFormat });
@@ -514,6 +569,29 @@ const TagGenerator = ({ initialTab = 'youtube', initialTask = 'tags_and_hashtags
           {state.topic.length} / 1000
         </div>
         <p id="topic-help" className="text-sm text-gray-600 mt-2">Describe your content topic to generate relevant titles, tags and hashtags</p>
+      </div>
+
+      <div className="border border-gray-200 rounded-lg p-4 mb-6 bg-gradient-to-r from-blue-50 to-indigo-50">
+        <h3 className="text-sm font-bold text-gray-700 mb-3 text-center uppercase tracking-wider">🚀 Quick Generate</h3>
+        <p className="text-xs text-gray-600 text-center mb-4">Click any topic below to instantly generate hashtags</p>
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-2">
+          {quickTopics[activeTab]?.map((category) => (
+            <div key={category.category} className="space-y-1">
+              <h4 className="text-xs font-semibold text-gray-600 text-center">{category.category}</h4>
+              {category.topics.map((topic, index) => (
+                <button
+                  key={index}
+                  onClick={() => handleQuickGenerate(topic)}
+                  disabled={state.isLoading || state.isTitleLoading}
+                  className="w-full text-xs px-2 py-2 bg-white border border-gray-200 rounded-md hover:bg-indigo-50 hover:border-indigo-300 transition-colors duration-200 text-gray-700 hover:text-indigo-700 disabled:opacity-50 disabled:cursor-not-allowed"
+                >
+                  {topic.length > 20 ? `${topic.substring(0, 20)}...` : topic}
+                </button>
+              ))}
+            </div>
+          ))}
+        </div>
+        <p className="text-xs text-gray-500 text-center mt-3">💡 These generate instantly based on current trends for {activeTab}</p>
       </div>
 
       <div className="flex flex-col sm:flex-row justify-center gap-4 my-6">
