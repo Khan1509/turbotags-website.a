@@ -9,12 +9,13 @@
   }
 
   body {
-    @apply bg-gray-50 font-sans text-gray-800 antialiased;
+    @apply bg-gradient-to-br from-gray-50 via-blue-50/30 to-purple-50/20 font-sans text-gray-800 antialiased;
     overflow-x: hidden;
     line-height: 1.6;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     text-rendering: optimizeLegibility;
+    min-height: 100vh;
   }
 
   /* Fluid Typography for responsive headings */
@@ -60,20 +61,90 @@
 
 @layer components {
   .btn {
-    @apply inline-flex items-center justify-center rounded-lg px-6 py-3 font-semibold shadow-md transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2;
+    @apply inline-flex items-center justify-center rounded-lg px-6 py-3 font-semibold shadow-lg transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-offset-2;
     will-change: transform, box-shadow;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+    transition: left 0.5s;
+  }
+
+  .btn:hover::before {
+    left: 100%;
   }
 
   .btn:hover {
-    transform: translateY(-2px);
+    transform: translateY(-3px) scale(1.02);
+    box-shadow: 0 10px 25px rgba(0,0,0,0.15);
   }
 
   .btn-primary {
-    @apply btn bg-tt-dark-violet text-white hover:bg-tt-medium-violet focus:ring-tt-dark-violet;
+    @apply btn bg-gradient-to-r from-tt-dark-violet to-tt-medium-violet text-white hover:from-tt-medium-violet hover:to-tt-light-violet focus:ring-tt-dark-violet;
   }
 
   .btn-secondary {
-    @apply btn bg-gray-200 text-gray-800 hover:bg-gray-300 focus:ring-gray-500;
+    @apply btn bg-white text-gray-700 border border-gray-200 hover:bg-gray-50 hover:border-gray-300 focus:ring-gray-500;
+  }
+
+  .btn-accent {
+    @apply btn bg-gradient-to-r from-tt-accent to-blue-500 text-white hover:from-blue-500 hover:to-tt-accent focus:ring-tt-accent;
+  }
+
+  /* Modern card styles */
+  .card-modern {
+    @apply bg-white/80 backdrop-blur-sm rounded-xl shadow-lg border border-white/20 transition-all duration-300;
+  }
+
+  .card-modern:hover {
+    @apply shadow-xl;
+    transform: translateY(-2px);
+  }
+
+  /* Gradient text */
+  .text-gradient {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  /* Loading shimmer effect */
+  .shimmer {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .shimmer::after {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    transform: translateX(-100%);
+    background-image: linear-gradient(
+      90deg,
+      rgba(255, 255, 255, 0) 0,
+      rgba(255, 255, 255, 0.2) 20%,
+      rgba(255, 255, 255, 0.5) 60%,
+      rgba(255, 255, 255, 0)
+    );
+    animation: shimmer 2s infinite;
+    content: '';
+  }
+
+  @keyframes shimmer {
+    100% {
+      transform: translateX(100%);
+    }
   }
 }
 

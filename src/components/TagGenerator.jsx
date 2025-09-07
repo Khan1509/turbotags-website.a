@@ -293,7 +293,7 @@ const TagGenerator = ({ initialTab = 'youtube', initialTask = 'tags_and_hashtags
 
       <div className="p-1">
         <label htmlFor="topicInput" className="block text-gray-700 text-lg font-semibold mb-2">Enter your content topic</label>
-        <textarea id="topicInput" ref={textareaRef} rows={3} value={state.topic} onChange={(e) => dispatch({ type: 'SET_TOPIC', payload: e.target.value })} placeholder="e.g., 'My latest YouTube short about a Valorant clutch' or 'A GRWM Instagram Reel for a summer party'." className="w-full p-4 border-2 border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-tt-dark-violet focus:border-tt-dark-violet text-base min-h-[8rem] resize-none overflow-y-hidden transition-colors" aria-describedby="topic-help" required maxLength="1000" />
+        <textarea id="topicInput" ref={textareaRef} rows={3} value={state.topic} onChange={(e) => dispatch({ type: 'SET_TOPIC', payload: e.target.value })} placeholder="e.g., 'My latest YouTube short about a Valorant clutch' or 'A GRWM Instagram Reel for a summer party'." className="w-full p-5 border-2 border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-tt-medium-violet focus:border-tt-medium-violet focus:shadow-lg text-base min-h-[8rem] resize-none overflow-y-hidden transition-all duration-300 bg-white/80 backdrop-blur-sm hover:border-gray-300" aria-describedby="topic-help" required maxLength="1000" />
         <div className={`text-right text-sm mt-1 ${state.topic.length > 990 ? 'text-red-500' : 'text-gray-500'}`}>
           {state.topic.length} / 1000
         </div>

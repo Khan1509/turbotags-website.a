@@ -42,15 +42,15 @@ const Hero = React.memo(() => {
         role="list"
         aria-label="Key features"
       >
-        <motion.span whileHover={{ y: -3, scale: 1.05 }} className="inline-flex items-center px-3 py-1 rounded-full text-sm font-semibold bg-tt-dark-violet text-white shadow-sm will-change-transform" role="listitem">
+        <motion.span whileHover={{ y: -3, scale: 1.05 }} className="inline-flex items-center px-4 py-2 rounded-full text-sm font-semibold bg-gradient-to-r from-tt-accent to-blue-500 text-white shadow-lg will-change-transform" role="listitem">
           <Globe className="w-4 h-4 mr-2" aria-hidden="true" />
           30+ Regions Supported
         </motion.span>
-        <motion.span whileHover={{ y: -3, scale: 1.05 }} className="inline-flex items-center px-3 py-1 rounded-full text-sm font-semibold bg-tt-dark-violet text-white shadow-sm will-change-transform" role="listitem">
+        <motion.span whileHover={{ y: -3, scale: 1.05 }} className="inline-flex items-center px-4 py-2 rounded-full text-sm font-semibold bg-gradient-to-r from-tt-dark-violet to-tt-medium-violet text-white shadow-lg will-change-transform" role="listitem">
           <Bot className="w-4 h-4 mr-2" aria-hidden="true" />
           AI Title & Tag Generation
         </motion.span>
-        <motion.span whileHover={{ y: -3, scale: 1.05 }} className="inline-flex items-center px-3 py-1 rounded-full text-sm font-semibold bg-tt-dark-violet text-white shadow-sm will-change-transform" role="listitem">
+        <motion.span whileHover={{ y: -3, scale: 1.05 }} className="inline-flex items-center px-4 py-2 rounded-full text-sm font-semibold bg-gradient-to-r from-tt-success to-green-500 text-white shadow-lg will-change-transform" role="listitem">
           <BarChart className="w-4 h-4 mr-2" aria-hidden="true" />
           SEO Optimized
         </motion.span>
@@ -59,14 +59,14 @@ const Hero = React.memo(() => {
       {/* SEO: Updated H1 to include all platforms */}
       <motion.h1
         variants={itemVariants}
-        className="text-4xl md:text-5xl font-extrabold mt-4 text-tt-dark-violet leading-tight will-change-transform"
+        className="text-4xl md:text-5xl font-extrabold mt-6 text-gradient leading-tight will-change-transform"
       >
         Free AI Tags &amp; Hashtags Generator for YouTube, TikTok, Instagram &amp; Facebook
       </motion.h1>
 
       <motion.p
         variants={itemVariants}
-        className="text-lg md:text-xl font-semibold mt-2 text-gray-800 will-change-transform"
+        className="text-lg md:text-xl font-semibold mt-4 text-gray-700 will-change-transform"
       >
         Smarter Reach. Faster Growth. <span className="inline-block animate-rocket-float" role="img" aria-label="rocket">🚀</span>
       </motion.p>
