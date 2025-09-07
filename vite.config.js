@@ -115,9 +115,17 @@ export default defineConfig(({ mode }) => {
       host: '0.0.0.0',
       port: 5000,
       cors: true,
-      allowedHosts: 'all',
+      allowedHosts: [
+        'localhost',
+        '.replit.dev',
+        '.replit.co',
+        /^.*\.replit\.dev$/,
+        /^.*\.spock\.replit\.dev$/,
+        /^.*\.repl\.co$/
+      ],
       hmr: {
-        port: 5000
+        port: 5000,
+        clientPort: 5000
       },
       headers: {
         'Cache-Control': 'no-cache, no-store, must-revalidate',
