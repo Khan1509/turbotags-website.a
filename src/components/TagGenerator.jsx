@@ -1,7 +1,8 @@
 import React, { useState, useReducer, useRef, useEffect } from 'react';
-import { Youtube, Instagram, Facebook, Tags, RotateCw, Copy, Loader2, Sparkles } from 'lucide-react';
+import { Youtube, Instagram, Facebook, Tags, RotateCw, Copy, Loader2, Sparkles, Type, ChevronDown } from 'lucide-react';
 import TikTokIcon from './icons/TikTokIcon';
 import MessageBox from './ui/MessageBox';
+import { motion, AnimatePresence } from 'framer-motion';
 import { generateContent } from '../services/apiService';
 import CreatorTips from './CreatorTips';
 import RegionSelector from './selectors/RegionSelector';
@@ -385,7 +386,7 @@ const TagGenerator = ({ initialTab = 'youtube', initialTask = 'tags_and_hashtags
                 <div>
                     <h3 className="text-xl font-bold text-gray-800 mb-4 text-center">Generated Titles ({state.titles.length})</h3>
                     <div className="min-h-[100px] border border-gray-200 rounded-lg p-2 sm:p-4 bg-white flex flex-col space-y-2 mb-6">
-                        {state.titles.map((item, i) => <TitleItem key={`title-${i}`} item={item} onCopy={() => handleMessage('Title copied!', 'success')} onFeedback={(text, feedback) => handleFeedback('titles', text, feedback)} />)}
+                        <TagList items={state.titles} type="titles" onFeedback={handleFeedback} onCopy={() => handleMessage('Title copied!', 'success')} />
                     </div>
                     <div className="mt-4 text-center">
                       <div className="flex flex-col sm:flex-row items-center justify-center gap-2">
@@ -439,7 +440,7 @@ const TagGenerator = ({ initialTab = 'youtube', initialTask = 'tags_and_hashtags
                   <div>
                     <h3 className="text-xl font-bold text-gray-800 mb-4 text-center">Tags ({state.tags.length})</h3>
                     <div className="min-h-[100px] border border-gray-200 rounded-lg p-2 sm:p-4 bg-white flex flex-col space-y-2">
-                      {state.tags.map((item, i) => <TagItem key={`tag-${i}`} item={item} onCopy={() => handleMessage('Tag copied!', 'success')} onFeedback={(text, feedback) => handleFeedback('tags', text, feedback)} />)}
+                      <TagList items={state.tags} type="tags" onFeedback={handleFeedback} onCopy={() => handleMessage('Tag copied!', 'success')} />
                     </div>
                     <div className="mt-4 text-center">
                       <button onClick={() => copyAll('tags')} className="btn-primary py-2 px-4 text-sm">
@@ -452,7 +453,7 @@ const TagGenerator = ({ initialTab = 'youtube', initialTask = 'tags_and_hashtags
                   <div>
                     <h3 className="text-xl font-bold text-gray-800 mb-4 text-center">#Tags ({state.hashtags.length})</h3>
                     <div className="min-h-[100px] border border-gray-200 rounded-lg p-2 sm:p-4 bg-white flex flex-col space-y-2">
-                      {state.hashtags.map((item, i) => <TagItem key={`htag-${i}`} item={item} onCopy={() => handleMessage('Hashtag copied!', 'success')} onFeedback={(text, feedback) => handleFeedback('hashtags', text, feedback)} />)}
+                      <TagList items={state.hashtags} type="hashtags" onFeedback={handleFeedback} onCopy={() => handleMessage('Hashtag copied!', 'success')} />
                     </div>
                     <div className="mt-4 text-center">
                       <button onClick={() => copyAll('hashtags')} className="btn-primary py-2 px-4 text-sm">
@@ -467,7 +468,7 @@ const TagGenerator = ({ initialTab = 'youtube', initialTask = 'tags_and_hashtags
                 <div className="mt-6">
                   <h3 className="text-xl font-bold text-gray-800 mb-4 text-center">#Tags ({state.hashtags.length})</h3>
                   <div className="min-h-[100px] border border-gray-200 rounded-lg p-2 sm:p-4 bg-white flex flex-col space-y-2">
-                    {state.hashtags.map((item, i) => <TagItem key={`htag-${i}`} item={item} onCopy={() => handleMessage('Hashtag copied!', 'success')} onFeedback={(text, feedback) => handleFeedback('hashtags', text, feedback)} />)}
+                    <TagList items={state.hashtags} type="hashtags" onFeedback={handleFeedback} onCopy={() => handleMessage('Hashtag copied!', 'success')} />
                   </div>
                   <div className="mt-4 text-center">
                     <button onClick={() => copyAll('hashtags')} className="btn-primary py-2 px-4 text-sm">
