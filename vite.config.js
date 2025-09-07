@@ -56,10 +56,14 @@ export default defineConfig(({ mode }) => {
         compress: {
           drop_console: true,
           drop_debugger: true,
-          passes: 2
+          passes: 3,
+          pure_funcs: ['console.log', 'console.warn'],
+          unsafe_arrows: true,
+          unsafe_methods: true
         },
         mangle: {
-          safari10: true
+          safari10: true,
+          toplevel: true
         },
         format: {
           comments: false
@@ -67,7 +71,7 @@ export default defineConfig(({ mode }) => {
       },
       sourcemap: false,
       cssCodeSplit: true,
-      chunkSizeWarningLimit: 300,
+      chunkSizeWarningLimit: 250,
       rollupOptions: {
         output: {
           chunkFileNames: 'assets/js/[name]-[hash].js',
@@ -79,10 +83,12 @@ export default defineConfig(({ mode }) => {
               if (id.includes('framer-motion')) return 'vendor-motion';
               if (id.includes('lucide-react')) return 'vendor-icons';
               if (id.includes('firebase')) return 'vendor-firebase';
+              if (id.includes('@vercel/analytics')) return 'vendor-analytics';
               return 'vendor-core';
             }
             if (id.includes('/src/pages/tools/')) return 'tools-pages';
             if (id.includes('/src/pages/')) return 'pages';
+            if (id.includes('/src/components/selectors/')) return 'selectors';
             if (id.includes('/src/components/TagGenerator')) return 'tag-generator';
             if (id.includes('/src/components/')) return 'components';
             if (id.includes('/src/services/')) return 'services';

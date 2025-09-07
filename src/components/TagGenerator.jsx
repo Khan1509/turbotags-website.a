@@ -75,131 +75,6 @@ function reducer(state, action) {
   }
 }
 
-const getTrendColor = (percentage) => {
-    if (percentage >= 85) return 'text-green-800 bg-green-100 border-green-300';
-    if (percentage >= 70) return 'text-yellow-800 bg-yellow-100 border-yellow-300';
-    return 'text-red-800 bg-red-100 border-red-300';
-};
-
-const TagItem = React.memo(({ item, onCopy, onFeedback }) => {
-  const [copied, setCopied] = useState(false);
-
-  const handleCopy = () => {
-    navigator.clipboard.writeText(item.text);
-    setCopied(true);
-    onCopy();
-    setTimeout(() => setCopied(false), 2000);
-  };
-
-  const handleFeedback = (feedbackType) => {
-    const newFeedback = item.feedback === feedbackType ? 'none' : feedbackType;
-    onFeedback(item.text, newFeedback);
-  };
-
-  const trendPercentage = item.trend_percentage || Math.floor(Math.random() * 41) + 60;
-
-  return (
-    <motion.div
-      layout
-      initial={{ opacity: 0, y: 10 }}
-      animate={{ opacity: 1, y: 0 }}
-      exit={{ opacity: 0 }}
-      className="flex flex-col sm:flex-row items-start sm:items-center justify-between rounded-md bg-white p-3 shadow-sm transition-all duration-200 hover:shadow-md border border-gray-200"
-    >
-      <div className="flex items-center flex-grow min-w-0 mr-2">
-        <span className="text-gray-800 text-sm sm:text-base font-medium break-words mr-3" aria-label={`Tag: ${item.text}`}>{item.text}</span>
-        <span className={`px-2 py-1 rounded-full text-xs font-semibold border ${getTrendColor(trendPercentage)}`} aria-label={`Trending at ${trendPercentage} percent`}>
-          {trendPercentage}%
-        </span>
-      </div>
-      <div className="flex items-center self-end sm:self-center mt-2 sm:mt-0 flex-shrink-0" role="group" aria-label="Tag actions">
-        <button
-          onClick={() => handleFeedback('liked')}
-          className={`p-2 rounded-md transition-colors focus:outline-none focus:ring-2 focus:ring-green-500 ${item.feedback === 'liked' ? 'bg-green-100 text-green-700' : 'text-gray-500 hover:bg-gray-100 hover:text-green-600'}`}
-          aria-label={`Mark tag "${item.text}" as good`}
-          aria-pressed={item.feedback === 'liked'}
-        >
-          <ThumbsUp className="h-4 w-4" aria-hidden="true" />
-        </button>
-        <button
-          onClick={() => handleFeedback('disliked')}
-          className={`p-2 rounded-md transition-colors ml-1 focus:outline-none focus:ring-2 focus:ring-red-500 ${item.feedback === 'disliked' ? 'bg-red-100 text-red-700' : 'text-gray-500 hover:bg-gray-100 hover:text-red-600'}`}
-          aria-label={`Mark tag "${item.text}" as bad`}
-          aria-pressed={item.feedback === 'disliked'}
-        >
-          <ThumbsDown className="h-4 w-4" aria-hidden="true" />
-        </button>
-        <button
-          onClick={handleCopy}
-          className="copy-btn bg-indigo-100 text-indigo-700 px-3 py-2 rounded-md text-sm font-semibold hover:bg-indigo-200 transition duration-200 ease-in-out ml-3 focus:outline-none focus:ring-2 focus:ring-indigo-500"
-          aria-label={`Copy tag "${item.text}" to clipboard`}
-        >
-          {copied ? 'Copied!' : 'Copy'}
-        </button>
-      </div>
-    </motion.div>
-  );
-});
-
-const TitleItem = React.memo(({ item, onCopy, onFeedback }) => {
-    const [copied, setCopied] = useState(false);
-  
-    const handleCopy = () => {
-      navigator.clipboard.writeText(item.text);
-      setCopied(true);
-      onCopy();
-      setTimeout(() => setCopied(false), 2000);
-    };
-
-    const handleFeedback = (feedbackType) => {
-        const newFeedback = item.feedback === feedbackType ? 'none' : feedbackType;
-        onFeedback(item.text, newFeedback);
-    };
-
-    const trendPercentage = item.trend_percentage || Math.floor(Math.random() * 31) + 70;
-  
-    return (
-      <motion.div
-        layout
-        initial={{ opacity: 0, y: 10 }}
-        animate={{ opacity: 1, y: 0 }}
-        exit={{ opacity: 0 }}
-        className="flex flex-col sm:flex-row items-start sm:items-center justify-between rounded-md bg-white p-3 shadow-sm transition-all duration-200 hover:shadow-md border border-gray-200"
-      >
-        <div className="flex items-center flex-grow min-w-0 mr-2">
-            <span className="text-gray-800 text-sm sm:text-base font-medium break-words mr-3">{item.text}</span>
-            <span className={`px-2 py-1 rounded-full text-xs font-semibold border ${getTrendColor(trendPercentage)}`} aria-label={`Trending at ${trendPercentage} percent`}>
-                {trendPercentage}%
-            </span>
-        </div>
-        <div className="flex items-center self-end sm:self-center mt-2 sm:mt-0 flex-shrink-0" role="group" aria-label="Title actions">
-            <button
-                onClick={() => handleFeedback('liked')}
-                className={`p-2 rounded-md transition-colors focus:outline-none focus:ring-2 focus:ring-green-500 ${item.feedback === 'liked' ? 'bg-green-100 text-green-700' : 'text-gray-500 hover:bg-gray-100 hover:text-green-600'}`}
-                aria-label={`Mark title "${item.text}" as good`}
-                aria-pressed={item.feedback === 'liked'}
-            >
-                <ThumbsUp className="h-4 w-4" aria-hidden="true" />
-            </button>
-            <button
-                onClick={() => handleFeedback('disliked')}
-                className={`p-2 rounded-md transition-colors ml-1 focus:outline-none focus:ring-2 focus:ring-red-500 ${item.feedback === 'disliked' ? 'bg-red-100 text-red-700' : 'text-gray-500 hover:bg-gray-100 hover:text-red-600'}`}
-                aria-label={`Mark title "${item.text}" as bad`}
-                aria-pressed={item.feedback === 'disliked'}
-            >
-                <ThumbsDown className="h-4 w-4" aria-hidden="true" />
-            </button>
-            <button
-                onClick={handleCopy}
-                className="copy-btn bg-indigo-100 text-indigo-700 px-3 py-2 rounded-md text-sm font-semibold hover:bg-indigo-200 transition duration-200 ease-in-out ml-3 focus:outline-none focus:ring-2 focus:ring-indigo-500"
-                aria-label={`Copy title "${item.text}"`}
-            >
-                {copied ? 'Copied!' : 'Copy'}
-            </button>
-        </div>
-      </motion.div>
-    );
-});
 
 
 const TagGenerator = ({ initialTab = 'youtube', initialTask = 'tags_and_hashtags' }) => {
@@ -219,36 +94,8 @@ const TagGenerator = ({ initialTab = 'youtube', initialTask = 'tags_and_hashtags
     numbered: { label: 'Numbered List', example: '1. #hashtag\n2. #hashtag2', separator: 'numbered' }
   };
 
-  const quickTopics = {
-    youtube: [
-      { category: 'Gaming', topics: ['Call of Duty gameplay', 'Minecraft building tutorial', 'Fortnite battle royale', 'Valorant clutch moments'] },
-      { category: 'Tech', topics: ['iPhone 15 review', 'AI tutorial for beginners', 'Best laptops 2024', 'Coding tips and tricks'] },
-      { category: 'Lifestyle', topics: ['Morning routine vlog', 'Productivity tips', 'Home workout routine', 'Study with me session'] },
-      { category: 'Food', topics: ['Easy pasta recipe', 'Healthy meal prep', 'Baking chocolate cookies', 'Coffee brewing guide'] }
-    ],
-    instagram: [
-      { category: 'Fashion', topics: ['OOTD casual spring look', 'Thrift haul transformation', 'Summer dress collection', 'Jewelry styling tips'] },
-      { category: 'Beauty', topics: ['Get ready with me glam', 'Skincare routine night', 'Makeup tutorial natural', 'Hair care routine curly'] },
-      { category: 'Travel', topics: ['Paris vacation highlights', 'Beach day essentials', 'City exploration guide', 'Travel photography tips'] },
-      { category: 'Food', topics: ['Aesthetic cafe breakfast', 'Homemade pizza recipe', 'Healthy smoothie bowl', 'Dinner date outfit'] }
-    ],
-    tiktok: [
-      { category: 'Dance', topics: ['Popular TikTok dance trend', 'Hip hop dance tutorial', 'Viral dance challenge', 'Dance battle compilation'] },
-      { category: 'Comedy', topics: ['Funny relatable moments', 'Comedy skit everyday life', 'Hilarious pet reactions', 'Awkward social situations'] },
-      { category: 'DIY', topics: ['Room makeover budget', 'Craft project easy', 'Upcycling old clothes', 'Quick art tutorial'] },
-      { category: 'Life Hacks', topics: ['Organization tips bedroom', 'Study hacks for students', 'Cooking shortcuts busy', 'Phone photography tricks'] }
-    ],
-    facebook: [
-      { category: 'Business', topics: ['Small business marketing tips', 'Entrepreneur success story', 'Product launch announcement', 'Customer testimonial video'] },
-      { category: 'Family', topics: ['Family vacation memories', 'Kids birthday party ideas', 'Parenting tips toddlers', 'Weekend activities family'] },
-      { category: 'Community', topics: ['Local event announcement', 'Charity fundraiser support', 'Neighborhood clean up day', 'Community garden project'] },
-      { category: 'Education', topics: ['Online learning benefits', 'Study group formation', 'Educational workshop', 'Skill development course'] }
-    ]
-  };
-
   const handleQuickGenerate = async (topic) => {
     dispatch({ type: 'SET_TOPIC', payload: topic });
-    // Small delay to show the topic was set, then auto-generate
     setTimeout(() => {
       dispatch({ type: 'START_GENERATION' });
       generateContent(topic, { 
@@ -273,11 +120,6 @@ const TagGenerator = ({ initialTab = 'youtube', initialTask = 'tags_and_hashtags
       });
     }, 300);
   };
-
-  useEffect(() => {
-    const defaultFormat = CONTENT_FORMATS[activeTab][0].value;
-    dispatch({ type: 'SET_CONTENT_FORMAT', payload: defaultFormat });
-  }, [activeTab]);
 
   useEffect(() => {
     const handleClickOutside = (event) => {
@@ -368,15 +210,13 @@ const TagGenerator = ({ initialTab = 'youtube', initialTask = 'tags_and_hashtags
 
   return (
     <section id="tag-generator" className="bg-white p-4 sm:p-6 rounded-xl shadow-md">
-      <AnimatePresence>
-        {state.message && (
-          <MessageBox
-            message={state.message.text}
-            type={state.message.type}
-            onDismiss={() => dispatch({ type: 'CLEAR_MESSAGE' })}
-          />
-        )}
-      </AnimatePresence>
+      {state.message && (
+        <MessageBox
+          message={state.message.text}
+          type={state.message.type}
+          onDismiss={() => dispatch({ type: 'CLEAR_MESSAGE' })}
+        />
+      )}
 
       <h2 className="text-3xl font-bold text-tt-dark-violet mb-2 text-center">Your All-in-One AI Content Generator</h2>
       <p className="text-center text-gray-600 mb-8">Get hyper-targeted titles, find viral tags for YouTube, and discover trending hashtags for TikTok, Instagram, and Facebook. Our AI helps you find the best content for maximum views and engagement.</p>
