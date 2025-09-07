@@ -309,21 +309,38 @@ const TagGenerator = ({ initialTab = 'youtube', initialTask = 'tags_and_hashtags
       </Suspense>
 
       <div className="flex flex-col sm:flex-row justify-center gap-4 my-6">
-        <button onClick={handleGenerate} disabled={state.isLoading || state.isTitleLoading} className={initialTask === 'tags_and_hashtags' ? 'btn-primary' : 'btn-secondary'}>
+        <button 
+          onClick={handleGenerate} 
+          disabled={state.isLoading || state.isTitleLoading} 
+          className={initialTask === 'tags_and_hashtags' ? 'btn-primary' : 'btn-secondary'}
+          aria-label={state.isLoading ? 'Generating content, please wait' : `Generate ${activeTab === 'youtube' ? 'tags and hashtags' : 'hashtags'} for ${activeTab}`}
+          aria-describedby="topic-help"
+        >
           <Suspense fallback={<IconFallback />}>
-            {state.isLoading ? <LoaderIcon className="mr-2 h-5 w-5 animate-spin" /> : <TagsIcon className="mr-2 h-5 w-5" />}
+            {state.isLoading ? <LoaderIcon className="mr-2 h-5 w-5 animate-spin" aria-hidden="true" /> : <TagsIcon className="mr-2 h-5 w-5" aria-hidden="true" />}
           </Suspense>
           {state.isLoading ? 'Generating...' : (activeTab === 'youtube' ? 'Generate Tags / #Tags' : 'Generate #Tags')}
         </button>
-        <button onClick={handleGenerateTitles} disabled={state.isLoading || state.isTitleLoading} className={initialTask === 'titles' ? 'btn-primary' : 'btn-secondary'}>
+        <button 
+          onClick={handleGenerateTitles} 
+          disabled={state.isLoading || state.isTitleLoading} 
+          className={initialTask === 'titles' ? 'btn-primary' : 'btn-secondary'}
+          aria-label={state.isTitleLoading ? 'Generating titles, please wait' : `Generate AI-powered titles for ${activeTab} content`}
+          aria-describedby="topic-help"
+        >
           <Suspense fallback={<IconFallback />}>
-            {state.isTitleLoading ? <LoaderIcon className="mr-2 h-5 w-5 animate-spin" /> : <SparklesIcon className="mr-2 h-5 w-5" />}
+            {state.isTitleLoading ? <LoaderIcon className="mr-2 h-5 w-5 animate-spin" aria-hidden="true" /> : <SparklesIcon className="mr-2 h-5 w-5" aria-hidden="true" />}
           </Suspense>
           {state.isTitleLoading ? 'Generating...' : 'Generate Titles'}
         </button>
-        <button onClick={() => dispatch({ type: 'RESET' })} disabled={state.isLoading || state.isTitleLoading} className="btn-secondary">
+        <button 
+          onClick={() => dispatch({ type: 'RESET' })} 
+          disabled={state.isLoading || state.isTitleLoading} 
+          className="btn-secondary"
+          aria-label="Reset generator and clear all generated content"
+        >
           <Suspense fallback={<IconFallback />}>
-            <RotateIcon className="mr-2 h-5 w-5" />
+            <RotateIcon className="mr-2 h-5 w-5" aria-hidden="true" />
           </Suspense>
           Reset
         </button>

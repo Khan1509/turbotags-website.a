@@ -8,9 +8,9 @@ export default {
   theme: {
     extend: {
       colors: {
-        'tt-dark-violet': '#151440',
-        'tt-medium-violet': '#6366F1',
-        'tt-light-violet': '#8B5CF6',
+        'tt-dark-violet': '#1e1b4b', // Improved contrast from #151440
+        'tt-medium-violet': '#5b21b6', // Better contrast from #6366F1  
+        'tt-light-violet': '#7c3aed', // Enhanced contrast from #8B5CF6
       },
       fontFamily: {
         sans: ['Inter', 'sans-serif'],
