@@ -251,7 +251,9 @@ const TagGenerator = ({ initialTab = 'youtube', initialTask = 'tags_and_hashtags
             aria-controls={`${tab.id}-panel`}
             className={`tab-button flex-1 p-1 sm:p-4 text-center font-bold border-b-4 transition-colors duration-300 flex flex-col items-center justify-center focus:outline-none focus:ring-2 focus:ring-tt-dark-violet focus:ring-inset min-w-[100px] ${activeTab === tab.id ? 'text-tt-dark-violet border-tt-dark-violet bg-tt-dark-violet/5' : 'text-gray-600 border-transparent hover:bg-gray-100 hover:text-gray-800'}`}
           >
-            <tab.icon className={`h-6 w-6 sm:h-7 sm:w-7 mb-1 ${activeTab === tab.id ? 'text-tt-dark-violet' : 'text-gray-500'}`} aria-hidden="true" />
+            <Suspense fallback={<div className="h-6 w-6 sm:h-7 sm:w-7 mb-1 bg-gray-300 rounded animate-pulse" />}>
+              <tab.icon className={`h-6 w-6 sm:h-7 sm:w-7 mb-1 ${activeTab === tab.id ? 'text-tt-dark-violet' : 'text-gray-500'}`} aria-hidden="true" />
+            </Suspense>
             <span className="text-xs sm:text-base">{tab.name}</span>
             <span className="text-xs text-gray-600 mt-1 hidden sm:block">{tab.description}</span>
           </button>
@@ -261,25 +263,31 @@ const TagGenerator = ({ initialTab = 'youtube', initialTask = 'tags_and_hashtags
       <div className="border border-gray-200 rounded-lg p-4 mb-6 bg-gray-50/50">
         <h3 className="text-sm font-bold text-gray-600 mb-4 text-center uppercase tracking-wider">Advanced Options</h3>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-          <ContentFormatSelector
-            platform={activeTab}
-            value={state.contentFormat}
-            onChange={(value) => dispatch({ type: 'SET_CONTENT_FORMAT', payload: value })}
-            showDropdown={showFormatDropdown}
-            setShowDropdown={setShowFormatDropdown}
-          />
-          <RegionSelector
-            value={state.region}
-            onChange={(value) => dispatch({ type: 'SET_REGION', payload: value })}
-            showDropdown={showRegionDropdown}
-            setShowDropdown={setShowRegionDropdown}
-          />
-          <LanguageSelector
-            value={state.language}
-            onChange={(value) => dispatch({ type: 'SET_LANGUAGE', payload: value })}
-            showDropdown={showLanguageDropdown}
-            setShowDropdown={setShowLanguageDropdown}
-          />
+          <Suspense fallback={<div className="h-12 bg-gray-200 rounded-lg animate-pulse" />}>
+            <ContentFormatSelector
+              platform={activeTab}
+              value={state.contentFormat}
+              onChange={(value) => dispatch({ type: 'SET_CONTENT_FORMAT', payload: value })}
+              showDropdown={showFormatDropdown}
+              setShowDropdown={setShowFormatDropdown}
+            />
+          </Suspense>
+          <Suspense fallback={<div className="h-12 bg-gray-200 rounded-lg animate-pulse" />}>
+            <RegionSelector
+              value={state.region}
+              onChange={(value) => dispatch({ type: 'SET_REGION', payload: value })}
+              showDropdown={showRegionDropdown}
+              setShowDropdown={setShowRegionDropdown}
+            />
+          </Suspense>
+          <Suspense fallback={<div className="h-12 bg-gray-200 rounded-lg animate-pulse" />}>
+            <LanguageSelector
+              value={state.language}
+              onChange={(value) => dispatch({ type: 'SET_LANGUAGE', payload: value })}
+              showDropdown={showLanguageDropdown}
+              setShowDropdown={setShowLanguageDropdown}
+            />
+          </Suspense>
         </div>
       </div>
 
