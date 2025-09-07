@@ -393,8 +393,15 @@ const TagGenerator = ({ initialTab = 'youtube', initialTask = 'tags_and_hashtags
                             )}
                           </AnimatePresence>
                         </div>
-                        <button onClick={() => copyAll('titles')} className="btn-primary py-2 px-4 text-sm">
-                          <Copy className="mr-2 h-4 w-4" /> Copy All Titles
+                        <button 
+                          onClick={() => copyAll('titles')} 
+                          className="btn-primary py-2 px-4 text-sm"
+                          aria-label={`Copy all ${state.titles.length} generated titles to clipboard in ${copyFormats[selectedCopyFormat].label.toLowerCase()} format`}
+                        >
+                          <Suspense fallback={<IconFallback />}>
+                            <CopyIcon className="mr-2 h-4 w-4" aria-hidden="true" />
+                          </Suspense>
+                          Copy All Titles
                         </button>
                       </div>
                     </div>
@@ -410,8 +417,15 @@ const TagGenerator = ({ initialTab = 'youtube', initialTask = 'tags_and_hashtags
                       <TagList items={state.tags} type="tags" onFeedback={handleFeedback} onCopy={() => handleMessage('Tag copied!', 'success')} />
                     </div>
                     <div className="mt-4 text-center">
-                      <button onClick={() => copyAll('tags')} className="btn-primary py-2 px-4 text-sm">
-                        <Copy className="mr-2 h-4 w-4" /> Copy All Tags ({copyFormats[selectedCopyFormat].label})
+                      <button 
+                        onClick={() => copyAll('tags')} 
+                        className="btn-primary py-2 px-4 text-sm"
+                        aria-label={`Copy all ${state.tags.length} generated tags to clipboard in ${copyFormats[selectedCopyFormat].label.toLowerCase()} format`}
+                      >
+                        <Suspense fallback={<IconFallback />}>
+                          <CopyIcon className="mr-2 h-4 w-4" aria-hidden="true" />
+                        </Suspense>
+                        Copy All Tags ({copyFormats[selectedCopyFormat].label})
                       </button>
                     </div>
                   </div>
