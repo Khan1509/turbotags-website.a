@@ -20,6 +20,7 @@ const TikTokHashtagGeneratorPage = lazy(() => import('./pages/tools/TikTokHashta
 const FacebookHashtagGeneratorPage = lazy(() => import('./pages/tools/FacebookHashtagGeneratorPage'));
 const AITitleGeneratorPage = lazy(() => import('./pages/tools/AITitleGeneratorPage'));
 const FreeHashtagGeneratorPage = lazy(() => import('./pages/tools/FreeHashtagGeneratorPage'));
+const HashtagFAQPage = lazy(() => import('./pages/HashtagFAQPage'));
 
 function App() {
   return (
@@ -40,6 +41,7 @@ function App() {
           <Route path="/facebook-hashtag-generator" element={<FacebookHashtagGeneratorPage />} />
           <Route path="/ai-title-generator" element={<AITitleGeneratorPage />} />
           <Route path="/free-hashtag-generator" element={<FreeHashtagGeneratorPage />} />
+          <Route path="/how-hashtags-work" element={<HashtagFAQPage />} />
 
           {/* Redirects */}
           <Route path="/generator" element={<Navigate to="/" replace />} />
