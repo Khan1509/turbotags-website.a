@@ -48,46 +48,69 @@ export default async function handler(req, res) {
 
     const isEnglish = language === 'english';
 
-    // Define model chains for reliability
+    // Define model chains for reliability based on language
     const englishModels = [
-      "mistralai/mistral-7b-instruct:free",
+      "mistralai/mistral-7b-instruct", // Primary for English
       "google/gemini-flash-1.5",
-      "anthropic/claude-3-haiku-20240307"
+      "anthropic/claude-3-haiku",
+      "meta-llama/llama-3.1-8b-instruct"
     ];
     const nonEnglishModels = [
-      "google/gemini-flash-1.5",
-      "anthropic/claude-3-haiku-20240307",
-      "mistralai/mistral-7b-instruct:free" // Last resort for non-english
+      "google/gemini-flash-1.5", // Primary for non-English
+      "mistralai/mistral-7b-instruct",
+      "meta-llama/llama-3.1-8b-instruct",
+      "anthropic/claude-3-haiku"
     ];
     const modelsToTry = isEnglish ? englishModels : nonEnglishModels;
     
-    const systemPrompt = `You are an expert social media content strategist. Your task is to generate SEO-optimized content based on a user's prompt.
-    The user is targeting:
+    const systemPrompt = `You are an expert social media content strategist and trend analyst. Your task is to generate highly optimized, trending content based on the user's prompt.
+
+    TARGET SPECIFICATIONS:
     - Platform: ${platform}
     - Content Format: ${contentFormat}
-    - Region: ${region}
+    - Target Region: ${region}
     - Language: ${language}
+    - User Topic/Prompt: Will be provided separately
 
-    CRITICAL: The entire response, including all generated text, MUST be in the specified language: ${language}.
+    CRITICAL LANGUAGE REQUIREMENT: 
+    The ENTIRE response, including ALL generated text (tags, hashtags, titles), MUST be in the specified language: ${language}. 
+    If the language is not English, adapt the content to be culturally relevant and linguistically natural for that language and region.
 
-    Analyze the user's prompt and generate content that is highly relevant, engaging, and likely to trend.
-    For each item (tag, hashtag, or title), you MUST provide a "trend_percentage" between 70 and 100.
+    CONTENT QUALITY REQUIREMENTS:
+    - Generate content that is highly relevant, engaging, and trending in ${new Date().getFullYear()}
+    - Consider current trends, viral topics, and platform-specific best practices
+    - Each item must have a "trend_percentage" between 70 and 100 based on actual trending potential
+    - Focus on high-engagement, discoverable content for the ${region} region
 
-    Your response MUST be a valid JSON object. Do NOT include any explanations or markdown formatting. Only the raw JSON object.
+    PLATFORM-SPECIFIC RULES:
 
-    SPECIFIC RULES:
-    - If the platform is 'youtube' and the task is 'titles', all generated titles MUST be 100 characters or less.
-    - If the platform is 'youtube', the contentFormat is 'short', and the task is 'titles', every generated title MUST end with the exact text " #shorts".
+    YOUTUBE TITLE RULES:
+    - ALL titles MUST be 100 characters or less (strict limit)
+    - If contentFormat is 'short', EVERY title MUST end with " #shorts" (include the space)
+    - Titles should be click-worthy and SEO-optimized for YouTube search
 
-    QUANTITY RULES:
-    - If the task is 'titles', the JSON must have one key: "titles" (an array of 5 to 7 objects, max 10).
-    - If the task is 'tags_and_hashtags' for 'youtube', the JSON must have two keys: "tags" (an array of 15 to 20 objects, max 25) and "hashtags" (an array of 15 to 20 objects, max 25).
-    - If the task is 'tags_and_hashtags' for 'instagram', 'tiktok', or 'facebook', the JSON must have one key: "hashtags" (an array of 15 to 20 objects, max 25). The "tags" array must be empty.
+    QUANTITY REQUIREMENTS (STRICT):
+    
+    For TITLES (all platforms):
+    - Generate 5-7 titles (minimum 5, maximum 10)
+    - JSON structure: {"titles": [{"text": "Title Here", "trend_percentage": 85}]}
+    
+    For TAGS AND HASHTAGS on YOUTUBE:
+    - Generate 15-20 tags (minimum 15, maximum 25)
+    - Generate 15-20 hashtags (minimum 15, maximum 25)  
+    - JSON structure: {"tags": [{"text": "tag name", "trend_percentage": 85}], "hashtags": [{"text": "#hashtag", "trend_percentage": 92}]}
+    
+    For HASHTAGS on INSTAGRAM/TIKTOK/FACEBOOK:
+    - Generate 15-20 hashtags (minimum 15, maximum 25)
+    - JSON structure: {"hashtags": [{"text": "#hashtag", "trend_percentage": 88}]}
 
-    JSON STRUCTURE:
-    - Each object in the arrays must have two keys: "text" (the generated content as a string) and "trend_percentage" (a number between 70 and 100).
-    - Example for 'tags_and_hashtags' task on YouTube: {"tags": [{"text": "example tag", "trend_percentage": 85}], "hashtags": [{"text": "#exampleHashtag", "trend_percentage": 92}]}
-    - Example for 'titles' task: {"titles": [{"text": "This is an Example Title", "trend_percentage": 88}]}`;
+    RESPONSE FORMAT:
+    - Return ONLY a valid JSON object
+    - NO explanations, markdown, or additional text
+    - Each item must have "text" and "trend_percentage" keys
+    - Trend percentages must realistically reflect trending potential (70-100)
+
+    Remember: Quality over quantity, but meet the minimum requirements. Focus on trending, discoverable content for ${platform} in ${region}.`;
 
     let result;
     let lastError = null;
