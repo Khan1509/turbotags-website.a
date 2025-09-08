@@ -1,26 +1,20 @@
-import React, { lazy, Suspense } from 'react';
+import React from 'react';
+import { motion } from 'framer-motion';
 import Hero from '../components/Hero';
 import Stats from '../components/Stats';
 import Platforms from '../components/Platforms';
 import TagGenerator from '../components/TagGenerator';
-import LoadingSpinner from '../components/ui/LoadingSpinner';
 import RatingWidget from '../components/ui/RatingWidget';
-import LazySection from '../components/utils/LazySection';
 import FaqSchema from '../components/schemas/FaqSchema';
 import { faqData } from '../components/Faq';
-
-// Lazy load heavy components and libraries
-const MotionDiv = lazy(() => import('framer-motion').then(module => ({ default: module.motion.div })));
-const Share = lazy(() => import('../components/Share'));
-const TrendingTopics = lazy(() => import('../components/TrendingTopics'));
-const NativeAd = lazy(() => import('../components/ui/NativeAd'));
-const ToolLinkGrid = lazy(() => import('../components/ui/ToolLinkGrid'));
-const FreeTools = lazy(() => import('../components/FreeTools'));
-const CreatorTips = lazy(() => import('../components/CreatorTips'));
-const TrendingHashtags = lazy(() => import('../components/TrendingHashtags'));
-
-const WhyChooseUs = lazy(() => import('../components/WhyChooseUs'));
-const Faq = lazy(() => import('../components/Faq'));
+import Share from '../components/Share';
+import TrendingTopics from '../components/TrendingTopics';
+import ToolLinkGrid from '../components/ui/ToolLinkGrid';
+import FreeTools from '../components/FreeTools';
+import CreatorTips from '../components/CreatorTips';
+import TrendingHashtags from '../components/TrendingHashtags';
+import WhyChooseUs from '../components/WhyChooseUs';
+import Faq from '../components/Faq';
 
 const fadeInUp = {
   initial: { opacity: 0, y: 30 },
@@ -46,109 +40,67 @@ function HomePage() {
   return (
     <>
       <FaqSchema faqData={faqData} />
-      <Suspense fallback={<div className="container mx-auto max-w-7xl px-4 sm:px-6 md:px-8"><LoadingSpinner /></div>}>
-        <MotionDiv
-          className="container mx-auto max-w-7xl space-y-8 px-4 sm:space-y-12 sm:px-6 md:px-8"
-          variants={staggerContainer}
-          initial="initial"
-          animate="animate"
-        >
-          <Suspense fallback={<div className="h-96 bg-gray-100 rounded-lg animate-pulse" />}>
-            <MotionDiv variants={fadeInUp}>
-              <Hero />
-            </MotionDiv>
-          </Suspense>
+      <motion.div
+        className="container mx-auto max-w-7xl space-y-8 px-4 sm:space-y-12 sm:px-6 md:px-8"
+        variants={staggerContainer}
+        initial="initial"
+        animate="animate"
+      >
+          <motion.div variants={fadeInUp}>
+            <Hero />
+          </motion.div>
 
-          <Suspense fallback={<div className="h-32 bg-gray-100 rounded-lg animate-pulse" />}>
-            <MotionDiv variants={fadeInUp}>
-              <Stats />
-            </MotionDiv>
-          </Suspense>
+          <motion.div variants={fadeInUp}>
+            <Stats />
+          </motion.div>
 
-          <Suspense fallback={<div className="h-20 bg-gray-100 rounded-lg animate-pulse" />}>
-            <MotionDiv variants={fadeInUp}>
-              <Share />
-            </MotionDiv>
-          </Suspense>
+          <motion.div variants={fadeInUp}>
+            <Share />
+          </motion.div>
 
-          <Suspense fallback={<div className="h-40 bg-gray-100 rounded-lg animate-pulse" />}>
-            <MotionDiv variants={fadeInUp}>
-              <Platforms />
-            </MotionDiv>
-          </Suspense>
+          <motion.div variants={fadeInUp}>
+            <Platforms />
+          </motion.div>
 
-          <Suspense fallback={<div className="h-96 bg-gray-100 rounded-lg animate-pulse" />}>
-            <MotionDiv variants={fadeInUp}>
-              <TagGenerator />
-            </MotionDiv>
-          </Suspense>
+          <motion.div variants={fadeInUp}>
+            <TagGenerator />
+          </motion.div>
 
-          <Suspense fallback={<div className="h-48 bg-gray-100 rounded-lg animate-pulse" />}>
-            <MotionDiv variants={fadeInUp}>
-              <FreeTools />
-            </MotionDiv>
-          </Suspense>
+          <motion.div variants={fadeInUp}>
+            <FreeTools />
+          </motion.div>
 
-          <Suspense fallback={<div className="h-48 bg-gray-100 rounded-lg animate-pulse" />}>
-            <MotionDiv variants={fadeInUp}>
-              <TrendingHashtags />
-            </MotionDiv>
-          </Suspense>
+          <motion.div variants={fadeInUp}>
+            <TrendingHashtags />
+          </motion.div>
 
-          <Suspense fallback={<div className="h-40 bg-gray-100 rounded-lg animate-pulse" />}>
-            <MotionDiv variants={fadeInUp}>
-              <CreatorTips platform="general" />
-            </MotionDiv>
-          </Suspense>
+          <motion.div variants={fadeInUp}>
+            <CreatorTips platform="general" />
+          </motion.div>
 
-          <Suspense fallback={<div className="h-60 bg-gray-100 rounded-lg animate-pulse" />}>
-            <MotionDiv variants={fadeInUp}>
-              <ToolLinkGrid />
-            </MotionDiv>
-          </Suspense>
+          <motion.div variants={fadeInUp}>
+            <ToolLinkGrid />
+          </motion.div>
 
-          <Suspense fallback={<div className="h-32 bg-gray-100 rounded-lg animate-pulse" />}>
-            <MotionDiv variants={fadeInUp}>
-              <NativeAd />
-            </MotionDiv>
-          </Suspense>
+          <motion.div variants={fadeInUp}>
+            <TrendingTopics />
+          </motion.div>
 
-          <LazySection minHeight="400px" fallback={<LoadingSpinner />}>
-            <Suspense fallback={<div className="h-96 bg-gray-100 rounded-lg animate-pulse" />}>
-              <MotionDiv variants={fadeInUp}>
-                <TrendingTopics />
-              </MotionDiv>
-            </Suspense>
-          </LazySection>
+          <motion.div variants={fadeInUp}>
+            <WhyChooseUs />
+          </motion.div>
 
-          <Suspense fallback={<LoadingSpinner />}>
-            <Suspense fallback={<div className="h-96 bg-gray-100 rounded-lg animate-pulse" />}>
-              <MotionDiv variants={fadeInUp}>
-                <LazySection minHeight="420px">
-                  <WhyChooseUs />
-                </LazySection>
-              </MotionDiv>
-            </Suspense>
+          <motion.div variants={fadeInUp}>
+            <Faq />
+          </motion.div>
 
-            <Suspense fallback={<div className="h-96 bg-gray-100 rounded-lg animate-pulse" />}>
-              <MotionDiv variants={fadeInUp}>
-                <LazySection minHeight="480px">
-                  <Faq />
-                </LazySection>
-              </MotionDiv>
-            </Suspense>
-          </Suspense>
-
-          <Suspense fallback={<div className="h-32 bg-gray-100 rounded-lg animate-pulse" />}>
-            <MotionDiv
-              className="bg-white p-6 rounded-xl shadow-md"
-              variants={fadeInUp}
-            >
-              <RatingWidget />
-            </MotionDiv>
-          </Suspense>
-        </MotionDiv>
-      </Suspense>
+          <motion.div
+            className="bg-white p-6 rounded-xl shadow-md"
+            variants={fadeInUp}
+          >
+            <RatingWidget />
+          </motion.div>
+        </motion.div>
     </>
   );
 }
