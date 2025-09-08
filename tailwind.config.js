@@ -8,25 +8,27 @@ export default {
   theme: {
     extend: {
       colors: {
-        // Logo-based professional color palette
-        'tt-primary': '#1a1a4f', // Deep blue from actual logo
-        'tt-primary-dark': '#141140', // Darker version for depth
-        'tt-primary-light': '#2d2d80', // Lighter version for variations
-        'tt-accent': '#4a90e2', // Complementary blue for highlights
-        'tt-accent-dark': '#357abd', // Darker accent
-        'tt-accent-light': '#6ba3eb', // Lighter accent
+        // Enhanced vibrant color palette
+        'tt-primary': '#2563eb', // Bright blue - more vibrant
+        'tt-primary-dark': '#1d4ed8', // Darker vibrant blue
+        'tt-primary-light': '#3b82f6', // Lighter vibrant blue
+        'tt-accent': '#f59e0b', // Vibrant amber/orange for highlights
+        'tt-accent-dark': '#d97706', // Darker vibrant orange
+        'tt-accent-light': '#fbbf24', // Lighter vibrant yellow
+        'tt-secondary': '#8b5cf6', // Vibrant purple for variety
+        'tt-secondary-dark': '#7c3aed', // Darker purple
+        'tt-secondary-light': '#a78bfa', // Lighter purple
+        'tt-success': '#10b981', // Vibrant green
+        'tt-warning': '#f59e0b', // Vibrant orange
+        'tt-error': '#ef4444', // Vibrant red
+        'tt-info': '#06b6d4', // Vibrant cyan
         'tt-neutral': '#f8fafc', // Light neutral for backgrounds
         'tt-neutral-dark': '#64748b', // Dark neutral for text
         'tt-neutral-light': '#ffffff', // Pure white for contrast
         // Legacy color support (will be gradually removed)
-        'tt-dark-violet': '#1a1a4f', // Map to primary for backwards compatibility
-        'tt-medium-violet': '#2d2d80', // Map to primary-light
-        'tt-light-violet': '#4a90e2', // Map to accent
-        // Functional colors that complement the scheme
-        'tt-success': '#10b981', // Success green
-        'tt-warning': '#f59e0b', // Warning amber
-        'tt-error': '#ef4444', // Error red
-        'tt-info': '#3b82f6', // Info blue
+        'tt-dark-violet': '#2563eb', // Map to primary for backwards compatibility
+        'tt-medium-violet': '#3b82f6', // Map to primary-light
+        'tt-light-violet': '#8b5cf6', // Map to secondary
       },
       fontFamily: {
         sans: ['Inter', 'sans-serif'],

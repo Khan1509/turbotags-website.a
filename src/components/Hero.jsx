@@ -46,7 +46,7 @@ const Hero = React.memo(() => {
           <Globe className="w-4 h-4 mr-2" aria-hidden="true" />
           30+ Regions Supported
         </motion.span>
-        <motion.span whileHover={{ y: -3, scale: 1.05 }} className="inline-flex items-center px-4 py-2 rounded-full text-sm font-semibold bg-gradient-to-r from-tt-accent to-tt-accent-dark text-white shadow-lg will-change-transform" role="listitem">
+        <motion.span whileHover={{ y: -3, scale: 1.05 }} className="inline-flex items-center px-4 py-2 rounded-full text-sm font-semibold bg-gradient-to-r from-tt-secondary to-tt-secondary-dark text-white shadow-xl transform transition-all duration-300 hover:shadow-2xl will-change-transform" role="listitem">
           <Bot className="w-4 h-4 mr-2" aria-hidden="true" />
           AI Title & Tag Generation
         </motion.span>
