@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Routes, Route, Navigate } from 'react-router-dom';
 import MainLayout from './components/layouts/MainLayout';
 import HomePage from './pages/HomePage';
@@ -20,8 +20,47 @@ import TikTokViralHashtagsPage from './pages/TikTokViralHashtagsPage';
 import { Analytics } from '@vercel/analytics/react';
 
 function App() {
+  const [isMounted, setIsMounted] = useState(false);
+
+  useEffect(() => {
+    setIsMounted(true);
+    
+    // Add a class to body when app is mounted to prevent FOUC
+    document.body.classList.add('app-loaded');
+    
+    return () => {
+      document.body.classList.remove('app-loaded');
+    };
+  }, []);
+
+  // Show loading state until app is mounted to prevent hydration issues
+  if (!isMounted) {
+    return (
+      <div style={{ 
+        display: 'flex', 
+        justifyContent: 'center', 
+        alignItems: 'center', 
+        minHeight: '100vh',
+        background: 'linear-gradient(135deg, #f8fafc 0%, #ffffff 50%, #f8fafc 100%)'
+      }}>
+        <div style={{ textAlign: 'center' }}>
+          <div style={{ 
+            width: '40px', 
+            height: '40px', 
+            border: '4px solid #e2e8f0',
+            borderTop: '4px solid #1a1a4f',
+            borderRadius: '50%',
+            animation: 'spin 1s linear infinite',
+            margin: '0 auto 1rem'
+          }}></div>
+          <p style={{ color: '#64748b', fontSize: '1rem' }}>Loading TurboTags...</p>
+        </div>
+      </div>
+    );
+  }
+
   return (
-    <div>
+    <div className="app-container">
       <Routes>
         <Route element={<MainLayout />}>
           <Route index element={<HomePage />} />
