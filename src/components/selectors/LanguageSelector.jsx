@@ -40,8 +40,9 @@ const LanguageSelector = ({ value, onChange, showDropdown, setShowDropdown }) =>
 
   return (
     <div className="relative dropdown-container">
-      <label className="block text-sm font-semibold text-gray-700 mb-2">Language</label>
+      <label htmlFor="language-selector" className="block text-sm font-semibold text-gray-700 mb-2">Language</label>
       <button
+        id="language-selector"
         onClick={() => setShowDropdown(!showDropdown)}
         className="w-full p-3 border border-gray-300 rounded-md text-left bg-white hover:border-gray-400 focus:outline-none focus:ring-2 focus:ring-tt-medium-violet focus:border-transparent transition-all duration-200 flex items-center justify-between"
         role="combobox"
