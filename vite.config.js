@@ -131,10 +131,7 @@ export default defineConfig(({ mode }) => {
         /^.*\.spock\.replit\.dev$/,
         /^.*\.repl\.co$/
       ],
-      hmr: {
-        port: 5000,
-        clientPort: 5000
-      },
+      hmr: false,
       headers: {
         'Cache-Control': 'no-cache, no-store, must-revalidate',
         'Pragma': 'no-cache',
