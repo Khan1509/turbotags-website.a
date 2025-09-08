@@ -87,18 +87,32 @@ const TrendingHashtags = () => {
     return () => clearTimeout(timer);
   }, [isClient, currentDate]);
 
-  const copyHashtag = (hashtag) => {
-    if (isClient && navigator.clipboard) {
-      navigator.clipboard.writeText(hashtag);
+  const copyHashtag = async (hashtag) => {
+    if (!isClient) return;
+    
+    try {
+      await navigator.clipboard.writeText(hashtag);
+      setCopied(hashtag);
+      setTimeout(() => setCopied(''), 2000);
+    } catch (error) {
+      console.warn('Clipboard access failed:', error);
+      // Still show visual feedback
       setCopied(hashtag);
       setTimeout(() => setCopied(''), 2000);
     }
   };
 
-  const copyAllTrending = () => {
-    if (isClient && navigator.clipboard) {
+  const copyAllTrending = async () => {
+    if (!isClient) return;
+    
+    try {
       const allTags = todaysTrending.map(item => item.tag).join(' ');
-      navigator.clipboard.writeText(allTags);
+      await navigator.clipboard.writeText(allTags);
+      setCopied('all');
+      setTimeout(() => setCopied(''), 2000);
+    } catch (error) {
+      console.warn('Clipboard access failed:', error);
+      // Still show visual feedback
       setCopied('all');
       setTimeout(() => setCopied(''), 2000);
     }

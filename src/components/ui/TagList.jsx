@@ -10,11 +10,19 @@ const getTrendColor = (percentage) => {
 const TagItem = React.memo(({ item, onCopy, onFeedback }) => {
   const [copied, setCopied] = useState(false);
 
-  const handleCopy = () => {
-    navigator.clipboard.writeText(item.text);
-    setCopied(true);
-    onCopy();
-    setTimeout(() => setCopied(false), 2000);
+  const handleCopy = async () => {
+    try {
+      await navigator.clipboard.writeText(item.text);
+      setCopied(true);
+      onCopy();
+      setTimeout(() => setCopied(false), 2000);
+    } catch (error) {
+      console.warn('Clipboard access failed:', error);
+      // Fallback: Still show visual feedback even if copy failed
+      setCopied(true);
+      onCopy();
+      setTimeout(() => setCopied(false), 2000);
+    }
   };
 
   const handleFeedback = (feedbackType) => {

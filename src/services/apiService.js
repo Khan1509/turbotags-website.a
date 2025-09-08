@@ -20,22 +20,30 @@ export const generateContent = async (prompt, options = {}, task) => {
     task: task || 'tags_and_hashtags',
   };
 
-  const response = await fetch('/api/generate', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-      'Accept': 'application/json'
-    },
-    body: JSON.stringify(requestBody),
-  });
+  try {
+    const response = await fetch('/api/generate', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json'
+      },
+      body: JSON.stringify(requestBody),
+    });
 
-  if (!response.ok) {
-    const errorBody = await response.json().catch(() => ({ error: 'Failed to parse error response' }));
-    console.error('API Error:', errorBody);
-    throw new Error(errorBody.message || 'Network response was not ok.');
+    if (!response.ok) {
+      const errorBody = await response.json().catch(() => ({ error: 'Failed to parse error response' }));
+      console.error('API Error:', errorBody);
+      throw new Error(errorBody.message || 'Network response was not ok.');
+    }
+
+    return await response.json();
+  } catch (networkError) {
+    if (networkError.name === 'TypeError' || networkError.message.includes('fetch')) {
+      console.error('Network connection failed:', networkError);
+      throw new Error('Network connection failed. Please check your internet connection.');
+    }
+    throw networkError; // Re-throw other errors
   }
-
-  return await response.json();
 };
 
 /**
@@ -44,18 +52,26 @@ export const generateContent = async (prompt, options = {}, task) => {
  * @throws {Error} If the network response is not ok.
  */
 export const getTrendingTopics = async () => {
-  const response = await fetch('/api/trending', {
-    method: 'GET',
-    headers: {
-      'Accept': 'application/json'
+  try {
+    const response = await fetch('/api/trending', {
+      method: 'GET',
+      headers: {
+        'Accept': 'application/json'
+      }
+    });
+
+    if (!response.ok) {
+      const errorBody = await response.json().catch(() => ({ error: 'Failed to parse error response' }));
+      console.error('Trending Topics API Error:', errorBody);
+      throw new Error(errorBody.message || 'Failed to fetch trending topics.');
     }
-  });
 
-  if (!response.ok) {
-    const errorBody = await response.json().catch(() => ({ error: 'Failed to parse error response' }));
-    console.error('Trending Topics API Error:', errorBody);
-    throw new Error(errorBody.message || 'Failed to fetch trending topics.');
+    return await response.json();
+  } catch (networkError) {
+    if (networkError.name === 'TypeError' || networkError.message.includes('fetch')) {
+      console.error('Network connection failed:', networkError);
+      throw new Error('Network connection failed. Please check your internet connection.');
+    }
+    throw networkError; // Re-throw other errors
   }
-
-  return await response.json();
 };

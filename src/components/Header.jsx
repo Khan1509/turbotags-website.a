@@ -33,17 +33,36 @@ const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   useEffect(() => {
+    // Ensure we're on the client side
+    if (typeof window === 'undefined') return;
+
     const handleResize = () => {
-      if (window.innerWidth >= 1024) {
-        setIsMenuOpen(false);
+      try {
+        if (window.innerWidth >= 1024) {
+          setIsMenuOpen(false);
+        }
+      } catch (error) {
+        console.warn('Resize handler error:', error);
       }
     };
-    window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
+
+    try {
+      window.addEventListener('resize', handleResize);
+      return () => window.removeEventListener('resize', handleResize);
+    } catch (error) {
+      console.warn('Event listener setup failed:', error);
+    }
   }, []);
 
   useEffect(() => {
-    document.body.style.overflow = isMenuOpen ? 'hidden' : '';
+    // Ensure we're on the client side
+    if (typeof document === 'undefined') return;
+
+    try {
+      document.body.style.overflow = isMenuOpen ? 'hidden' : '';
+    } catch (error) {
+      console.warn('Body overflow style error:', error);
+    }
   }, [isMenuOpen]);
 
   const closeMenu = () => setIsMenuOpen(false);

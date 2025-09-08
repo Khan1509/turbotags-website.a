@@ -6,19 +6,35 @@ const ScrollToAnchor = () => {
   const lastHash = useRef('');
 
   useEffect(() => {
-    if (location.hash) {
-      lastHash.current = location.hash.slice(1);
-    }
+    // Ensure we're on the client side
+    if (typeof window === 'undefined' || typeof document === 'undefined') return;
 
-    if (lastHash.current && document.getElementById(lastHash.current)) {
-      setTimeout(() => {
-        document
-          .getElementById(lastHash.current)
-          ?.scrollIntoView({ behavior: 'smooth', block: 'start' });
-        lastHash.current = '';
-      }, 100);
-    } else {
-        window.scrollTo(0, 0);
+    try {
+      if (location.hash) {
+        lastHash.current = location.hash.slice(1);
+      }
+
+      if (lastHash.current) {
+        setTimeout(() => {
+          try {
+            const element = document.getElementById(lastHash.current);
+            if (element && element.scrollIntoView) {
+              element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+              lastHash.current = '';
+            }
+          } catch (scrollError) {
+            console.warn('Scroll to element failed:', scrollError);
+          }
+        }, 100);
+      } else {
+        try {
+          window.scrollTo(0, 0);
+        } catch (scrollError) {
+          console.warn('Scroll to top failed:', scrollError);
+        }
+      }
+    } catch (error) {
+      console.warn('ScrollToAnchor error:', error);
     }
   }, [location]);
 
