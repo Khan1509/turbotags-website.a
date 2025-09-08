@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "rm -f yarn.lock && yarn install && vite build",
+    "build": "vite build",
     "lint": "eslint . --ext js,jsx --report-unused-disable-directives --max-warnings 250",
     "preview": "vite preview",
     "sitemap": "node scripts/generate-sitemap.js"
