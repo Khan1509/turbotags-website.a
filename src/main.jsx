@@ -15,27 +15,42 @@ if (!rootElement) {
   throw new Error('Root element not found');
 }
 
-try {
-  const root = ReactDOM.createRoot(rootElement);
-  root.render(
-    <React.StrictMode>
-      <ErrorBoundary>
-        <BrowserRouter>
-          <App />
-        </BrowserRouter>
-      </ErrorBoundary>
-    </React.StrictMode>
-  );
-} catch (error) {
-  console.error('React rendering failed:', error);
-  // Fallback UI
-  rootElement.innerHTML = `
-    <div style="padding: 2rem; text-align: center;">
-      <h2>Something went wrong</h2>
-      <p>Please refresh the page or try again later.</p>
-      <button onclick="window.location.reload()">Refresh Page</button>
-    </div>
-  `;
-}
+// Clear any existing content to prevent hydration mismatch
+rootElement.innerHTML = '';
 
-// ... rest of your service worker code
+const root = ReactDOM.createRoot(rootElement);
+
+root.render(
+  <React.StrictMode>
+    <ErrorBoundary>
+      <BrowserRouter>
+        <App />
+      </BrowserRouter>
+    </ErrorBoundary>
+  </React.StrictMode>
+);
+
+// Service worker registration - ONLY in production and after React is mounted
+if ('serviceWorker' in navigator && import.meta.env.PROD) {
+  // Wait for React to complete initial render
+  setTimeout(() => {
+    window.addEventListener('load', () => {
+      navigator.serviceWorker.register('/sw.js')
+        .then(registration => {
+          console.log('SW registered: ', registration);
+          registration.addEventListener('updatefound', () => {
+            const newWorker = registration.installing;
+            newWorker.addEventListener('statechange', () => {
+              if (newWorker.state === 'installed' && navigator.serviceWorker.controller) {
+                // New version available
+                console.log('New service worker version available');
+              }
+            });
+          });
+        })
+        .catch(error => {
+          console.log('SW registration failed: ', error);
+        });
+    });
+  }, 1000); // Delay to ensure React hydration completes
+}
