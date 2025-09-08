@@ -4,7 +4,13 @@ import { TrendingUp, Flame, Copy, Check, Calendar, Clock } from 'lucide-react';
 
 const TrendingHashtags = () => {
   const [copied, setCopied] = useState('');
-  const [currentDate, setCurrentDate] = useState(new Date());
+  const [currentDate, setCurrentDate] = useState(null);
+  const [isClient, setIsClient] = useState(false);
+
+  useEffect(() => {
+    setIsClient(true);
+    setCurrentDate(new Date());
+  }, []);
 
   // Simulated trending hashtags that rotate based on day of year
   const trendingPools = {
@@ -43,19 +49,27 @@ const TrendingHashtags = () => {
   };
 
   // Get day-based trending hashtags (simulates daily refresh)
-  const getDailyTrending = () => {
-    const dayOfYear = Math.floor((currentDate - new Date(currentDate.getFullYear(), 0, 0)) / (1000 * 60 * 60 * 24));
+  const getDailyTrending = (date = new Date()) => {
+    const dayOfYear = Math.floor((date - new Date(date.getFullYear(), 0, 0)) / (1000 * 60 * 60 * 24));
     const poolKeys = Object.keys(trendingPools);
     const selectedPool = poolKeys[dayOfYear % poolKeys.length];
     
-    // Shuffle and get 6 hashtags
-    const shuffled = [...trendingPools[selectedPool]].sort(() => 0.5 - Math.random());
+    // Deterministic shuffle based on day of year
+    const shuffled = [...trendingPools[selectedPool]].sort((a, b) => {
+      const hashA = (a.tag.charCodeAt(0) + dayOfYear) % 100;
+      const hashB = (b.tag.charCodeAt(0) + dayOfYear) % 100;
+      return hashA - hashB;
+    });
     return shuffled.slice(0, 6);
   };
 
-  const [todaysTrending, setTodaysTrending] = useState(getDailyTrending());
+  const [todaysTrending, setTodaysTrending] = useState([]);
 
   useEffect(() => {
+    if (!isClient || !currentDate) return;
+    
+    setTodaysTrending(getDailyTrending(currentDate));
+    
     // Update trending hashtags at midnight
     const now = new Date();
     const tomorrow = new Date(now);
@@ -65,27 +79,33 @@ const TrendingHashtags = () => {
     const msUntilMidnight = tomorrow.getTime() - now.getTime();
     
     const timer = setTimeout(() => {
-      setCurrentDate(new Date());
-      setTodaysTrending(getDailyTrending());
+      const newDate = new Date();
+      setCurrentDate(newDate);
+      setTodaysTrending(getDailyTrending(newDate));
     }, msUntilMidnight);
 
     return () => clearTimeout(timer);
-  }, [currentDate]);
+  }, [isClient, currentDate]);
 
   const copyHashtag = (hashtag) => {
-    navigator.clipboard.writeText(hashtag);
-    setCopied(hashtag);
-    setTimeout(() => setCopied(''), 2000);
+    if (isClient && navigator.clipboard) {
+      navigator.clipboard.writeText(hashtag);
+      setCopied(hashtag);
+      setTimeout(() => setCopied(''), 2000);
+    }
   };
 
   const copyAllTrending = () => {
-    const allTags = todaysTrending.map(item => item.tag).join(' ');
-    navigator.clipboard.writeText(allTags);
-    setCopied('all');
-    setTimeout(() => setCopied(''), 2000);
+    if (isClient && navigator.clipboard) {
+      const allTags = todaysTrending.map(item => item.tag).join(' ');
+      navigator.clipboard.writeText(allTags);
+      setCopied('all');
+      setTimeout(() => setCopied(''), 2000);
+    }
   };
 
   const formatDate = () => {
+    if (!currentDate) return 'Loading...';
     return currentDate.toLocaleDateString('en-US', { 
       weekday: 'long', 
       year: 'numeric', 
@@ -93,6 +113,17 @@ const TrendingHashtags = () => {
       day: 'numeric' 
     });
   };
+
+  if (!isClient || !currentDate) {
+    return (
+      <section className="bg-gradient-to-br from-orange-50 via-red-50 to-pink-50 p-6 rounded-xl shadow-md border border-orange-200">
+        <div className="text-center">
+          <h2 className="text-2xl font-bold text-gray-800 mb-2">🔥 Trending Today</h2>
+          <p className="text-gray-600">Loading trending hashtags...</p>
+        </div>
+      </section>
+    );
+  }
 
   return (
     <section className="bg-gradient-to-br from-orange-50 via-red-50 to-pink-50 p-6 rounded-xl shadow-md border border-orange-200">

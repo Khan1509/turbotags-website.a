@@ -22,7 +22,18 @@ const TagItem = React.memo(({ item, onCopy, onFeedback }) => {
     onFeedback(item.text, newFeedback);
   };
 
-  const trendPercentage = item.trend_percentage || Math.floor(Math.random() * 41) + 60;
+  // Generate deterministic trend percentage based on tag text
+  const generateTrendPercentage = (text) => {
+    let hash = 0;
+    for (let i = 0; i < text.length; i++) {
+      const char = text.charCodeAt(i);
+      hash = ((hash << 5) - hash) + char;
+      hash = hash & hash; // Convert to 32bit integer
+    }
+    return Math.abs(hash % 41) + 60;
+  };
+
+  const trendPercentage = item.trend_percentage || generateTrendPercentage(item.text);
 
   return (
     <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between rounded-md bg-white p-3 shadow-sm transition-all duration-200 hover:shadow-md border border-gray-200">
