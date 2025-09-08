@@ -89,18 +89,6 @@
     }
     </script>
 
-    <!-- Google AdSense -->
-    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7231854986385753"
-         crossorigin="anonymous"></script>
-    
-    <!-- Google Tag Manager -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-YXQPT1LPT8"></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-      gtag('config', 'G-YXQPT1LPT8');
-    </script>
   </head>
   <body class="bg-gray-50">
     <noscript>
@@ -108,5 +96,30 @@
     </noscript>
     <div id="root"></div>
     <script type="module" src="/src/main.jsx"></script>
+    
+    <!-- Load third-party scripts after React to prevent DOM conflicts -->
+    <script>
+      window.addEventListener('load', function() {
+        // Google Tag Manager - Load after page loads
+        const gtmScript = document.createElement('script');
+        gtmScript.async = true;
+        gtmScript.src = 'https://www.googletagmanager.com/gtag/js?id=G-YXQPT1LPT8';
+        document.head.appendChild(gtmScript);
+        
+        gtmScript.onload = function() {
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+          gtag('config', 'G-YXQPT1LPT8');
+        };
+        
+        // Google AdSense - Load after page loads
+        const adScript = document.createElement('script');
+        adScript.async = true;
+        adScript.src = 'https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7231854986385753';
+        adScript.crossOrigin = 'anonymous';
+        document.head.appendChild(adScript);
+      });
+    </script>
   </body>
 </html>
