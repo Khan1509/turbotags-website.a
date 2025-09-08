@@ -1,7 +1,7 @@
 import React from 'react';
 import { Routes, Route, Navigate } from 'react-router-dom';
 import MainLayout from './components/layouts/MainLayout';
-import TestComponent from './TestComponent';
+import HomePage from './pages/HomePage';
 import AboutPage from './pages/AboutPage';
 import FeaturesPage from './pages/FeaturesPage';
 import LegalPage from './pages/LegalPage';
@@ -26,7 +26,7 @@ function App() {
     <div>
       <Routes>
         <Route element={<MainLayout />}>
-          <Route index element={<TestComponent />} />
+          <Route index element={<HomePage />} />
           <Route path="/about" element={<AboutPage />} />
           <Route path="/features" element={<FeaturesPage />} />
           <Route path="/legal" element={<LegalPage />} />
