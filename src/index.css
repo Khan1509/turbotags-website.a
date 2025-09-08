@@ -9,7 +9,7 @@
   }
 
   body {
-    @apply bg-gradient-to-br from-tt-silver-light via-gray-50 to-tt-charcoal/5 font-sans text-tt-charcoal antialiased;
+    @apply bg-gradient-to-br from-tt-neutral via-gray-50 to-tt-primary/5 font-sans text-tt-neutral-dark antialiased;
     overflow-x: hidden;
     line-height: 1.6;
     -webkit-font-smoothing: antialiased;
@@ -88,15 +88,15 @@
   }
 
   .btn-primary {
-    @apply btn bg-gradient-to-r from-tt-navy to-tt-navy-light text-white hover:from-tt-navy-dark hover:to-tt-navy focus:ring-tt-navy shadow-lg hover:shadow-xl;
+    @apply btn bg-gradient-to-r from-tt-primary to-tt-primary-light text-white hover:from-tt-primary-dark hover:to-tt-primary focus:ring-tt-primary shadow-lg hover:shadow-xl;
   }
 
   .btn-secondary {
-    @apply btn bg-gradient-to-r from-tt-silver-light to-tt-silver text-tt-charcoal border border-tt-silver hover:from-tt-silver hover:to-tt-silver-dark hover:border-tt-silver-dark focus:ring-tt-silver;
+    @apply btn bg-gradient-to-r from-tt-accent-light to-tt-accent text-white hover:from-tt-accent hover:to-tt-accent-dark focus:ring-tt-accent shadow-md hover:shadow-lg;
   }
 
   .btn-accent {
-    @apply btn bg-gradient-to-r from-tt-charcoal to-tt-charcoal-light text-white hover:from-tt-charcoal-dark hover:to-tt-charcoal focus:ring-tt-charcoal;
+    @apply btn bg-white text-tt-primary border-2 border-tt-primary hover:bg-tt-primary hover:text-white focus:ring-tt-primary shadow-md hover:shadow-lg;
   }
 
   /* Modern card styles */
@@ -111,7 +111,7 @@
 
   /* Gradient text */
   .text-gradient {
-    background: linear-gradient(135deg, #000080 0%, #36454F 50%, #C0C0C0 100%);
+    background: linear-gradient(135deg, #1a1a4f 0%, #2d2d80 50%, #4a90e2 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;

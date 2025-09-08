@@ -8,16 +8,20 @@ export default {
   theme: {
     extend: {
       colors: {
-        // New sophisticated color palette
-        'tt-navy': '#000080', // Navy Blue - primary brand color
-        'tt-navy-dark': '#000066', // Darker navy for depth
-        'tt-navy-light': '#1a1aff', // Lighter navy for variations
-        'tt-silver': '#C0C0C0', // Silver - accent and highlights
-        'tt-silver-dark': '#a8a8a8', // Darker silver
-        'tt-silver-light': '#e8e8e8', // Lighter silver
-        'tt-charcoal': '#36454F', // Charcoal Gray - neutral foundation
-        'tt-charcoal-dark': '#2c3940', // Darker charcoal
-        'tt-charcoal-light': '#4a5760', // Lighter charcoal
+        // Logo-based professional color palette
+        'tt-primary': '#1a1a4f', // Deep blue from actual logo
+        'tt-primary-dark': '#141140', // Darker version for depth
+        'tt-primary-light': '#2d2d80', // Lighter version for variations
+        'tt-accent': '#4a90e2', // Complementary blue for highlights
+        'tt-accent-dark': '#357abd', // Darker accent
+        'tt-accent-light': '#6ba3eb', // Lighter accent
+        'tt-neutral': '#f8fafc', // Light neutral for backgrounds
+        'tt-neutral-dark': '#64748b', // Dark neutral for text
+        'tt-neutral-light': '#ffffff', // Pure white for contrast
+        // Legacy color support (will be gradually removed)
+        'tt-dark-violet': '#1a1a4f', // Map to primary for backwards compatibility
+        'tt-medium-violet': '#2d2d80', // Map to primary-light
+        'tt-light-violet': '#4a90e2', // Map to accent
         // Functional colors that complement the scheme
         'tt-success': '#10b981', // Success green
         'tt-warning': '#f59e0b', // Warning amber
