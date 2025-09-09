@@ -5,17 +5,17 @@ import App from './App.jsx';
 import ErrorBoundary from './components/ErrorBoundary.jsx';
 import './index.css';
 
-// Safe hydration with error handling
+// Get the root element from the HTML.
 const rootElement = document.getElementById('root');
 if (!rootElement) {
-  throw new Error('Root element not found');
+  throw new Error('Root element not found in the document.');
 }
 
-// Clear the initial loading state and mount React app
-rootElement.innerHTML = '';
-
+// Create a React root. This is the standard and correct way to initialize a React 18 app.
 const root = ReactDOM.createRoot(rootElement);
 
+// Initial render. React will now correctly manage the content inside the #root div,
+// replacing the initial loading spinner without causing a hydration error.
 root.render(
   <React.StrictMode>
     <ErrorBoundary>
