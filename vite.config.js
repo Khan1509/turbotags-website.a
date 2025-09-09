@@ -49,6 +49,9 @@ export default defineConfig(({ mode }) => {
 
   return {
     plugins: [react(), vercelApiDevPlugin()],
+    define: {
+      global: 'globalThis',
+    },
     build: {
       target: 'es2020',
       minify: 'terser',
@@ -116,21 +119,15 @@ export default defineConfig(({ mode }) => {
       ],
       exclude: ['framer-motion'],
       esbuildOptions: {
-        target: 'es2020'
+        target: 'es2020',
+        ignoreAnnotations: true
       }
     },
     server: {
       host: '0.0.0.0',
       port: 5000,
       cors: true,
-      allowedHosts: [
-        'localhost',
-        '.replit.dev',
-        '.replit.co',
-        /^.*\.replit\.dev$/,
-        /^.*\.spock\.replit\.dev$/,
-        /^.*\.repl\.co$/
-      ],
+      allowedHosts: true,
       hmr: false,
       headers: {
         'Cache-Control': 'no-cache, no-store, must-revalidate',
