@@ -11,22 +11,20 @@ if (!rootElement) {
   throw new Error('Root element not found');
 }
 
-// Clear the initial loading state
-setTimeout(() => {
-  rootElement.innerHTML = '';
-  
-  const root = ReactDOM.createRoot(rootElement);
-  
-  root.render(
-    <React.StrictMode>
-      <ErrorBoundary>
-        <BrowserRouter>
-          <App />
-        </BrowserRouter>
-      </ErrorBoundary>
-    </React.StrictMode>
-  );
-}, 100);
+// Clear the initial loading state and mount React app
+rootElement.innerHTML = '';
+
+const root = ReactDOM.createRoot(rootElement);
+
+root.render(
+  <React.StrictMode>
+    <ErrorBoundary>
+      <BrowserRouter>
+        <App />
+      </BrowserRouter>
+    </ErrorBoundary>
+  </React.StrictMode>
+);
 
 // Service worker registration - ONLY in production
 if ('serviceWorker' in navigator && import.meta.env.PROD) {
