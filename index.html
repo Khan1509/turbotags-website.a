@@ -19,28 +19,6 @@
       @keyframes loading { 0% { background-position: 200% 0; } 100% { background-position: -200% 0; } }
       .gradient-text { background: linear-gradient(135deg, #1a1a4f 0%, #2d2d80 50%, #4a90e2 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
       
-      /* Loading state */
-      .app-loading { 
-        display: flex; 
-        justify-content: center; 
-        align-items: center; 
-        min-height: 100vh;
-        background: linear-gradient(135deg, #f8fafc 0%, #ffffff 50%, #f8fafc 100%);
-      }
-      .loading-spinner {
-        width: 40px; 
-        height: 40px; 
-        border: 4px solid #e2e8f0;
-        border-top: 4px solid #1a1a4f;
-        border-radius: 50%;
-        animation: spin 1s linear infinite;
-        margin: 0 auto 1rem;
-      }
-      @keyframes spin {
-        0% { transform: rotate(0deg); }
-        100% { transform: rotate(360deg); }
-      }
-      
       @media (max-width: 768px) { .btn-primary:hover { transform: translateY(-1px) scale(1.01); } * { animation-duration: 0.2s !important; transition-duration: 0.2s !important; } }
       @media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; } }
       
@@ -100,15 +78,8 @@
       For the best experience, please enable JavaScript. TurboTags is an interactive web application that requires JavaScript to function.
     </noscript>
     
-    <!-- Initial loading state to prevent hydration mismatch -->
-    <div id="root">
-      <div class="app-loading">
-        <div style="text-align: center;">
-          <div class="loading-spinner"></div>
-          <p style="color: #64748b; font-size: 1rem;">Loading TurboTags...</p>
-        </div>
-      </div>
-    </div>
+    <!-- This div will be empty. React will render the app here. -->
+    <div id="root"></div>
     
     <!-- Vite will automatically inject the script tags here during build -->
     
