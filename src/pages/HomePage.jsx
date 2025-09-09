@@ -4,7 +4,6 @@ import Hero from '../components/Hero';
 import Stats from '../components/Stats';
 import Platforms from '../components/Platforms';
 import TagGenerator from '../components/TagGenerator';
-import RatingWidget from '../components/ui/RatingWidget';
 import FaqSchema from '../components/schemas/FaqSchema';
 import { faqData } from '../components/Faq';
 import Share from '../components/Share';
@@ -94,12 +93,6 @@ function HomePage() {
             <Faq />
           </motion.div>
 
-          <motion.div
-            className="bg-white p-6 rounded-xl shadow-md"
-            variants={fadeInUp}
-          >
-            <RatingWidget />
-          </motion.div>
         </motion.div>
     </>
   );
