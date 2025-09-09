@@ -14,8 +14,7 @@ if (!rootElement) {
 // Create a React root. This is the standard and correct way to initialize a React 18 app.
 const root = ReactDOM.createRoot(rootElement);
 
-// Initial render. React will now correctly manage the content inside the #root div,
-// replacing the initial loading spinner without causing a hydration error.
+// Initial render. React will now correctly manage the content inside the #root div.
 root.render(
   <React.StrictMode>
     <ErrorBoundary>
