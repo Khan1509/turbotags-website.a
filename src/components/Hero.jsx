@@ -2,7 +2,6 @@ import React from 'react';
 import { Zap, Bot, BarChart, Globe } from 'lucide-react';
 import { motion } from 'framer-motion';
 
-// UX: Enhanced animation variants
 const containerVariants = {
   hidden: { opacity: 0 },
   visible: {
@@ -42,21 +41,20 @@ const Hero = React.memo(() => {
         role="list"
         aria-label="Key features"
       >
-        <motion.span whileHover={{ y: -3, scale: 1.05 }} className="inline-flex items-center px-4 py-2 rounded-full text-sm font-semibold bg-gradient-to-r from-tt-primary to-tt-primary-light text-white shadow-lg will-change-transform" role="listitem">
+        <motion.span whileHover={{ y: -3, scale: 1.05 }} className="inline-flex items-center px-4 py-2 rounded-full text-sm font-semibold bg-brand-blue text-white shadow-lg will-change-transform" role="listitem">
           <Globe className="w-4 h-4 mr-2" aria-hidden="true" />
           30+ Regions Supported
         </motion.span>
-        <motion.span whileHover={{ y: -3, scale: 1.05 }} className="inline-flex items-center px-4 py-2 rounded-full text-sm font-semibold bg-gradient-to-r from-tt-secondary to-tt-secondary-dark text-white shadow-xl transform transition-all duration-300 hover:shadow-2xl will-change-transform" role="listitem">
+        <motion.span whileHover={{ y: -3, scale: 1.05 }} className="inline-flex items-center px-4 py-2 rounded-full text-sm font-semibold bg-brand-dark-blue text-white shadow-xl transform transition-all duration-300 hover:shadow-2xl will-change-transform" role="listitem">
           <Bot className="w-4 h-4 mr-2" aria-hidden="true" />
           AI Title & Tag Generation
         </motion.span>
-        <motion.span whileHover={{ y: -3, scale: 1.05 }} className="inline-flex items-center px-4 py-2 rounded-full text-sm font-semibold bg-white text-tt-primary border-2 border-tt-primary shadow-lg will-change-transform" role="listitem">
+        <motion.span whileHover={{ y: -3, scale: 1.05 }} className="inline-flex items-center px-4 py-2 rounded-full text-sm font-semibold bg-white text-brand-dark-blue border-2 border-brand-dark-blue shadow-lg will-change-transform" role="listitem">
           <BarChart className="w-4 h-4 mr-2" aria-hidden="true" />
           SEO Optimized
         </motion.span>
       </motion.div>
 
-      {/* SEO: Updated H1 to include all platforms */}
       <motion.h1
         variants={itemVariants}
         className="text-4xl md:text-5xl font-extrabold mt-6 text-gradient leading-tight will-change-transform"
@@ -66,15 +64,14 @@ const Hero = React.memo(() => {
 
       <motion.p
         variants={itemVariants}
-        className="text-lg md:text-xl font-semibold mt-4 text-gray-700 will-change-transform"
+        className="text-lg md:text-xl font-semibold mt-4 text-brand-dark-grey will-change-transform"
       >
         Smarter Reach. Faster Growth. <span className="inline-block animate-rocket-float" role="img" aria-label="rocket">🚀</span>
       </motion.p>
 
-      {/* SEO: Updated paragraph to be more inclusive */}
       <motion.p
         variants={itemVariants}
-        className="mt-4 max-w-3xl mx-auto text-gray-700 text-base md:text-lg leading-relaxed will-change-transform"
+        className="mt-4 max-w-3xl mx-auto text-brand-medium-grey text-base md:text-lg leading-relaxed will-change-transform"
       >
         Generate <strong>viral tags</strong>, <strong>trending hashtags</strong>, and <strong>SEO-optimized titles</strong> for YouTube, TikTok, Instagram, and Facebook. Our AI helps you get more views and reach a global audience.
       </motion.p>
@@ -85,7 +82,7 @@ const Hero = React.memo(() => {
       >
         <a
           href="#tag-generator"
-          className="btn-primary focus:outline-none focus:ring-2 focus:ring-tt-dark-violet focus:ring-offset-2"
+          className="btn-primary focus:outline-none focus:ring-2 focus:ring-brand-dark-blue focus:ring-offset-2"
           aria-label="Start generating tags and hashtags now"
         >
           Start Generating Now <Zap className="ml-2 h-5 w-5" aria-hidden="true" />

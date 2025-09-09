@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { motion } from 'framer-motion';
-import { Youtube, Instagram, Facebook, Type, Hash, Zap, Star } from 'lucide-react';
+import { Youtube, Instagram, Facebook, Type, Hash, Zap } from 'lucide-react';
 import TikTokIcon from './icons/TikTokIcon';
 import ContentFormatSelector from './selectors/ContentFormatSelector';
 import LanguageSelector from './selectors/LanguageSelector';
@@ -28,8 +28,6 @@ const TagGenerator = ({ initialTab = 'youtube', initialTask = 'tags_and_hashtags
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
   const [openDropdown, setOpenDropdown] = useState(null);
-  const [usageCount, setUsageCount] = useState(0);
-  const usageLimit = 5;
 
   const handleTabChange = (tabId) => {
     setActiveTab(tabId);
@@ -49,10 +47,6 @@ const TagGenerator = ({ initialTab = 'youtube', initialTask = 'tags_and_hashtags
       setError('Please enter a topic or keyword.');
       return;
     }
-    if (usageCount >= usageLimit) {
-        setError('You have reached your free generation limit.');
-        return;
-    }
     setIsLoading(true);
     setGeneratedContent(null);
     setError(null);
@@ -60,7 +54,6 @@ const TagGenerator = ({ initialTab = 'youtube', initialTask = 'tags_and_hashtags
       const options = { platform: activeTab, contentFormat, language, region };
       const data = await generateContent(prompt, options, task);
       setGeneratedContent(data);
-      setUsageCount(prev => prev + 1);
     } catch (err) {
       setError(err.message || 'An error occurred. Please try again.');
     } finally {
@@ -90,8 +83,8 @@ const TagGenerator = ({ initialTab = 'youtube', initialTask = 'tags_and_hashtags
             onClick={() => handleTabChange(tab.id)}
             className={`flex-shrink-0 flex items-center gap-2 px-4 py-3 font-semibold transition-colors duration-200 focus:outline-none ${
               activeTab === tab.id
-                ? 'border-b-2 border-tt-primary text-tt-primary'
-                : 'text-gray-500 hover:text-gray-800'
+                ? 'border-b-2 border-brand-blue text-brand-blue'
+                : 'text-brand-medium-grey hover:text-brand-dark-grey'
             }`}
           >
             <tab.icon className="h-5 w-5" />
@@ -102,7 +95,7 @@ const TagGenerator = ({ initialTab = 'youtube', initialTask = 'tags_and_hashtags
 
       <form onSubmit={handleSubmit} className="space-y-6">
         <div>
-          <label htmlFor="prompt-input" className="block text-sm font-semibold text-gray-700 mb-2">
+          <label htmlFor="prompt-input" className="block text-sm font-semibold text-brand-dark-grey mb-2">
             Enter your content topic or keywords
           </label>
           <input
@@ -111,7 +104,7 @@ const TagGenerator = ({ initialTab = 'youtube', initialTask = 'tags_and_hashtags
             value={prompt}
             onChange={(e) => setPrompt(e.target.value)}
             placeholder="e.g., 'unboxing the new iPhone' or 'vegan chocolate cake recipe'"
-            className="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-tt-primary"
+            className="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-brand-blue"
             required
           />
         </div>
@@ -134,7 +127,7 @@ const TagGenerator = ({ initialTab = 'youtube', initialTask = 'tags_and_hashtags
         <div className="pt-4">
           <button
             type="submit"
-            disabled={isLoading || usageCount >= usageLimit}
+            disabled={isLoading}
             className="w-full btn btn-primary text-lg disabled:bg-gray-400 disabled:cursor-not-allowed disabled:shadow-none"
           >
             {isLoading ? (
@@ -146,16 +139,15 @@ const TagGenerator = ({ initialTab = 'youtube', initialTask = 'tags_and_hashtags
               </>
             )}
           </button>
-          <p className="text-center text-xs text-gray-500 mt-2">
-            {usageLimit - usageCount} / {usageLimit} free generations remaining. 
-            <a href="#pricing" className="text-tt-primary font-semibold hover:underline ml-1">Upgrade for more</a>.
+          <p className="text-center text-xs text-brand-medium-grey mt-2">
+            100% Free & Unlimited Generations
           </p>
         </div>
       </form>
 
       {(isLoading || generatedContent) && (
         <div className="mt-8">
-          <h2 className="text-2xl font-bold text-gray-800 mb-4">Generated Content</h2>
+          <h2 className="text-2xl font-bold text-brand-dark-grey mb-4">Generated Content</h2>
           {isLoading ? (
             <ResultsSkeleton />
           ) : (

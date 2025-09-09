@@ -9,7 +9,7 @@
   }
 
   body {
-    @apply bg-gradient-to-br from-blue-50 via-purple-50 to-orange-50 font-sans text-slate-700 antialiased;
+    @apply bg-brand-light-grey font-sans text-brand-dark-grey antialiased;
     overflow-x: hidden;
     line-height: 1.6;
     -webkit-font-smoothing: antialiased;
@@ -18,41 +18,33 @@
     min-height: 100vh;
   }
 
-  /* Fluid Typography for responsive headings */
   h1, .h1 {
-    font-size: clamp(2rem, 1.5rem + 2.5vw, 3.5rem); /* from 32px to 56px - more mobile friendly */
+    font-size: clamp(2rem, 1.5rem + 2.5vw, 3.5rem);
   }
   h2, .h2 {
-    font-size: clamp(1.5rem, 1.25rem + 1.25vw, 2.25rem); /* from 24px to 36px */
+    font-size: clamp(1.75rem, 1.25rem + 1.25vw, 2.5rem);
   }
   h3, .h3 {
-    font-size: clamp(1.125rem, 1rem + 0.625vw, 1.5rem); /* from 18px to 24px */
+    font-size: clamp(1.125rem, 1rem + 0.625vw, 1.5rem);
   }
   
-  /* Improved text scaling for mobile */
   p, .text-base {
-    font-size: clamp(0.875rem, 0.825rem + 0.25vw, 1rem); /* from 14px to 16px */
+    font-size: clamp(0.875rem, 0.825rem + 0.25vw, 1rem);
   }
   
   .text-sm {
-    font-size: clamp(0.75rem, 0.7rem + 0.25vw, 0.875rem); /* from 12px to 14px */
+    font-size: clamp(0.75rem, 0.7rem + 0.25vw, 0.875rem);
   }
   
-  /* Better button and tap target sizes for mobile */
   .btn-mobile-friendly {
-    min-height: 44px; /* Apple's recommended minimum tap target */
+    min-height: 44px;
     min-width: 44px;
-  }
-
-  * {
-    scroll-behavior: smooth;
   }
 
   .will-change-transform {
     will-change: transform;
   }
 
-  /* Fix for text overflow on mobile */
   .break-words {
     word-break: break-word;
     overflow-wrap: break-word;
@@ -88,36 +80,20 @@
   }
 
   .btn-primary {
-    @apply btn bg-gradient-to-r from-tt-primary to-tt-primary-light text-white hover:from-tt-primary-dark hover:to-tt-primary focus:ring-tt-primary shadow-lg hover:shadow-xl;
-  }
-
-  .btn-secondary {
-    @apply btn bg-gradient-to-r from-tt-accent-light to-tt-accent text-white hover:from-tt-accent hover:to-tt-accent-dark focus:ring-tt-accent shadow-md hover:shadow-lg;
+    @apply btn bg-brand-dark-blue text-white hover:bg-opacity-90 focus:ring-brand-dark-blue shadow-lg hover:shadow-xl;
   }
 
   .btn-accent {
-    @apply btn bg-white text-tt-primary border-2 border-tt-primary hover:bg-tt-primary hover:text-white focus:ring-tt-primary shadow-md hover:shadow-lg;
+    @apply btn bg-white text-brand-dark-blue border-2 border-brand-dark-blue hover:bg-brand-dark-blue hover:text-white focus:ring-brand-dark-blue shadow-md hover:shadow-lg;
   }
 
-  /* Modern card styles */
-  .card-modern {
-    @apply bg-white/80 backdrop-blur-sm rounded-xl shadow-lg border border-white/20 transition-all duration-300;
-  }
-
-  .card-modern:hover {
-    @apply shadow-xl;
-    transform: translateY(-2px);
-  }
-
-  /* Enhanced vibrant gradient text */
   .text-gradient {
-    background: linear-gradient(135deg, #2563eb 0%, #8b5cf6 50%, #f59e0b 100%);
+    background: linear-gradient(135deg, #1e3a8a 0%, #2563eb 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
   }
 
-  /* Loading shimmer effect */
   .shimmer {
     position: relative;
     overflow: hidden;

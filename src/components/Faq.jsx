@@ -20,14 +20,14 @@ export const faqData = [
   },
   {
     question: "Is TurboTags really free to use?",
-    answer: "Yes! All core features of TurboTags, including the free YouTube tags generator, the Instagram hashtag idea generator, and the AI title generator, are available at no cost. We are committed to helping creators grow."
+    answer: "Yes! All core features of TurboTags, including the free YouTube tags generator, the Instagram hashtag idea generator, and the AI title generator, are available at no cost and are unlimited. We are committed to helping creators grow."
   }
 ];
 
 const Faq = () => {
   return (
     <section id="faq" className="bg-white p-6 rounded-xl shadow-md">
-      <h2 className="h2 font-bold text-gray-800 mb-6 text-center">Frequently Asked Questions</h2>
+      <h2 className="h2 font-bold text-brand-dark-grey mb-6 text-center">Frequently Asked Questions</h2>
       <div className="max-w-3xl mx-auto">
         {faqData.map((item, index) => (
           <FaqItem key={index} question={item.question} answer={item.answer} />
