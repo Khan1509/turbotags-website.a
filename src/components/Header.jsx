@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { NavLink, Link } from 'react-router-dom';
-import { Menu, X, Heart } from 'lucide-react';
+import { Menu, X, Heart, Star } from 'lucide-react';
 import { motion } from 'framer-motion';
 
 const CustomNavLink = React.memo(({ to, children, ariaLabel, ...props }) => (
@@ -33,36 +33,17 @@ const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   useEffect(() => {
-    // Ensure we're on the client side
     if (typeof window === 'undefined') return;
-
     const handleResize = () => {
-      try {
-        if (window.innerWidth >= 1024) {
-          setIsMenuOpen(false);
-        }
-      } catch (error) {
-        console.warn('Resize handler error:', error);
-      }
+      if (window.innerWidth >= 1024) setIsMenuOpen(false);
     };
-
-    try {
-      window.addEventListener('resize', handleResize);
-      return () => window.removeEventListener('resize', handleResize);
-    } catch (error) {
-      console.warn('Event listener setup failed:', error);
-    }
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
   }, []);
 
   useEffect(() => {
-    // Ensure we're on the client side
     if (typeof document === 'undefined') return;
-
-    try {
-      document.body.style.overflow = isMenuOpen ? 'hidden' : '';
-    } catch (error) {
-      console.warn('Body overflow style error:', error);
-    }
+    document.body.style.overflow = isMenuOpen ? 'hidden' : '';
   }, [isMenuOpen]);
 
   const closeMenu = () => setIsMenuOpen(false);
@@ -73,7 +54,6 @@ const Header = () => {
         <div className="flex justify-between items-center">
           <Link to="/" className="flex items-center gap-3 focus:outline-none focus:ring-2 focus:ring-tt-dark-violet focus:ring-offset-2 rounded-lg p-2" aria-label="TurboTags - Go to homepage">
             <img src="/favicon.svg" alt="TurboTags Logo" className="w-10 h-10 md:w-12 md:h-12 transition-transform hover:animate-pulse" />
-            {/* SEO: Changed from h1 to a div for semantic correctness. The main H1 should be on the page content. */}
             <div className="text-4xl md:text-5xl font-extrabold text-tt-dark-violet leading-tight transition-transform hover:scale-105">
               TurboTags
             </div>
@@ -81,10 +61,9 @@ const Header = () => {
           
           <nav className="hidden lg:flex items-center space-x-5" role="navigation" aria-label="Main navigation">
             <CustomNavLink to="/" ariaLabel="Go to homepage">Home</CustomNavLink>
-            <CustomNavLink to="/about" ariaLabel="Go to About page">About</CustomNavLink>
-            <CustomNavLink to="/features" ariaLabel="Go to Features page">Features</CustomNavLink>
+            <CustomNavLink to="/#features" ariaLabel="Go to Features section">Features</CustomNavLink>
+            <CustomNavLink to="/#pricing" ariaLabel="Go to Pricing section">Pricing</CustomNavLink>
             <CustomNavLink to="/blog" ariaLabel="Go to Blog">Blog</CustomNavLink>
-            <CustomNavLink to="/#faq" ariaLabel="Go to FAQ section">FAQ</CustomNavLink>
             <a href="https://ko-fi.com/turbotags1509" target="_blank" rel="noopener noreferrer" className="bg-tt-dark-violet text-white px-4 py-2 rounded-lg flex items-center hover:opacity-90 transition focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-tt-dark-violet" aria-label="Support TurboTags on Ko-fi - Opens in new tab">
               <Heart className="mr-2 h-4 w-4" aria-hidden="true" /> Support
             </a>
@@ -109,13 +88,12 @@ const Header = () => {
           </button>
           <nav className="flex flex-col items-center w-full space-y-4" role="navigation" aria-label="Mobile navigation">
             <MobileNavLink to="/" onClick={closeMenu} ariaLabel="Go to homepage">Home</MobileNavLink>
-            <MobileNavLink to="/about" onClick={closeMenu} ariaLabel="Go to About page">About</MobileNavLink>
-            <MobileNavLink to="/features" onClick={closeMenu} ariaLabel="Go to Features page">Features</MobileNavLink>
+            <MobileNavLink to="/#features" onClick={closeMenu} ariaLabel="Go to Features section">Features</MobileNavLink>
+            <MobileNavLink to="/#pricing" onClick={closeMenu} ariaLabel="Go to Pricing section">Pricing</MobileNavLink>
             <MobileNavLink to="/blog" onClick={closeMenu} ariaLabel="Go to Blog">Blog</MobileNavLink>
             <MobileNavLink to="/#faq" onClick={closeMenu} ariaLabel="Go to FAQ section">FAQ</MobileNavLink>
-            <MobileNavLink to="/legal" onClick={closeMenu} ariaLabel="Go to Legal page">Legal</MobileNavLink>
             <a href="https://ko-fi.com/turbotags1509" onClick={closeMenu} target="_blank" rel="noopener noreferrer" className="block w-full py-4 text-center text-xl transition hover:bg-white/10 focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-tt-dark-violet rounded-md" aria-label="Support TurboTags on Ko-fi - Opens in new tab">
-              Support Us on Ko-fi
+              Support Us
             </a>
           </nav>
         </motion.div>

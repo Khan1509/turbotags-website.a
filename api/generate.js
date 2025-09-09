@@ -46,11 +46,11 @@ export default async function handler(req, res) {
       return res.status(400).json({ error: 'Prompt is required' });
     }
 
-    const isEnglish = language === 'english';
+    const isEnglish = language.toLowerCase() === 'english';
 
     // Define model chains for reliability based on language
     const englishModels = [
-      "mistralai/mistral-7b-instruct", // Primary for English
+      "mistralai/mistral-7b-instruct",
       "google/gemini-flash-1.5",
       "anthropic/claude-3-haiku",
       "meta-llama/llama-3.1-8b-instruct"
@@ -70,45 +70,45 @@ export default async function handler(req, res) {
     - Content Format: ${contentFormat}
     - Target Region: ${region}
     - Language: ${language}
+    - Task: ${task}
     - User Topic/Prompt: Will be provided separately
 
     CRITICAL LANGUAGE REQUIREMENT: 
-    The ENTIRE response, including ALL generated text (tags, hashtags, titles), MUST be in the specified language: ${language}. 
+    The ENTIRE response, including ALL generated text (tags, hashtags, titles), MUST be in the specified language: "${language}". 
     If the language is not English, adapt the content to be culturally relevant and linguistically natural for that language and region.
 
     CONTENT QUALITY REQUIREMENTS:
-    - Generate content that is highly relevant, engaging, and trending in ${new Date().getFullYear()}
-    - Consider current trends, viral topics, and platform-specific best practices
-    - Each item must have a "trend_percentage" between 70 and 100 based on actual trending potential
-    - Focus on high-engagement, discoverable content for the ${region} region
+    - Generate content that is highly relevant, engaging, and trending in ${new Date().getFullYear()}.
+    - Consider current trends, viral topics, and platform-specific best practices.
+    - Each item must have a "trend_percentage" between 70 and 100 based on its realistic trending potential.
+    - Focus on high-engagement, discoverable content for the "${region}" region.
 
     PLATFORM-SPECIFIC RULES:
 
     YOUTUBE TITLE RULES:
-    - ALL titles MUST be 100 characters or less (strict limit)
-    - If contentFormat is 'short', EVERY title MUST end with " #shorts" (include the space)
-    - Titles should be click-worthy and SEO-optimized for YouTube search
+    - ALL titles MUST be 100 characters or less (strict limit).
+    - If contentFormat is 'short', EVERY title MUST end with " #shorts" (including the space before #).
 
     QUANTITY REQUIREMENTS (STRICT):
     
-    For TITLES (all platforms):
-    - Generate 5-7 titles (minimum 5, maximum 10)
+    If the task is 'titles':
+    - Generate 5-7 titles (minimum 5, maximum 10).
     - JSON structure: {"titles": [{"text": "Title Here", "trend_percentage": 85}]}
     
-    For TAGS AND HASHTAGS on YOUTUBE:
-    - Generate 15-20 tags (minimum 15, maximum 25)
-    - Generate 15-20 hashtags (minimum 15, maximum 25)  
-    - JSON structure: {"tags": [{"text": "tag name", "trend_percentage": 85}], "hashtags": [{"text": "#hashtag", "trend_percentage": 92}]}
-    
-    For HASHTAGS on INSTAGRAM/TIKTOK/FACEBOOK:
-    - Generate 15-20 hashtags (minimum 15, maximum 25)
-    - JSON structure: {"hashtags": [{"text": "#hashtag", "trend_percentage": 88}]}
+    If the task is 'tags_and_hashtags':
+      For YOUTUBE:
+      - Generate 15-20 tags (minimum 15, maximum 25).
+      - Generate 15-20 hashtags (minimum 15, maximum 25).
+      - JSON structure: {"tags": [{"text": "tag name", "trend_percentage": 85}], "hashtags": [{"text": "#hashtag", "trend_percentage": 92}]}
+      
+      For INSTAGRAM, TIKTOK, or FACEBOOK:
+      - Generate 15-20 hashtags (minimum 15, maximum 25).
+      - JSON structure: {"hashtags": [{"text": "#hashtag", "trend_percentage": 88}]}
 
     RESPONSE FORMAT:
-    - Return ONLY a valid JSON object
-    - NO explanations, markdown, or additional text
-    - Each item must have "text" and "trend_percentage" keys
-    - Trend percentages must realistically reflect trending potential (70-100)
+    - Return ONLY a valid JSON object.
+    - NO explanations, markdown, or additional text.
+    - Each item must have "text" and "trend_percentage" keys.
 
     Remember: Quality over quantity, but meet the minimum requirements. Focus on trending, discoverable content for ${platform} in ${region}.`;
 
@@ -127,7 +127,7 @@ export default async function handler(req, res) {
     }
 
     if (!result) {
-      console.error(`All models failed. Last error: ${lastError.message}. Using static fallback.`);
+      console.error(`All models failed. Last error: ${lastError ? lastError.message : 'Unknown error'}. Using static fallback.`);
       const fallbackPath = path.join(process.cwd(), 'public', 'data', 'fallback.json');
       result = JSON.parse(await fs.readFile(fallbackPath, 'utf-8'));
     }

@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { motion } from 'framer-motion';
-import { Youtube, Instagram, Facebook, Type, Hash, Zap } from 'lucide-react';
+import { Youtube, Instagram, Facebook, Type, Hash, Zap, Star } from 'lucide-react';
 import TikTokIcon from './icons/TikTokIcon';
 import ContentFormatSelector from './selectors/ContentFormatSelector';
 import LanguageSelector from './selectors/LanguageSelector';
@@ -28,6 +28,8 @@ const TagGenerator = ({ initialTab = 'youtube', initialTask = 'tags_and_hashtags
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
   const [openDropdown, setOpenDropdown] = useState(null);
+  const [usageCount, setUsageCount] = useState(0);
+  const usageLimit = 5;
 
   const handleTabChange = (tabId) => {
     setActiveTab(tabId);
@@ -47,6 +49,10 @@ const TagGenerator = ({ initialTab = 'youtube', initialTask = 'tags_and_hashtags
       setError('Please enter a topic or keyword.');
       return;
     }
+    if (usageCount >= usageLimit) {
+        setError('You have reached your free generation limit.');
+        return;
+    }
     setIsLoading(true);
     setGeneratedContent(null);
     setError(null);
@@ -54,6 +60,7 @@ const TagGenerator = ({ initialTab = 'youtube', initialTask = 'tags_and_hashtags
       const options = { platform: activeTab, contentFormat, language, region };
       const data = await generateContent(prompt, options, task);
       setGeneratedContent(data);
+      setUsageCount(prev => prev + 1);
     } catch (err) {
       setError(err.message || 'An error occurred. Please try again.');
     } finally {
@@ -127,7 +134,7 @@ const TagGenerator = ({ initialTab = 'youtube', initialTask = 'tags_and_hashtags
         <div className="pt-4">
           <button
             type="submit"
-            disabled={isLoading}
+            disabled={isLoading || usageCount >= usageLimit}
             className="w-full btn btn-primary text-lg disabled:bg-gray-400 disabled:cursor-not-allowed disabled:shadow-none"
           >
             {isLoading ? (
@@ -139,6 +146,10 @@ const TagGenerator = ({ initialTab = 'youtube', initialTask = 'tags_and_hashtags
               </>
             )}
           </button>
+          <p className="text-center text-xs text-gray-500 mt-2">
+            {usageLimit - usageCount} / {usageLimit} free generations remaining. 
+            <a href="#pricing" className="text-tt-primary font-semibold hover:underline ml-1">Upgrade for more</a>.
+          </p>
         </div>
       </form>
 
