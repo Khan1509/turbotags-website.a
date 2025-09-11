@@ -9,7 +9,9 @@
   }
 
   body {
-    @apply bg-brand-light-grey font-sans text-brand-dark-grey antialiased;
+    @apply bg-brand-background font-sans text-brand-text antialiased;
+    background-color: #e2e2f3;
+    color: #070304;
     overflow-x: hidden;
     line-height: 1.6;
     -webkit-font-smoothing: antialiased;
@@ -80,15 +82,24 @@
   }
 
   .btn-primary {
-    @apply btn bg-brand-dark-blue text-white hover:bg-opacity-90 focus:ring-brand-dark-blue shadow-lg hover:shadow-xl;
+    @apply btn text-white hover:bg-opacity-90 shadow-lg hover:shadow-xl;
+    background-color: #15143e;
+    border-color: #15143e;
   }
 
   .btn-accent {
-    @apply btn bg-white text-brand-dark-blue border-2 border-brand-dark-blue hover:bg-brand-dark-blue hover:text-white focus:ring-brand-dark-blue shadow-md hover:shadow-lg;
+    @apply btn bg-white shadow-md hover:shadow-lg;
+    color: #15143e;
+    border: 2px solid #15143e;
+  }
+  
+  .btn-accent:hover {
+    background-color: #15143e;
+    color: white;
   }
 
   .text-gradient {
-    background: linear-gradient(135deg, #1e3a8a 0%, #2563eb 100%);
+    background: linear-gradient(135deg, #15143e 0%, #5c6284 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;

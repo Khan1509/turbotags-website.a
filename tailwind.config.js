@@ -8,12 +8,21 @@ export default {
   theme: {
     extend: {
       colors: {
-        // New simplified and professional color palette
-        'brand-dark-blue': '#1e3a8a', // A professional, dark blue inspired by logos
-        'brand-blue': '#2563eb',       // A vibrant, accessible blue for primary actions
-        'brand-light-grey': '#f1f5f9', // A clean, light grey for backgrounds (slate-100)
-        'brand-dark-grey': '#1f2937',  // A strong, dark grey for primary text (gray-800)
-        'brand-medium-grey': '#6b7280',// A softer grey for secondary text (gray-500)
+        // Updated color palette based on Realtime Colors reference
+        'brand': {
+          'text': '#070304',       // Almost black for main text
+          'background': '#e2e2f3', // Light lavender background  
+          'primary': '#15143e',    // Dark navy for primary elements
+          'secondary': '#5c6284',  // Medium blue-gray for secondary elements
+          'accent': '#282e43',     // Dark blue-gray for accents
+        },
+        
+        // Keep old names for backward compatibility (mapped to new colors)
+        'brand-dark-blue': '#15143e',  // Maps to primary
+        'brand-blue': '#5c6284',       // Maps to secondary
+        'brand-light-grey': '#e2e2f3', // Maps to background
+        'brand-dark-grey': '#070304',  // Maps to text
+        'brand-medium-grey': '#5c6284',// Maps to secondary
         
         // Functional colors
         'tt-success': '#10b981',
