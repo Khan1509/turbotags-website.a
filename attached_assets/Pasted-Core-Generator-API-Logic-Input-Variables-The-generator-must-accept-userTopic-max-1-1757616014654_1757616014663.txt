@@ -1,0 +1,28 @@
+Core Generator API Logic:**
+    * **Input Variables:** The generator must accept `userTopic` (max 1000 words), `platform`, `contentFormat`, `language`, and `targetRegion`.
+    * **Output:** The API must return a single JSON object with the keys `"titles"`, `"tags"`, and `"hashtags"`. Each key's value is an array of objects.
+    * **Object Format:** Every object in the output arrays must contain a `"text"` key (string) and a `"trend_percentage"` key (integer from 70-100).
+    * **Quantity Rules:**
+        * **Titles:** Generate a minimum of 5 and a maximum of 10 titles for all platforms.
+        * **Tags & Hashtags:** Generate a minimum of 15 and a maximum of 25 items.
+    * **Platform-Specific Rules:**
+        * **YouTube:** Titles must not exceed 100 characters. If `contentFormat` is `short_video`, append `#shorts` to the end of each title.
+        * **Instagram:** Output should not include "tags".
+        * **Relevance:** All content must be highly relevant to the provided `userTopic`, `platform`, `contentFormat`, `language`, and `targetRegion`.
+
+3.  **Platform-Specific Pages & Tools:**
+    * Improve the dedicated tool pages (`/youtube`, `/instagram`, etc.) to be more visually appealing and user-friendly. Each page should have a specific tool, a "how-to" guide, and relevant tips.
+    * 
+4.  **SEO & Website Functions:**
+    * Maintain the existing serverless architecture, ensuring all core functions remain fast and efficient.
+    * Use the existing `trending.js` and `fallback-trending.json` files for a reliable, auto-updating "Trending Topics" section that refreshes every 24 hours.
+    * Ensure all new pages and blog posts are properly linked within the sitemap for optimal SEO.
+
+5.  **API Fallback Configuration:**
+    * Update the `apiService.js` to implement the specified fallback logic:
+        * For English (`en`), prioritize `mistralai/mistral-7b-instruct` and fall back to `google/gemini-flash-1.5`.
+        * For all other languages, prioritize `google/gemini-flash-1.5`, then fall back to `mistralai/mistral-7b-instruct`, `anthropic/claude-3-haiku`, and `meta-llama/llama-3.1-8b-instruct`.
+
+**Final Output:**
+The updated website should be a polished, creator-focused platform that provides clear value without complexity. The code should remain easy to maintain and fit within the existing GitHub/Vercel workflow, without any new dependencies that would incur additional costs.
+

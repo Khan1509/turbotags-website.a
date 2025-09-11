@@ -34,13 +34,13 @@ async function callOpenRouter(model, systemPrompt, userPrompt) {
 }
 
 export default async function handler(req, res) {
-  const systemPrompt = `You are a social media trend analyst. Your task is to generate a list of 3 current, viral, and engaging content ideas for each of the following platforms: YouTube, Instagram, TikTok, and Facebook. For each idea, provide a short, catchy title and a one-sentence description. The output must be a valid JSON object in the following format: {"trendingTopics": [{"platform": "YouTube", "topics": [{"title": "Topic Title", "description": "Topic Description"}]}]}. Do not include any other text, markdown, or explanations.`;
+  const systemPrompt = `You are a social media trend analyst with expertise in 2025 trends. Generate 4 current, viral, and highly engaging content ideas for each platform: YouTube, Instagram, TikTok, and Facebook. Focus on trending topics, viral challenges, current events, and popular culture relevant to ${new Date().toDateString()}. Each topic must be realistic and trending with high engagement potential. The output must be a valid JSON object in the following format: {"trendingTopics": [{"platform": "YouTube", "topics": [{"title": "Trending Topic", "description": "One-sentence description of why it's trending"}]}]}. Do not include any other text, markdown, or explanations.`;
 
   try {
     const model = "google/gemini-flash-1.5"; // This model is fast and good for creative generation.
     const result = await callOpenRouter(model, systemPrompt, `Generate trending topics for today, ${new Date().toDateString()}.`);
     
-    res.setHeader('Cache-Control', 's-maxage=86400, stale-while-revalidate'); // Cache for 24 hours
+    res.setHeader('Cache-Control', 's-maxage=86400, stale-while-revalidate=86400, max-age=3600'); // Cache for 24 hours, refresh every hour
     return res.status(200).json(result);
 
   } catch (error) {

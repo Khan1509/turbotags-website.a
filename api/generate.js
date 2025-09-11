@@ -46,7 +46,12 @@ export default async function handler(req, res) {
       return res.status(400).json({ error: 'Prompt is required' });
     }
 
-    const isEnglish = language.toLowerCase() === 'english';
+    // Validate prompt length (max 1000 words)
+    if (prompt.length > 7000) { // Roughly 1000 words
+      return res.status(400).json({ error: 'Prompt too long. Maximum 1000 words allowed.' });
+    }
+
+    const isEnglish = language.toLowerCase() === 'english' || language.toLowerCase() === 'en';
 
     // Define model chains for reliability based on language
     const englishModels = [
@@ -87,22 +92,27 @@ export default async function handler(req, res) {
 
     YOUTUBE TITLE RULES:
     - ALL titles MUST be 100 characters or less (strict limit).
-    - If contentFormat is 'short', EVERY title MUST end with " #shorts" (including the space before #).
+    - If contentFormat is 'short' or 'short_video', EVERY title MUST end with " #shorts" (including the space before #).
+    - Ensure titles remain under 100 characters even with #shorts added.
 
     QUANTITY REQUIREMENTS (STRICT):
     
     If the task is 'titles':
-    - Generate 5-7 titles (minimum 5, maximum 10).
+    - Generate EXACTLY 7 titles (minimum 5, maximum 10).
+    - ALL titles must have trend_percentage between 70-100.
+    - For YouTube: titles max 100 characters (including #shorts if applicable).
     - JSON structure: {"titles": [{"text": "Title Here", "trend_percentage": 85}]}
     
     If the task is 'tags_and_hashtags':
       For YOUTUBE:
-      - Generate 15-20 tags (minimum 15, maximum 25).
-      - Generate 15-20 hashtags (minimum 15, maximum 25).
+      - Generate EXACTLY 20 tags (minimum 15, maximum 25).
+      - Generate EXACTLY 20 hashtags (minimum 15, maximum 25).
+      - ALL items must have trend_percentage between 70-100.
       - JSON structure: {"tags": [{"text": "tag name", "trend_percentage": 85}], "hashtags": [{"text": "#hashtag", "trend_percentage": 92}]}
       
       For INSTAGRAM, TIKTOK, or FACEBOOK:
-      - Generate 15-20 hashtags (minimum 15, maximum 25).
+      - Generate EXACTLY 20 hashtags (minimum 15, maximum 25).
+      - ALL hashtags must have trend_percentage between 70-100.
       - JSON structure: {"hashtags": [{"text": "#hashtag", "trend_percentage": 88}]}
 
     RESPONSE FORMAT:

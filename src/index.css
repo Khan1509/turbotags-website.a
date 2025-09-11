@@ -9,7 +9,7 @@
   }
 
   body {
-    @apply bg-brand-background font-sans text-brand-text antialiased;
+    @apply font-sans antialiased;
     background-color: #e2e2f3;
     color: #070304;
     overflow-x: hidden;
