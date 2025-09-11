@@ -24,15 +24,15 @@ function HomePage() {
         <TagGenerator />
       </div>
       
-      <LazySection><HowToUse /></LazySection>
-      
-      <LazySection><CreatorGrowthTips /></LazySection>
-      
       <div className="container mx-auto max-w-7xl px-4 sm:px-6 md:px-8">
         <LazySection><TrendingTopics /></LazySection>
       </div>
       
       <LazySection><CreatorTools /></LazySection>
+      
+      <LazySection><CreatorGrowthTips /></LazySection>
+      
+      <LazySection><HowToUse /></LazySection>
 
       <div className="container mx-auto max-w-7xl px-4 sm:px-6 md:px-8">
         <LazySection><Faq /></LazySection>
