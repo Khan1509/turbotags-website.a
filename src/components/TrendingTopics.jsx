@@ -20,13 +20,24 @@ const TrendingTopics = () => {
     const fetchTopics = async () => {
       try {
         setIsLoading(true);
-        // Fetch from API with 24-hour auto-refresh
-        const response = await fetch('/api/trending');
-        if (!response.ok) {
-          throw new Error('Failed to fetch trending topics data.');
+        // Fetch from API with 24-hour auto-refresh, fallback to static data in dev
+        try {
+          const response = await fetch('/api/trending');
+          if (!response.ok) {
+            throw new Error('API unavailable');
+          }
+          const data = await response.json();
+          setTopicsData(data.trendingTopics);
+        } catch (apiError) {
+          console.warn('API unavailable, using fallback data:', apiError.message);
+          // Fallback to static data for development
+          const fallbackResponse = await fetch('/data/fallback-trending.json');
+          if (!fallbackResponse.ok) {
+            throw new Error('Failed to fetch trending topics data.');
+          }
+          const fallbackData = await fallbackResponse.json();
+          setTopicsData(fallbackData.trendingTopics);
         }
-        const data = await response.json();
-        setTopicsData(data.trendingTopics);
       } catch (err) {
         setError('Could not load trending topics. Please try again later.');
         console.error(err);

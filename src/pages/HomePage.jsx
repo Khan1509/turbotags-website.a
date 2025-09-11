@@ -15,13 +15,13 @@ function HomePage() {
       <div className="container mx-auto max-w-7xl px-4 sm:px-6 md:px-8">
         <Hero />
       </div>
-      
-      <div className="container mx-auto max-w-7xl px-4 sm:px-6 md:px-8">
-        <LazySection><Platforms /></LazySection>
-      </div>
 
       <div className="container mx-auto max-w-7xl px-4 sm:px-6 md:px-8">
         <TagGenerator />
+      </div>
+      
+      <div className="container mx-auto max-w-7xl px-4 sm:px-6 md:px-8">
+        <LazySection><Platforms /></LazySection>
       </div>
       
       <div className="container mx-auto max-w-7xl px-4 sm:px-6 md:px-8">
