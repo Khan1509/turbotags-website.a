@@ -20,8 +20,8 @@ const TrendingTopics = () => {
     const fetchTopics = async () => {
       try {
         setIsLoading(true);
-        // FIX: Fetch from the static fallback file to prevent dev server crash
-        const response = await fetch('/data/fallback-trending.json');
+        // Fetch from API with 24-hour auto-refresh
+        const response = await fetch('/api/trending');
         if (!response.ok) {
           throw new Error('Failed to fetch trending topics data.');
         }
