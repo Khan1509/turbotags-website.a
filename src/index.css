@@ -83,23 +83,23 @@
 
   .btn-primary {
     @apply btn text-white hover:bg-opacity-90 shadow-lg hover:shadow-xl;
-    background-color: #15143e;
-    border-color: #15143e;
+    background-color: #151440;
+    border-color: #151440;
   }
 
   .btn-accent {
     @apply btn bg-white shadow-md hover:shadow-lg;
-    color: #15143e;
-    border: 2px solid #15143e;
+    color: #151440;
+    border: 2px solid #151440;
   }
   
   .btn-accent:hover {
-    background-color: #15143e;
+    background-color: #151440;
     color: white;
   }
 
   .text-gradient {
-    background: linear-gradient(135deg, #15143e 0%, #5c6284 100%);
+    background: linear-gradient(135deg, #151440 0%, #5c6284 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;

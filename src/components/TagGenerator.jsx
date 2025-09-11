@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { motion } from 'framer-motion';
-import { Youtube, Instagram, Facebook, Type, Hash, Zap } from 'lucide-react';
+import { Youtube, Instagram, Facebook, Type, Hash, Zap, RotateCcw } from 'lucide-react';
 import TikTokIcon from './icons/TikTokIcon';
 import ContentFormatSelector from './selectors/ContentFormatSelector';
 import LanguageSelector from './selectors/LanguageSelector';
@@ -59,6 +59,18 @@ const TagGenerator = ({ initialTab = 'youtube', initialTask = 'tags_and_hashtags
     } finally {
       setIsLoading(false);
     }
+  };
+
+  const handleReset = () => {
+    setPrompt('');
+    setTask(initialTask);
+    setActiveTab(initialTab);
+    setContentFormat('long-form');
+    setLanguage('english');
+    setRegion('global');
+    setGeneratedContent(null);
+    setError(null);
+    setOpenDropdown(null);
   };
 
   const closeDropdowns = useCallback((e) => {
@@ -124,7 +136,7 @@ const TagGenerator = ({ initialTab = 'youtube', initialTask = 'tags_and_hashtags
             </button>
         </div>
 
-        <div className="pt-4">
+        <div className="pt-4 space-y-3">
           <button
             type="submit"
             disabled={isLoading}
@@ -138,6 +150,15 @@ const TagGenerator = ({ initialTab = 'youtube', initialTask = 'tags_and_hashtags
                 Generate Now
               </>
             )}
+          </button>
+          <button
+            type="button"
+            onClick={handleReset}
+            disabled={isLoading}
+            className="w-full btn btn-accent text-sm disabled:opacity-50 disabled:cursor-not-allowed"
+          >
+            <RotateCcw className="mr-2 h-4 w-4" />
+            Reset Form
           </button>
           <p className="text-center text-xs text-brand-medium-grey mt-2">
             100% Free & Unlimited Generations
