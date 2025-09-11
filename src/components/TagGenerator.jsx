@@ -128,10 +128,10 @@ const TagGenerator = ({ initialTab = 'youtube', initialTask = 'tags_and_hashtags
         </div>
         
         <div className="flex flex-col sm:flex-row gap-4">
-            <button type="button" onClick={() => setTask('tags_and_hashtags')} className={`flex-1 btn ${task === 'tags_and_hashtags' ? 'btn-primary' : 'btn-accent'}`}>
+            <button type="button" onClick={() => setTask('tags_and_hashtags')} className={`flex-1 btn ${task === 'tags_and_hashtags' ? 'btn-secondary' : 'btn-accent'}`}>
                 <Hash className="mr-2 h-5 w-5" /> Generate Tags & Hashtags
             </button>
-            <button type="button" onClick={() => setTask('titles')} className={`flex-1 btn ${task === 'titles' ? 'btn-primary' : 'btn-accent'}`}>
+            <button type="button" onClick={() => setTask('titles')} className={`flex-1 btn ${task === 'titles' ? 'btn-secondary' : 'btn-accent'}`}>
                 <Type className="mr-2 h-5 w-5" /> Generate Titles
             </button>
         </div>
@@ -140,7 +140,7 @@ const TagGenerator = ({ initialTab = 'youtube', initialTask = 'tags_and_hashtags
           <button
             type="submit"
             disabled={isLoading}
-            className="w-full btn btn-primary text-lg disabled:bg-gray-400 disabled:cursor-not-allowed disabled:shadow-none"
+            className="w-full btn btn-secondary text-lg disabled:bg-gray-400 disabled:cursor-not-allowed disabled:shadow-none"
           >
             {isLoading ? (
               <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-white"></div>
@@ -155,7 +155,7 @@ const TagGenerator = ({ initialTab = 'youtube', initialTask = 'tags_and_hashtags
             type="button"
             onClick={handleReset}
             disabled={isLoading}
-            className="w-full btn btn-accent text-sm disabled:opacity-50 disabled:cursor-not-allowed"
+            className="w-full btn btn-reset text-sm disabled:opacity-50 disabled:cursor-not-allowed"
           >
             <RotateCcw className="mr-2 h-4 w-4" />
             Reset Form
