@@ -129,9 +129,9 @@ function processAndValidateResponse(response, task, platform, contentFormat) {
   const processed = {};
   
   if (task === 'titles') {
-    // Titles: 5-7 items
+    // Titles: 5-10 items
     let titles = response.titles || [];
-    titles = trimAndPadArray(titles, 5, 7, (index) => generateFallbackTitles(1, platform, contentFormat)[0]);
+    titles = trimAndPadArray(titles, 5, 10, (index) => generateFallbackTitles(1, platform, contentFormat)[0]);
     
     if (platform.toLowerCase() === 'youtube') {
       titles = enforceYouTubeTitleLimits(titles, contentFormat);
@@ -141,20 +141,20 @@ function processAndValidateResponse(response, task, platform, contentFormat) {
     
   } else if (task === 'tags_and_hashtags') {
     if (platform.toLowerCase() === 'youtube') {
-      // YouTube: 15-20 tags and 15-20 hashtags
+      // YouTube: 15-25 tags and 15-25 hashtags
       let tags = response.tags || [];
       let hashtags = response.hashtags || [];
       
-      tags = trimAndPadArray(tags, 15, 20, (index) => generateFallbackTags(1)[0]);
-      hashtags = trimAndPadArray(hashtags, 15, 20, (index) => generateFallbackHashtags(1)[0]);
+      tags = trimAndPadArray(tags, 15, 25, (index) => generateFallbackTags(1)[0]);
+      hashtags = trimAndPadArray(hashtags, 15, 25, (index) => generateFallbackHashtags(1)[0]);
       
       processed.tags = tags;
       processed.hashtags = hashtags;
       
     } else {
-      // Instagram/TikTok/Facebook: 15-20 hashtags only
+      // Instagram/TikTok/Facebook: 15-25 hashtags only
       let hashtags = response.hashtags || [];
-      hashtags = trimAndPadArray(hashtags, 15, 20, (index) => generateFallbackHashtags(1)[0]);
+      hashtags = trimAndPadArray(hashtags, 15, 25, (index) => generateFallbackHashtags(1)[0]);
       processed.hashtags = hashtags;
     }
   }
@@ -162,36 +162,90 @@ function processAndValidateResponse(response, task, platform, contentFormat) {
   return processed;
 }
 
-// Helper to call OpenRouter API
-async function callOpenRouter(model, systemPrompt, userPrompt) {
+// Helper to validate if response is in correct language
+function validateLanguage(response, expectedLanguage) {
+  if (expectedLanguage.toLowerCase() === 'english' || expectedLanguage.toLowerCase() === 'en') {
+    return true; // Skip validation for English as it's the default
+  }
+  
+  // Check if response contains content that looks like it's in the expected language
+  const responseText = JSON.stringify(response).toLowerCase();
+  
+  // Simple heuristic: if response contains mostly English words and expected language is not English
+  const englishPatterns = /\b(the|and|or|but|in|on|at|to|for|of|with|by)\b/g;
+  const englishMatches = (responseText.match(englishPatterns) || []).length;
+  
+  // If we find many English patterns and expected language is not English, it's likely wrong
+  if (englishMatches > 3 && expectedLanguage.toLowerCase() !== 'english') {
+    return false;
+  }
+  
+  return true;
+}
+
+// Helper to validate if response is on-topic
+function validateTopicRelevance(response, userTopic) {
+  const responseText = JSON.stringify(response).toLowerCase();
+  const topicWords = userTopic.toLowerCase().split(/\W+/).filter(word => word.length > 3);
+  
+  // Check if at least some topic keywords appear in the response
+  let relevantWords = 0;
+  topicWords.forEach(word => {
+    if (responseText.includes(word)) {
+      relevantWords++;
+    }
+  });
+  
+  // Require at least 20% of topic words to appear in response
+  return relevantWords >= Math.max(1, Math.floor(topicWords.length * 0.2));
+}
+
+// Helper to call OpenRouter API with timeout and optimization
+async function callOpenRouter(model, systemPrompt, userPrompt, timeout = 8000) {
   const OPENROUTER_API_KEY = process.env.OPENROUTER_API_KEY;
   if (!OPENROUTER_API_KEY || OPENROUTER_API_KEY.startsWith('YOUR_')) {
     throw new Error('OPENROUTER_API_KEY is not set or is a placeholder.');
   }
 
-  const response = await fetch("https://openrouter.ai/api/v1/chat/completions", {
-    method: "POST",
-    headers: {
-      "Authorization": `Bearer ${OPENROUTER_API_KEY}`,
-      "Content-Type": "application/json"
-    },
-    body: JSON.stringify({
-      model: model,
-      response_format: { type: "json_object" },
-      messages: [
-        { role: "system", content: systemPrompt },
-        { role: "user", content: userPrompt }
-      ]
-    })
-  });
+  const controller = new AbortController();
+  const timeoutId = setTimeout(() => controller.abort(), timeout);
 
-  if (!response.ok) {
-    const errorBody = await response.text();
-    throw new Error(`OpenRouter API error for model ${model}: ${response.status} ${response.statusText} - ${errorBody}`);
+  try {
+    const response = await fetch("https://openrouter.ai/api/v1/chat/completions", {
+      method: "POST",
+      signal: controller.signal,
+      headers: {
+        "Authorization": `Bearer ${OPENROUTER_API_KEY}`,
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        model: model,
+        response_format: { type: "json_object" },
+        max_tokens: 800,
+        temperature: 0.4,
+        messages: [
+          { role: "system", content: systemPrompt },
+          { role: "user", content: userPrompt }
+        ]
+      })
+    });
+
+    clearTimeout(timeoutId);
+
+    if (!response.ok) {
+      const errorBody = await response.text();
+      throw new Error(`OpenRouter API error for model ${model}: ${response.status} ${response.statusText} - ${errorBody}`);
+    }
+
+    const data = await response.json();
+    return JSON.parse(data.choices[0].message.content);
+  } catch (error) {
+    clearTimeout(timeoutId);
+    if (error.name === 'AbortError') {
+      throw new Error(`Request timeout for model ${model}`);
+    }
+    throw error;
   }
-
-  const data = await response.json();
-  return JSON.parse(data.choices[0].message.content);
 }
 
 // Main handler function for Vercel
@@ -236,95 +290,118 @@ export default async function handler(req, res) {
     ];
     const modelsToTry = isEnglish ? englishModels : nonEnglishModels;
     
-    const systemPrompt = `You are an expert social media content strategist and trend analyst. Your task is to generate highly optimized, trending content based on the user's prompt.
+    // Create structured user prompt for better topic anchoring
+    const structuredPrompt = JSON.stringify({
+      userTopic: prompt,
+      platform: validatedPlatform,
+      contentFormat: validatedContentFormat, 
+      targetRegion: validatedRegion,
+      language: validatedLanguage,
+      task: validatedTask,
+      instructions: "Generate content that is STRICTLY about the userTopic. Do NOT create generic trending content unrelated to the specific topic provided."
+    });
 
-    TARGET SPECIFICATIONS:
+    const systemPrompt = `You are an expert social media content strategist. Your task is to generate content that is STRICTLY RELEVANT to the user's specific topic.
+
+    CRITICAL TOPIC ADHERENCE:
+    - You MUST stay strictly focused on the user's exact topic/keywords provided in userTopic
+    - Do NOT generate generic trending content unrelated to the userTopic
+    - Do NOT substitute the topic with broader trends unless directly related
+    - If you cannot generate relevant content for the userTopic, return {"error": "TOPIC_TOO_BROAD"}
+
+    CRITICAL LANGUAGE REQUIREMENT: 
+    - The ENTIRE response, including ALL generated text (tags, hashtags, titles), MUST be in the specified language: "${validatedLanguage}"
+    - If language is not English, adapt content to be culturally relevant for that language/region
+    - If you cannot generate in the specified language, return {"error": "LANGUAGE_NOT_SUPPORTED"}
+
+    PLATFORM SPECIFICATIONS:
     - Platform: ${validatedPlatform}
     - Content Format: ${validatedContentFormat}
     - Target Region: ${validatedRegion}
     - Language: ${validatedLanguage}
     - Task: ${validatedTask}
-    - User Topic/Prompt: Will be provided separately
 
-    CRITICAL LANGUAGE REQUIREMENT: 
-    The ENTIRE response, including ALL generated text (tags, hashtags, titles), MUST be in the specified language: "${validatedLanguage}". 
-    If the language is not English, adapt the content to be culturally relevant and linguistically natural for that language and region.
-
-    CONTENT QUALITY REQUIREMENTS:
-    - Generate content that is highly relevant, engaging, and trending in ${new Date().getFullYear()}.
-    - Consider current trends, viral topics, and platform-specific best practices.
-    - Each item must have a "trend_percentage" between 70 and 100 based on its realistic trending potential.
-    - Focus on high-engagement, discoverable content for the "${validatedRegion}" region.
-
-    PLATFORM-SPECIFIC RULES:
+    CONTENT REQUIREMENTS:
+    - Generate content highly relevant to the userTopic AND trending potential
+    - Each item must have "trend_percentage" between 70-100
+    - Focus on discoverability for the specified platform and region
 
     YOUTUBE TITLE RULES:
-    - ALL titles MUST be 100 characters or less (strict limit).
-    - If contentFormat is 'short' or 'short_video', EVERY title MUST end with " #shorts" (including the space before #).
-    - Ensure titles remain under 100 characters even with #shorts added.
+    - ALL titles MUST be 100 characters or less (strict limit)
+    - If contentFormat is 'short' or 'short_video', EVERY title MUST end with " #shorts"
+    - Ensure titles remain under 100 characters even with #shorts added
 
-    QUANTITY REQUIREMENTS (STRICT):
+    QUANTITY REQUIREMENTS:
     
-    If the task is 'titles':
-    - Generate 5-7 titles for optimal variety and quality.
-    - ALL titles must have trend_percentage between 70-100.
-    - For YouTube: titles max 100 characters (including #shorts if applicable).
+    If task is 'titles':
+    - Generate 5-10 titles related to userTopic
+    - ALL titles must have trend_percentage between 70-100
     - JSON structure: {"titles": [{"text": "Title Here", "trend_percentage": 85}]}
     
-    If the task is 'tags_and_hashtags':
+    If task is 'tags_and_hashtags':
       For YOUTUBE:
-      - Generate 15-20 tags for optimal coverage.
-      - Generate 15-20 hashtags for optimal coverage.
-      - ALL items must have trend_percentage between 70-100.
+      - Generate 15-25 tags related to userTopic
+      - Generate 15-25 hashtags related to userTopic  
       - JSON structure: {"tags": [{"text": "tag name", "trend_percentage": 85}], "hashtags": [{"text": "#hashtag", "trend_percentage": 92}]}
       
       For INSTAGRAM, TIKTOK, or FACEBOOK:
-      - Generate 15-20 hashtags for optimal coverage.
-      - ALL hashtags must have trend_percentage between 70-100.
+      - Generate 15-25 hashtags related to userTopic
       - JSON structure: {"hashtags": [{"text": "#hashtag", "trend_percentage": 88}]}
 
     RESPONSE FORMAT:
-    - Return ONLY a valid JSON object.
-    - NO explanations, markdown, or additional text.
-    - Each item must have "text" and "trend_percentage" keys.
+    - Return ONLY a valid JSON object
+    - NO explanations, markdown, or additional text
+    - Each item must have "text" and "trend_percentage" keys
 
-    Remember: Quality over quantity, but meet the minimum requirements. Focus on trending, discoverable content for ${validatedPlatform} in ${validatedRegion}.`;
+    Remember: Stay ON-TOPIC. Generate content specifically about the userTopic, not generic trending content.`;
 
     let rawResult;
     let lastError = null;
-    let validationAttempts = 0;
-    const maxValidationAttempts = 2;
 
-    // Try LLM models with retry logic for validation failures
+    // Try LLM models with validation-based fallback
     for (const model of modelsToTry) {
-      for (let attempt = 0; attempt <= maxValidationAttempts; attempt++) {
-        try {
-          rawResult = await callOpenRouter(model, systemPrompt, prompt);
-          
-          // Always process and validate the response
-          const processedResult = processAndValidateResponse(
-            rawResult, 
-            validatedTask, 
-            validatedPlatform, 
-            validatedContentFormat
-          );
-          
-          // Successful processing - return result
-          res.setHeader('Cache-Control', 'no-cache');
-          return res.status(200).json(processedResult);
-          
-        } catch (error) {
-          console.warn(`Model ${model} attempt ${attempt + 1} failed: ${error.message}`);
-          lastError = error;
-          
-          // If this was the last attempt for this model, try next model
-          if (attempt === maxValidationAttempts) {
-            break;
-          }
-          
-          // Add slight delay before retry
-          await new Promise(resolve => setTimeout(resolve, 100));
+      try {
+        console.log(`Trying model: ${model} for language: ${validatedLanguage}`);
+        rawResult = await callOpenRouter(model, systemPrompt, structuredPrompt);
+        
+        // Check for API-level errors
+        if (rawResult.error) {
+          console.warn(`Model ${model} returned error: ${rawResult.error}`);
+          lastError = new Error(rawResult.error);
+          continue; // Try next model
         }
+        
+        // Validate language if not English
+        if (!validateLanguage(rawResult, validatedLanguage)) {
+          console.warn(`Model ${model} failed language validation for: ${validatedLanguage}`);
+          lastError = new Error('Language validation failed');
+          continue; // Try next model
+        }
+        
+        // Validate topic relevance
+        if (!validateTopicRelevance(rawResult, prompt)) {
+          console.warn(`Model ${model} failed topic relevance validation`);
+          lastError = new Error('Topic relevance validation failed');
+          continue; // Try next model
+        }
+        
+        // Process and validate the response structure
+        const processedResult = processAndValidateResponse(
+          rawResult, 
+          validatedTask, 
+          validatedPlatform, 
+          validatedContentFormat
+        );
+        
+        // Successful processing - return result
+        console.log(`Model ${model} succeeded`);
+        res.setHeader('Cache-Control', 'no-cache');
+        return res.status(200).json(processedResult);
+        
+      } catch (error) {
+        console.warn(`Model ${model} failed: ${error.message}`);
+        lastError = error;
+        // Continue to next model
       }
     }
 
@@ -334,13 +411,13 @@ export default async function handler(req, res) {
     let fallbackResponse = {};
     
     if (validatedTask === 'titles') {
-      fallbackResponse.titles = generateFallbackTitles(6, validatedPlatform, validatedContentFormat); // Middle of 5-7 range
+      fallbackResponse.titles = generateFallbackTitles(7, validatedPlatform, validatedContentFormat); // Middle of 5-10 range
     } else if (validatedTask === 'tags_and_hashtags') {
       if (validatedPlatform.toLowerCase() === 'youtube') {
-        fallbackResponse.tags = generateFallbackTags(18); // Middle of 15-20 range
-        fallbackResponse.hashtags = generateFallbackHashtags(18);
+        fallbackResponse.tags = generateFallbackTags(20); // Middle of 15-25 range
+        fallbackResponse.hashtags = generateFallbackHashtags(20);
       } else {
-        fallbackResponse.hashtags = generateFallbackHashtags(18);
+        fallbackResponse.hashtags = generateFallbackHashtags(20);
       }
     }
     
@@ -366,13 +443,13 @@ export default async function handler(req, res) {
       const safeContentFormat = contentFormat || 'long_video';
       
       if (safeTask === 'titles') {
-        emergencyFallback.titles = generateFallbackTitles(6, safePlatform, safeContentFormat);
+        emergencyFallback.titles = generateFallbackTitles(7, safePlatform, safeContentFormat);
       } else {
         if (safePlatform.toLowerCase() === 'youtube') {
-          emergencyFallback.tags = generateFallbackTags(18);
-          emergencyFallback.hashtags = generateFallbackHashtags(18);
+          emergencyFallback.tags = generateFallbackTags(20);
+          emergencyFallback.hashtags = generateFallbackHashtags(20);
         } else {
-          emergencyFallback.hashtags = generateFallbackHashtags(18);
+          emergencyFallback.hashtags = generateFallbackHashtags(20);
         }
       }
       
