@@ -24,4 +24,40 @@ export default defineConfig({
     strictPort: true,
   },
   base: './',
+  build: {
+    // Optimize bundle size and splitting
+    rollupOptions: {
+      output: {
+        manualChunks: {
+          // Vendor chunks for better caching
+          'react-vendor': ['react', 'react-dom', 'react-router-dom'],
+          'ui-vendor': ['lucide-react', 'framer-motion'],
+          'utils-vendor': ['clsx', 'tailwind-merge'],
+        }
+      }
+    },
+    // Reduce chunk size warnings threshold
+    chunkSizeWarningLimit: 1000,
+    // Enable source maps for better debugging
+    sourcemap: false,
+    // Minify for production
+    minify: 'terser',
+    // Target modern browsers for smaller bundles
+    target: 'es2020'
+  },
+  // Alias for shorter imports
+  resolve: {
+    alias: {
+      '@': '/src',
+      '@components': '/src/components',
+      '@pages': '/src/pages',
+      '@utils': '/src/utils',
+      '@assets': '/src/assets'
+    }
+  },
+  // Optimize deps
+  optimizeDeps: {
+    include: ['react', 'react-dom', 'react-router-dom', 'lucide-react', 'framer-motion'],
+    exclude: ['@vercel/analytics']
+  }
 })
