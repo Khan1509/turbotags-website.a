@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { NavLink, Link } from 'react-router-dom';
 import { Menu, X, Heart } from 'lucide-react';
-import { motion } from 'framer-motion';
 
 const CustomNavLink = React.memo(({ to, children, ariaLabel, ...props }) => (
   <NavLink
@@ -53,14 +52,12 @@ const Header = () => {
       <div className="container mx-auto max-w-7xl">
         <div className="flex justify-between items-center">
           <Link to="/" className="flex items-center gap-3 focus:outline-none focus:ring-2 focus:ring-brand-dark-blue focus:ring-offset-2 rounded-lg p-2" aria-label="TurboTags - Go to homepage">
-            <motion.img 
+            <img 
               src="/favicon.svg" 
               alt="TurboTags Logo" 
-              className="w-10 h-10 md:w-12 md:h-12"
+              className="w-10 h-10 md:w-12 md:h-12 transition-transform hover:rotate-180 hover:scale-110"
               loading="eager"
               decoding="async"
-              whileHover={{ rotate: 360 }}
-              transition={{ duration: 0.5 }}
             />
             <div className="text-4xl md:text-5xl font-extrabold text-brand-dark-blue leading-tight transition-transform hover:scale-105">
               TurboTags
@@ -83,12 +80,8 @@ const Header = () => {
       </div>
 
       {isMenuOpen && (
-        <motion.div 
-          initial={{ x: '-100%' }}
-          animate={{ x: 0 }}
-          exit={{ x: '-100%' }}
-          transition={{ type: 'spring', stiffness: 300, damping: 30 }}
-          className="fixed top-0 left-0 h-full w-full bg-brand-dark-blue text-white z-50 flex flex-col items-center justify-center"
+        <div 
+          className={`fixed top-0 left-0 h-full w-full bg-brand-dark-blue text-white z-50 flex flex-col items-center justify-center transition-transform duration-300 ease-out ${isMenuOpen ? 'translate-x-0' : '-translate-x-full'}`}
         >
           <button onClick={closeMenu} className="absolute top-5 right-5 p-2 rounded-md focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-brand-dark-blue" aria-label="Close navigation menu">
             <X size={40} aria-hidden="true" />
@@ -102,7 +95,7 @@ const Header = () => {
               Support Us
             </a>
           </nav>
-        </motion.div>
+        </div>
       )}
     </header>
   );
