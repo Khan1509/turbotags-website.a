@@ -19,26 +19,14 @@ const OptimizedImage = ({
   const generateSrcSet = (originalSrc) => {
     if (!originalSrc) return '';
     
-    // If it's already a data URL or external URL, return as-is
-    if (originalSrc.startsWith('data:') || originalSrc.startsWith('http')) {
-      return originalSrc;
+    // For now, disable srcset generation for local images to avoid 404s
+    // until we have a build process that generates the variants
+    if (!originalSrc.startsWith('data:') && !originalSrc.startsWith('http')) {
+      return originalSrc; // Return simple string for local images
     }
     
-    // For local images, generate multiple sizes
-    const baseSrc = originalSrc.replace(/\.[^/.]+$/, ''); // Remove extension
-    const ext = originalSrc.split('.').pop();
-    
-    // Generate WebP and fallback versions
-    const sizes = [400, 800, 1200, 1600];
-    const webpSrcSet = sizes.map(size => 
-      `${baseSrc}_${size}w.webp ${size}w`
-    ).join(', ');
-    
-    const fallbackSrcSet = sizes.map(size => 
-      `${baseSrc}_${size}w.${ext} ${size}w`
-    ).join(', ');
-    
-    return { webpSrcSet, fallbackSrcSet };
+    // For external URLs and data URLs, return as-is
+    return originalSrc;
   };
 
   // Intersection Observer for lazy loading
@@ -101,10 +89,8 @@ const OptimizedImage = ({
   return (
     <div 
       ref={imageRef} 
-      className={`relative ${className}`}
+      className={`relative w-full ${className}`}
       style={{ 
-        width: width ? `${width}px` : undefined,
-        height: height ? `${height}px` : undefined,
         aspectRatio: width && height ? `${width} / ${height}` : undefined
       }}
     >
