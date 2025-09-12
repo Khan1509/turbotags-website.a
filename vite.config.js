@@ -28,22 +28,40 @@ export default defineConfig({
     // Optimize bundle size and splitting
     rollupOptions: {
       output: {
-        manualChunks: {
+        manualChunks: (id) => {
           // Vendor chunks for better caching
-          'react-vendor': ['react', 'react-dom', 'react-router-dom'],
-          'ui-vendor': ['lucide-react', 'framer-motion'],
-          'utils-vendor': ['clsx', 'tailwind-merge'],
-        }
+          if (id.includes('react') || id.includes('react-dom') || id.includes('react-router-dom')) {
+            return 'react-vendor';
+          }
+          if (id.includes('framer-motion')) {
+            return 'animation-vendor';
+          }
+          if (id.includes('lucide-react')) {
+            return 'icons-vendor';
+          }
+          if (id.includes('firebase')) {
+            return 'firebase-vendor';
+          }
+          if (id.includes('node_modules')) {
+            return 'vendor';
+          }
+        },
+        // Better file naming for caching
+        entryFileNames: 'assets/[name]-[hash].js',
+        chunkFileNames: 'assets/[name]-[hash].js',
+        assetFileNames: 'assets/[name]-[hash].[ext]'
       }
     },
     // Reduce chunk size warnings threshold
-    chunkSizeWarningLimit: 1000,
-    // Enable source maps for better debugging
+    chunkSizeWarningLimit: 500,
+    // Disable source maps for production performance
     sourcemap: false,
-    // Minify for production
+    // Use esbuild for faster builds and better tree shaking
     minify: 'esbuild',
     // Target modern browsers for smaller bundles
-    target: 'es2020'
+    target: ['es2020', 'chrome80', 'firefox78', 'safari14', 'edge88'],
+    // Enable aggressive tree shaking
+    treeShake: true
   },
   // Alias for shorter imports
   resolve: {
@@ -55,9 +73,24 @@ export default defineConfig({
       '@assets': '/src/assets'
     }
   },
-  // Optimize deps
+  // Optimize deps for better startup performance
   optimizeDeps: {
-    include: ['react', 'react-dom', 'react-router-dom', 'lucide-react', 'framer-motion'],
-    exclude: ['@vercel/analytics']
+    include: [
+      'react', 
+      'react-dom', 
+      'react-router-dom', 
+      'react/jsx-runtime',
+      'lucide-react', 
+      'framer-motion',
+      'clsx',
+      'tailwind-merge'
+    ],
+    exclude: ['@vercel/analytics'],
+    // Force pre-bundling for better performance
+    force: false,
+    // Enable esbuild optimizations
+    esbuildOptions: {
+      target: 'es2020'
+    }
   }
 })

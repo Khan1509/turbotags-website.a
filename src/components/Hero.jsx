@@ -55,12 +55,11 @@ const Hero = React.memo(() => {
         </motion.span>
       </motion.div>
 
-      <motion.h1
-        variants={itemVariants}
-        className="text-4xl md:text-5xl font-extrabold mt-6 text-gradient leading-tight will-change-transform"
+      <h1
+        className="text-4xl md:text-5xl font-extrabold mt-6 text-gradient leading-tight"
       >
         Free AI Tags &amp; Hashtags Generator for YouTube, TikTok, Instagram &amp; Facebook
-      </motion.h1>
+      </h1>
 
       <motion.p
         variants={itemVariants}

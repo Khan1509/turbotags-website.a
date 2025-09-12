@@ -1,5 +1,6 @@
 import React from 'react';
 import { Star } from 'lucide-react';
+import OptimizedImage from './ui/OptimizedImage';
 
 const testimonials = [
   {
@@ -40,7 +41,14 @@ const SocialProof = () => {
               </div>
               <p className="text-gray-600 italic mb-6 flex-grow">"{testimonial.quote}"</p>
               <div className="flex items-center">
-                <img src={testimonial.avatar} alt={testimonial.name} className="w-12 h-12 rounded-full mr-4" />
+                <OptimizedImage 
+                  src={testimonial.avatar} 
+                  alt={testimonial.name} 
+                  className="w-12 h-12 rounded-full mr-4" 
+                  width={48} 
+                  height={48}
+                  loading="lazy"
+                />
                 <div>
                   <p className="font-bold text-gray-800">{testimonial.name}</p>
                   <p className="text-sm text-gray-500">{testimonial.role}</p>

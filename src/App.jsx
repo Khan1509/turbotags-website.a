@@ -4,8 +4,9 @@ import MainLayout from './components/layouts/MainLayout';
 import LoadingSpinner from './components/ui/LoadingSpinner';
 import { Analytics } from '@vercel/analytics/react';
 
-// Lazy load all pages for better code splitting
-const HomePage = React.lazy(() => import('./pages/HomePage'));
+// Import HomePage eagerly for better LCP - it's the critical route
+import HomePage from './pages/HomePage';
+// Lazy load all other pages for better code splitting
 const AboutPage = React.lazy(() => import('./pages/AboutPage'));
 const FeaturesPage = React.lazy(() => import('./pages/FeaturesPage'));
 const LegalPage = React.lazy(() => import('./pages/LegalPage'));
@@ -38,11 +39,7 @@ function App() {
     <div>
       <Routes>
         <Route element={<MainLayout />}>
-          <Route index element={
-            <Suspense fallback={<RouteLoadingFallback />}>
-              <HomePage />
-            </Suspense>
-          } />
+          <Route index element={<HomePage />} />
           <Route path="/about" element={
             <Suspense fallback={<RouteLoadingFallback />}>
               <AboutPage />

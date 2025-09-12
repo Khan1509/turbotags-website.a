@@ -57,6 +57,8 @@ const Header = () => {
               src="/favicon.svg" 
               alt="TurboTags Logo" 
               className="w-10 h-10 md:w-12 md:h-12"
+              loading="eager"
+              decoding="async"
               whileHover={{ rotate: 360 }}
               transition={{ duration: 0.5 }}
             />
