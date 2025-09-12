@@ -81,7 +81,7 @@ export default defineConfig({
       'react-router-dom', 
       'react/jsx-runtime',
       'lucide-react', 
-      'framer-motion',
+      'framer-motion', 
       'clsx',
       'tailwind-merge'
     ],
