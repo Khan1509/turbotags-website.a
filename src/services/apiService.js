@@ -38,11 +38,33 @@ export const generateContent = async (prompt, options = {}, task) => {
 
     return await response.json();
   } catch (networkError) {
-    if (networkError.name === 'TypeError' || networkError.message.includes('fetch')) {
-      console.error('Network connection failed:', networkError);
-      throw new Error('Network connection failed. Please check your internet connection.');
+    console.warn('API unavailable, using fallback data:', networkError.message);
+    
+    // Fallback to local JSON data when API is unavailable
+    try {
+      const fallbackResponse = await fetch('/data/fallback.json');
+      const fallbackData = await fallbackResponse.json();
+      
+      if (task === 'titles') {
+        return { titles: fallbackData.titles, fallback: true };
+      } else if (task === 'tags_and_hashtags') {
+        const platform = options.platform || 'youtube';
+        if (platform.toLowerCase() === 'youtube') {
+          return { 
+            tags: fallbackData.tags, 
+            hashtags: fallbackData.hashtags,
+            fallback: true 
+          };
+        } else {
+          return { hashtags: fallbackData.hashtags, fallback: true };
+        }
+      }
+      
+      return fallbackData;
+    } catch (fallbackError) {
+      console.error('Fallback data also failed to load:', fallbackError);
+      throw new Error('Service unavailable and fallback data could not be loaded.');
     }
-    throw networkError; // Re-throw other errors
   }
 };
 
@@ -68,10 +90,15 @@ export const getTrendingTopics = async () => {
 
     return await response.json();
   } catch (networkError) {
-    if (networkError.name === 'TypeError' || networkError.message.includes('fetch')) {
-      console.error('Network connection failed:', networkError);
-      throw new Error('Network connection failed. Please check your internet connection.');
+    console.warn('Trending API unavailable, using fallback data:', networkError.message);
+    
+    // Fallback to local JSON data when API is unavailable
+    try {
+      const fallbackResponse = await fetch('/data/fallback-trending.json');
+      return await fallbackResponse.json();
+    } catch (fallbackError) {
+      console.error('Fallback trending data also failed to load:', fallbackError);
+      throw new Error('Trending topics service unavailable and fallback data could not be loaded.');
     }
-    throw networkError; // Re-throw other errors
   }
 };
