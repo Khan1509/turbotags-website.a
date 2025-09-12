@@ -6,7 +6,7 @@ import { motion } from 'framer-motion';
 import { Calendar, Tag, User, ArrowLeft } from 'lucide-react';
 import LoadingSpinner from '../components/ui/LoadingSpinner';
 import Breadcrumbs from '../components/ui/Breadcrumbs';
-import LazyImage from '../components/ui/LazyImage';
+import OptimizedImage from '../components/ui/OptimizedImage';
 import InternalLinkSuggestions from '../components/ui/InternalLinkSuggestions';
 
 const ContentRenderer = ({ content }) => {
@@ -25,7 +25,7 @@ const ContentRenderer = ({ content }) => {
           </ul>
         );
       case 'image':
-        return <LazyImage key={index} src={block.src} alt={block.alt || 'Blog post image'} className="w-full h-auto rounded-xl shadow-lg my-8" />;
+        return <OptimizedImage key={index} src={block.src} alt={block.alt || 'Blog post image'} className="w-full h-auto rounded-xl shadow-lg my-8" width={800} height={400} />;
       case 'example':
         return <p key={index} className="p-4 bg-gray-100 rounded-lg text-sm font-mono my-4 break-words">{block.children}</p>;
       case 'table':
@@ -131,11 +131,13 @@ const BlogPostPage = () => {
             </div>
           </header>
 
-          <LazyImage 
+          <OptimizedImage 
             src={post.image} 
             alt={post.title} 
             className="w-full h-auto rounded-xl shadow-lg mb-8" 
-            fetchpriority="high"
+            priority={true}
+            width={1200}
+            height={630}
           />
           
           <div className="prose prose-lg max-w-none text-gray-800 leading-relaxed space-y-6 break-words">
