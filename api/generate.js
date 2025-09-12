@@ -201,7 +201,7 @@ function validateTopicRelevance(response, userTopic) {
 }
 
 // Helper to call OpenRouter API with timeout and optimization
-async function callOpenRouter(model, systemPrompt, userPrompt, timeout = 8000) {
+async function callOpenRouter(model, systemPrompt, userPrompt, timeout = 5000) {
   const OPENROUTER_API_KEY = process.env.OPENROUTER_API_KEY;
   if (!OPENROUTER_API_KEY || OPENROUTER_API_KEY.startsWith('YOUR_')) {
     throw new Error('OPENROUTER_API_KEY is not set or is a placeholder.');

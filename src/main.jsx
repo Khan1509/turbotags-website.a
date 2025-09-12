@@ -4,6 +4,10 @@ import { BrowserRouter } from 'react-router-dom';
 import App from './App.jsx';
 import ErrorBoundary from './components/ErrorBoundary.jsx';
 import './index.css';
+import { initPerformanceMonitoring } from './utils/performanceMonitoring';
+
+// Initialize performance monitoring
+initPerformanceMonitoring();
 
 // Get the root element from the HTML.
 const rootElement = document.getElementById('root');
