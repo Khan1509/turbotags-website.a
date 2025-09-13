@@ -200,8 +200,9 @@ function validateTopicRelevance(response, userTopic) {
   return relevantWords >= Math.max(1, Math.floor(topicWords.length * 0.2));
 }
 
-// Helper to call OpenRouter API with timeout and optimization
-async function callOpenRouter(model, systemPrompt, userPrompt, timeout = 5000) {
+// Helper to call OpenRouter API with timeout and optimization  
+// Updated for modern models with extended timeout for better quality generation
+async function callOpenRouter(model, systemPrompt, userPrompt, timeout = 8000) {
   const OPENROUTER_API_KEY = process.env.OPENROUTER_API_KEY;
   if (!OPENROUTER_API_KEY || OPENROUTER_API_KEY.startsWith('YOUR_')) {
     throw new Error('OPENROUTER_API_KEY is not set or is a placeholder.');
@@ -275,20 +276,17 @@ export default async function handler(req, res) {
 
     const isEnglish = validatedLanguage.toLowerCase() === 'english' || validatedLanguage.toLowerCase() === 'en';
 
-    // Define model chains for reliability based on language
-    const englishModels = [
-      "mistralai/mistral-7b-instruct",
-      "google/gemini-flash-1.5",
-      "anthropic/claude-3-haiku",
-      "meta-llama/llama-3.1-8b-instruct"
+    // Define new high-quality model chain for robust 3-model fallback system
+    // Updated as per user requirements with latest models for better generation quality
+    const modernModels = [
+      "google/gemini-2.5-flash-lite",           // Primary: Fast and efficient
+      "openai/gpt-4.1-nano",                   // Secondary: High quality reasoning  
+      "google/gemini-2.5-flash-lite-preview-06-17"  // Tertiary: Latest preview features
     ];
-    const nonEnglishModels = [
-      "google/gemini-flash-1.5", // Primary for non-English
-      "mistralai/mistral-7b-instruct",
-      "meta-llama/llama-3.1-8b-instruct",
-      "anthropic/claude-3-haiku"
-    ];
-    const modelsToTry = isEnglish ? englishModels : nonEnglishModels;
+    
+    // Use the same models for both English and non-English for consistency
+    // These models support multiple languages effectively
+    const modelsToTry = modernModels;
     
     // Create structured user prompt for better topic anchoring
     const structuredPrompt = JSON.stringify({
@@ -358,29 +356,30 @@ export default async function handler(req, res) {
     let rawResult;
     let lastError = null;
 
-    // Try LLM models with validation-based fallback
-    for (const model of modelsToTry) {
+    // Robust 3-model fallback system: model1 → model2 → model3 → fallback.json
+    for (let i = 0; i < modelsToTry.length; i++) {
+      const model = modelsToTry[i];
       try {
-        console.log(`Trying model: ${model} for language: ${validatedLanguage}`);
-        rawResult = await callOpenRouter(model, systemPrompt, structuredPrompt);
+        console.log(`[API] Attempting model ${i + 1}/3: ${model} for language: ${validatedLanguage}`);
+        rawResult = await callOpenRouter(model, systemPrompt, structuredPrompt, 8000); // Extended timeout for better models
         
         // Check for API-level errors
         if (rawResult.error) {
-          console.warn(`Model ${model} returned error: ${rawResult.error}`);
+          console.warn(`[API] Model ${model} returned error: ${rawResult.error}`);
           lastError = new Error(rawResult.error);
           continue; // Try next model
         }
         
         // Validate language if not English
         if (!validateLanguage(rawResult, validatedLanguage)) {
-          console.warn(`Model ${model} failed language validation for: ${validatedLanguage}`);
+          console.warn(`[API] Model ${model} failed language validation for: ${validatedLanguage}`);
           lastError = new Error('Language validation failed');
           continue; // Try next model
         }
         
         // Validate topic relevance
         if (!validateTopicRelevance(rawResult, prompt)) {
-          console.warn(`Model ${model} failed topic relevance validation`);
+          console.warn(`[API] Model ${model} failed topic relevance validation`);
           lastError = new Error('Topic relevance validation failed');
           continue; // Try next model
         }
@@ -394,43 +393,92 @@ export default async function handler(req, res) {
         );
         
         // Successful processing - return result
-        console.log(`Model ${model} succeeded`);
+        console.log(`[API] SUCCESS: Model ${model} (attempt ${i + 1}/3) succeeded`);
         res.setHeader('Cache-Control', 'no-cache');
-        return res.status(200).json(processedResult);
+        return res.status(200).json({
+          ...processedResult,
+          model_used: model,
+          generation_source: 'api'
+        });
         
       } catch (error) {
-        console.warn(`Model ${model} failed: ${error.message}`);
+        console.warn(`[API] Model ${model} (attempt ${i + 1}/3) failed: ${error.message}`);
         lastError = error;
         // Continue to next model
       }
     }
 
-    // All models failed - generate fallback response using our validation system
-    console.error(`All models failed. Last error: ${lastError ? lastError.message : 'Unknown error'}. Generating validated fallback.`);
+    // All 3 models failed - use comprehensive fallback.json as final backup
+    console.error(`[FALLBACK] All 3 models failed. Last error: ${lastError ? lastError.message : 'Unknown error'}. Using fallback.json as final backup.`);
     
-    let fallbackResponse = {};
-    
-    if (validatedTask === 'titles') {
-      fallbackResponse.titles = generateFallbackTitles(7, validatedPlatform, validatedContentFormat); // Middle of 5-10 range
-    } else if (validatedTask === 'tags_and_hashtags') {
-      if (validatedPlatform.toLowerCase() === 'youtube') {
-        fallbackResponse.tags = generateFallbackTags(20); // Middle of 15-25 range
-        fallbackResponse.hashtags = generateFallbackHashtags(20);
-      } else {
-        fallbackResponse.hashtags = generateFallbackHashtags(20);
+    try {
+      // Try to load enhanced fallback.json first
+      const fallbackPath = path.join(process.cwd(), 'public', 'data', 'fallback.json');
+      const fallbackData = await fs.readFile(fallbackPath, 'utf-8');
+      const parsedFallback = JSON.parse(fallbackData);
+      
+      // Process fallback data according to the request
+      let fallbackResponse = {};
+      
+      if (validatedTask === 'titles') {
+        fallbackResponse.titles = parsedFallback.titles || generateFallbackTitles(7, validatedPlatform, validatedContentFormat);
+      } else if (validatedTask === 'tags_and_hashtags') {
+        if (validatedPlatform.toLowerCase() === 'youtube') {
+          fallbackResponse.tags = parsedFallback.tags || generateFallbackTags(20);
+          fallbackResponse.hashtags = parsedFallback.hashtags || generateFallbackHashtags(20);
+        } else {
+          // Instagram/TikTok/Facebook: hashtags only
+          fallbackResponse.hashtags = parsedFallback.hashtags || generateFallbackHashtags(20);
+        }
       }
+      
+      // Process through validation system for consistency
+      const processedFallback = processAndValidateResponse(
+        fallbackResponse, 
+        validatedTask, 
+        validatedPlatform, 
+        validatedContentFormat
+      );
+      
+      console.log(`[FALLBACK] Using fallback.json data successfully`);
+      res.setHeader('Cache-Control', 'no-cache');
+      return res.status(200).json({
+        ...processedFallback,
+        generation_source: 'fallback_json',
+        message: 'Using reliable fallback data - all AI models temporarily unavailable'
+      });
+      
+    } catch (fallbackError) {
+      // If fallback.json fails, generate programmatic fallback
+      console.error(`[EMERGENCY] Fallback.json failed: ${fallbackError.message}. Using programmatic fallback.`);
+      
+      let emergencyResponse = {};
+      
+      if (validatedTask === 'titles') {
+        emergencyResponse.titles = generateFallbackTitles(7, validatedPlatform, validatedContentFormat);
+      } else if (validatedTask === 'tags_and_hashtags') {
+        if (validatedPlatform.toLowerCase() === 'youtube') {
+          emergencyResponse.tags = generateFallbackTags(20);
+          emergencyResponse.hashtags = generateFallbackHashtags(20);
+        } else {
+          emergencyResponse.hashtags = generateFallbackHashtags(20);
+        }
+      }
+      
+      const processedEmergency = processAndValidateResponse(
+        emergencyResponse, 
+        validatedTask, 
+        validatedPlatform, 
+        validatedContentFormat
+      );
+      
+      res.setHeader('Cache-Control', 'no-cache');
+      return res.status(200).json({
+        ...processedEmergency,
+        generation_source: 'programmatic_fallback',
+        message: 'Service temporarily unavailable - using emergency content generation'
+      });
     }
-    
-    // Process the fallback through our validation system for consistency
-    const processedFallback = processAndValidateResponse(
-      fallbackResponse, 
-      validatedTask, 
-      validatedPlatform, 
-      validatedContentFormat
-    );
-    
-    res.setHeader('Cache-Control', 'no-cache');
-    return res.status(200).json(processedFallback);
 
   } catch (error) {
     console.error('Critical error in generate handler:', error.message);
