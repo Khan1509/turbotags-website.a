@@ -191,11 +191,22 @@ function validateLanguage(response, expectedLanguage) {
 }
 
 // Helper to validate if response is on-topic
-function validateTopicRelevance(response, userTopic) {
+function validateTopicRelevance(response, userTopic, expectedLanguage = 'english') {
   const responseText = JSON.stringify(response).toLowerCase();
   const topicWords = userTopic.toLowerCase().split(/\W+/).filter(word => word.length > 3);
   
-  // Check if at least some topic keywords appear in the response
+  // For cross-language generation (English topic → non-English content), 
+  // skip literal keyword matching as translated content won't contain original words
+  if (expectedLanguage.toLowerCase() !== 'english' && expectedLanguage.toLowerCase() !== 'en') {
+    console.log(`[Topic Validation] Skipping keyword validation for cross-language generation: ${expectedLanguage}`);
+    return true; // Trust the AI model's adherence to the system prompt for non-English
+  }
+  
+  if (topicWords.length === 0) {
+    return true; // No meaningful topic words to validate against
+  }
+  
+  // For English content, check if at least some topic keywords appear in the response
   let relevantWords = 0;
   topicWords.forEach(word => {
     if (responseText.includes(word)) {
@@ -203,8 +214,16 @@ function validateTopicRelevance(response, userTopic) {
     }
   });
   
-  // Require at least 20% of topic words to appear in response
-  return relevantWords >= Math.max(1, Math.floor(topicWords.length * 0.2));
+  // Lenient validation for English - require at least 10% word match or minimum 1 word
+  // This allows for creative hashtags and synonyms while catching completely off-topic content
+  const minRequiredWords = Math.max(1, Math.ceil(topicWords.length * 0.1));
+  const isRelevant = relevantWords >= minRequiredWords;
+  
+  if (!isRelevant) {
+    console.warn(`Topic relevance check: Found ${relevantWords}/${topicWords.length} topic words. Topic: "${userTopic}". Needed: ${minRequiredWords}. Language: ${expectedLanguage}`);
+  }
+  
+  return isRelevant;
 }
 
 // Helper to call OpenRouter API with timeout and optimization  
@@ -385,8 +404,8 @@ export default async function handler(req, res) {
         }
         
         // Validate topic relevance
-        if (!validateTopicRelevance(rawResult, prompt)) {
-          console.warn(`[API] Model ${model} failed topic relevance validation`);
+        if (!validateTopicRelevance(rawResult, prompt, validatedLanguage)) {
+          console.warn(`[API] Model ${model} failed topic relevance validation for language: ${validatedLanguage}`);
           lastError = new Error('Topic relevance validation failed');
           continue; // Try next model
         }
