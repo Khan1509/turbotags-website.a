@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect, useCallback, useRef } from 'react';
 import { motion } from 'framer-motion';
 import { Youtube, Instagram, Facebook, Type, Hash, Zap, RotateCcw } from 'lucide-react';
 import TikTokIcon from './icons/TikTokIcon';
@@ -28,6 +28,7 @@ const TagGenerator = ({ initialTab = 'youtube', initialTask = 'tags_and_hashtags
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
   const [openDropdown, setOpenDropdown] = useState(null);
+  const generateButtonRef = useRef(null);
 
   const handleTabChange = (tabId) => {
     setActiveTab(tabId);
@@ -43,6 +44,12 @@ const TagGenerator = ({ initialTab = 'youtube', initialTask = 'tags_and_hashtags
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    
+    // Robust check: only allow submission if it came from the actual Generate button
+    if (e.nativeEvent.submitter !== generateButtonRef.current) {
+      return;
+    }
+    
     if (!prompt.trim()) {
       setError('Please enter a topic or keyword.');
       return;
@@ -144,31 +151,34 @@ const TagGenerator = ({ initialTab = 'youtube', initialTask = 'tags_and_hashtags
           </div>
         </div>
 
-        {/* Action Buttons - Clearly separated with more spacing */}
+        {/* Action Buttons - Side by side layout */}
         <div className="pt-6 space-y-4">
-          <button
-            type="submit"
-            disabled={isLoading}
-            className="w-full btn btn-secondary text-lg disabled:bg-gray-400 disabled:cursor-not-allowed disabled:shadow-none"
-          >
-            {isLoading ? (
-              <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-white"></div>
-            ) : (
-              <>
-                <Zap className="mr-2 h-5 w-5" />
-                Generate Now
-              </>
-            )}
-          </button>
-          <button
-            type="button"
-            onClick={handleReset}
-            disabled={isLoading}
-            className="w-full btn btn-reset text-sm disabled:opacity-50 disabled:cursor-not-allowed"
-          >
-            <RotateCcw className="mr-2 h-4 w-4" />
-            Reset Form
-          </button>
+          <div className="flex flex-col sm:flex-row gap-3">
+            <button
+              ref={generateButtonRef}
+              type="submit"
+              disabled={isLoading}
+              className="flex-1 btn btn-secondary text-lg disabled:bg-gray-400 disabled:cursor-not-allowed disabled:shadow-none"
+            >
+              {isLoading ? (
+                <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-white"></div>
+              ) : (
+                <>
+                  <Zap className="mr-2 h-5 w-5" />
+                  Generate Now
+                </>
+              )}
+            </button>
+            <button
+              type="button"
+              onClick={handleReset}
+              disabled={isLoading}
+              className="flex-1 btn btn-reset text-sm disabled:opacity-50 disabled:cursor-not-allowed"
+            >
+              <RotateCcw className="mr-2 h-4 w-4" />
+              Reset Form
+            </button>
+          </div>
           <p className="text-center text-xs text-brand-medium-grey mt-2">
             100% Free & Unlimited Generations
           </p>
