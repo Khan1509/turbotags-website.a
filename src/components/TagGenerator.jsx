@@ -92,7 +92,35 @@ const TagGenerator = ({ initialTab = 'youtube', initialTask = 'tags_and_hashtags
   }, [closeDropdowns]);
 
   return (
-    <section id="tag-generator" className="bg-white p-4 sm:p-6 rounded-2xl shadow-xl border border-gray-200/50">
+    <section id="tag-generator" className="relative bg-white p-4 sm:p-6 rounded-2xl shadow-xl border border-gray-200/50 overflow-hidden">
+      {/* Animated border highlight */}
+      <motion.div
+        className="absolute inset-0 rounded-2xl"
+        style={{
+          background: 'linear-gradient(90deg, transparent, rgba(139, 92, 246, 0.3), transparent)',
+          backgroundSize: '200% 100%',
+        }}
+        animate={{
+          backgroundPosition: ['0% 0%', '200% 0%', '0% 0%'],
+        }}
+        transition={{
+          duration: 3,
+          repeat: Infinity,
+          ease: "easeInOut",
+        }}
+      />
+      <motion.div
+        className="absolute inset-0 rounded-2xl border-2 border-purple-500/20"
+        animate={{
+          borderColor: ['rgba(139, 92, 246, 0.2)', 'rgba(139, 92, 246, 0.5)', 'rgba(139, 92, 246, 0.2)'],
+        }}
+        transition={{
+          duration: 2,
+          repeat: Infinity,
+          ease: "easeInOut",
+        }}
+      />
+      <div className="relative z-10">
       {error && <MessageBox message={error} type="error" onDismiss={() => setError(null)} />}
       
       <div className="relative flex border-b border-gray-200 mb-6 overflow-x-auto">
@@ -170,19 +198,41 @@ const TagGenerator = ({ initialTab = 'youtube', initialTask = 'tags_and_hashtags
         </div>
 
         {/* Settings Section - Clearly separated */}
-        <div className="bg-gray-50 p-4 rounded-lg border border-gray-200">
-          <h3 className="text-sm font-semibold text-gray-700 mb-4">Content Settings</h3>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+        <motion.div 
+          className="relative bg-gray-50 p-4 rounded-lg border border-gray-200 overflow-hidden"
+          whileHover={{
+            borderColor: 'rgba(139, 92, 246, 0.4)',
+          }}
+        >
+          <motion.div
+            className="absolute inset-0 border border-purple-400/30 rounded-lg"
+            initial={{ opacity: 0 }}
+            whileHover={{ opacity: 1 }}
+            transition={{ duration: 0.3 }}
+          />
+          <h3 className="text-sm font-semibold text-gray-700 mb-4 relative z-10">Content Settings</h3>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 relative z-10">
             <ContentFormatSelector platform={activeTab} value={contentFormat} onChange={setContentFormat} showDropdown={openDropdown === 'format'} setShowDropdown={(show) => setOpenDropdown(show ? 'format' : null)} />
             <LanguageSelector value={language} onChange={setLanguage} showDropdown={openDropdown === 'language'} setShowDropdown={(show) => setOpenDropdown(show ? 'language' : null)} />
             <RegionSelector value={region} onChange={setRegion} showDropdown={openDropdown === 'region'} setShowDropdown={(show) => setOpenDropdown(show ? 'region' : null)} />
           </div>
-        </div>
+        </motion.div>
         
         {/* Content Type Selection - Clearly separated */}
-        <div className="bg-blue-50 p-4 rounded-lg border border-blue-200">
-          <h3 className="text-sm font-semibold text-gray-700 mb-4">What would you like to generate?</h3>
-          <div className="flex flex-col sm:flex-row gap-3">
+        <motion.div 
+          className="relative bg-blue-50 p-4 rounded-lg border border-blue-200 overflow-hidden"
+          whileHover={{
+            borderColor: 'rgba(59, 130, 246, 0.4)',
+          }}
+        >
+          <motion.div
+            className="absolute inset-0 border border-blue-400/30 rounded-lg"
+            initial={{ opacity: 0 }}
+            whileHover={{ opacity: 1 }}
+            transition={{ duration: 0.3 }}
+          />
+          <h3 className="text-sm font-semibold text-gray-700 mb-4 relative z-10">What would you like to generate?</h3>
+          <div className="flex flex-col sm:flex-row gap-3 relative z-10">
             <button type="button" onClick={() => setTask('tags_and_hashtags')} className={`flex-1 btn ${task === 'tags_and_hashtags' ? 'btn-secondary' : 'btn-accent'}`}>
                 <Hash className="mr-2 h-5 w-5" /> Generate Tags & Hashtags
             </button>
@@ -190,7 +240,7 @@ const TagGenerator = ({ initialTab = 'youtube', initialTask = 'tags_and_hashtags
                 <Type className="mr-2 h-5 w-5" /> Generate Titles
             </button>
           </div>
-        </div>
+        </motion.div>
 
         {/* Action Buttons - Side by side layout */}
         <div className="pt-6 space-y-4">
@@ -241,6 +291,7 @@ const TagGenerator = ({ initialTab = 'youtube', initialTask = 'tags_and_hashtags
           )}
         </div>
       )}
+      </div>
     </section>
   );
 };

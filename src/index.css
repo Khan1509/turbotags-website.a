@@ -155,6 +155,44 @@
   }
 }
 
+/* Animated border highlights for main content boxes */
+.border-highlight {
+  position: relative;
+  transition: all 0.3s ease;
+}
+
+.border-highlight::before {
+  content: '';
+  position: absolute;
+  inset: -2px;
+  border-radius: inherit;
+  background: linear-gradient(45deg, 
+    transparent, 
+    rgba(139, 92, 246, 0.4), 
+    rgba(59, 130, 246, 0.4), 
+    transparent,
+    rgba(139, 92, 246, 0.4)
+  );
+  background-size: 200% 200%;
+  animation: borderShine 3s ease-in-out infinite;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  z-index: -1;
+}
+
+.border-highlight:hover::before {
+  opacity: 1;
+}
+
+@keyframes borderShine {
+  0%, 100% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
@@ -167,5 +205,9 @@
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
     scroll-behavior: auto !important;
+  }
+  
+  .border-highlight::before {
+    animation: none !important;
   }
 }
