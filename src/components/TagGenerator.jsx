@@ -121,22 +121,31 @@ const TagGenerator = ({ initialTab = 'youtube', initialTask = 'tags_and_hashtags
           />
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-          <ContentFormatSelector platform={activeTab} value={contentFormat} onChange={setContentFormat} showDropdown={openDropdown === 'format'} setShowDropdown={(show) => setOpenDropdown(show ? 'format' : null)} />
-          <LanguageSelector value={language} onChange={setLanguage} showDropdown={openDropdown === 'language'} setShowDropdown={(show) => setOpenDropdown(show ? 'language' : null)} />
-          <RegionSelector value={region} onChange={setRegion} showDropdown={openDropdown === 'region'} setShowDropdown={(show) => setOpenDropdown(show ? 'region' : null)} />
+        {/* Settings Section - Clearly separated */}
+        <div className="bg-gray-50 p-4 rounded-lg border border-gray-200">
+          <h3 className="text-sm font-semibold text-gray-700 mb-4">Content Settings</h3>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <ContentFormatSelector platform={activeTab} value={contentFormat} onChange={setContentFormat} showDropdown={openDropdown === 'format'} setShowDropdown={(show) => setOpenDropdown(show ? 'format' : null)} />
+            <LanguageSelector value={language} onChange={setLanguage} showDropdown={openDropdown === 'language'} setShowDropdown={(show) => setOpenDropdown(show ? 'language' : null)} />
+            <RegionSelector value={region} onChange={setRegion} showDropdown={openDropdown === 'region'} setShowDropdown={(show) => setOpenDropdown(show ? 'region' : null)} />
+          </div>
         </div>
         
-        <div className="flex flex-col sm:flex-row gap-4">
+        {/* Content Type Selection - Clearly separated */}
+        <div className="bg-blue-50 p-4 rounded-lg border border-blue-200">
+          <h3 className="text-sm font-semibold text-gray-700 mb-4">What would you like to generate?</h3>
+          <div className="flex flex-col sm:flex-row gap-3">
             <button type="button" onClick={() => setTask('tags_and_hashtags')} className={`flex-1 btn ${task === 'tags_and_hashtags' ? 'btn-secondary' : 'btn-accent'}`}>
                 <Hash className="mr-2 h-5 w-5" /> Generate Tags & Hashtags
             </button>
             <button type="button" onClick={() => setTask('titles')} className={`flex-1 btn ${task === 'titles' ? 'btn-secondary' : 'btn-accent'}`}>
                 <Type className="mr-2 h-5 w-5" /> Generate Titles
             </button>
+          </div>
         </div>
 
-        <div className="pt-4 space-y-3">
+        {/* Action Buttons - Clearly separated with more spacing */}
+        <div className="pt-6 space-y-4">
           <button
             type="submit"
             disabled={isLoading}
