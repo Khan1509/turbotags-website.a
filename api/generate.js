@@ -168,15 +168,22 @@ function validateLanguage(response, expectedLanguage) {
     return true; // Skip validation for English as it's the default
   }
   
-  // Check if response contains content that looks like it's in the expected language
+  // For non-English languages, be more lenient with validation
+  // Many hashtags and content naturally contain English words (brands, tech terms, etc.)
   const responseText = JSON.stringify(response).toLowerCase();
   
-  // Simple heuristic: if response contains mostly English words and expected language is not English
-  const englishPatterns = /\b(the|and|or|but|in|on|at|to|for|of|with|by)\b/g;
+  // Simple heuristic: only fail if response is OVERWHELMINGLY English
+  const englishPatterns = /\b(the|and|or|but|in|on|at|to|for|of|with|by|this|that|these|those|from|into|about|after|before|during)\b/g;
   const englishMatches = (responseText.match(englishPatterns) || []).length;
   
-  // If we find many English patterns and expected language is not English, it's likely wrong
-  if (englishMatches > 3 && expectedLanguage.toLowerCase() !== 'english') {
+  // Count total words to get a ratio
+  const totalWords = responseText.split(/\s+/).length;
+  const englishRatio = totalWords > 0 ? englishMatches / totalWords : 0;
+  
+  // Only fail if more than 70% of content appears to be English
+  // This allows for mixed content, brand names, and international terms
+  if (englishRatio > 0.7 && expectedLanguage.toLowerCase() !== 'english') {
+    console.warn(`Language validation: ${englishMatches}/${totalWords} English words (${(englishRatio * 100).toFixed(1)}%) for expected language: ${expectedLanguage}`);
     return false;
   }
   
