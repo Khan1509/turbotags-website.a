@@ -2,6 +2,7 @@ import React, { Suspense } from 'react';
 import { Routes, Route, Navigate } from 'react-router-dom';
 import MainLayout from './components/layouts/MainLayout';
 import LoadingSpinner from './components/ui/LoadingSpinner';
+import TargetCursor from './components/ui/TargetCursor';
 import { Analytics } from '@vercel/analytics/react';
 
 // Import HomePage eagerly for better LCP - it's the critical route
@@ -36,7 +37,7 @@ const RouteLoadingFallback = () => (
 
 function App() {
   return (
-    <div>
+    <div style={{ cursor: 'none' }}>
       <Routes>
         <Route element={<MainLayout />}>
           <Route index element={<HomePage />} />
@@ -124,6 +125,7 @@ function App() {
         </Route>
       </Routes>
       <Analytics />
+      <TargetCursor />
     </div>
   );
 }

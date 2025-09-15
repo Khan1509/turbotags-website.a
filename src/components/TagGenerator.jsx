@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useCallback, useRef } from 'react';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 import { Youtube, Instagram, Facebook, Type, Hash, Zap, RotateCcw } from 'lucide-react';
 import TikTokIcon from './icons/TikTokIcon';
 import ContentFormatSelector from './selectors/ContentFormatSelector';
@@ -95,20 +95,61 @@ const TagGenerator = ({ initialTab = 'youtube', initialTask = 'tags_and_hashtags
     <section id="tag-generator" className="bg-white p-4 sm:p-6 rounded-2xl shadow-xl border border-gray-200/50">
       {error && <MessageBox message={error} type="error" onDismiss={() => setError(null)} />}
       
-      <div className="flex border-b border-gray-200 mb-6 overflow-x-auto">
+      <div className="relative flex border-b border-gray-200 mb-6 overflow-x-auto">
+        {/* Gooey background blob */}
+        <motion.div
+          className="absolute bottom-0 bg-gradient-to-r from-purple-500 via-pink-500 to-orange-500 opacity-20 rounded-t-2xl"
+          style={{
+            filter: 'url(#gooey)',
+          }}
+          layoutId="gooeyBlob"
+          initial={false}
+          transition={{
+            type: "spring",
+            stiffness: 200,
+            damping: 25,
+            mass: 0.8
+          }}
+        />
+        
+        {/* SVG filter for gooey effect */}
+        <svg width="0" height="0" className="absolute">
+          <defs>
+            <filter id="gooey">
+              <feGaussianBlur in="SourceGraphic" stdDeviation="3" result="blur" />
+              <feColorMatrix in="blur" mode="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 18 -7" result="gooey" />
+              <feBlend in="SourceGraphic" in2="gooey" />
+            </filter>
+          </defs>
+        </svg>
+
         {platformTabs.map(tab => (
-          <button
+          <motion.button
             key={tab.id}
             onClick={() => handleTabChange(tab.id)}
-            className={`flex-shrink-0 flex items-center gap-2 px-4 py-3 font-semibold transition-colors duration-200 focus:outline-none ${
+            className={`relative flex-shrink-0 flex items-center gap-2 px-4 py-3 font-semibold transition-colors duration-200 focus:outline-none ${
               activeTab === tab.id
-                ? 'border-b-2 border-brand-blue text-brand-blue'
+                ? 'text-purple-600'
                 : 'text-brand-medium-grey hover:text-brand-dark-grey'
             }`}
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
           >
-            <tab.icon className="h-5 w-5" />
-            <span>{tab.name}</span>
-          </button>
+            {activeTab === tab.id && (
+              <motion.div
+                className="absolute inset-0 bg-gradient-to-r from-purple-500 via-pink-500 to-orange-500 opacity-10 rounded-lg"
+                layoutId="gooeyBackground"
+                initial={false}
+                transition={{
+                  type: "spring",
+                  stiffness: 300,
+                  damping: 30
+                }}
+              />
+            )}
+            <tab.icon className="h-5 w-5 relative z-10" />
+            <span className="relative z-10">{tab.name}</span>
+          </motion.button>
         ))}
       </div>
 

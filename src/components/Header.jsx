@@ -1,13 +1,14 @@
-import React, { useState, useEffect } from 'react';
-import { NavLink, Link } from 'react-router-dom';
+import React, { useState, useEffect, useRef } from 'react';
+import { NavLink, Link, useLocation } from 'react-router-dom';
 import { Menu, X, Heart } from 'lucide-react';
+import { motion } from 'framer-motion';
 
 const CustomNavLink = React.memo(({ to, children, ariaLabel, ...props }) => (
   <NavLink
     to={to}
     className={({ isActive }) =>
-      `text-brand-dark-grey transition hover:text-brand-blue font-medium focus:outline-none focus:ring-2 focus:ring-brand-blue focus:ring-offset-2 rounded-md px-2 py-1 ${
-        isActive ? 'text-brand-blue' : ''
+      `relative z-10 text-brand-dark-grey transition-colors duration-300 hover:text-brand-blue font-medium focus:outline-none focus:ring-2 focus:ring-brand-blue focus:ring-offset-2 rounded-md px-4 py-2 ${
+        isActive ? 'text-white nav-active' : ''
       }`
     }
     aria-label={ariaLabel || children}
@@ -30,6 +31,9 @@ const MobileNavLink = React.memo(({ to, children, onClick, ariaLabel }) => (
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [pillStyle, setPillStyle] = useState({});
+  const navRef = useRef(null);
+  const location = useLocation();
 
   useEffect(() => {
     if (typeof window === 'undefined') return;
@@ -44,6 +48,29 @@ const Header = () => {
     if (typeof document === 'undefined') return;
     document.body.style.overflow = isMenuOpen ? 'hidden' : '';
   }, [isMenuOpen]);
+
+  useEffect(() => {
+    // Update pill position when route changes
+    const updatePillPosition = () => {
+      if (!navRef.current) return;
+      
+      const activeLink = navRef.current.querySelector('.nav-active');
+      if (activeLink) {
+        const navRect = navRef.current.getBoundingClientRect();
+        const activeRect = activeLink.getBoundingClientRect();
+        
+        setPillStyle({
+          left: activeRect.left - navRect.left,
+          width: activeRect.width,
+          height: activeRect.height,
+        });
+      }
+    };
+
+    // Small delay to ensure DOM is updated
+    const timeoutId = setTimeout(updatePillPosition, 50);
+    return () => clearTimeout(timeoutId);
+  }, [location.pathname]);
 
   const closeMenu = () => setIsMenuOpen(false);
 
@@ -64,11 +91,19 @@ const Header = () => {
             </div>
           </Link>
           
-          <nav className="hidden lg:flex items-center space-x-5" role="navigation" aria-label="Main navigation">
+          <nav ref={navRef} className="hidden lg:flex items-center space-x-1 relative bg-gray-100 rounded-full p-1" role="navigation" aria-label="Main navigation">
+            {/* Animated pill background */}
+            <motion.div
+              className="absolute bg-gradient-to-r from-blue-500 to-purple-600 rounded-full shadow-lg"
+              style={pillStyle}
+              initial={false}
+              animate={pillStyle}
+              transition={{ type: "spring", stiffness: 300, damping: 30 }}
+            />
             <CustomNavLink to="/" ariaLabel="Go to homepage">Home</CustomNavLink>
             <CustomNavLink to="/features" ariaLabel="Go to Features page">Features</CustomNavLink>
             <CustomNavLink to="/blog" ariaLabel="Go to Blog">Blog</CustomNavLink>
-            <a href="https://ko-fi.com/turbotags1509" target="_blank" rel="noopener noreferrer" className="bg-brand-dark-blue text-white px-4 py-2 rounded-lg flex items-center hover:opacity-90 transition focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-brand-dark-blue" aria-label="Support TurboTags on Ko-fi - Opens in new tab">
+            <a href="https://ko-fi.com/turbotags1509" target="_blank" rel="noopener noreferrer" className="relative z-10 bg-brand-dark-blue text-white px-4 py-2 ml-3 rounded-lg flex items-center hover:opacity-90 transition focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-brand-dark-blue" aria-label="Support TurboTags on Ko-fi - Opens in new tab">
               <Heart className="mr-2 h-4 w-4" aria-hidden="true" /> Support
             </a>
           </nav>
