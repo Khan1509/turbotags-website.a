@@ -7,7 +7,13 @@ const CookieConsent = () => {
 
   useEffect(() => {
     try {
-      if (!localStorage.getItem('cookie_consent')) {
+      const consent = localStorage.getItem('cookie_consent');
+      // Migrate legacy 'true' value to 'accepted'
+      if (consent === 'true') {
+        localStorage.setItem('cookie_consent', 'accepted');
+      }
+      // Show banner only if no consent recorded
+      if (!consent || consent === null) {
         setIsVisible(true);
       }
     } catch (error) {
@@ -17,7 +23,16 @@ const CookieConsent = () => {
 
   const handleAccept = () => {
     try {
-      localStorage.setItem('cookie_consent', 'true');
+      localStorage.setItem('cookie_consent', 'accepted');
+    } catch (error) {
+      console.error('Failed to write to localStorage:', error);
+    }
+    setIsVisible(false);
+  };
+
+  const handleReject = () => {
+    try {
+      localStorage.setItem('cookie_consent', 'rejected');
     } catch (error) {
       console.error('Failed to write to localStorage:', error);
     }
@@ -42,14 +57,20 @@ const CookieConsent = () => {
               We use cookies to improve your experience. By using our site, you agree to our use of cookies.
             </p>
           </div>
-          <div className="flex items-center gap-4">
+          <div className="flex items-center gap-3">
             <button
               onClick={handleAccept}
-              className="bg-tt-primary text-white px-4 py-2 rounded-lg text-sm font-semibold hover:bg-tt-primary-dark transition-colors"
+              className="bg-white text-[#5c6284] px-4 py-2 rounded-lg text-sm font-semibold hover:bg-gray-100 transition-colors border border-white"
             >
               Accept
             </button>
-            <button onClick={() => setIsVisible(false)} className="p-2 rounded-full hover:bg-gray-700 transition-colors" aria-label="Close cookie consent banner">
+            <button
+              onClick={handleReject}
+              className="bg-transparent text-white px-4 py-2 rounded-lg text-sm font-semibold hover:bg-white/10 transition-colors border border-white"
+            >
+              Reject
+            </button>
+            <button onClick={() => setIsVisible(false)} className="p-2 rounded-full hover:bg-white/10 transition-colors" aria-label="Close cookie consent banner">
                 <X className="h-5 w-5" />
             </button>
           </div>

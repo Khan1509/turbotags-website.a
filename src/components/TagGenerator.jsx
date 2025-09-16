@@ -92,42 +92,14 @@ const TagGenerator = ({ initialTab = 'youtube', initialTask = 'tags_and_hashtags
   }, [closeDropdowns]);
 
   return (
-    <section id="tag-generator" className="relative bg-white p-4 sm:p-6 rounded-2xl shadow-xl border border-gray-200/50 overflow-hidden">
-      {/* Light grey glow effect */}
-      <motion.div
-        className="absolute inset-0 rounded-2xl"
-        animate={{
-          backgroundImage: [
-            'linear-gradient(90deg, transparent, rgba(156, 163, 175, 0.2), transparent)',
-            'linear-gradient(90deg, rgba(156, 163, 175, 0.2), transparent, rgba(156, 163, 175, 0.2))',
-            'linear-gradient(90deg, transparent, rgba(156, 163, 175, 0.2), transparent)'
-          ],
-        }}
-        transition={{
-          duration: 4,
-          repeat: Infinity,
-          ease: "easeInOut",
-        }}
-      />
-      <motion.div
-        className="absolute inset-0 rounded-2xl border-2 border-gray-300/30"
-        animate={{
-          borderColor: ['rgba(156, 163, 175, 0.2)', 'rgba(156, 163, 175, 0.4)', 'rgba(156, 163, 175, 0.2)'],
-          boxShadow: ['0 0 0 rgba(156, 163, 175, 0)', '0 0 20px rgba(156, 163, 175, 0.3)', '0 0 0 rgba(156, 163, 175, 0)'],
-        }}
-        transition={{
-          duration: 3,
-          repeat: Infinity,
-          ease: "easeInOut",
-        }}
-      />
+    <section id="tag-generator" className="relative bg-white p-4 sm:p-6 rounded-2xl shadow-xl border border-gray-200/50">
       <div className="relative z-10">
       {error && <MessageBox message={error} type="error" onDismiss={() => setError(null)} />}
       
       <div className="relative flex border-b border-gray-200 mb-6 overflow-x-auto">
-        {/* Gooey background blob */}
+        {/* Gooey background blob - hidden on reduced motion preference */}
         <motion.div
-          className="absolute bottom-0 opacity-20 rounded-t-2xl"
+          className="absolute bottom-0 opacity-20 rounded-t-2xl hidden md:block"
           style={{
             backgroundColor: '#5c6284',
             filter: 'url(#gooey)',
@@ -142,8 +114,8 @@ const TagGenerator = ({ initialTab = 'youtube', initialTask = 'tags_and_hashtags
           }}
         />
         
-        {/* SVG filter for gooey effect */}
-        <svg width="0" height="0" className="absolute">
+        {/* SVG filter for gooey effect - hidden on mobile for performance */}
+        <svg width="0" height="0" className="absolute hidden md:block">
           <defs>
             <filter id="gooey">
               <feGaussianBlur in="SourceGraphic" stdDeviation="3" result="blur" />
@@ -202,18 +174,12 @@ const TagGenerator = ({ initialTab = 'youtube', initialTask = 'tags_and_hashtags
 
         {/* Settings Section - Clearly separated */}
         <motion.div 
-          className="relative bg-white p-5 rounded-xl border border-[#5c6284]/20 shadow-sm overflow-hidden transition-all duration-300"
+          className="relative bg-white p-5 rounded-xl border border-[#5c6284]/20 shadow-sm transition-all duration-300"
           whileHover={{
             borderColor: 'rgba(92, 98, 132, 0.4)',
             boxShadow: '0 4px 12px rgba(92, 98, 132, 0.15)',
           }}
         >
-          <motion.div
-            className="absolute inset-0 border border-[#5c6284]/30 rounded-xl"
-            initial={{ opacity: 0 }}
-            whileHover={{ opacity: 1 }}
-            transition={{ duration: 0.3 }}
-          />
           <h3 className="text-lg font-bold text-black mb-4 relative z-10">Content Settings</h3>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4 relative z-10">
             <ContentFormatSelector platform={activeTab} value={contentFormat} onChange={setContentFormat} showDropdown={openDropdown === 'format'} setShowDropdown={(show) => setOpenDropdown(show ? 'format' : null)} />
@@ -224,18 +190,12 @@ const TagGenerator = ({ initialTab = 'youtube', initialTask = 'tags_and_hashtags
         
         {/* Content Type Selection - Clearly separated */}
         <motion.div 
-          className="relative bg-white p-5 rounded-xl border border-[#5c6284]/20 shadow-sm overflow-hidden transition-all duration-300"
+          className="relative bg-white p-5 rounded-xl border border-[#5c6284]/20 shadow-sm transition-all duration-300"
           whileHover={{
             borderColor: 'rgba(92, 98, 132, 0.4)',
             boxShadow: '0 4px 12px rgba(92, 98, 132, 0.15)',
           }}
         >
-          <motion.div
-            className="absolute inset-0 border border-[#5c6284]/30 rounded-xl"
-            initial={{ opacity: 0 }}
-            whileHover={{ opacity: 1 }}
-            transition={{ duration: 0.3 }}
-          />
           <h3 className="text-lg font-bold text-black mb-4 relative z-10">What would you like to generate?</h3>
           <div className="flex flex-col sm:flex-row gap-3 relative z-10">
             <button type="button" onClick={() => setTask('tags_and_hashtags')} className={`flex-1 btn ${task === 'tags_and_hashtags' ? 'btn-secondary' : 'btn-accent'}`}>
