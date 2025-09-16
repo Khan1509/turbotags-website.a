@@ -16,6 +16,13 @@ export default defineConfig({
       'Access-Control-Allow-Origin': '*',
       'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, OPTIONS',
       'Access-Control-Allow-Headers': 'Content-Type, Authorization',
+    },
+    proxy: {
+      '/api': {
+        target: 'https://turbotags.app',
+        changeOrigin: true,
+        secure: true
+      }
     }
   },
   preview: {
