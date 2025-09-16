@@ -47,7 +47,7 @@ const ContentFormatSelector = ({ platform, value, onChange, showDropdown, setSho
       </button>
       
       {showDropdown && (
-        <div className="absolute z-50 w-full mt-1 bg-white border border-gray-300 rounded-md shadow-lg max-h-48 overflow-y-auto" role="listbox" aria-label="Content format options">
+        <div className="absolute z-[9999] w-full mt-1 bg-white border border-gray-300 rounded-md shadow-lg max-h-48 overflow-y-auto" role="listbox" aria-label="Content format options">
           {formats.map((format) => (
             <button
               key={format.value}
