@@ -93,29 +93,30 @@ const TagGenerator = ({ initialTab = 'youtube', initialTask = 'tags_and_hashtags
 
   return (
     <section id="tag-generator" className="relative bg-white p-4 sm:p-6 rounded-2xl shadow-xl border border-gray-200/50 overflow-hidden">
-      {/* Animated border highlight */}
+      {/* Light grey glow effect */}
       <motion.div
         className="absolute inset-0 rounded-2xl"
-        style={{
-          background: 'linear-gradient(90deg, transparent, rgba(139, 92, 246, 0.3), transparent)',
-          backgroundSize: '200% 100%',
-        }}
         animate={{
-          backgroundPosition: ['0% 0%', '200% 0%', '0% 0%'],
+          backgroundImage: [
+            'linear-gradient(90deg, transparent, rgba(156, 163, 175, 0.2), transparent)',
+            'linear-gradient(90deg, rgba(156, 163, 175, 0.2), transparent, rgba(156, 163, 175, 0.2))',
+            'linear-gradient(90deg, transparent, rgba(156, 163, 175, 0.2), transparent)'
+          ],
         }}
         transition={{
-          duration: 3,
+          duration: 4,
           repeat: Infinity,
           ease: "easeInOut",
         }}
       />
       <motion.div
-        className="absolute inset-0 rounded-2xl border-2 border-purple-500/20"
+        className="absolute inset-0 rounded-2xl border-2 border-gray-300/30"
         animate={{
-          borderColor: ['rgba(139, 92, 246, 0.2)', 'rgba(139, 92, 246, 0.5)', 'rgba(139, 92, 246, 0.2)'],
+          borderColor: ['rgba(156, 163, 175, 0.2)', 'rgba(156, 163, 175, 0.4)', 'rgba(156, 163, 175, 0.2)'],
+          boxShadow: ['0 0 0 rgba(156, 163, 175, 0)', '0 0 20px rgba(156, 163, 175, 0.3)', '0 0 0 rgba(156, 163, 175, 0)'],
         }}
         transition={{
-          duration: 2,
+          duration: 3,
           repeat: Infinity,
           ease: "easeInOut",
         }}

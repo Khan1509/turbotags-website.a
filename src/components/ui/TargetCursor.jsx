@@ -37,15 +37,15 @@ const TargetCursor = () => {
 
   return (
     <>
-      {/* Main cursor dot */}
+      {/* Main ball cursor */}
       <motion.div
-        className="fixed top-0 left-0 pointer-events-none z-[9999] mix-blend-difference"
+        className="fixed top-0 left-0 pointer-events-none z-[9999]"
         style={{
-          x: mousePosition.x - 8,
-          y: mousePosition.y - 8,
+          x: mousePosition.x - 10,
+          y: mousePosition.y - 10,
         }}
         animate={{
-          scale: isHovering ? 1.5 : 1,
+          scale: isHovering ? 1.8 : 1,
         }}
         transition={{
           type: "spring",
@@ -53,19 +53,29 @@ const TargetCursor = () => {
           damping: 30,
         }}
       >
-        <div className="w-4 h-4 bg-white rounded-full" />
+        <motion.div 
+          className="w-5 h-5 bg-gradient-to-br from-blue-400 to-purple-500 rounded-full shadow-lg"
+          animate={{
+            rotate: [0, 360],
+          }}
+          transition={{
+            duration: 2,
+            repeat: Infinity,
+            ease: "linear",
+          }}
+        />
       </motion.div>
 
-      {/* Outer ring */}
+      {/* Outer glow ring */}
       <motion.div
         className="fixed top-0 left-0 pointer-events-none z-[9998]"
         style={{
-          x: mousePosition.x - 20,
-          y: mousePosition.y - 20,
+          x: mousePosition.x - 15,
+          y: mousePosition.y - 15,
         }}
         animate={{
-          scale: isHovering ? 2 : 1,
-          opacity: isHovering ? 0.8 : 0.3,
+          scale: isHovering ? 2.2 : 1.2,
+          opacity: isHovering ? 0.6 : 0.2,
         }}
         transition={{
           type: "spring",
@@ -73,46 +83,17 @@ const TargetCursor = () => {
           damping: 20,
         }}
       >
-        <div className="w-10 h-10 border-2 border-purple-500 rounded-full" />
-      </motion.div>
-
-      {/* Crosshair lines */}
-      <motion.div
-        className="fixed top-0 left-0 pointer-events-none z-[9997]"
-        style={{
-          x: mousePosition.x - 15,
-          y: mousePosition.y - 1,
-        }}
-        animate={{
-          opacity: isHovering ? 1 : 0.5,
-          scale: isHovering ? 1.2 : 1,
-        }}
-        transition={{
-          type: "spring",
-          stiffness: 300,
-          damping: 25,
-        }}
-      >
-        <div className="w-8 h-0.5 bg-purple-500" />
-      </motion.div>
-
-      <motion.div
-        className="fixed top-0 left-0 pointer-events-none z-[9997]"
-        style={{
-          x: mousePosition.x - 1,
-          y: mousePosition.y - 15,
-        }}
-        animate={{
-          opacity: isHovering ? 1 : 0.5,
-          scale: isHovering ? 1.2 : 1,
-        }}
-        transition={{
-          type: "spring",
-          stiffness: 300,
-          damping: 25,
-        }}
-      >
-        <div className="w-0.5 h-8 bg-purple-500" />
+        <motion.div 
+          className="w-8 h-8 bg-gradient-to-br from-blue-400/30 to-purple-500/30 rounded-full blur-sm"
+          animate={{
+            rotate: [360, 0],
+          }}
+          transition={{
+            duration: 3,
+            repeat: Infinity,
+            ease: "linear",
+          }}
+        />
       </motion.div>
     </>
   );

@@ -19,8 +19,11 @@ const Platforms = () => {
           <motion.div 
             key={platform.name} 
             className="platform-card bg-slate-50 rounded-lg p-6 text-center border border-gray-200"
-            whileHover={{ y: -8, scale: 1.05, boxShadow: "0 10px 15px -3px rgb(0 0 0 / 0.05), 0 4px 6px -4px rgb(0 0 0 / 0.05)" }}
-            transition={{ type: "spring", stiffness: 400, damping: 10 }}
+            whileHover={{ 
+              borderColor: "rgb(99 102 241)",
+              boxShadow: "0 0 0 2px rgba(99, 102, 241, 0.1)"
+            }}
+            transition={{ type: "spring", stiffness: 400, damping: 25 }}
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0, transition: { delay: index * 0.1 } }}
           >
