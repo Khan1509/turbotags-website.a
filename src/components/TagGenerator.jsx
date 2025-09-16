@@ -186,7 +186,7 @@ const TagGenerator = ({ initialTab = 'youtube', initialTask = 'tags_and_hashtags
 
       <form onSubmit={handleSubmit} className="space-y-6">
         <div>
-          <label htmlFor="prompt-input" className="block text-sm font-semibold text-brand-dark-grey mb-2">
+          <label htmlFor="prompt-input" className="block text-base font-bold text-black mb-3">
             Enter your content topic or keywords
           </label>
           <input
@@ -195,25 +195,26 @@ const TagGenerator = ({ initialTab = 'youtube', initialTask = 'tags_and_hashtags
             value={prompt}
             onChange={(e) => setPrompt(e.target.value)}
             placeholder="e.g., 'unboxing the new iPhone' or 'vegan chocolate cake recipe'"
-            className="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#5c6284]"
+            className="w-full p-4 border border-[#5c6284]/30 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#5c6284] focus:border-[#5c6284] transition-all duration-300 shadow-sm hover:shadow-md hover:border-[#5c6284]/50"
             required
           />
         </div>
 
         {/* Settings Section - Clearly separated */}
         <motion.div 
-          className="relative bg-gray-50 p-4 rounded-lg border border-gray-200 overflow-hidden"
+          className="relative bg-white p-5 rounded-xl border border-[#5c6284]/20 shadow-sm overflow-hidden transition-all duration-300"
           whileHover={{
             borderColor: 'rgba(92, 98, 132, 0.4)',
+            boxShadow: '0 4px 12px rgba(92, 98, 132, 0.15)',
           }}
         >
           <motion.div
-            className="absolute inset-0 border border-[#5c6284]/30 rounded-lg"
+            className="absolute inset-0 border border-[#5c6284]/30 rounded-xl"
             initial={{ opacity: 0 }}
             whileHover={{ opacity: 1 }}
             transition={{ duration: 0.3 }}
           />
-          <h3 className="text-sm font-semibold text-gray-700 mb-4 relative z-10">Content Settings</h3>
+          <h3 className="text-lg font-bold text-black mb-4 relative z-10">Content Settings</h3>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4 relative z-10">
             <ContentFormatSelector platform={activeTab} value={contentFormat} onChange={setContentFormat} showDropdown={openDropdown === 'format'} setShowDropdown={(show) => setOpenDropdown(show ? 'format' : null)} />
             <LanguageSelector value={language} onChange={setLanguage} showDropdown={openDropdown === 'language'} setShowDropdown={(show) => setOpenDropdown(show ? 'language' : null)} />
@@ -223,18 +224,19 @@ const TagGenerator = ({ initialTab = 'youtube', initialTask = 'tags_and_hashtags
         
         {/* Content Type Selection - Clearly separated */}
         <motion.div 
-          className="relative bg-gray-50 p-4 rounded-lg border border-gray-200 overflow-hidden"
+          className="relative bg-white p-5 rounded-xl border border-[#5c6284]/20 shadow-sm overflow-hidden transition-all duration-300"
           whileHover={{
             borderColor: 'rgba(92, 98, 132, 0.4)',
+            boxShadow: '0 4px 12px rgba(92, 98, 132, 0.15)',
           }}
         >
           <motion.div
-            className="absolute inset-0 border border-[#5c6284]/30 rounded-lg"
+            className="absolute inset-0 border border-[#5c6284]/30 rounded-xl"
             initial={{ opacity: 0 }}
             whileHover={{ opacity: 1 }}
             transition={{ duration: 0.3 }}
           />
-          <h3 className="text-sm font-semibold text-gray-700 mb-4 relative z-10">What would you like to generate?</h3>
+          <h3 className="text-lg font-bold text-black mb-4 relative z-10">What would you like to generate?</h3>
           <div className="flex flex-col sm:flex-row gap-3 relative z-10">
             <button type="button" onClick={() => setTask('tags_and_hashtags')} className={`flex-1 btn ${task === 'tags_and_hashtags' ? 'btn-secondary' : 'btn-accent'}`}>
                 <Hash className="mr-2 h-5 w-5" /> Generate Tags & Hashtags
