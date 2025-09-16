@@ -157,21 +157,6 @@ const TagGenerator = ({ initialTab = 'youtube', initialTask = 'tags_and_hashtags
       </div>
 
       <form onSubmit={handleSubmit} className="space-y-6">
-        <div>
-          <label htmlFor="prompt-input" className="block text-base font-bold text-black mb-3">
-            Enter your content topic or keywords
-          </label>
-          <input
-            id="prompt-input"
-            type="text"
-            value={prompt}
-            onChange={(e) => setPrompt(e.target.value)}
-            placeholder="e.g., 'unboxing the new iPhone' or 'vegan chocolate cake recipe'"
-            className="w-full p-4 border border-[#5c6284]/30 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#5c6284] focus:border-[#5c6284] transition-all duration-300 shadow-sm hover:shadow-md hover:border-[#5c6284]/50"
-            required
-          />
-        </div>
-
         {/* Settings Section - Clearly separated */}
         <motion.div 
           className="relative bg-white p-5 rounded-xl border border-[#5c6284]/20 shadow-sm transition-all duration-300"
@@ -187,6 +172,21 @@ const TagGenerator = ({ initialTab = 'youtube', initialTask = 'tags_and_hashtags
             <RegionSelector value={region} onChange={setRegion} showDropdown={openDropdown === 'region'} setShowDropdown={(show) => setOpenDropdown(show ? 'region' : null)} />
           </div>
         </motion.div>
+
+        <div>
+          <label htmlFor="prompt-input" className="block text-base font-bold text-black mb-3">
+            Enter your content topic or keywords
+          </label>
+          <input
+            id="prompt-input"
+            type="text"
+            value={prompt}
+            onChange={(e) => setPrompt(e.target.value)}
+            placeholder="e.g., 'unboxing the new iPhone' or 'vegan chocolate cake recipe'"
+            className="w-full p-4 border border-[#5c6284]/30 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#5c6284] focus:border-[#5c6284] transition-all duration-300 shadow-sm hover:shadow-md hover:border-[#5c6284]/50"
+            required
+          />
+        </div>
         
         {/* Content Type Selection - Clearly separated */}
         <motion.div 
