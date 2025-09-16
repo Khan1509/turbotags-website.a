@@ -127,8 +127,9 @@ const TagGenerator = ({ initialTab = 'youtube', initialTask = 'tags_and_hashtags
       <div className="relative flex border-b border-gray-200 mb-6 overflow-x-auto">
         {/* Gooey background blob */}
         <motion.div
-          className="absolute bottom-0 bg-gradient-to-r from-purple-500 via-pink-500 to-orange-500 opacity-20 rounded-t-2xl"
+          className="absolute bottom-0 opacity-20 rounded-t-2xl"
           style={{
+            backgroundColor: '#5c6284',
             filter: 'url(#gooey)',
           }}
           layoutId="gooeyBlob"
@@ -158,7 +159,7 @@ const TagGenerator = ({ initialTab = 'youtube', initialTask = 'tags_and_hashtags
             onClick={() => handleTabChange(tab.id)}
             className={`relative flex-shrink-0 flex items-center gap-2 px-4 py-3 font-semibold transition-colors duration-200 focus:outline-none ${
               activeTab === tab.id
-                ? 'text-purple-600'
+                ? 'text-white'
                 : 'text-brand-medium-grey hover:text-brand-dark-grey'
             }`}
             whileHover={{ scale: 1.05 }}
@@ -166,7 +167,8 @@ const TagGenerator = ({ initialTab = 'youtube', initialTask = 'tags_and_hashtags
           >
             {activeTab === tab.id && (
               <motion.div
-                className="absolute inset-0 bg-gradient-to-r from-purple-500 via-pink-500 to-orange-500 opacity-10 rounded-lg"
+                className="absolute inset-0 rounded-lg"
+                style={{ backgroundColor: '#5c6284' }}
                 layoutId="gooeyBackground"
                 initial={false}
                 transition={{
@@ -193,7 +195,7 @@ const TagGenerator = ({ initialTab = 'youtube', initialTask = 'tags_and_hashtags
             value={prompt}
             onChange={(e) => setPrompt(e.target.value)}
             placeholder="e.g., 'unboxing the new iPhone' or 'vegan chocolate cake recipe'"
-            className="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-brand-blue"
+            className="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#5c6284]"
             required
           />
         </div>
@@ -202,11 +204,11 @@ const TagGenerator = ({ initialTab = 'youtube', initialTask = 'tags_and_hashtags
         <motion.div 
           className="relative bg-gray-50 p-4 rounded-lg border border-gray-200 overflow-hidden"
           whileHover={{
-            borderColor: 'rgba(139, 92, 246, 0.4)',
+            borderColor: 'rgba(92, 98, 132, 0.4)',
           }}
         >
           <motion.div
-            className="absolute inset-0 border border-purple-400/30 rounded-lg"
+            className="absolute inset-0 border border-[#5c6284]/30 rounded-lg"
             initial={{ opacity: 0 }}
             whileHover={{ opacity: 1 }}
             transition={{ duration: 0.3 }}
@@ -221,13 +223,13 @@ const TagGenerator = ({ initialTab = 'youtube', initialTask = 'tags_and_hashtags
         
         {/* Content Type Selection - Clearly separated */}
         <motion.div 
-          className="relative bg-blue-50 p-4 rounded-lg border border-blue-200 overflow-hidden"
+          className="relative bg-gray-50 p-4 rounded-lg border border-gray-200 overflow-hidden"
           whileHover={{
-            borderColor: 'rgba(59, 130, 246, 0.4)',
+            borderColor: 'rgba(92, 98, 132, 0.4)',
           }}
         >
           <motion.div
-            className="absolute inset-0 border border-blue-400/30 rounded-lg"
+            className="absolute inset-0 border border-[#5c6284]/30 rounded-lg"
             initial={{ opacity: 0 }}
             whileHover={{ opacity: 1 }}
             transition={{ duration: 0.3 }}

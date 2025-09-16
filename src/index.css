@@ -59,6 +59,8 @@
     will-change: transform, box-shadow;
     position: relative;
     overflow: hidden;
+    --tw-ring-color: #5c6284;
+    --tw-ring-offset-color: #5c6284;
   }
 
   .btn::before {
@@ -83,18 +85,18 @@
 
   .btn-primary {
     @apply btn text-white hover:bg-opacity-90 shadow-lg hover:shadow-xl;
-    background-color: #151440;
-    border-color: #151440;
+    background-color: #5c6284;
+    border-color: #5c6284;
   }
 
   .btn-accent {
     @apply btn bg-white shadow-md hover:shadow-lg;
-    color: #151440;
-    border: 2px solid #151440;
+    color: #5c6284;
+    border: 2px solid #5c6284;
   }
   
   .btn-accent:hover {
-    background-color: #151440;
+    background-color: #5c6284;
     color: white;
   }
 
@@ -119,7 +121,7 @@
   }
 
   .text-gradient {
-    background: linear-gradient(135deg, #151440 0%, #5c6284 100%);
+    background: linear-gradient(135deg, #5c6284 0%, #8491a8 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
@@ -168,10 +170,10 @@
   border-radius: inherit;
   background: linear-gradient(45deg, 
     transparent, 
-    rgba(139, 92, 246, 0.4), 
-    rgba(59, 130, 246, 0.4), 
+    rgba(92, 98, 132, 0.4), 
+    rgba(156, 163, 175, 0.4), 
     transparent,
-    rgba(139, 92, 246, 0.4)
+    rgba(92, 98, 132, 0.4)
   );
   background-size: 200% 200%;
   animation: borderShine 3s ease-in-out infinite;
