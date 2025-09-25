@@ -12,15 +12,15 @@ const Hero = React.memo(() => {
         role="list"
         aria-label="Key features"
       >
-        <span className="inline-flex items-center px-4 py-2 rounded-full text-sm font-semibold bg-indigo-500 text-white shadow-lg transition-all duration-300 hover:scale-105 hover:-translate-y-1 hover:shadow-xl" role="listitem">
+        <span className="inline-flex items-center px-4 py-2 rounded-full text-sm font-semibold bg-slate-500 text-white shadow-lg transition-all duration-300 hover:scale-105 hover:-translate-y-1 hover:shadow-xl" role="listitem">
           <Globe className="w-4 h-4 mr-2" aria-hidden="true" />
           30+ Regions Supported
         </span>
-        <span className="inline-flex items-center px-4 py-2 rounded-full text-sm font-semibold bg-indigo-700 text-white shadow-xl transition-all duration-300 hover:scale-105 hover:-translate-y-1 hover:shadow-2xl" role="listitem">
+        <span className="inline-flex items-center px-4 py-2 rounded-full text-sm font-semibold bg-slate-700 text-white shadow-xl transition-all duration-300 hover:scale-105 hover:-translate-y-1 hover:shadow-2xl" role="listitem">
           <Bot className="w-4 h-4 mr-2" aria-hidden="true" />
           AI Title & Tag Generation
         </span>
-        <span className="inline-flex items-center px-4 py-2 rounded-full text-sm font-semibold bg-white text-indigo-700 border-2 border-indigo-700 shadow-lg transition-all duration-300 hover:scale-105 hover:-translate-y-1 hover:shadow-xl" role="listitem">
+        <span className="inline-flex items-center px-4 py-2 rounded-full text-sm font-semibold bg-white text-slate-700 border-2 border-slate-700 shadow-lg transition-all duration-300 hover:scale-105 hover:-translate-y-1 hover:shadow-xl" role="listitem">
           <BarChart className="w-4 h-4 mr-2" aria-hidden="true" />
           SEO Optimized
         </span>
