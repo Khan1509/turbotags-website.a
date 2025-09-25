@@ -227,8 +227,8 @@ function validateTopicRelevance(response, userTopic, expectedLanguage = 'english
 }
 
 // Helper to call OpenRouter API with timeout and optimization  
-// Updated for modern models with extended timeout for better quality generation
-async function callOpenRouter(model, systemPrompt, userPrompt, timeout = 8000) {
+// Optimized for fast generation with reduced timeout for better user experience
+async function callOpenRouter(model, systemPrompt, userPrompt, timeout = 6000) {
   const OPENROUTER_API_KEY = process.env.OPENROUTER_API_KEY;
   if (!OPENROUTER_API_KEY || OPENROUTER_API_KEY.startsWith('YOUR_')) {
     throw new Error('OPENROUTER_API_KEY is not set or is a placeholder.');
@@ -248,8 +248,8 @@ async function callOpenRouter(model, systemPrompt, userPrompt, timeout = 8000) {
       body: JSON.stringify({
         model: model,
         response_format: { type: "json_object" },
-        max_tokens: 800,
-        temperature: 0.4,
+        max_tokens: 600,
+        temperature: 0.3,
         messages: [
           { role: "system", content: systemPrompt },
           { role: "user", content: userPrompt }
@@ -302,12 +302,13 @@ export default async function handler(req, res) {
 
     const isEnglish = validatedLanguage.toLowerCase() === 'english' || validatedLanguage.toLowerCase() === 'en';
 
-    // Define new high-quality model chain for robust 3-model fallback system
-    // Updated as per user requirements with latest models for better generation quality
+    // Define new high-quality model chain for robust 4-model fallback system
+    // Updated with latest fast models for optimal performance and language support
     const modernModels = [
-      "google/gemini-2.5-flash-lite",           // Primary: Fast and efficient
-      "openai/gpt-4.1-nano",                   // Secondary: High quality reasoning  
-      "google/gemini-2.5-flash-lite-preview-06-17"  // Tertiary: Latest preview features
+      "google/gemini-2.0-flash-001",           // Primary: Latest Gemini 2.0 Flash - fastest and most capable
+      "google/gemini-2.5-flash-lite",          // Secondary: Reliable and fast generation
+      "google/gemma-3-27b-it",                 // Tertiary: Excellent multilingual support
+      "x-ai/grok-4-fast:free"                  // Quaternary: Free fast model for ultimate fallback
     ];
     
     // Use the same models for both English and non-English for consistency
@@ -382,12 +383,12 @@ export default async function handler(req, res) {
     let rawResult;
     let lastError = null;
 
-    // Robust 3-model fallback system: model1 → model2 → model3 → fallback.json
+    // Robust 4-model fallback system: model1 → model2 → model3 → model4 → fallback.json
     for (let i = 0; i < modelsToTry.length; i++) {
       const model = modelsToTry[i];
       try {
-        console.log(`[API] Attempting model ${i + 1}/3: ${model} for language: ${validatedLanguage}`);
-        rawResult = await callOpenRouter(model, systemPrompt, structuredPrompt, 8000); // Extended timeout for better models
+        console.log(`[API] Attempting model ${i + 1}/4: ${model} for language: ${validatedLanguage}`);
+        rawResult = await callOpenRouter(model, systemPrompt, structuredPrompt, 6000); // Optimized timeout for faster response
         
         // Check for API-level errors
         if (rawResult.error) {
@@ -419,23 +420,26 @@ export default async function handler(req, res) {
         );
         
         // Successful processing - return result
-        console.log(`[API] SUCCESS: Model ${model} (attempt ${i + 1}/3) succeeded`);
+        console.log(`[API] SUCCESS: Model ${model} (attempt ${i + 1}/4) succeeded for language: ${validatedLanguage}`);
         res.setHeader('Cache-Control', 'no-cache');
         return res.status(200).json({
           ...processedResult,
           model_used: model,
-          generation_source: 'api'
+          generation_source: 'api',
+          language: validatedLanguage,
+          platform: validatedPlatform,
+          region: validatedRegion
         });
         
       } catch (error) {
-        console.warn(`[API] Model ${model} (attempt ${i + 1}/3) failed: ${error.message}`);
+        console.warn(`[API] Model ${model} (attempt ${i + 1}/4) failed: ${error.message}`);
         lastError = error;
         // Continue to next model
       }
     }
 
-    // All 3 models failed - use comprehensive fallback.json as final backup
-    console.error(`[FALLBACK] All 3 models failed. Last error: ${lastError ? lastError.message : 'Unknown error'}. Using fallback.json as final backup.`);
+    // All 4 models failed - use comprehensive fallback.json as final backup
+    console.error(`[FALLBACK] All 4 models failed for language: ${validatedLanguage}. Last error: ${lastError ? lastError.message : 'Unknown error'}. Using fallback.json as final backup.`);
     
     try {
       // Try to load enhanced fallback.json first
