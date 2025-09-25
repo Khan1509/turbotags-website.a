@@ -60,16 +60,58 @@ function trimAndPadArray(array, minCount, maxCount, fallbackGenerator) {
   return array;
 }
 
-function generateFallbackTitles(count, platform, contentFormat) {
-  const fallbackTitles = [
-    "Amazing Content You Need to See",
-    "Incredible Results in Minutes",
-    "The Ultimate Guide You've Been Waiting For",
-    "Mind-Blowing Tips That Actually Work",
-    "Secret Techniques Revealed",
-    "Everything You Need to Know",
-    "Life-Changing Methods Exposed"
-  ];
+function generateFallbackTitles(count, platform, contentFormat, language = 'english') {
+  // Multilingual fallback titles
+  const titlesByLanguage = {
+    english: [
+      "Amazing Content You Need to See",
+      "Incredible Results in Minutes", 
+      "The Ultimate Guide You've Been Waiting For",
+      "Mind-Blowing Tips That Actually Work",
+      "Secret Techniques Revealed",
+      "Everything You Need to Know",
+      "Life-Changing Methods Exposed"
+    ],
+    spanish: [
+      "Contenido Increíble Que Necesitas Ver",
+      "Resultados Increíbles en Minutos",
+      "La Guía Definitiva Que Has Estado Esperando", 
+      "Consejos Alucinantes Que Realmente Funcionan",
+      "Técnicas Secretas Reveladas",
+      "Todo Lo Que Necesitas Saber",
+      "Métodos Que Cambiarán Tu Vida"
+    ],
+    french: [
+      "Contenu Incroyable Que Vous Devez Voir",
+      "Résultats Incroyables en Minutes",
+      "Le Guide Ultime Que Vous Attendiez",
+      "Conseils Époustouflants Qui Marchent Vraiment",
+      "Techniques Secrètes Révélées", 
+      "Tout Ce Que Vous Devez Savoir",
+      "Méthodes Qui Vont Changer Votre Vie"
+    ],
+    german: [
+      "Erstaunlicher Inhalt Den Sie Sehen Müssen",
+      "Unglaubliche Ergebnisse in Minuten",
+      "Der Ultimative Guide Auf Den Sie Gewartet Haben",
+      "Umwerfende Tipps Die Wirklich Funktionieren", 
+      "Geheime Techniken Enthüllt",
+      "Alles Was Sie Wissen Müssen",
+      "Lebensverändernde Methoden Aufgedeckt"
+    ],
+    portuguese: [
+      "Conteúdo Incrível Que Você Precisa Ver",
+      "Resultados Incríveis em Minutos",
+      "O Guia Definitivo Que Você Estava Esperando",
+      "Dicas Fantásticas Que Realmente Funcionam",
+      "Técnicas Secretas Reveladas",
+      "Tudo Que Você Precisa Saber", 
+      "Métodos Que Vão Mudar Sua Vida"
+    ]
+  };
+  
+  const languageKey = language.toLowerCase();
+  const fallbackTitles = titlesByLanguage[languageKey] || titlesByLanguage.english;
   
   const titles = [];
   for (let i = 0; i < count; i++) {
@@ -91,12 +133,38 @@ function generateFallbackTitles(count, platform, contentFormat) {
   return titles;
 }
 
-function generateFallbackTags(count) {
-  const fallbackTags = [
-    "trending", "viral", "popular", "amazing", "incredible", "awesome", "best",
-    "top", "ultimate", "perfect", "stunning", "fantastic", "brilliant", "excellent",
-    "outstanding", "remarkable", "extraordinary", "magnificent", "wonderful", "superb"
-  ];
+function generateFallbackTags(count, language = 'english') {
+  // Multilingual fallback tags
+  const tagsByLanguage = {
+    english: [
+      "trending", "viral", "popular", "amazing", "incredible", "awesome", "best",
+      "top", "ultimate", "perfect", "stunning", "fantastic", "brilliant", "excellent",
+      "outstanding", "remarkable", "extraordinary", "magnificent", "wonderful", "superb"
+    ],
+    spanish: [
+      "tendencia", "viral", "popular", "increíble", "fantástico", "genial", "mejor",
+      "top", "definitivo", "perfecto", "impresionante", "fantástico", "brillante", "excelente",
+      "sobresaliente", "notable", "extraordinario", "magnífico", "maravilloso", "estupendo"
+    ],
+    french: [
+      "tendance", "viral", "populaire", "incroyable", "fantastique", "génial", "meilleur", 
+      "top", "ultime", "parfait", "magnifique", "fantastique", "brillant", "excellent",
+      "exceptionnel", "remarquable", "extraordinaire", "magnifique", "merveilleux", "superbe"
+    ],
+    german: [
+      "trending", "viral", "beliebt", "erstaunlich", "unglaublich", "großartig", "beste",
+      "top", "ultimativ", "perfekt", "atemberaubend", "fantastisch", "brillant", "ausgezeichnet", 
+      "herausragend", "bemerkenswert", "außergewöhnlich", "prächtig", "wunderbar", "hervorragend"
+    ],
+    portuguese: [
+      "tendência", "viral", "popular", "incrível", "fantástico", "incrível", "melhor",
+      "top", "definitivo", "perfeito", "deslumbrante", "fantástico", "brilhante", "excelente",
+      "excepcional", "notável", "extraordinário", "magnífico", "maravilhoso", "excelente"
+    ]
+  };
+  
+  const languageKey = language.toLowerCase();
+  const fallbackTags = tagsByLanguage[languageKey] || tagsByLanguage.english;
   
   const tags = [];
   for (let i = 0; i < count; i++) {
@@ -108,12 +176,38 @@ function generateFallbackTags(count) {
   return tags;
 }
 
-function generateFallbackHashtags(count) {
-  const fallbackHashtags = [
-    "#trending", "#viral", "#popular", "#amazing", "#incredible", "#awesome", "#best",
-    "#top", "#ultimate", "#perfect", "#stunning", "#fantastic", "#brilliant", "#excellent",
-    "#outstanding", "#remarkable", "#extraordinary", "#magnificent", "#wonderful", "#superb"
-  ];
+function generateFallbackHashtags(count, language = 'english') {
+  // Multilingual fallback hashtags
+  const hashtagsByLanguage = {
+    english: [
+      "#trending", "#viral", "#popular", "#amazing", "#incredible", "#awesome", "#best",
+      "#top", "#ultimate", "#perfect", "#stunning", "#fantastic", "#brilliant", "#excellent",
+      "#outstanding", "#remarkable", "#extraordinary", "#magnificent", "#wonderful", "#superb"
+    ],
+    spanish: [
+      "#tendencia", "#viral", "#popular", "#increíble", "#fantástico", "#genial", "#mejor",
+      "#top", "#definitivo", "#perfecto", "#impresionante", "#fantástico", "#brillante", "#excelente",
+      "#sobresaliente", "#notable", "#extraordinario", "#magnífico", "#maravilloso", "#estupendo"
+    ],
+    french: [
+      "#tendance", "#viral", "#populaire", "#incroyable", "#fantastique", "#génial", "#meilleur",
+      "#top", "#ultime", "#parfait", "#magnifique", "#fantastique", "#brillant", "#excellent", 
+      "#exceptionnel", "#remarquable", "#extraordinaire", "#magnifique", "#merveilleux", "#superbe"
+    ],
+    german: [
+      "#trending", "#viral", "#beliebt", "#erstaunlich", "#unglaublich", "#großartig", "#beste",
+      "#top", "#ultimativ", "#perfekt", "#atemberaubend", "#fantastisch", "#brillant", "#ausgezeichnet",
+      "#herausragend", "#bemerkenswert", "#außergewöhnlich", "#prächtig", "#wunderbar", "#hervorragend"
+    ],
+    portuguese: [
+      "#tendência", "#viral", "#popular", "#incrível", "#fantástico", "#incrível", "#melhor",
+      "#top", "#definitivo", "#perfeito", "#deslumbrante", "#fantástico", "#brilhante", "#excelente",
+      "#excepcional", "#notável", "#extraordinário", "#magnífico", "#maravilhoso", "#excelente"
+    ]
+  };
+  
+  const languageKey = language.toLowerCase();
+  const fallbackHashtags = hashtagsByLanguage[languageKey] || hashtagsByLanguage.english;
   
   const hashtags = [];
   for (let i = 0; i < count; i++) {
@@ -125,13 +219,13 @@ function generateFallbackHashtags(count) {
   return hashtags;
 }
 
-function processAndValidateResponse(response, task, platform, contentFormat) {
+function processAndValidateResponse(response, task, platform, contentFormat, language = 'english') {
   const processed = {};
   
   if (task === 'titles') {
     // Titles: 5-10 items
     let titles = response.titles || [];
-    titles = trimAndPadArray(titles, 5, 10, (index) => generateFallbackTitles(1, platform, contentFormat)[0]);
+    titles = trimAndPadArray(titles, 5, 10, (index) => generateFallbackTitles(1, platform, contentFormat, language)[0]);
     
     if (platform.toLowerCase() === 'youtube') {
       titles = enforceYouTubeTitleLimits(titles, contentFormat);
@@ -145,8 +239,8 @@ function processAndValidateResponse(response, task, platform, contentFormat) {
       let tags = response.tags || [];
       let hashtags = response.hashtags || [];
       
-      tags = trimAndPadArray(tags, 15, 20, (index) => generateFallbackTags(1)[0]);
-      hashtags = trimAndPadArray(hashtags, 15, 20, (index) => generateFallbackHashtags(1)[0]);
+      tags = trimAndPadArray(tags, 15, 20, (index) => generateFallbackTags(1, language)[0]);
+      hashtags = trimAndPadArray(hashtags, 15, 20, (index) => generateFallbackHashtags(1, language)[0]);
       
       processed.tags = tags;
       processed.hashtags = hashtags;
@@ -154,7 +248,7 @@ function processAndValidateResponse(response, task, platform, contentFormat) {
     } else {
       // Instagram/TikTok/Facebook: 15-20 hashtags only
       let hashtags = response.hashtags || [];
-      hashtags = trimAndPadArray(hashtags, 15, 20, (index) => generateFallbackHashtags(1)[0]);
+      hashtags = trimAndPadArray(hashtags, 15, 20, (index) => generateFallbackHashtags(1, language)[0]);
       processed.hashtags = hashtags;
     }
   }
@@ -162,33 +256,44 @@ function processAndValidateResponse(response, task, platform, contentFormat) {
   return processed;
 }
 
-// Helper to validate if response is in correct language - optimized for speed and reliability
+// Helper to validate if response is in correct language - strengthened for consistency
 function validateLanguage(response, expectedLanguage) {
   if (expectedLanguage.toLowerCase() === 'english' || expectedLanguage.toLowerCase() === 'en') {
     return true; // Skip validation for English as it's the default
   }
   
-  // For non-English languages, use very lenient validation for speed
-  // Modern AI models are reliable at following language instructions
-  // Only check if response contains SOME non-English content to ensure it's not completely in English
+  // For non-English languages, use stricter validation to ensure language consistency
   const responseText = JSON.stringify(response).toLowerCase();
   
-  // Quick check: if response is very short, accept it (hashtags/tags can be mixed language)
-  if (responseText.length < 200) {
+  // Extract all text content from the response for analysis
+  let allTextContent = '';
+  if (response.titles) {
+    allTextContent += response.titles.map(item => item.text || '').join(' ');
+  }
+  if (response.tags) {
+    allTextContent += ' ' + response.tags.map(item => item.text || '').join(' ');
+  }
+  if (response.hashtags) {
+    allTextContent += ' ' + response.hashtags.map(item => item.text || '').join(' ');
+  }
+  
+  allTextContent = allTextContent.toLowerCase().trim();
+  
+  // If no meaningful content, allow it to pass
+  if (allTextContent.length < 20) {
     return true;
   }
   
-  // Very simple heuristic: only fail if response is ENTIRELY common English words
-  const commonEnglishPatterns = /\b(the|and|or|but|in|on|at|to|for|of|with|by|this|that|these|those|from|into|about|after|before|during|what|when|where|why|how|can|will|would|should|could|have|has|had|is|are|was|were|be|been|being|do|does|did|done|get|got|make|made|take|took|come|came|go|went|see|saw|know|knew|think|thought|say|said|tell|told|give|gave|find|found|use|used|work|worked|feel|felt|seem|seemed|become|became|leave|left|put|put|mean|meant|keep|kept|let|let|begin|began|help|helped|talk|talked|turn|turned|start|started|show|showed|hear|heard|play|played|run|ran|move|moved|live|lived|believe|believed|bring|brought|happen|happened|write|wrote|provide|provided|sit|sat|stand|stood|lose|lost|pay|paid|meet|met|include|included|continue|continued|set|set|learn|learned|change|changed|lead|led|understand|understood|watch|watched|follow|followed|stop|stopped|create|created|speak|spoke|read|read|allow|allowed|add|added|spend|spent|grow|grew|open|opened|walk|walked|win|won|offer|offered|remember|remembered|love|loved|consider|considered|appear|appeared|buy|bought|wait|waited|serve|served|die|died|send|sent|expect|expected|build|built|stay|stayed|fall|fell|cut|cut|reach|reached|kill|killed|remain|remained|suggest|suggested|raise|raised|pass|passed|sell|sold|require|required|report|reported|decide|decided|pull|pulled)\b/g;
-  const englishMatches = (responseText.match(commonEnglishPatterns) || []).length;
+  // Count common English words with a more comprehensive pattern
+  const commonEnglishPatterns = /\b(the|and|or|but|in|on|at|to|for|of|with|by|this|that|these|those|from|into|about|after|before|during|what|when|where|why|how|can|will|would|should|could|have|has|had|is|are|was|were|be|been|being|do|does|did|done|get|got|make|made|take|took|come|came|go|went|see|saw|know|knew|think|thought|say|said|tell|told|give|gave|find|found|use|used|work|worked|feel|felt|seem|seemed|become|became|leave|left|put|put|mean|meant|keep|kept|let|let|begin|began|help|helped|talk|talked|turn|turned|start|started|show|showed|hear|heard|play|played|run|ran|move|moved|live|lived|believe|believed|bring|brought|happen|happened|write|wrote|provide|provided|sit|sat|stand|stood|lose|lost|pay|paid|meet|met|include|included|continue|continued|set|set|learn|learned|change|changed|lead|led|understand|understood|watch|watched|follow|followed|stop|stopped|create|created|speak|spoke|read|read|allow|allowed|add|added|spend|spent|grow|grew|open|opened|walk|walked|win|won|offer|offered|remember|remembered|love|loved|consider|considered|appear|appeared|buy|bought|wait|waited|serve|served|die|died|send|sent|expect|expected|build|built|stay|stayed|fall|fell|cut|cut|reach|reached|kill|killed|remain|remained|suggest|suggested|raise|raised|pass|passed|sell|sold|require|required|report|reported|decide|decided|pull|pulled|amazing|incredible|awesome|best|top|ultimate|perfect|stunning|fantastic|brilliant|excellent|outstanding|remarkable|extraordinary|magnificent|wonderful|superb|trending|viral|popular|content|you|need|see|results|minutes|guide|tips|techniques|secrets|methods|life|changing)\b/g;
   
-  // Count total words to get a ratio
-  const totalWords = responseText.split(/\s+/).length;
+  const englishMatches = (allTextContent.match(commonEnglishPatterns) || []).length;
+  const totalWords = allTextContent.split(/\s+/).filter(word => word.length > 2).length;
   const englishRatio = totalWords > 0 ? englishMatches / totalWords : 0;
   
-  // Only fail if more than 85% of content is common English words (very lenient)
-  // This allows for hashtags, brand names, technical terms, and code-switching
-  if (englishRatio > 0.85 && expectedLanguage.toLowerCase() !== 'english') {
+  // Stricter validation: fail if more than 60% of meaningful content is common English words
+  // This ensures better language consistency while allowing some international terms
+  if (englishRatio > 0.6 && expectedLanguage.toLowerCase() !== 'english') {
     console.warn(`Language validation failed: ${englishMatches}/${totalWords} English words (${(englishRatio * 100).toFixed(1)}%) for expected language: ${expectedLanguage}`);
     return false;
   }
@@ -339,7 +444,11 @@ export default async function handler(req, res) {
     CRITICAL REQUIREMENTS:
     1. TOPIC FOCUS: Generate content STRICTLY about the userTopic provided. Stay on-topic and relevant.
     
-    2. LANGUAGE: Generate ALL content (tags, hashtags, titles) in ${validatedLanguage}. For non-English languages, use culturally relevant terms while allowing global hashtags when appropriate.
+    2. LANGUAGE: Generate ALL content (tags, hashtags, titles) in ${validatedLanguage}. 
+    ${validatedLanguage.toLowerCase() !== 'english' && validatedLanguage.toLowerCase() !== 'en' ? 
+      `IMPORTANT: You must write ALL tags and hashtags in ${validatedLanguage} language. Do NOT use English words unless they are commonly used international terms in that language. Use native ${validatedLanguage} terms for all content.` : 
+      'Use natural English for all content.'
+    }
     
     3. PLATFORM OPTIMIZATION: 
     - Platform: ${validatedPlatform}
@@ -360,19 +469,21 @@ export default async function handler(req, res) {
     QUANTITY REQUIREMENTS:
     
     If task is 'titles':
-    - Generate 5-10 titles related to userTopic
+    - Generate 5-10 titles related to userTopic in ${validatedLanguage}
     - ALL titles must have trend_percentage between 70-100
     - JSON structure: {"titles": [{"text": "Title Here", "trend_percentage": 85}]}
     
     If task is 'tags_and_hashtags':
       For YOUTUBE:
-      - Generate 15-20 tags related to userTopic
-      - Generate 15-20 hashtags related to userTopic  
+      - Generate 15-20 tags related to userTopic in ${validatedLanguage}
+      - Generate 15-20 hashtags related to userTopic in ${validatedLanguage}
       - JSON structure: {"tags": [{"text": "tag name", "trend_percentage": 85}], "hashtags": [{"text": "#hashtag", "trend_percentage": 92}]}
       
       For INSTAGRAM, TIKTOK, or FACEBOOK:
-      - Generate 15-20 hashtags related to userTopic
+      - Generate 15-20 hashtags related to userTopic in ${validatedLanguage}
       - JSON structure: {"hashtags": [{"text": "#hashtag", "trend_percentage": 88}]}
+
+    LANGUAGE CONSISTENCY: Ensure ALL generated content (titles, tags, hashtags) uses the same language: ${validatedLanguage}
 
     RESPONSE FORMAT:
     - Return ONLY a valid JSON object
@@ -418,7 +529,8 @@ export default async function handler(req, res) {
           rawResult, 
           validatedTask, 
           validatedPlatform, 
-          validatedContentFormat
+          validatedContentFormat,
+          validatedLanguage
         );
         
         // Successful processing - return result
@@ -444,7 +556,14 @@ export default async function handler(req, res) {
     console.error(`[FALLBACK] All 4 models failed for language: ${validatedLanguage}. Last error: ${lastError ? lastError.message : 'Unknown error'}. Using fallback.json as final backup.`);
     
     try {
-      // Try to load enhanced fallback.json first
+      // For non-English languages, skip JSON fallback and use localized programmatic fallback
+      // JSON fallback only contains English content and would break language consistency
+      if (validatedLanguage.toLowerCase() !== 'english' && validatedLanguage.toLowerCase() !== 'en') {
+        console.log(`[FALLBACK] Skipping English-only fallback.json for language: ${validatedLanguage}. Using localized programmatic fallback.`);
+        throw new Error('Skipping English JSON fallback for non-English request');
+      }
+      
+      // Try to load enhanced fallback.json for English requests only
       const fallbackPath = path.join(process.cwd(), 'public', 'data', 'fallback.json');
       const fallbackData = await fs.readFile(fallbackPath, 'utf-8');
       const parsedFallback = JSON.parse(fallbackData);
@@ -453,14 +572,14 @@ export default async function handler(req, res) {
       let fallbackResponse = {};
       
       if (validatedTask === 'titles') {
-        fallbackResponse.titles = parsedFallback.titles || generateFallbackTitles(7, validatedPlatform, validatedContentFormat);
+        fallbackResponse.titles = parsedFallback.titles || generateFallbackTitles(7, validatedPlatform, validatedContentFormat, validatedLanguage);
       } else if (validatedTask === 'tags_and_hashtags') {
         if (validatedPlatform.toLowerCase() === 'youtube') {
-          fallbackResponse.tags = parsedFallback.tags || generateFallbackTags(20);
-          fallbackResponse.hashtags = parsedFallback.hashtags || generateFallbackHashtags(20);
+          fallbackResponse.tags = parsedFallback.tags || generateFallbackTags(20, validatedLanguage);
+          fallbackResponse.hashtags = parsedFallback.hashtags || generateFallbackHashtags(20, validatedLanguage);
         } else {
           // Instagram/TikTok/Facebook: hashtags only
-          fallbackResponse.hashtags = parsedFallback.hashtags || generateFallbackHashtags(20);
+          fallbackResponse.hashtags = parsedFallback.hashtags || generateFallbackHashtags(20, validatedLanguage);
         }
       }
       
@@ -469,7 +588,8 @@ export default async function handler(req, res) {
         fallbackResponse, 
         validatedTask, 
         validatedPlatform, 
-        validatedContentFormat
+        validatedContentFormat,
+        validatedLanguage
       );
       
       console.log(`[FALLBACK] Using fallback.json data successfully`);
@@ -487,13 +607,13 @@ export default async function handler(req, res) {
       let emergencyResponse = {};
       
       if (validatedTask === 'titles') {
-        emergencyResponse.titles = generateFallbackTitles(7, validatedPlatform, validatedContentFormat);
+        emergencyResponse.titles = generateFallbackTitles(7, validatedPlatform, validatedContentFormat, validatedLanguage);
       } else if (validatedTask === 'tags_and_hashtags') {
         if (validatedPlatform.toLowerCase() === 'youtube') {
-          emergencyResponse.tags = generateFallbackTags(20);
-          emergencyResponse.hashtags = generateFallbackHashtags(20);
+          emergencyResponse.tags = generateFallbackTags(20, validatedLanguage);
+          emergencyResponse.hashtags = generateFallbackHashtags(20, validatedLanguage);
         } else {
-          emergencyResponse.hashtags = generateFallbackHashtags(20);
+          emergencyResponse.hashtags = generateFallbackHashtags(20, validatedLanguage);
         }
       }
       
@@ -501,7 +621,8 @@ export default async function handler(req, res) {
         emergencyResponse, 
         validatedTask, 
         validatedPlatform, 
-        validatedContentFormat
+        validatedContentFormat,
+        validatedLanguage
       );
       
       res.setHeader('Cache-Control', 'no-cache');
@@ -523,13 +644,13 @@ export default async function handler(req, res) {
       const safeContentFormat = contentFormat || 'long_video';
       
       if (safeTask === 'titles') {
-        emergencyFallback.titles = generateFallbackTitles(7, safePlatform, safeContentFormat);
+        emergencyFallback.titles = generateFallbackTitles(7, safePlatform, safeContentFormat, language || 'english');
       } else {
         if (safePlatform.toLowerCase() === 'youtube') {
-          emergencyFallback.tags = generateFallbackTags(20);
-          emergencyFallback.hashtags = generateFallbackHashtags(20);
+          emergencyFallback.tags = generateFallbackTags(20, language || 'english');
+          emergencyFallback.hashtags = generateFallbackHashtags(20, language || 'english');
         } else {
-          emergencyFallback.hashtags = generateFallbackHashtags(20);
+          emergencyFallback.hashtags = generateFallbackHashtags(20, language || 'english');
         }
       }
       
@@ -537,7 +658,8 @@ export default async function handler(req, res) {
         emergencyFallback, 
         safeTask, 
         safePlatform, 
-        safeContentFormat
+        safeContentFormat,
+        language || 'english'
       );
       
       return res.status(500).json({

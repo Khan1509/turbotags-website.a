@@ -10,8 +10,8 @@
 
   body {
     @apply font-sans antialiased;
-    background-color: #e2e2f3;
-    color: #070304;
+    background: transparent;
+    color: #1f2937;
     overflow-x: hidden;
     line-height: 1.6;
     -webkit-font-smoothing: antialiased;
@@ -59,8 +59,8 @@
     will-change: transform, box-shadow;
     position: relative;
     overflow: hidden;
-    --tw-ring-color: #5c6284;
-    --tw-ring-offset-color: #5c6284;
+    --tw-ring-color: #1f2937;
+    --tw-ring-offset-color: #1f2937;
   }
 
   .btn::before {
@@ -85,43 +85,45 @@
 
   .btn-primary {
     @apply btn text-white hover:bg-opacity-90 shadow-lg hover:shadow-xl;
-    background-color: #5c6284;
-    border-color: #5c6284;
+    background: linear-gradient(135deg, #1f2937 0%, #374151 100%);
+    border-color: #1f2937;
   }
 
   .btn-accent {
-    @apply btn bg-white shadow-md hover:shadow-lg;
-    color: #5c6284;
-    border: 2px solid #5c6284;
+    @apply btn bg-white/90 backdrop-blur-sm shadow-md hover:shadow-lg;
+    color: #1f2937;
+    border: 2px solid #1f2937;
   }
   
   .btn-accent:hover {
-    background-color: #5c6284;
+    background: linear-gradient(135deg, #1f2937 0%, #374151 100%);
     color: white;
   }
 
   .btn-secondary {
     @apply btn text-white hover:bg-opacity-90 shadow-lg hover:shadow-xl;
-    background-color: #5c6284;
-    border-color: #5c6284;
+    background: linear-gradient(135deg, #374151 0%, #4b5563 100%);
+    border-color: #374151;
   }
 
   .btn-reset {
     @apply btn shadow-md hover:shadow-lg transition-all duration-300;
-    background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+    background: linear-gradient(135deg, rgba(248, 250, 252, 0.9) 0%, rgba(226, 232, 240, 0.9) 100%);
+    backdrop-filter: blur(10px);
     color: #475569;
-    border: 1px solid #cbd5e1;
+    border: 1px solid rgba(203, 213, 225, 0.8);
   }
   
   .btn-reset:hover {
-    background: linear-gradient(135deg, #e2e8f0 0%, #cbd5e1 100%);
+    background: linear-gradient(135deg, rgba(226, 232, 240, 0.95) 0%, rgba(203, 213, 225, 0.95) 100%);
+    backdrop-filter: blur(15px);
     color: #334155;
-    border-color: #94a3b8;
+    border-color: rgba(148, 163, 184, 0.9);
     transform: translateY(-2px) scale(1.01);
   }
 
   .text-gradient {
-    background: linear-gradient(135deg, #5c6284 0%, #8491a8 100%);
+    background: linear-gradient(135deg, #1f2937 0%, #374151 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;

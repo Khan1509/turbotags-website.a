@@ -40,7 +40,14 @@ export const generateContent = async (prompt, options = {}, task) => {
   } catch (networkError) {
     console.warn('API unavailable, using fallback data:', networkError.message);
     
-    // Fallback to local JSON data when API is unavailable
+    // For non-English languages, skip English-only fallback.json to maintain language consistency
+    const language = options.language || 'english';
+    if (language.toLowerCase() !== 'english' && language.toLowerCase() !== 'en') {
+      console.warn(`Skipping English-only fallback for ${language} request - API models unavailable`);
+      throw new Error(`Service unavailable for ${language} - API models temporarily down`);
+    }
+    
+    // Fallback to local JSON data when API is unavailable (English only)
     try {
       const fallbackResponse = await fetch('/data/fallback.json');
       const fallbackData = await fallbackResponse.json();
