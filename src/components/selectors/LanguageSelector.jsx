@@ -44,7 +44,7 @@ const LanguageSelector = ({ value, onChange, showDropdown, setShowDropdown }) =>
       <button
         id="language-selector"
         onClick={() => setShowDropdown(!showDropdown)}
-        className="w-full p-3 border border-gray-300 rounded-md text-left bg-white hover:border-gray-400 focus:outline-none focus:ring-2 focus:ring-[#475569] focus:border-transparent transition-all duration-200 flex items-center justify-between"
+        className="w-full p-3 border border-gray-300 rounded-md text-left bg-white hover:border-gray-400 focus:outline-none focus:ring-2 focus:ring-[#6366f1] focus:border-transparent transition-all duration-200 flex items-center justify-between"
         role="combobox"
         aria-haspopup="listbox"
         aria-expanded={showDropdown}
@@ -66,7 +66,7 @@ const LanguageSelector = ({ value, onChange, showDropdown, setShowDropdown }) =>
               placeholder="Search languages..."
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
-              className="w-full p-2 border border-gray-300 rounded text-sm focus:outline-none focus:ring-1 focus:ring-[#475569]"
+              className="w-full p-2 border border-gray-300 rounded text-sm focus:outline-none focus:ring-1 focus:ring-[#6366f1]"
               aria-label="Search languages by name"
             />
           </div>

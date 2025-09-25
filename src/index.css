@@ -11,7 +11,7 @@
   body {
     @apply font-sans antialiased;
     background: transparent;
-    color: #1f2937;
+    color: #e5e7eb;
     overflow-x: hidden;
     line-height: 1.6;
     -webkit-font-smoothing: antialiased;
@@ -85,13 +85,15 @@
 
   .btn-primary {
     @apply btn text-white hover:bg-opacity-90 shadow-lg hover:shadow-xl;
-    background: linear-gradient(135deg, #475569 0%, #334155 100%);
-    border-color: #334155;
+    background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+    border-color: #7c3aed;
+    box-shadow: 0 10px 25px rgba(99,102,241,0.25), 0 6px 10px rgba(0,0,0,0.3);
   }
 
   .btn-accent {
-    @apply btn bg-white/90 backdrop-blur-sm text-slate-900 shadow-md hover:shadow-lg;
-    border: 2px solid rgba(71,85,105,0.4);
+    @apply btn backdrop-blur-sm text-slate-100 shadow-md hover:shadow-lg;
+    background: linear-gradient(135deg, rgba(99,102,241,0.12) 0%, rgba(139,92,246,0.12) 100%);
+    border: 1px solid rgba(99,102,241,0.35);
   }
 
   .btn-accent:hover {
@@ -101,16 +103,17 @@
 
   .btn-secondary {
     @apply btn text-white hover:bg-opacity-90 shadow-lg hover:shadow-xl;
-    background: linear-gradient(135deg, #1f2937 0%, #334155 100%);
-    border-color: #334155;
+    background: linear-gradient(135deg, #0ea5e9 0%, #6366f1 100%);
+    border-color: #0ea5e9;
+    box-shadow: 0 10px 25px rgba(14,165,233,0.25), 0 6px 10px rgba(0,0,0,0.3);
   }
 
   .btn-reset {
     @apply btn shadow-md hover:shadow-lg transition-all duration-300;
-    background: linear-gradient(135deg, rgba(248, 250, 252, 0.9) 0%, rgba(226, 232, 240, 0.9) 100%);
+    background: linear-gradient(135deg, rgba(15, 23, 42, 0.6) 0%, rgba(2, 6, 23, 0.6) 100%);
     backdrop-filter: blur(10px);
-    color: #475569;
-    border: 1px solid rgba(203, 213, 225, 0.8);
+    color: #cbd5e1;
+    border: 1px solid rgba(148, 163, 184, 0.35);
   }
   
   .btn-reset:hover {
@@ -122,7 +125,7 @@
   }
 
   .text-gradient {
-    background: linear-gradient(135deg, #1f2937 0%, #374151 100%);
+    background: linear-gradient(135deg, #a5b4fc 0%, #f0abfc 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
@@ -156,6 +159,80 @@
       transform: translateX(100%);
     }
   }
+}
+
+/* Indigo Cosmos theme overrides */
+.theme-indigo {
+  color: #e5e7eb;
+}
+
+.theme-indigo a {
+  color: #a5b4fc;
+}
+
+.theme-indigo a:hover {
+  color: #c4b5fd;
+}
+
+.theme-indigo .text-slate-900,
+.theme-indigo .text-gray-900,
+.theme-indigo .text-gray-800,
+.theme-indigo .text-slate-800,
+.theme-indigo .text-black {
+  color: #e5e7eb !important;
+}
+
+.theme-indigo .text-gray-700,
+.theme-indigo .text-gray-600,
+.theme-indigo .text-gray-500,
+.theme-indigo .text-slate-700,
+.theme-indigo .text-slate-600 {
+  color: #cbd5e1 !important;
+}
+
+.theme-indigo .bg-white,
+.theme-indigo .bg-gray-50,
+.theme-indigo .bg-slate-50 {
+  background-color: rgba(17, 24, 39, 0.6) !important;
+}
+
+/* Map legacy brand color utilities to light variants on dark theme */
+.theme-indigo .text-brand-dark-blue,
+.theme-indigo .text-brand-dark-grey {
+  color: #e5e7eb !important;
+}
+.theme-indigo .text-brand-medium-grey,
+.theme-indigo .text-brand-blue {
+  color: #cbd5e1 !important;
+}
+.theme-indigo .hover\:text-brand-blue:hover { color: #c4b5fd !important; }
+.theme-indigo .bg-brand-dark-blue\/10 { background-color: rgba(99,102,241,0.18) !important; }
+.theme-indigo .text-brand-dark-blue .h-8, /* icons inside brand pills */
+.theme-indigo .text-brand-dark-blue .h-6 { color: #c7d2fe !important; }
+
+/* Provide fallback classes for tt-* utilities used across pages */
+.text-tt-dark-violet { color: #c7d2fe; }
+.text-tt-medium-violet { color: #a78bfa; }
+.text-tt-primary { color: #93c5fd; }
+.text-tt-primary-dark { color: #60a5fa; }
+.bg-tt-dark-violet { background-color: #1e1b4b; }
+.from-tt-dark-violet { --tw-gradient-from: #312e81 var(--tw-gradient-from-position); --tw-gradient-to: rgb(49 46 129 / 0) var(--tw-gradient-to-position); --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to); }
+.to-tt-medium-violet { --tw-gradient-to: #7c3aed var(--tw-gradient-to-position); }
+
+.theme-indigo [class*="bg-white/"] {
+  background-color: rgba(17, 24, 39, 0.5) !important;
+}
+
+.theme-indigo .bg-gray-100 {
+  background-color: rgba(30, 41, 59, 0.4) !important;
+  color: #e5e7eb !important;
+}
+
+.theme-indigo .border-slate-200,
+.theme-indigo .border-slate-300,
+.theme-indigo .border-gray-200,
+.theme-indigo .border-gray-300 {
+  border-color: rgba(148, 163, 184, 0.25) !important;
 }
 
 /* Animated border highlights for main content boxes */

@@ -49,7 +49,7 @@ const Hero = React.memo(() => {
       >
         <a
           href="#tag-generator"
-          className="btn btn-secondary focus:outline-none focus:ring-2 focus:ring-brand-dark-blue focus:ring-offset-2"
+          className="btn btn-secondary focus:outline-none focus:ring-2 focus:ring-[#6366f1] focus:ring-offset-2"
           aria-label="Start generating tags and hashtags now"
         >
           Start Generating Now <Zap className="ml-2 h-5 w-5" aria-hidden="true" />

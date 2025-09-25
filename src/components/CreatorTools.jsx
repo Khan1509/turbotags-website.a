@@ -95,8 +95,7 @@ const HashtagCleaner = () => {
       
       <button
         onClick={cleanHashtags}
-        className="w-full text-white font-semibold py-2 px-4 rounded-lg mb-4 transition-colors hover:opacity-90"
-        style={{ backgroundColor: '#5c6284' }}
+        className="w-full btn btn-primary mb-4"
       >
         Clean Hashtags
       </button>
