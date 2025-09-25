@@ -33,13 +33,13 @@ const Hero = React.memo(() => {
       </h1>
 
       <p
-        className="text-lg md:text-xl font-semibold mt-4 text-brand-dark-grey"
+        className="text-lg md:text-xl font-semibold mt-4 text-slate-800"
       >
         Smarter Reach. Faster Growth. <span className="inline-block animate-rocket-float" role="img" aria-label="rocket">🚀</span>
       </p>
 
       <p
-        className="mt-4 max-w-3xl mx-auto text-brand-medium-grey text-base md:text-lg leading-relaxed"
+        className="mt-4 max-w-3xl mx-auto text-slate-700 text-base md:text-lg leading-relaxed"
       >
         Generate <strong>viral tags</strong>, <strong>trending hashtags</strong>, and <strong>SEO-optimized titles</strong> for YouTube, TikTok, Instagram, and Facebook. Our AI helps you get more views and reach a global audience.
       </p>
