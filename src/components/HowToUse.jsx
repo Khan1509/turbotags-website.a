@@ -22,7 +22,7 @@ const steps = [
 
 const HowToUse = () => {
   return (
-    <section id="how-to-use" className="py-12 bg-white">
+    <section id="how-to-use" className="py-12">
       <div className="container mx-auto max-w-7xl px-4">
         <div className="text-center mb-12">
           <h2 className="h2 font-extrabold text-brand-dark-blue">How It Works</h2>
