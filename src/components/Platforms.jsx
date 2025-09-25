@@ -12,24 +12,24 @@ const platformData = [
 
 const Platforms = () => {
   return (
-    <section className="bg-white p-6 rounded-xl shadow-md">
-      <h2 className="text-3xl font-bold text-brand-dark-blue mb-6 text-center">Platforms We Support</h2>
+    <section className="bg-white/95 p-6 rounded-xl shadow-md border border-slate-200">
+      <h2 className="text-3xl font-bold text-slate-800 mb-6 text-center">Platforms We Support</h2>
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
         {platformData.map((platform, index) => (
           <motion.div 
             key={platform.name} 
-            className="platform-card bg-slate-50 rounded-lg p-6 text-center border border-gray-200"
+            className="platform-card bg-white rounded-lg p-6 text-center border border-slate-200"
             whileHover={{ 
-              borderColor: "rgb(99 102 241)",
-              boxShadow: "0 0 0 2px rgba(99, 102, 241, 0.1)"
+              borderColor: "rgb(71 85 105)",
+              boxShadow: "0 0 0 2px rgba(71, 85, 105, 0.12)"
             }}
             transition={{ type: "spring", stiffness: 400, damping: 25 }}
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0, transition: { delay: index * 0.1 } }}
           >
             <platform.icon className={`h-10 w-10 mx-auto mb-3 ${platform.color}`} />
-            <h3 className="text-xl font-bold text-brand-dark-grey mb-1">{platform.name}</h3>
-            <p className="text-sm text-brand-medium-grey">{platform.description}</p>
+            <h3 className="text-xl font-bold text-slate-800 mb-1">{platform.name}</h3>
+            <p className="text-sm text-slate-600">{platform.description}</p>
           </motion.div>
         ))}
       </div>

@@ -53,9 +53,9 @@ const TargetCursor = () => {
           damping: 30,
         }}
       >
-        <motion.div 
+        <motion.div
           className="w-5 h-5 rounded-full shadow-lg"
-          style={{ backgroundColor: '#5c6284' }}
+          style={{ backgroundColor: '#475569' }}
           animate={{
             rotate: [0, 360],
           }}
@@ -84,9 +84,9 @@ const TargetCursor = () => {
           damping: 20,
         }}
       >
-        <motion.div 
+        <motion.div
           className="w-8 h-8 rounded-full blur-sm"
-          style={{ backgroundColor: 'rgba(92, 98, 132, 0.3)' }}
+          style={{ backgroundColor: 'rgba(71, 85, 105, 0.3)' }}
           animate={{
             rotate: [360, 0],
           }}
