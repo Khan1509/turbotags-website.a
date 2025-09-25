@@ -60,7 +60,7 @@ const Footer = () => {
               <li><a href="https://twitter.com/TurboTagsApp" target="_blank" rel="noopener noreferrer" className="text-brand-medium-grey hover:text-brand-blue transition flex items-center focus:outline-none focus:ring-2 focus:ring-brand-blue rounded-md px-1 py-1"><Twitter className="h-4 w-4 mr-2" />Follow on Twitter</a></li>
               <li><a href="https://www.linkedin.com/in/turbotags-support-173b0a375" target="_blank" rel="noopener noreferrer" className="text-brand-medium-grey hover:text-brand-blue transition flex items-center focus:outline-none focus:ring-2 focus:ring-brand-blue rounded-md px-1 py-1"><Linkedin className="h-4 w-4 mr-2" />Connect on LinkedIn</a></li>
               <li className="pt-2">
-                <a href="https://ko-fi.com/turbotags1509" target="_blank" rel="noopener noreferrer" className="inline-flex items-center justify-center px-4 py-2 rounded-lg bg-[#5c6284]/10 text-[#5c6284] font-bold hover:bg-[#5c6284]/20 transition w-full focus:outline-none focus:ring-2 focus:ring-[#5c6284] focus:ring-offset-2">
+                <a href="https://ko-fi.com/turbotags1509" target="_blank" rel="noopener noreferrer" className="btn btn-primary w-full">
                   <Heart className="h-4 w-4 mr-2" /> Support Us on Ko-fi
                 </a>
               </li>
