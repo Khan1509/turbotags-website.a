@@ -8,7 +8,7 @@ import ScrollToTopButton from '../ScrollToTopButton';
 
 const MainLayout = () => {
   return (
-    <div className="min-h-screen w-full relative bg-black">
+    <div className="min-h-screen w-full relative bg-black theme-indigo">
       {/* Indigo Cosmos Background with Top Glow */}
       <div
         className="absolute inset-0 z-0"
