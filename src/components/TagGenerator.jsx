@@ -92,11 +92,11 @@ const TagGenerator = ({ initialTab = 'youtube', initialTask = 'tags_and_hashtags
   }, [closeDropdowns]);
 
   return (
-    <section id="tag-generator" className="relative bg-white p-4 sm:p-6 rounded-2xl shadow-xl border border-gray-200/50">
+    <section id="tag-generator" className="relative bg-white/95 p-4 sm:p-6 rounded-2xl shadow-xl border border-slate-200">
       <div className="relative z-10">
       {error && <MessageBox message={error} type="error" onDismiss={() => setError(null)} />}
       
-      <div className="relative flex border-b border-gray-200 mb-6 overflow-x-auto">
+      <div className="relative flex border-b border-slate-200 mb-6 overflow-x-auto">
         {/* Gooey background blob - hidden on reduced motion preference */}
         <motion.div
           className="absolute bottom-0 opacity-20 rounded-t-2xl hidden md:block"
@@ -132,7 +132,7 @@ const TagGenerator = ({ initialTab = 'youtube', initialTask = 'tags_and_hashtags
             className={`relative flex-shrink-0 flex items-center gap-2 px-4 py-3 font-semibold transition-colors duration-200 focus:outline-none ${
               activeTab === tab.id
                 ? 'text-white'
-                : 'text-brand-medium-grey hover:text-brand-dark-grey'
+                : 'text-slate-600 hover:text-slate-800'
             }`}
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
@@ -140,7 +140,7 @@ const TagGenerator = ({ initialTab = 'youtube', initialTask = 'tags_and_hashtags
             {activeTab === tab.id && (
               <motion.div
                 className="absolute inset-0 rounded-lg"
-                style={{ backgroundColor: '#5c6284' }}
+                style={{ backgroundColor: '#475569' }}
                 layoutId="gooeyBackground"
                 initial={false}
                 transition={{
@@ -159,13 +159,13 @@ const TagGenerator = ({ initialTab = 'youtube', initialTask = 'tags_and_hashtags
       <form onSubmit={handleSubmit} className="space-y-6">
         {/* Settings Section - Clearly separated */}
         <motion.div 
-          className="relative bg-white p-5 rounded-xl border border-[#5c6284]/20 shadow-sm transition-all duration-300"
+          className="relative bg-white p-5 rounded-xl border border-slate-200 shadow-sm transition-all duration-300"
           whileHover={{
-            borderColor: 'rgba(92, 98, 132, 0.4)',
-            boxShadow: '0 4px 12px rgba(92, 98, 132, 0.15)',
+            borderColor: 'rgba(71, 85, 105, 0.5)',
+            boxShadow: '0 4px 12px rgba(71, 85, 105, 0.15)',
           }}
         >
-          <h3 className="text-lg font-bold text-black mb-4 relative z-10">Content Settings</h3>
+          <h3 className="text-lg font-bold text-slate-900 mb-4 relative z-10">Content Settings</h3>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4 relative z-10">
             <ContentFormatSelector platform={activeTab} value={contentFormat} onChange={setContentFormat} showDropdown={openDropdown === 'format'} setShowDropdown={(show) => setOpenDropdown(show ? 'format' : null)} />
             <LanguageSelector value={language} onChange={setLanguage} showDropdown={openDropdown === 'language'} setShowDropdown={(show) => setOpenDropdown(show ? 'language' : null)} />
@@ -183,20 +183,20 @@ const TagGenerator = ({ initialTab = 'youtube', initialTask = 'tags_and_hashtags
             value={prompt}
             onChange={(e) => setPrompt(e.target.value)}
             placeholder="e.g., 'unboxing the new iPhone' or 'vegan chocolate cake recipe'"
-            className="w-full p-4 border border-[#5c6284]/30 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#5c6284] focus:border-[#5c6284] transition-all duration-300 shadow-sm hover:shadow-md hover:border-[#5c6284]/50"
+            className="w-full p-4 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#475569] focus:border-[#475569] transition-all duration-300 shadow-sm hover:shadow-md hover:border-slate-400"
             required
           />
         </div>
         
         {/* Content Type Selection - Clearly separated */}
         <motion.div 
-          className="relative bg-white p-5 rounded-xl border border-[#5c6284]/20 shadow-sm transition-all duration-300"
+          className="relative bg-white p-5 rounded-xl border border-slate-200 shadow-sm transition-all duration-300"
           whileHover={{
-            borderColor: 'rgba(92, 98, 132, 0.4)',
-            boxShadow: '0 4px 12px rgba(92, 98, 132, 0.15)',
+            borderColor: 'rgba(71, 85, 105, 0.5)',
+            boxShadow: '0 4px 12px rgba(71, 85, 105, 0.15)',
           }}
         >
-          <h3 className="text-lg font-bold text-black mb-4 relative z-10">What would you like to generate?</h3>
+          <h3 className="text-lg font-bold text-slate-900 mb-4 relative z-10">What would you like to generate?</h3>
           <div className="flex flex-col sm:flex-row gap-3 relative z-10">
             <button type="button" onClick={() => setTask('tags_and_hashtags')} className={`flex-1 btn ${task === 'tags_and_hashtags' ? 'btn-secondary' : 'btn-accent'}`}>
                 <Hash className="mr-2 h-5 w-5" /> Generate Tags & Hashtags
@@ -214,7 +214,7 @@ const TagGenerator = ({ initialTab = 'youtube', initialTask = 'tags_and_hashtags
               ref={generateButtonRef}
               type="submit"
               disabled={isLoading}
-              className="flex-1 btn btn-secondary text-lg disabled:bg-gray-400 disabled:cursor-not-allowed disabled:shadow-none"
+              className="flex-1 btn btn-primary text-lg disabled:bg-gray-400 disabled:cursor-not-allowed disabled:shadow-none"
             >
               {isLoading ? (
                 <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-white"></div>
@@ -235,7 +235,7 @@ const TagGenerator = ({ initialTab = 'youtube', initialTask = 'tags_and_hashtags
               Reset Form
             </button>
           </div>
-          <p className="text-center text-xs text-brand-medium-grey mt-2">
+          <p className="text-center text-xs text-slate-600 mt-2">
             100% Free & Unlimited Generations
           </p>
         </div>
@@ -243,7 +243,7 @@ const TagGenerator = ({ initialTab = 'youtube', initialTask = 'tags_and_hashtags
 
       {(isLoading || generatedContent) && (
         <div className="mt-8">
-          <h2 className="text-2xl font-bold text-brand-dark-grey mb-4">Generated Content</h2>
+          <h2 className="text-2xl font-bold text-slate-800 mb-4">Generated Content</h2>
           {isLoading ? (
             <ResultsSkeleton />
           ) : (

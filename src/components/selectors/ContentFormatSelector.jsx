@@ -33,7 +33,7 @@ const ContentFormatSelector = ({ platform, value, onChange, showDropdown, setSho
       <button
         id="content-format-selector"
         onClick={() => setShowDropdown(!showDropdown)}
-        className="w-full p-3 border border-gray-300 rounded-md text-left bg-white hover:border-gray-400 focus:outline-none focus:ring-2 focus:ring-tt-medium-violet focus:border-transparent transition-all duration-200 flex items-center justify-between"
+        className="w-full p-3 border border-gray-300 rounded-md text-left bg-white hover:border-gray-400 focus:outline-none focus:ring-2 focus:ring-[#475569] focus:border-transparent transition-all duration-200 flex items-center justify-between"
         role="combobox"
         aria-haspopup="listbox"
         aria-expanded={showDropdown}
@@ -58,7 +58,7 @@ const ContentFormatSelector = ({ platform, value, onChange, showDropdown, setSho
               role="option"
               aria-selected={value === format.value}
               className={`w-full text-left px-3 py-2 hover:bg-gray-100 focus:bg-gray-100 focus:outline-none ${
-                value === format.value ? 'bg-tt-medium-violet/10 text-tt-medium-violet font-medium' : ''
+                value === format.value ? 'bg-slate-100 text-slate-700 font-medium' : ''
               }`}
             >
               {format.label}
