@@ -8,6 +8,9 @@ import { useEffect } from 'react';
  */
 const usePageMeta = (title, description, imageUrl) => {
   useEffect(() => {
+    // Get current URL for canonical and OG URL
+    const currentUrl = window.location.href;
+    
     // Update title
     if (title) {
       document.title = title;
@@ -20,6 +23,26 @@ const usePageMeta = (title, description, imageUrl) => {
       document.querySelector('meta[name="description"]')?.setAttribute('content', description);
       document.querySelector('meta[property="og:description"]')?.setAttribute('content', description);
       document.querySelector('meta[name="twitter:description"]')?.setAttribute('content', description);
+    }
+
+    // Update canonical URL
+    let canonicalLink = document.querySelector('link[rel="canonical"]');
+    if (!canonicalLink) {
+      canonicalLink = document.createElement('link');
+      canonicalLink.rel = 'canonical';
+      document.head.appendChild(canonicalLink);
+    }
+    canonicalLink.href = currentUrl;
+
+    // Update OG URL
+    const ogUrl = document.querySelector('meta[property="og:url"]');
+    if (ogUrl) {
+      ogUrl.setAttribute('content', currentUrl);
+    } else {
+      const newOgUrl = document.createElement('meta');
+      newOgUrl.setAttribute('property', 'og:url');
+      newOgUrl.setAttribute('content', currentUrl);
+      document.head.appendChild(newOgUrl);
     }
 
     // Update image

@@ -1,8 +1,13 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { AlertTriangle } from 'lucide-react';
+import usePageMeta from '../../hooks/usePageMeta';
 
 const Disclaimer = () => {
+  usePageMeta(
+    'Disclaimer - TurboTags: Important Service Information',
+    'TurboTags Disclaimer: Understand the limitations of AI-generated content. No guarantees on virality or success. Use generated tags and hashtags responsibly.'
+  );
   return (
     <main className="container mx-auto max-w-4xl p-6 py-10">
       <div className="bg-white p-8 rounded-xl shadow-lg">

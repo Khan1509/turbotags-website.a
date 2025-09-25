@@ -1,7 +1,12 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import usePageMeta from '../../hooks/usePageMeta';
 
 const CookiePolicy = () => {
+  usePageMeta(
+    'Cookie Policy - TurboTags: How We Use Cookies',
+    'TurboTags Cookie Policy: Learn about our minimal cookie usage for essential functionality. We use only necessary cookies for the best user experience.'
+  );
   return (
     <main className="container mx-auto max-w-4xl p-8">
       <div className="bg-white p-8 rounded-xl shadow-lg">

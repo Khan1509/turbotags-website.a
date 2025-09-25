@@ -1,8 +1,13 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { FileText } from 'lucide-react';
+import usePageMeta from '../../hooks/usePageMeta';
 
 const Terms = () => {
+  usePageMeta(
+    'Terms of Service - TurboTags: Usage Guidelines & Rights',
+    'TurboTags Terms of Service: Learn about proper usage, user responsibilities, and our service terms. Free AI hashtag generator terms and conditions.'
+  );
   return (
     <main className="container mx-auto max-w-4xl p-6 py-10">
       <div className="bg-white p-8 rounded-xl shadow-lg">

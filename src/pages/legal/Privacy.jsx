@@ -1,8 +1,13 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { ShieldCheck } from 'lucide-react';
+import usePageMeta from '../../hooks/usePageMeta';
 
 const Privacy = () => {
+  usePageMeta(
+    'Privacy Policy - TurboTags: Your Data Protection Rights',
+    'Read TurboTags Privacy Policy. We collect minimal data, no personal info required, and protect your prompts. Learn about our privacy-first approach to AI generation.'
+  );
   return (
     <main className="container mx-auto max-w-4xl p-6 py-10">
       <div className="bg-white rounded-xl shadow-lg p-8">

@@ -8,8 +8,13 @@ import TrendingTopics from '../components/TrendingTopics';
 import HowToUse from '../components/HowToUse';
 import CreatorGrowthTips from '../components/CreatorGrowthTips';
 import CreatorTools from '../components/CreatorTools';
+import usePageMeta from '../hooks/usePageMeta';
 
 function HomePage() {
+  usePageMeta(
+    'TurboTags: Free AI Hashtag & Tag Generator Tool',
+    'Generate viral hashtags and tags for YouTube, Instagram, TikTok & Facebook with our free AI-powered tool. Boost your content reach and engagement instantly.'
+  );
   return (
     <div className="space-y-16 pb-16">
       <div className="container mx-auto max-w-7xl px-4 sm:px-6 md:px-8">
