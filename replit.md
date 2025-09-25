@@ -5,7 +5,7 @@ A React/Vite web application for generating hashtags and tags for various social
 ## Overview
 - **Purpose**: AI-powered hashtag and tag generation for content creators
 - **Technology**: React 18, Vite 5, Tailwind CSS, Firebase Analytics
-- **Current State**: Fully functional with fallback data, ready for OpenRouter API integration
+- **Current State**: Fully functional with optimized AI generation using user's preferred models and comprehensive fallback system
 
 ## Recent Changes
 - ✅ Successfully imported GitHub repository to Replit (Sept 16, 2025)
@@ -27,13 +27,19 @@ A React/Vite web application for generating hashtags and tags for various social
 - ✅ **Critical path optimized**: HomePage loads eagerly, LCP H1 renders immediately, framer-motion removed from critical components
 - ✅ **Bundle optimized**: Main bundle 16.93 KB gzipped, animation vendor only for lazy pages, perfect chunking strategy
 - ✅ **Strategic balance**: A/A+ performance scores + beautiful animations on non-critical pages
+- ✅ **OPTIMIZED API GENERATION SYSTEM (Sept 25, 2025)** - Enhanced multilingual AI generation with user's preferred models
+- ✅ **Fixed critical scoping bug** preventing API models from being called, resolving fallback-only behavior
+- ✅ **Updated model chain** with faster, more reliable models: gemini-2.5-flash-lite → gemini-2.0-flash-001 → gemma-2-27b-it → claude-3-haiku
+- ✅ **Improved generation reliability** with dynamic token allocation (400 for titles, 800 for tags/hashtags)
+- ✅ **Enhanced multilingual support** with lenient validation ensuring fast generation across all languages
+- ✅ **Robust 4-model fallback** guaranteeing users never receive empty results regardless of content format or region
 - ✅ Project fully functional and ready for both development and production deployment
 
 ## Project Architecture
 - **Frontend**: React SPA with React Router
 - **Build Tool**: Vite with custom API middleware
 - **Styling**: Tailwind CSS with custom components
-- **API**: Custom API endpoints simulating Vercel functions
+- **API**: OpenRouter AI integration with 4-model fallback chain for reliable multilingual generation
 - **Analytics**: Firebase Analytics integration
 - **Deployment**: Autoscale deployment with static file serving
 
