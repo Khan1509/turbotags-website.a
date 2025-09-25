@@ -55,7 +55,7 @@ const TargetCursor = () => {
       >
         <motion.div
           className="w-5 h-5 rounded-full shadow-lg"
-          style={{ backgroundColor: '#475569' }}
+          style={{ backgroundColor: '#6366f1' }}
           animate={{
             rotate: [0, 360],
           }}
@@ -86,7 +86,7 @@ const TargetCursor = () => {
       >
         <motion.div
           className="w-8 h-8 rounded-full blur-sm"
-          style={{ backgroundColor: 'rgba(71, 85, 105, 0.3)' }}
+          style={{ backgroundColor: 'rgba(99, 102, 241, 0.3)' }}
           animate={{
             rotate: [360, 0],
           }}

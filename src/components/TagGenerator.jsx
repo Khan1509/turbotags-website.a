@@ -102,7 +102,7 @@ const TagGenerator = ({ initialTab = 'youtube', initialTask = 'tags_and_hashtags
         <motion.div
           className="absolute bottom-0 opacity-20 rounded-t-2xl hidden md:block"
           style={{
-            backgroundColor: '#475569',
+            backgroundColor: '#6366f1',
             filter: 'url(#gooey)',
           }}
           layoutId="gooeyBlob"
@@ -141,7 +141,7 @@ const TagGenerator = ({ initialTab = 'youtube', initialTask = 'tags_and_hashtags
             {activeTab === tab.id && (
               <motion.div
                 className="absolute inset-0 rounded-lg"
-                style={{ backgroundColor: '#475569' }}
+                style={{ backgroundColor: '#6366f1' }}
                 layoutId="gooeyBackground"
                 initial={false}
                 transition={{
@@ -184,7 +184,7 @@ const TagGenerator = ({ initialTab = 'youtube', initialTask = 'tags_and_hashtags
             value={prompt}
             onChange={(e) => setPrompt(e.target.value)}
             placeholder="e.g., 'unboxing the new iPhone' or 'vegan chocolate cake recipe'"
-            className="w-full p-4 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#475569] focus:border-[#475569] transition-all duration-300 shadow-sm hover:shadow-md hover:border-slate-400"
+            className="w-full p-4 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#6366f1] focus:border-[#6366f1] transition-all duration-300 shadow-sm hover:shadow-md hover:border-slate-400"
             required
           />
         </div>
