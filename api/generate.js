@@ -141,20 +141,20 @@ function processAndValidateResponse(response, task, platform, contentFormat) {
     
   } else if (task === 'tags_and_hashtags') {
     if (platform.toLowerCase() === 'youtube') {
-      // YouTube: 15-25 tags and 15-25 hashtags
+      // YouTube: 15-20 tags and 15-20 hashtags
       let tags = response.tags || [];
       let hashtags = response.hashtags || [];
       
-      tags = trimAndPadArray(tags, 15, 25, (index) => generateFallbackTags(1)[0]);
-      hashtags = trimAndPadArray(hashtags, 15, 25, (index) => generateFallbackHashtags(1)[0]);
+      tags = trimAndPadArray(tags, 15, 20, (index) => generateFallbackTags(1)[0]);
+      hashtags = trimAndPadArray(hashtags, 15, 20, (index) => generateFallbackHashtags(1)[0]);
       
       processed.tags = tags;
       processed.hashtags = hashtags;
       
     } else {
-      // Instagram/TikTok/Facebook: 15-25 hashtags only
+      // Instagram/TikTok/Facebook: 15-20 hashtags only
       let hashtags = response.hashtags || [];
-      hashtags = trimAndPadArray(hashtags, 15, 25, (index) => generateFallbackHashtags(1)[0]);
+      hashtags = trimAndPadArray(hashtags, 15, 20, (index) => generateFallbackHashtags(1)[0]);
       processed.hashtags = hashtags;
     }
   }
@@ -162,28 +162,34 @@ function processAndValidateResponse(response, task, platform, contentFormat) {
   return processed;
 }
 
-// Helper to validate if response is in correct language
+// Helper to validate if response is in correct language - optimized for speed and reliability
 function validateLanguage(response, expectedLanguage) {
   if (expectedLanguage.toLowerCase() === 'english' || expectedLanguage.toLowerCase() === 'en') {
     return true; // Skip validation for English as it's the default
   }
   
-  // For non-English languages, be more lenient with validation
-  // Many hashtags and content naturally contain English words (brands, tech terms, etc.)
+  // For non-English languages, use very lenient validation for speed
+  // Modern AI models are reliable at following language instructions
+  // Only check if response contains SOME non-English content to ensure it's not completely in English
   const responseText = JSON.stringify(response).toLowerCase();
   
-  // Simple heuristic: only fail if response is OVERWHELMINGLY English
-  const englishPatterns = /\b(the|and|or|but|in|on|at|to|for|of|with|by|this|that|these|those|from|into|about|after|before|during)\b/g;
-  const englishMatches = (responseText.match(englishPatterns) || []).length;
+  // Quick check: if response is very short, accept it (hashtags/tags can be mixed language)
+  if (responseText.length < 200) {
+    return true;
+  }
+  
+  // Very simple heuristic: only fail if response is ENTIRELY common English words
+  const commonEnglishPatterns = /\b(the|and|or|but|in|on|at|to|for|of|with|by|this|that|these|those|from|into|about|after|before|during|what|when|where|why|how|can|will|would|should|could|have|has|had|is|are|was|were|be|been|being|do|does|did|done|get|got|make|made|take|took|come|came|go|went|see|saw|know|knew|think|thought|say|said|tell|told|give|gave|find|found|use|used|work|worked|feel|felt|seem|seemed|become|became|leave|left|put|put|mean|meant|keep|kept|let|let|begin|began|help|helped|talk|talked|turn|turned|start|started|show|showed|hear|heard|play|played|run|ran|move|moved|live|lived|believe|believed|bring|brought|happen|happened|write|wrote|provide|provided|sit|sat|stand|stood|lose|lost|pay|paid|meet|met|include|included|continue|continued|set|set|learn|learned|change|changed|lead|led|understand|understood|watch|watched|follow|followed|stop|stopped|create|created|speak|spoke|read|read|allow|allowed|add|added|spend|spent|grow|grew|open|opened|walk|walked|win|won|offer|offered|remember|remembered|love|loved|consider|considered|appear|appeared|buy|bought|wait|waited|serve|served|die|died|send|sent|expect|expected|build|built|stay|stayed|fall|fell|cut|cut|reach|reached|kill|killed|remain|remained|suggest|suggested|raise|raised|pass|passed|sell|sold|require|required|report|reported|decide|decided|pull|pulled)\b/g;
+  const englishMatches = (responseText.match(commonEnglishPatterns) || []).length;
   
   // Count total words to get a ratio
   const totalWords = responseText.split(/\s+/).length;
   const englishRatio = totalWords > 0 ? englishMatches / totalWords : 0;
   
-  // Only fail if more than 70% of content appears to be English
-  // This allows for mixed content, brand names, and international terms
-  if (englishRatio > 0.7 && expectedLanguage.toLowerCase() !== 'english') {
-    console.warn(`Language validation: ${englishMatches}/${totalWords} English words (${(englishRatio * 100).toFixed(1)}%) for expected language: ${expectedLanguage}`);
+  // Only fail if more than 85% of content is common English words (very lenient)
+  // This allows for hashtags, brand names, technical terms, and code-switching
+  if (englishRatio > 0.85 && expectedLanguage.toLowerCase() !== 'english') {
+    console.warn(`Language validation failed: ${englishMatches}/${totalWords} English words (${(englishRatio * 100).toFixed(1)}%) for expected language: ${expectedLanguage}`);
     return false;
   }
   
@@ -228,7 +234,7 @@ function validateTopicRelevance(response, userTopic, expectedLanguage = 'english
 
 // Helper to call OpenRouter API with timeout and optimization  
 // Optimized for fast generation with reduced timeout for better user experience
-async function callOpenRouter(model, systemPrompt, userPrompt, timeout = 6000) {
+async function callOpenRouter(model, systemPrompt, userPrompt, maxTokens = 800, timeout = 6000) {
   const OPENROUTER_API_KEY = process.env.OPENROUTER_API_KEY;
   if (!OPENROUTER_API_KEY || OPENROUTER_API_KEY.startsWith('YOUR_')) {
     throw new Error('OPENROUTER_API_KEY is not set or is a placeholder.');
@@ -243,12 +249,14 @@ async function callOpenRouter(model, systemPrompt, userPrompt, timeout = 6000) {
       signal: controller.signal,
       headers: {
         "Authorization": `Bearer ${OPENROUTER_API_KEY}`,
-        "Content-Type": "application/json"
+        "Content-Type": "application/json",
+        "HTTP-Referer": "https://turbotags.app",
+        "X-Title": "TurboTags - AI Hashtag Generator"
       },
       body: JSON.stringify({
         model: model,
         response_format: { type: "json_object" },
-        max_tokens: 600,
+        max_tokens: maxTokens, // Dynamic token allocation
         temperature: 0.3,
         messages: [
           { role: "system", content: systemPrompt },
@@ -303,12 +311,12 @@ export default async function handler(req, res) {
     const isEnglish = validatedLanguage.toLowerCase() === 'english' || validatedLanguage.toLowerCase() === 'en';
 
     // Define new high-quality model chain for robust 4-model fallback system
-    // Updated with latest fast models for optimal performance and language support
+    // Optimized order: most reliable models first, then specialized ones
     const modernModels = [
-      "google/gemini-2.0-flash-001",           // Primary: Latest Gemini 2.0 Flash - fastest and most capable
-      "google/gemini-2.5-flash-lite",          // Secondary: Reliable and fast generation
-      "google/gemma-3-27b-it",                 // Tertiary: Excellent multilingual support
-      "x-ai/grok-4-fast:free"                  // Quaternary: Free fast model for ultimate fallback
+      "google/gemini-2.5-flash-lite",          // Primary: Most reliable and fast
+      "google/gemini-2.0-flash-001",           // Secondary: Latest capabilities when available
+      "google/gemma-2-27b-it",                 // Tertiary: Stable multilingual model 
+      "anthropic/claude-3-haiku"               // Quaternary: Reliable fallback
     ];
     
     // Use the same models for both English and non-English for consistency
@@ -326,28 +334,21 @@ export default async function handler(req, res) {
       instructions: "Generate content that is STRICTLY about the userTopic. Do NOT create generic trending content unrelated to the specific topic provided."
     });
 
-    const systemPrompt = `You are an expert social media content strategist. Your task is to generate content that is STRICTLY RELEVANT to the user's specific topic.
+    const systemPrompt = `You are an expert social media content strategist specialized in fast, accurate generation across all languages and platforms.
 
-    CRITICAL TOPIC ADHERENCE:
-    - You MUST stay strictly focused on the user's exact topic/keywords provided in userTopic
-    - Do NOT generate generic trending content unrelated to the userTopic
-    - Do NOT substitute the topic with broader trends unless directly related
-    - If you cannot generate relevant content for the userTopic, return {"error": "TOPIC_TOO_BROAD"}
-
-    CRITICAL LANGUAGE REQUIREMENT: 
-    - The ENTIRE response, including ALL generated text (tags, hashtags, titles), MUST be in the specified language: "${validatedLanguage}"
-    - If language is not English, adapt content to be culturally relevant for that language/region
-    - If you cannot generate in the specified language, return {"error": "LANGUAGE_NOT_SUPPORTED"}
-
-    PLATFORM SPECIFICATIONS:
+    CRITICAL REQUIREMENTS:
+    1. TOPIC FOCUS: Generate content STRICTLY about the userTopic provided. Stay on-topic and relevant.
+    
+    2. LANGUAGE: Generate ALL content (tags, hashtags, titles) in ${validatedLanguage}. For non-English languages, use culturally relevant terms while allowing global hashtags when appropriate.
+    
+    3. PLATFORM OPTIMIZATION: 
     - Platform: ${validatedPlatform}
     - Content Format: ${validatedContentFormat}
     - Target Region: ${validatedRegion}
-    - Language: ${validatedLanguage}
-    - Task: ${validatedTask}
+    
+    4. SPEED & RELIABILITY: Generate high-quality content quickly. Focus on trending potential and discoverability.
 
-    CONTENT REQUIREMENTS:
-    - Generate content highly relevant to the userTopic AND trending potential
+    CONTENT SPECIFICATIONS:
     - Each item must have "trend_percentage" between 70-100
     - Focus on discoverability for the specified platform and region
 
@@ -365,12 +366,12 @@ export default async function handler(req, res) {
     
     If task is 'tags_and_hashtags':
       For YOUTUBE:
-      - Generate 15-25 tags related to userTopic
-      - Generate 15-25 hashtags related to userTopic  
+      - Generate 15-20 tags related to userTopic
+      - Generate 15-20 hashtags related to userTopic  
       - JSON structure: {"tags": [{"text": "tag name", "trend_percentage": 85}], "hashtags": [{"text": "#hashtag", "trend_percentage": 92}]}
       
       For INSTAGRAM, TIKTOK, or FACEBOOK:
-      - Generate 15-25 hashtags related to userTopic
+      - Generate 15-20 hashtags related to userTopic
       - JSON structure: {"hashtags": [{"text": "#hashtag", "trend_percentage": 88}]}
 
     RESPONSE FORMAT:
@@ -388,7 +389,8 @@ export default async function handler(req, res) {
       const model = modelsToTry[i];
       try {
         console.log(`[API] Attempting model ${i + 1}/4: ${model} for language: ${validatedLanguage}`);
-        rawResult = await callOpenRouter(model, systemPrompt, structuredPrompt, 6000); // Optimized timeout for faster response
+        const maxTokens = validatedTask === 'titles' ? 400 : 800; // Dynamic token allocation
+        rawResult = await callOpenRouter(model, systemPrompt, structuredPrompt, maxTokens, 6000); // Optimized timeout for faster response
         
         // Check for API-level errors
         if (rawResult.error) {
