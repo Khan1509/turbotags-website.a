@@ -47,7 +47,7 @@ const CookieConsent = () => {
           animate={{ y: '0%' }}
           exit={{ y: '100%' }}
           transition={{ type: 'spring', stiffness: 200, damping: 30 }}
-          className="fixed bottom-0 left-0 right-0 bg-[#5c6284]/95 backdrop-blur-md text-white p-4 shadow-xl z-50 flex items-center justify-between flex-wrap gap-4"
+          className="fixed bottom-0 left-0 right-0 bg-black/90 backdrop-blur-md text-slate-100 p-4 shadow-xl z-50 flex items-center justify-between flex-wrap gap-4 border-t border-sky-400/30"
           role="dialog"
           aria-labelledby="cookie-consent-title"
         >
