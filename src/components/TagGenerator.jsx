@@ -45,8 +45,9 @@ const TagGenerator = ({ initialTab = 'youtube', initialTask = 'tags_and_hashtags
   const handleSubmit = async (e) => {
     e.preventDefault();
     
-    // Robust check: only allow submission if it came from the actual Generate button
-    if (e.nativeEvent.submitter !== generateButtonRef.current) {
+    // Only short-circuit if another submitter exists and isn't the Generate button
+    const submitter = e?.nativeEvent?.submitter;
+    if (submitter && submitter !== generateButtonRef.current) {
       return;
     }
     
@@ -101,7 +102,7 @@ const TagGenerator = ({ initialTab = 'youtube', initialTask = 'tags_and_hashtags
         <motion.div
           className="absolute bottom-0 opacity-20 rounded-t-2xl hidden md:block"
           style={{
-            backgroundColor: '#5c6284',
+            backgroundColor: '#475569',
             filter: 'url(#gooey)',
           }}
           layoutId="gooeyBlob"
@@ -198,10 +199,10 @@ const TagGenerator = ({ initialTab = 'youtube', initialTask = 'tags_and_hashtags
         >
           <h3 className="text-lg font-bold text-slate-900 mb-4 relative z-10">What would you like to generate?</h3>
           <div className="flex flex-col sm:flex-row gap-3 relative z-10">
-            <button type="button" onClick={() => setTask('tags_and_hashtags')} className={`flex-1 btn ${task === 'tags_and_hashtags' ? 'btn-secondary' : 'btn-accent'}`}>
+            <button type="button" onClick={() => setTask('tags_and_hashtags')} className={`flex-1 btn ${task === 'tags_and_hashtags' ? 'btn-primary' : 'btn-accent'}`}>
                 <Hash className="mr-2 h-5 w-5" /> Generate Tags & Hashtags
             </button>
-            <button type="button" onClick={() => setTask('titles')} className={`flex-1 btn ${task === 'titles' ? 'btn-secondary' : 'btn-accent'}`}>
+            <button type="button" onClick={() => setTask('titles')} className={`flex-1 btn ${task === 'titles' ? 'btn-primary' : 'btn-accent'}`}>
                 <Type className="mr-2 h-5 w-5" /> Generate Titles
             </button>
           </div>
