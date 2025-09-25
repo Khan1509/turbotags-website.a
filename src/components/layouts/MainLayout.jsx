@@ -8,13 +8,12 @@ import ScrollToTopButton from '../ScrollToTopButton';
 
 const MainLayout = () => {
   return (
-    <div className="min-h-screen w-full relative bg-black">
-      {/* X Organizations Black Background with Top Glow */}
+    <div className="min-h-screen w-full relative">
+      {/* Radial Gradient Background */}
       <div
         className="absolute inset-0 z-0"
         style={{
-          background:
-            "radial-gradient(ellipse 80% 60% at 50% 0%, rgba(120, 180, 255, 0.25), transparent 70%), #000000",
+          background: "radial-gradient(125% 125% at 50% 10%, #fff 40%, #6366f1 100%)",
         }}
       />
       {/* Your Content/Components */}

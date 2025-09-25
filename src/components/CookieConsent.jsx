@@ -47,7 +47,7 @@ const CookieConsent = () => {
           animate={{ y: '0%' }}
           exit={{ y: '100%' }}
           transition={{ type: 'spring', stiffness: 200, damping: 30 }}
-          className="fixed bottom-0 left-0 right-0 bg-black/90 backdrop-blur-md text-slate-100 p-4 shadow-xl z-50 flex items-center justify-between flex-wrap gap-4 border-t border-sky-400/30"
+          className="fixed bottom-0 left-0 right-0 bg-white/95 backdrop-blur-md text-slate-800 p-4 shadow-xl z-50 flex items-center justify-between flex-wrap gap-4 border-t border-indigo-200"
           role="dialog"
           aria-labelledby="cookie-consent-title"
         >
@@ -60,13 +60,13 @@ const CookieConsent = () => {
           <div className="flex items-center gap-3">
             <button
               onClick={handleAccept}
-              className="bg-sky-400 text-black px-4 py-2 rounded-lg text-sm font-semibold hover:bg-sky-300 transition-colors border border-sky-400"
+              className="bg-indigo-600 text-white px-4 py-2 rounded-lg text-sm font-semibold hover:bg-indigo-500 transition-colors border border-indigo-600"
             >
               Accept
             </button>
             <button
               onClick={handleReject}
-              className="bg-transparent text-slate-100 px-4 py-2 rounded-lg text-sm font-semibold hover:bg-white/10 transition-colors border border-sky-400"
+              className="bg-transparent text-slate-800 px-4 py-2 rounded-lg text-sm font-semibold hover:bg-black/5 transition-colors border border-indigo-300"
             >
               Reject
             </button>
