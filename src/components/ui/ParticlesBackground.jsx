@@ -62,8 +62,8 @@ const ParticlesBackground = ({
         particle.x, particle.y, 0,
         particle.x, particle.y, particle.size * 2
       );
-      gradient.addColorStop(0, '#22d3ee'); // cyan
-      gradient.addColorStop(0.5, '#4f46e5'); // indigo
+      gradient.addColorStop(0, '#94a3b8'); // slate-300 glow
+      gradient.addColorStop(0.5, '#4a90e2'); // soft blue accent
       gradient.addColorStop(1, 'transparent');
       
       ctx.fillStyle = gradient;
@@ -84,7 +84,7 @@ const ParticlesBackground = ({
             const opacity = (1 - distance / connectionDistance) * 0.1;
             ctx.save();
             ctx.globalAlpha = opacity;
-            ctx.strokeStyle = '#4f46e5';
+            ctx.strokeStyle = '#475569'; // slate-600 connections
             ctx.lineWidth = 0.5;
             ctx.beginPath();
             ctx.moveTo(particlesRef.current[i].x, particlesRef.current[i].y);
