@@ -9,7 +9,7 @@ import ParticlesBackground from '../ui/ParticlesBackground';
 
 const MainLayout = () => {
   return (
-    <div className="min-h-screen w-full relative theme-indigo">
+    <div className="min-h-screen w-full relative">
       {/* Radial Gradient Background from Bottom */}
       <div
         className="absolute inset-0 z-0"
