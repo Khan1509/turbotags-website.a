@@ -14,18 +14,18 @@ const Hero = React.memo(() => {
       >
         <span className="inline-flex items-center px-4 py-2 rounded-full text-sm font-semibold text-white shadow-lg transition-all duration-300 hover:scale-105 hover:-translate-y-1 hover:shadow-xl border border-opacity-30" role="listitem"
           style={{
-            background: 'linear-gradient(135deg, #162059 0%, #192340 100%)',
-            borderColor: '#344973',
-            boxShadow: '0 8px 20px rgba(22, 32, 89, 0.3), 0 0 15px rgba(52, 73, 115, 0.2)'
+            background: 'linear-gradient(135deg, #475569 0%, #334155 100%)',
+            borderColor: '#64748b',
+            boxShadow: '0 8px 20px rgba(71, 85, 105, 0.3), 0 0 15px rgba(100, 116, 139, 0.2)'
           }}>
           <Globe className="w-4 h-4 mr-2" aria-hidden="true" />
           30+ Regions Supported
         </span>
         <span className="inline-flex items-center px-4 py-2 rounded-full text-sm font-semibold text-white shadow-xl transition-all duration-300 hover:scale-105 hover:-translate-y-1 hover:shadow-2xl border border-opacity-40" role="listitem"
           style={{
-            background: 'linear-gradient(135deg, #192340 0%, #344973 100%)',
+            background: 'linear-gradient(135deg, #334155 0%, #475569 100%)',
             borderColor: '#4a90e2',
-            boxShadow: '0 10px 25px rgba(25, 35, 64, 0.4), 0 0 20px rgba(74, 144, 226, 0.25)'
+            boxShadow: '0 10px 25px rgba(51, 65, 85, 0.4), 0 0 20px rgba(74, 144, 226, 0.25)'
           }}>
           <Bot className="w-4 h-4 mr-2" aria-hidden="true" />
           AI Title & Tag Generation
