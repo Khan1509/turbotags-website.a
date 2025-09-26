@@ -100,7 +100,7 @@ const Header = () => {
             {/* Animated pill background */}
             <motion.div
               className="absolute rounded-full shadow-lg"
-              style={{...pillStyle, background: 'linear-gradient(135deg, #162059, #192340)', boxShadow: '0 4px 15px rgba(22, 32, 89, 0.4)'}}
+              style={{...pillStyle, background: 'linear-gradient(135deg, #475569, #334155)', boxShadow: '0 4px 15px rgba(71, 85, 105, 0.4)'}}
               initial={false}
               animate={pillStyle}
               transition={{ type: "spring", stiffness: 300, damping: 30 }}
@@ -108,7 +108,7 @@ const Header = () => {
             <CustomNavLink to="/" ariaLabel="Go to homepage">Home</CustomNavLink>
             <CustomNavLink to="/features" ariaLabel="Go to Features page">Features</CustomNavLink>
             <CustomNavLink to="/blog" ariaLabel="Go to Blog">Blog</CustomNavLink>
-            <a href="https://ko-fi.com/turbotags1509" target="_blank" rel="noopener noreferrer" className="relative z-10 text-white px-4 py-2 ml-3 rounded-lg flex items-center hover:opacity-90 transition focus:outline-none focus:ring-2 focus:ring-offset-2" style={{background: 'linear-gradient(135deg, #162059 0%, #344973 100%)', boxShadow: '0 4px 15px rgba(22, 32, 89, 0.3)', '--tw-ring-color': '#4a90e2', '--tw-ring-offset-color': 'black'}} aria-label="Support TurboTags on Ko-fi - Opens in new tab">
+            <a href="https://ko-fi.com/turbotags1509" target="_blank" rel="noopener noreferrer" className="relative z-10 text-white px-4 py-2 ml-3 rounded-lg flex items-center hover:opacity-90 transition focus:outline-none focus:ring-2 focus:ring-offset-2" style={{background: 'linear-gradient(135deg, #475569 0%, #334155 100%)', boxShadow: '0 4px 15px rgba(71, 85, 105, 0.3)', '--tw-ring-color': '#4a90e2', '--tw-ring-offset-color': 'black'}} aria-label="Support TurboTags on Ko-fi - Opens in new tab">
               <Heart className="mr-2 h-4 w-4" aria-hidden="true" /> Support
             </a>
           </nav>
