@@ -50,7 +50,7 @@ const CreatorGrowthTips = () => {
     <section id="growth-tips" className="py-12">
       <div className="container mx-auto max-w-7xl px-4">
         <div className="text-center mb-12">
-          <h2 className="h2 font-extrabold text-brand-dark-blue">Advanced Growth Strategies</h2>
+          <h2 className="h2 font-extrabold bg-clip-text text-transparent" style={{background: 'linear-gradient(135deg, #475569 0%, #334155 100%)'}}>Advanced Growth Strategies</h2>
           <p className="text-lg text-brand-dark-grey mt-2">Proven techniques used by top creators to scale rapidly.</p>
         </div>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
