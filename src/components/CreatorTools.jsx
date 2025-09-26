@@ -96,19 +96,29 @@ const HashtagCleaner = () => {
   };
 
   return (
-    <div className="bg-white p-6 rounded-xl shadow-lg border border-gray-200">
+    <div className="rounded-xl shadow-lg border border-opacity-30 p-6" style={{
+      background: 'linear-gradient(135deg, rgba(15, 23, 42, 0.8), rgba(30, 41, 59, 0.8))',
+      borderColor: '#344973',
+      boxShadow: '0 10px 25px rgba(22, 32, 89, 0.3), 0 0 15px rgba(52, 73, 115, 0.1)'
+    }}>
       <div className="flex items-center mb-4">
-        <Scissors className="h-6 w-6 text-green-500 mr-3" />
-        <h3 className="text-xl font-bold">Hashtag Cleaner</h3>
+        <Scissors className="h-6 w-6 mr-3" style={{ color: '#10b981' }} />
+        <h3 className="text-xl font-bold" style={{ color: '#e5e7eb' }}>Hashtag Cleaner</h3>
       </div>
-      <p className="text-gray-600 mb-4">Remove duplicate hashtags and format properly</p>
+      <p className="mb-4" style={{ color: '#cbd5e1' }}>Remove duplicate hashtags and format properly</p>
       
       <textarea
-        className="w-full p-3 border border-gray-300 rounded-lg mb-4 resize-none"
+        className="w-full p-3 rounded-lg mb-4 resize-none border border-opacity-30 focus:outline-none focus:ring-2"
         rows="3"
         placeholder="Paste your hashtags here"
         value={inputTags}
         onChange={(e) => setInputTags(e.target.value)}
+        style={{
+          background: 'rgba(30, 41, 59, 0.6)',
+          borderColor: '#344973',
+          color: '#e5e7eb',
+          focusRingColor: '#4a90e2'
+        }}
       />
       
       <button
@@ -120,20 +130,24 @@ const HashtagCleaner = () => {
       
       {cleanedTags && (
         <div className="space-y-3">
-          <div className="p-3 bg-gray-50 rounded-lg border">
+          <div className="p-3 rounded-lg border border-opacity-30" style={{
+            background: 'rgba(30, 41, 59, 0.4)',
+            borderColor: '#344973'
+          }}>
             <div className="flex justify-between items-start mb-2">
-              <span className="text-sm font-semibold text-gray-700">Clean Hashtags</span>
+              <span className="text-sm font-semibold" style={{ color: '#cbd5e1' }}>Clean Hashtags</span>
               <button
                 onClick={copyToClipboard}
-                className="flex items-center text-blue-500 hover:text-blue-600 text-sm"
+                className="flex items-center text-sm hover:opacity-80 transition-opacity"
+                style={{ color: '#4a90e2' }}
               >
                 {copied ? <Check className="h-4 w-4 mr-1" /> : <Copy className="h-4 w-4 mr-1" />}
                 {copied ? 'Copied!' : 'Copy'}
               </button>
             </div>
-            <p className="text-gray-800">{cleanedTags}</p>
+            <p style={{ color: '#e5e7eb' }}>{cleanedTags}</p>
           </div>
-          <p className="text-sm text-gray-600">
+          <p className="text-sm" style={{ color: '#94a3b8' }}>
             {cleanedTags.split(' ').length} unique hashtags
           </p>
         </div>
@@ -151,20 +165,30 @@ const BestPostingTimes = () => {
   };
 
   return (
-    <div className="bg-white p-6 rounded-xl shadow-lg border border-gray-200">
+    <div className="rounded-xl shadow-lg border border-opacity-30 p-6" style={{
+      background: 'linear-gradient(135deg, rgba(15, 23, 42, 0.8), rgba(30, 41, 59, 0.8))',
+      borderColor: '#344973',
+      boxShadow: '0 10px 25px rgba(22, 32, 89, 0.3), 0 0 15px rgba(52, 73, 115, 0.1)'
+    }}>
       <div className="flex items-center mb-4">
-        <Clock className="h-6 w-6 text-purple-500 mr-3" />
-        <h3 className="text-xl font-bold">Best Posting Times</h3>
+        <Clock className="h-6 w-6 mr-3" style={{ color: '#a855f7' }} />
+        <h3 className="text-xl font-bold" style={{ color: '#e5e7eb' }}>Best Posting Times</h3>
       </div>
-      <p className="text-gray-600 mb-6">Optimal times to post on different platforms</p>
+      <p className="mb-6" style={{ color: '#cbd5e1' }}>Optimal times to post on different platforms</p>
       
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
         {Object.entries(postingTimes).map(([platform, times]) => (
-          <div key={platform} className="p-4 bg-gray-50 rounded-lg border">
-            <h4 className="font-semibold text-gray-800 mb-2">{platform}</h4>
+          <div key={platform} className="p-4 rounded-lg border border-opacity-30" style={{
+            background: 'rgba(30, 41, 59, 0.4)',
+            borderColor: '#344973'
+          }}>
+            <h4 className="font-semibold mb-2" style={{ color: '#e5e7eb' }}>{platform}</h4>
             <div className="space-y-1">
               {times.map((time, index) => (
-                <div key={index} className="text-sm text-gray-600 bg-white px-2 py-1 rounded">
+                <div key={index} className="text-sm px-2 py-1 rounded" style={{
+                  color: '#cbd5e1',
+                  background: 'rgba(52, 73, 115, 0.3)'
+                }}>
                   {time}
                 </div>
               ))}
@@ -173,7 +197,7 @@ const BestPostingTimes = () => {
         ))}
       </div>
       
-      <p className="text-xs text-gray-500 mt-4 text-center">
+      <p className="text-xs mt-4 text-center" style={{ color: '#94a3b8' }}>
         * Times shown in EST. Adjust for your target audience timezone.
       </p>
     </div>
@@ -185,8 +209,8 @@ const CreatorTools = () => {
     <section id="creator-tools" className="py-12">
       <div className="container mx-auto max-w-7xl px-4">
         <div className="text-center mb-12">
-          <h2 className="text-3xl font-extrabold mb-4">Free Creator Tools</h2>
-          <p className="text-lg text-gray-600">Additional tools to help with your content creation</p>
+          <h2 className="text-3xl font-extrabold mb-4" style={{ color: '#e5e7eb' }}>Free Creator Tools</h2>
+          <p className="text-lg" style={{ color: '#cbd5e1' }}>Additional tools to help with your content creation</p>
         </div>
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
           <CharacterCounter />
