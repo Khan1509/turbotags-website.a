@@ -9,12 +9,12 @@ import ParticlesBackground from '../ui/ParticlesBackground';
 
 const MainLayout = () => {
   return (
-    <div className="min-h-screen w-full relative theme-indigo">
+    <div className="min-h-screen w-full relative">
       {/* Radial Gradient Background from Bottom */}
       <div
         className="absolute inset-0 z-0"
         style={{
-          background: "radial-gradient(125% 125% at 50% 90%, #fff 40%, #475569 100%)",
+          background: "radial-gradient(60% 40% at 50% 0%, rgba(148,163,184,0.35) 0%, transparent 70%), linear-gradient(180deg, #e5e7eb 0%, #cbd5e1 60%, #e2e8f0 100%)",
         }}
       />
       

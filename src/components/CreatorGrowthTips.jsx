@@ -50,8 +50,8 @@ const CreatorGrowthTips = () => {
     <section id="growth-tips" className="py-12">
       <div className="container mx-auto max-w-7xl px-4">
         <div className="text-center mb-12">
-          <h2 className="h2 font-extrabold text-brand-dark-blue">Advanced Growth Strategies</h2>
-          <p className="text-lg text-brand-medium-grey mt-2">Proven techniques used by top creators to scale rapidly.</p>
+          <h2 className="h2 font-extrabold text-black">Advanced Growth Strategies</h2>
+          <p className="text-lg text-brand-dark-grey mt-2">Proven techniques used by top creators to scale rapidly.</p>
         </div>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
           {tips.map((tip, index) => (
@@ -68,7 +68,7 @@ const CreatorGrowthTips = () => {
                 <tip.icon className="h-8 w-8" />
               </div>
               <h3 className="text-xl font-bold text-brand-dark-grey mb-2">{tip.title}</h3>
-              <p className="text-brand-medium-grey">{tip.description}</p>
+              <p className="text-brand-dark-grey">{tip.description}</p>
             </motion.div>
           ))}
         </div>
