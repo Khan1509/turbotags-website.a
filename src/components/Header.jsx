@@ -94,7 +94,7 @@ const Header = () => {
               decoding="async"
             />
             <div className="text-4xl md:text-5xl font-extrabold leading-tight transition-transform hover:scale-105 bg-gradient-to-r bg-clip-text text-transparent" style={{
-              background: 'linear-gradient(135deg, #162059 0%, #4a90e2 50%, #192340 100%)',
+              background: 'linear-gradient(135deg, #475569 0%, #334155 100%)',
               WebkitBackgroundClip: 'text',
               WebkitTextFillColor: 'transparent',
               backgroundClip: 'text'

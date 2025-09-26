@@ -45,7 +45,7 @@ const Hero = React.memo(() => {
       <h1
         className="text-4xl md:text-5xl font-extrabold mt-6 leading-tight"
         style={{
-          background: 'linear-gradient(135deg, #1f2937 0%, #162059 40%, #4a90e2 100%)',
+          background: 'linear-gradient(135deg, #475569 0%, #334155 100%)',
           WebkitBackgroundClip: 'text',
           WebkitTextFillColor: 'transparent',
           backgroundClip: 'text',
