@@ -93,11 +93,16 @@ const TagGenerator = ({ initialTab = 'youtube', initialTask = 'tags_and_hashtags
   }, [closeDropdowns]);
 
   return (
-    <section id="tag-generator" className="relative glass-intense surface-light p-4 sm:p-6 rounded-2xl shadow-xl border-highlight">
+    <section id="tag-generator" className="relative p-4 sm:p-6 rounded-2xl" style={{
+      background: 'rgba(255, 255, 255, 0.15)',
+      backdropFilter: 'blur(10px)',
+      border: '1px solid rgba(255, 255, 255, 0.2)',
+      boxShadow: '0 8px 32px rgba(0, 0, 0, 0.1)'
+    }}>
       <div className="relative z-10">
       {error && <MessageBox message={error} type="error" onDismiss={() => setError(null)} />}
       
-      <div className="relative flex border-b mb-6 overflow-x-auto" style={{borderColor: '#344973', borderOpacity: 0.3}}>
+      <div className="relative flex border-b mb-6 overflow-x-auto" style={{borderColor: 'rgba(52, 73, 115, 0.3)'}}>
 
         {platformTabs.map(tab => (
           <motion.button
@@ -105,23 +110,24 @@ const TagGenerator = ({ initialTab = 'youtube', initialTask = 'tags_and_hashtags
             onClick={() => handleTabChange(tab.id)}
             className="relative flex-shrink-0 flex items-center gap-2 px-4 py-3 font-semibold transition-all duration-300 focus:outline-none rounded-lg"
             style={{
-              color: activeTab === tab.id ? '#e5e7eb' : '#cbd5e1',
+              color: activeTab === tab.id ? '#1f2937' : '#4b5563',
               background: activeTab === tab.id 
-                ? 'linear-gradient(135deg, #162059, #192340)' 
-                : 'transparent',
+                ? 'rgba(255, 255, 255, 0.25)' 
+                : 'rgba(255, 255, 255, 0.1)',
               border: activeTab === tab.id 
-                ? '1px solid rgba(52, 73, 115, 0.6)' 
-                : '1px solid transparent',
+                ? '1px solid rgba(255, 255, 255, 0.3)' 
+                : '1px solid rgba(255, 255, 255, 0.15)',
               boxShadow: activeTab === tab.id 
-                ? '0 4px 15px rgba(22, 32, 89, 0.3), 0 0 20px rgba(74, 144, 226, 0.2)' 
-                : 'none'
+                ? '0 4px 15px rgba(0, 0, 0, 0.1), 0 0 20px rgba(255, 255, 255, 0.2)' 
+                : 'none',
+              backdropFilter: 'blur(10px)'
             }}
             whileHover={{ 
               scale: 1.02,
-              color: activeTab === tab.id ? '#e5e7eb' : '#e5e7eb',
+              color: '#1f2937',
               boxShadow: activeTab === tab.id 
-                ? '0 6px 20px rgba(22, 32, 89, 0.4), 0 0 25px rgba(74, 144, 226, 0.3)' 
-                : '0 2px 8px rgba(52, 73, 115, 0.2)'
+                ? '0 6px 20px rgba(0, 0, 0, 0.15), 0 0 25px rgba(255, 255, 255, 0.3)' 
+                : '0 2px 8px rgba(0, 0, 0, 0.1)'
             }}
             whileTap={{ scale: 0.98 }}
           >
@@ -134,19 +140,18 @@ const TagGenerator = ({ initialTab = 'youtube', initialTask = 'tags_and_hashtags
       <form onSubmit={handleSubmit} className="space-y-6">
         {/* Settings Section - Clearly separated */}
         <motion.div 
-          className="relative p-5 rounded-xl border shadow-sm transition-all duration-300"
+          className="relative p-5 rounded-xl transition-all duration-300"
           style={{
-            background: 'linear-gradient(135deg, rgba(15, 23, 42, 0.8), rgba(30, 41, 59, 0.8))',
-            borderColor: '#344973',
-            borderOpacity: 0.4,
-            boxShadow: '0 4px 15px rgba(22, 32, 89, 0.2), inset 0 1px 0 rgba(74, 144, 226, 0.1)'
+            background: 'rgba(255, 255, 255, 0.2)',
+            border: '1px solid rgba(255, 255, 255, 0.25)',
+            boxShadow: '0 4px 15px rgba(0, 0, 0, 0.1)',
+            backdropFilter: 'blur(10px)'
           }}
           whileHover={{
-            borderColor: 'rgba(74, 144, 226, 0.6)',
-            boxShadow: '0 8px 25px rgba(22, 32, 89, 0.3), 0 0 20px rgba(74, 144, 226, 0.15)',
+            boxShadow: '0 8px 25px rgba(0, 0, 0, 0.15), 0 0 20px rgba(255, 255, 255, 0.2)',
           }}
         >
-          <h3 className="text-lg font-bold mb-4 relative z-10" style={{color: '#e5e7eb'}}>Content Settings</h3>
+          <h3 className="text-lg font-bold mb-4 relative z-10" style={{color: '#1f2937'}}>Content Settings</h3>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4 relative z-10">
             <ContentFormatSelector platform={activeTab} value={contentFormat} onChange={setContentFormat} showDropdown={openDropdown === 'format'} setShowDropdown={(show) => setOpenDropdown(show ? 'format' : null)} />
             <LanguageSelector value={language} onChange={setLanguage} showDropdown={openDropdown === 'language'} setShowDropdown={(show) => setOpenDropdown(show ? 'language' : null)} />
@@ -155,7 +160,7 @@ const TagGenerator = ({ initialTab = 'youtube', initialTask = 'tags_and_hashtags
         </motion.div>
 
         <div>
-          <label htmlFor="prompt-input" className="block text-base font-bold mb-3" style={{color: '#e5e7eb'}}>
+          <label htmlFor="prompt-input" className="block text-base font-bold mb-3" style={{color: '#1f2937'}}>
             Enter your content topic or keywords
           </label>
           <input
@@ -164,26 +169,32 @@ const TagGenerator = ({ initialTab = 'youtube', initialTask = 'tags_and_hashtags
             value={prompt}
             onChange={(e) => setPrompt(e.target.value)}
             placeholder="e.g., 'unboxing the new iPhone' or 'vegan chocolate cake recipe'"
-            className="w-full p-4 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#6366f1] focus:border-[#6366f1] transition-all duration-300 shadow-sm hover:shadow-md hover:border-slate-400"
+            className="w-full p-4 rounded-lg focus:outline-none transition-all duration-300"
+            style={{
+              background: 'rgba(255, 255, 255, 0.2)',
+              border: '1px solid rgba(255, 255, 255, 0.3)',
+              backdropFilter: 'blur(10px)',
+              color: '#1f2937',
+              boxShadow: '0 2px 8px rgba(0, 0, 0, 0.1)'
+            }}
             required
           />
         </div>
         
         {/* Content Type Selection - Clearly separated */}
         <motion.div 
-          className="relative p-5 rounded-xl border shadow-sm transition-all duration-300"
+          className="relative p-5 rounded-xl transition-all duration-300"
           style={{
-            background: 'linear-gradient(135deg, rgba(15, 23, 42, 0.8), rgba(30, 41, 59, 0.8))',
-            borderColor: '#344973',
-            borderOpacity: 0.4,
-            boxShadow: '0 4px 15px rgba(22, 32, 89, 0.2), inset 0 1px 0 rgba(74, 144, 226, 0.1)'
+            background: 'rgba(255, 255, 255, 0.2)',
+            border: '1px solid rgba(255, 255, 255, 0.25)',
+            boxShadow: '0 4px 15px rgba(0, 0, 0, 0.1)',
+            backdropFilter: 'blur(10px)'
           }}
           whileHover={{
-            borderColor: 'rgba(74, 144, 226, 0.6)',
-            boxShadow: '0 8px 25px rgba(22, 32, 89, 0.3), 0 0 20px rgba(74, 144, 226, 0.15)',
+            boxShadow: '0 8px 25px rgba(0, 0, 0, 0.15), 0 0 20px rgba(255, 255, 255, 0.2)',
           }}
         >
-          <h3 className="text-lg font-bold mb-4 relative z-10" style={{color: '#e5e7eb'}}>What would you like to generate?</h3>
+          <h3 className="text-lg font-bold mb-4 relative z-10" style={{color: '#1f2937'}}>What would you like to generate?</h3>
           <div className="flex flex-col sm:flex-row gap-3 relative z-10">
             <button type="button" onClick={() => setTask('tags_and_hashtags')} className={`flex-1 btn ${task === 'tags_and_hashtags' ? 'btn-primary' : 'btn-accent'}`}>
                 <Hash className="mr-2 h-5 w-5" /> Generate Tags & Hashtags
@@ -223,13 +234,13 @@ const TagGenerator = ({ initialTab = 'youtube', initialTask = 'tags_and_hashtags
             </button>
           </div>
           <p className="text-center text-xs mt-2" style={{
-            color: '#cbd5e1',
-            textShadow: '0 0 10px rgba(74, 144, 226, 0.3)',
+            color: '#374151',
             padding: '8px 16px',
-            border: '1px solid rgba(52, 73, 115, 0.4)',
+            border: '1px solid rgba(255, 255, 255, 0.3)',
             borderRadius: '12px',
-            background: 'linear-gradient(135deg, rgba(22, 32, 89, 0.1), rgba(52, 73, 115, 0.1))',
-            boxShadow: '0 4px 12px rgba(22, 32, 89, 0.2), inset 0 1px 0 rgba(74, 144, 226, 0.1)'
+            background: 'rgba(255, 255, 255, 0.15)',
+            boxShadow: '0 4px 12px rgba(0, 0, 0, 0.1)',
+            backdropFilter: 'blur(10px)'
           }}>
             ✨ 100% Free & Unlimited Generations ✨
           </p>
@@ -238,7 +249,7 @@ const TagGenerator = ({ initialTab = 'youtube', initialTask = 'tags_and_hashtags
 
       {(isLoading || generatedContent) && (
         <div className="mt-8">
-          <h2 className="text-2xl font-bold text-slate-800 mb-4">Generated Content</h2>
+          <h2 className="text-2xl font-bold mb-4" style={{color: '#1f2937'}}>Generated Content</h2>
           {isLoading ? (
             <ResultsSkeleton />
           ) : (

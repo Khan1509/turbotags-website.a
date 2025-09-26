@@ -26,8 +26,13 @@ export const faqData = [
 
 const Faq = () => {
   return (
-    <section id="faq" className="bg-white p-6 rounded-xl shadow-md">
-      <h2 className="h2 font-bold text-brand-dark-grey mb-6 text-center">Frequently Asked Questions</h2>
+    <section id="faq" className="p-6 rounded-xl" style={{
+      background: 'rgba(255, 255, 255, 0.15)',
+      backdropFilter: 'blur(10px)',
+      border: '1px solid rgba(255, 255, 255, 0.2)',
+      boxShadow: '0 8px 32px rgba(0, 0, 0, 0.1)'
+    }}>
+      <h2 className="h2 font-bold mb-6 text-center" style={{color: '#1f2937'}}>Frequently Asked Questions</h2>
       <div className="max-w-3xl mx-auto">
         {faqData.map((item, index) => (
           <FaqItem key={index} question={item.question} answer={item.answer} />

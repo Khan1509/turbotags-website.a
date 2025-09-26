@@ -7,10 +7,13 @@ const CustomNavLink = React.memo(({ to, children, ariaLabel, ...props }) => (
   <NavLink
     to={to}
     className={({ isActive }) =>
-      `relative z-10 text-slate-200 transition-colors duration-300 hover:text-white font-medium focus:outline-none focus:ring-2 focus:ring-[#6366f1] focus:ring-offset-2 rounded-md px-4 py-2 ${
-        isActive ? 'text-white nav-active' : ''
+      `relative z-10 transition-colors duration-300 font-medium focus:outline-none focus:ring-2 focus:ring-[#6366f1] focus:ring-offset-2 rounded-md px-4 py-2 ${
+        isActive ? 'nav-active' : ''
       }`
     }
+    style={{
+      color: '#1f2937'
+    }}
     aria-label={ariaLabel || children}
     {...props}
   >
@@ -75,7 +78,11 @@ const Header = () => {
   const closeMenu = () => setIsMenuOpen(false);
 
   return (
-    <header className="text-center px-4 md:px-8 py-4 sticky top-0 bg-black/40 backdrop-blur-md z-40 border-b border-slate-700/40">
+    <header className="text-center px-4 md:px-8 py-4 sticky top-0 z-40" style={{
+      background: 'rgba(255, 255, 255, 0.1)',
+      backdropFilter: 'blur(15px)',
+      borderBottom: '1px solid rgba(255, 255, 255, 0.2)'
+    }}>
       <div className="container mx-auto max-w-7xl">
         <div className="flex justify-between items-center">
           <Link to="/" className="flex items-center gap-3 focus:outline-none focus:ring-2 focus:ring-[#6366f1] focus:ring-offset-2 rounded-lg p-2" aria-label="TurboTags - Go to homepage">
@@ -96,11 +103,15 @@ const Header = () => {
             </div>
           </Link>
 
-          <nav ref={navRef} className="hidden lg:flex items-center space-x-1 relative rounded-full p-1 bg-black/30 border border-slate-700/40" role="navigation" aria-label="Main navigation">
+          <nav ref={navRef} className="hidden lg:flex items-center space-x-1 relative rounded-full p-1" style={{
+            background: 'rgba(255, 255, 255, 0.15)',
+            border: '1px solid rgba(255, 255, 255, 0.2)',
+            backdropFilter: 'blur(10px)'
+          }} role="navigation" aria-label="Main navigation">
             {/* Animated pill background */}
             <motion.div
               className="absolute rounded-full shadow-lg"
-              style={{...pillStyle, background: 'linear-gradient(135deg, #475569, #334155)', boxShadow: '0 4px 15px rgba(71, 85, 105, 0.4)'}}
+              style={{...pillStyle, background: 'rgba(255, 255, 255, 0.25)', boxShadow: '0 4px 15px rgba(0, 0, 0, 0.1)'}}
               initial={false}
               animate={pillStyle}
               transition={{ type: "spring", stiffness: 300, damping: 30 }}
@@ -113,7 +124,7 @@ const Header = () => {
             </a>
           </nav>
 
-          <button onClick={() => setIsMenuOpen(true)} className="lg:hidden text-slate-200 p-2 rounded-md focus:outline-none focus:ring-2 focus:ring-[#6366f1] focus:ring-offset-2" aria-label="Open navigation menu" aria-expanded={isMenuOpen}>
+          <button onClick={() => setIsMenuOpen(true)} className="lg:hidden p-2 rounded-md focus:outline-none focus:ring-2 focus:ring-[#6366f1] focus:ring-offset-2" style={{color: '#1f2937'}} aria-label="Open navigation menu" aria-expanded={isMenuOpen}>
             <Menu size={32} aria-hidden="true" />
           </button>
         </div>

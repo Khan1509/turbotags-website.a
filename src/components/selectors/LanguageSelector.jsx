@@ -40,33 +40,49 @@ const LanguageSelector = ({ value, onChange, showDropdown, setShowDropdown }) =>
 
   return (
     <div className="relative dropdown-container">
-      <label htmlFor="language-selector" className="block text-sm font-semibold text-gray-700 mb-2">Language</label>
+      <label htmlFor="language-selector" className="block text-sm font-semibold mb-2" style={{color: '#1f2937'}}>Language</label>
       <button
         id="language-selector"
         onClick={() => setShowDropdown(!showDropdown)}
-        className="w-full p-3 border border-gray-300 rounded-md text-left bg-white hover:border-gray-400 focus:outline-none focus:ring-2 focus:ring-[#6366f1] focus:border-transparent transition-all duration-200 flex items-center justify-between"
+        className="w-full p-3 rounded-md text-left focus:outline-none transition-all duration-200 flex items-center justify-between"
+        style={{
+          background: 'rgba(255, 255, 255, 0.2)',
+          border: '1px solid rgba(255, 255, 255, 0.3)',
+          backdropFilter: 'blur(10px)',
+          color: '#1f2937'
+        }}
         role="combobox"
         aria-haspopup="listbox"
         aria-expanded={showDropdown}
         aria-label={`Select content language, currently ${selectedLanguage?.label || 'none selected'}`}
       >
         <div className="flex items-center">
-          <Globe className="h-4 w-4 text-gray-500 mr-2" aria-hidden="true" />
+          <Globe className="h-4 w-4 mr-2" style={{color: '#4b5563'}} aria-hidden="true" />
           <span className="mr-1" aria-hidden="true">{selectedLanguage?.flag}</span>
           <span>{selectedLanguage?.label}</span>
         </div>
-        <ChevronDown className={`h-4 w-4 text-gray-500 transition-transform duration-200 ${showDropdown ? 'rotate-180' : ''}`} aria-hidden="true" />
+        <ChevronDown className={`h-4 w-4 transition-transform duration-200 ${showDropdown ? 'rotate-180' : ''}`} style={{color: '#4b5563'}} aria-hidden="true" />
       </button>
       
       {showDropdown && (
-        <div className="absolute z-[9999] w-full mt-1 bg-white border border-gray-300 rounded-md shadow-lg max-h-60 overflow-hidden">
-          <div className="p-2 border-b border-gray-200">
+        <div className="absolute z-[9999] w-full mt-1 rounded-md shadow-lg max-h-60 overflow-hidden" style={{
+          background: 'rgba(255, 255, 255, 0.25)',
+          border: '1px solid rgba(255, 255, 255, 0.3)',
+          backdropFilter: 'blur(15px)'
+        }}>
+          <div className="p-2" style={{borderBottom: '1px solid rgba(255, 255, 255, 0.2)'}}>
             <input
               type="text"
               placeholder="Search languages..."
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
-              className="w-full p-2 border border-gray-300 rounded text-sm focus:outline-none focus:ring-1 focus:ring-[#6366f1]"
+              className="w-full p-2 rounded text-sm focus:outline-none"
+              style={{
+                background: 'rgba(255, 255, 255, 0.3)',
+                border: '1px solid rgba(255, 255, 255, 0.4)',
+                backdropFilter: 'blur(10px)',
+                color: '#1f2937'
+              }}
               aria-label="Search languages by name"
             />
           </div>
@@ -81,7 +97,18 @@ const LanguageSelector = ({ value, onChange, showDropdown, setShowDropdown }) =>
                 }}
                 role="option"
                 aria-selected={value === language.value}
-                className="w-full text-left px-3 py-2 hover:bg-gray-100 focus:bg-gray-100 focus:outline-none flex items-center"
+                className="w-full text-left px-3 py-2 focus:outline-none flex items-center transition-colors duration-200"
+                style={{color: '#1f2937'}}
+                onMouseEnter={(e) => {
+                  if (value !== language.value) {
+                    e.currentTarget.style.backgroundColor = 'rgba(255, 255, 255, 0.15)';
+                  }
+                }}
+                onMouseLeave={(e) => {
+                  if (value !== language.value) {
+                    e.currentTarget.style.backgroundColor = 'transparent';
+                  }
+                }}
               >
                 <span className="mr-2" aria-hidden="true">{language.flag}</span>
                 <span>{language.label}</span>
