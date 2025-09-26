@@ -57,7 +57,7 @@ const CreatorGrowthTips = () => {
           {tips.map((tip, index) => (
             <motion.div
               key={index}
-              className="bg-[var(--color-bg)] p-8 rounded-2xl shadow-lg border border-gray-200 text-center"
+              className="bg-white p-8 rounded-2xl shadow-lg border border-gray-200 text-center"
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, amount: 0.5 }}
