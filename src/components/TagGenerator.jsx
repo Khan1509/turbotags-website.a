@@ -97,60 +97,34 @@ const TagGenerator = ({ initialTab = 'youtube', initialTask = 'tags_and_hashtags
       <div className="relative z-10">
       {error && <MessageBox message={error} type="error" onDismiss={() => setError(null)} />}
       
-      <div className="relative flex border-b border-slate-200 mb-6 overflow-x-auto">
-        {/* Gooey background blob - hidden on reduced motion preference */}
-        <motion.div
-          className="absolute bottom-0 opacity-20 rounded-t-2xl hidden md:block"
-          style={{
-            backgroundColor: '#6366f1',
-            filter: 'url(#gooey)',
-          }}
-          layoutId="gooeyBlob"
-          initial={false}
-          transition={{
-            type: "spring",
-            stiffness: 200,
-            damping: 25,
-            mass: 0.8
-          }}
-        />
-        
-        {/* SVG filter for gooey effect - hidden on mobile for performance */}
-        <svg width="0" height="0" className="absolute hidden md:block">
-          <defs>
-            <filter id="gooey">
-              <feGaussianBlur in="SourceGraphic" stdDeviation="3" result="blur" />
-              <feColorMatrix in="blur" mode="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 18 -7" result="gooey" />
-              <feBlend in="SourceGraphic" in2="gooey" />
-            </filter>
-          </defs>
-        </svg>
+      <div className="relative flex border-b mb-6 overflow-x-auto" style={{borderColor: '#344973', borderOpacity: 0.3}}>
 
         {platformTabs.map(tab => (
           <motion.button
             key={tab.id}
             onClick={() => handleTabChange(tab.id)}
-            className={`relative flex-shrink-0 flex items-center gap-2 px-4 py-3 font-semibold transition-colors duration-200 focus:outline-none ${
-              activeTab === tab.id
-                ? 'text-white'
-                : 'text-slate-600 hover:text-slate-800'
-            }`}
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
+            className="relative flex-shrink-0 flex items-center gap-2 px-4 py-3 font-semibold transition-all duration-300 focus:outline-none rounded-lg"
+            style={{
+              color: activeTab === tab.id ? '#e5e7eb' : '#cbd5e1',
+              background: activeTab === tab.id 
+                ? 'linear-gradient(135deg, #162059, #192340)' 
+                : 'transparent',
+              border: activeTab === tab.id 
+                ? '1px solid rgba(52, 73, 115, 0.6)' 
+                : '1px solid transparent',
+              boxShadow: activeTab === tab.id 
+                ? '0 4px 15px rgba(22, 32, 89, 0.3), 0 0 20px rgba(74, 144, 226, 0.2)' 
+                : 'none'
+            }}
+            whileHover={{ 
+              scale: 1.02,
+              color: activeTab === tab.id ? '#e5e7eb' : '#e5e7eb',
+              boxShadow: activeTab === tab.id 
+                ? '0 6px 20px rgba(22, 32, 89, 0.4), 0 0 25px rgba(74, 144, 226, 0.3)' 
+                : '0 2px 8px rgba(52, 73, 115, 0.2)'
+            }}
+            whileTap={{ scale: 0.98 }}
           >
-            {activeTab === tab.id && (
-              <motion.div
-                className="absolute inset-0 rounded-lg"
-                style={{ backgroundColor: '#6366f1' }}
-                layoutId="gooeyBackground"
-                initial={false}
-                transition={{
-                  type: "spring",
-                  stiffness: 300,
-                  damping: 30
-                }}
-              />
-            )}
             <tab.icon className="h-5 w-5 relative z-10" />
             <span className="relative z-10">{tab.name}</span>
           </motion.button>
@@ -160,13 +134,19 @@ const TagGenerator = ({ initialTab = 'youtube', initialTask = 'tags_and_hashtags
       <form onSubmit={handleSubmit} className="space-y-6">
         {/* Settings Section - Clearly separated */}
         <motion.div 
-          className="relative bg-white p-5 rounded-xl border border-slate-200 shadow-sm transition-all duration-300"
+          className="relative p-5 rounded-xl border shadow-sm transition-all duration-300"
+          style={{
+            background: 'linear-gradient(135deg, rgba(15, 23, 42, 0.8), rgba(30, 41, 59, 0.8))',
+            borderColor: '#344973',
+            borderOpacity: 0.4,
+            boxShadow: '0 4px 15px rgba(22, 32, 89, 0.2), inset 0 1px 0 rgba(74, 144, 226, 0.1)'
+          }}
           whileHover={{
-            borderColor: 'rgba(71, 85, 105, 0.5)',
-            boxShadow: '0 4px 12px rgba(71, 85, 105, 0.15)',
+            borderColor: 'rgba(74, 144, 226, 0.6)',
+            boxShadow: '0 8px 25px rgba(22, 32, 89, 0.3), 0 0 20px rgba(74, 144, 226, 0.15)',
           }}
         >
-          <h3 className="text-lg font-bold text-slate-900 mb-4 relative z-10">Content Settings</h3>
+          <h3 className="text-lg font-bold mb-4 relative z-10" style={{color: '#e5e7eb'}}>Content Settings</h3>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4 relative z-10">
             <ContentFormatSelector platform={activeTab} value={contentFormat} onChange={setContentFormat} showDropdown={openDropdown === 'format'} setShowDropdown={(show) => setOpenDropdown(show ? 'format' : null)} />
             <LanguageSelector value={language} onChange={setLanguage} showDropdown={openDropdown === 'language'} setShowDropdown={(show) => setOpenDropdown(show ? 'language' : null)} />
@@ -175,7 +155,7 @@ const TagGenerator = ({ initialTab = 'youtube', initialTask = 'tags_and_hashtags
         </motion.div>
 
         <div>
-          <label htmlFor="prompt-input" className="block text-base font-bold text-black mb-3">
+          <label htmlFor="prompt-input" className="block text-base font-bold mb-3" style={{color: '#e5e7eb'}}>
             Enter your content topic or keywords
           </label>
           <input
@@ -191,13 +171,19 @@ const TagGenerator = ({ initialTab = 'youtube', initialTask = 'tags_and_hashtags
         
         {/* Content Type Selection - Clearly separated */}
         <motion.div 
-          className="relative bg-white p-5 rounded-xl border border-slate-200 shadow-sm transition-all duration-300"
+          className="relative p-5 rounded-xl border shadow-sm transition-all duration-300"
+          style={{
+            background: 'linear-gradient(135deg, rgba(15, 23, 42, 0.8), rgba(30, 41, 59, 0.8))',
+            borderColor: '#344973',
+            borderOpacity: 0.4,
+            boxShadow: '0 4px 15px rgba(22, 32, 89, 0.2), inset 0 1px 0 rgba(74, 144, 226, 0.1)'
+          }}
           whileHover={{
-            borderColor: 'rgba(71, 85, 105, 0.5)',
-            boxShadow: '0 4px 12px rgba(71, 85, 105, 0.15)',
+            borderColor: 'rgba(74, 144, 226, 0.6)',
+            boxShadow: '0 8px 25px rgba(22, 32, 89, 0.3), 0 0 20px rgba(74, 144, 226, 0.15)',
           }}
         >
-          <h3 className="text-lg font-bold text-slate-900 mb-4 relative z-10">What would you like to generate?</h3>
+          <h3 className="text-lg font-bold mb-4 relative z-10" style={{color: '#e5e7eb'}}>What would you like to generate?</h3>
           <div className="flex flex-col sm:flex-row gap-3 relative z-10">
             <button type="button" onClick={() => setTask('tags_and_hashtags')} className={`flex-1 btn ${task === 'tags_and_hashtags' ? 'btn-primary' : 'btn-accent'}`}>
                 <Hash className="mr-2 h-5 w-5" /> Generate Tags & Hashtags
