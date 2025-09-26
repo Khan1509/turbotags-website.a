@@ -93,7 +93,7 @@ const TagGenerator = ({ initialTab = 'youtube', initialTask = 'tags_and_hashtags
   }, [closeDropdowns]);
 
   return (
-    <section id="tag-generator" className="relative bg-white/95 p-4 sm:p-6 rounded-2xl shadow-xl border border-slate-200">
+    <section id="tag-generator" className="relative glass-intense surface-light p-4 sm:p-6 rounded-2xl shadow-xl border-highlight">
       <div className="relative z-10">
       {error && <MessageBox message={error} type="error" onDismiss={() => setError(null)} />}
       
