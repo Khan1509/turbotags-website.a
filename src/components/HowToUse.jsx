@@ -25,10 +25,10 @@ const HowToUse = () => {
     <section id="how-to-use" className="py-12">
       <div className="container mx-auto max-w-7xl px-4">
         <div className="text-center mb-12">
-          <h2 className="h2 font-extrabold bg-clip-text text-transparent" style={{background: 'linear-gradient(135deg, #475569 0%, #334155 100%)'}}>How It Works</h2>
+          <h2 className="h2 font-extrabold text-black">How It Works</h2>
           <p className="text-lg text-brand-dark-grey mt-2">Our advanced AI analyzes billions of data points to generate perfectly optimized content.</p>
           <div className="mt-6 max-w-4xl mx-auto">
-            <div className="bg-[var(--color-bg)] p-6 rounded-xl border border-gray-200">
+            <div className="bg-transparent p-0 rounded-none border-0">
               <h3 className="text-xl font-bold text-brand-dark-grey mb-3">🚀 Advanced AI Technology</h3>
               <p className="text-brand-dark-grey mb-4">
                 TurboTags uses cutting-edge language models including Mistral, Gemini, and Claude to analyze trending patterns, 
