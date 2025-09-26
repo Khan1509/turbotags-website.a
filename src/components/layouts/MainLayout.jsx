@@ -10,11 +10,11 @@ import ParticlesBackground from '../ui/ParticlesBackground';
 const MainLayout = () => {
   return (
     <div className="min-h-screen w-full relative theme-indigo" style={{ background: 'var(--color-bg)' }}>
-      {/* Base gradient background */}
+      {/* Radial Gradient Background from Bottom */}
       <div
         className="absolute inset-0 z-[-1]"
         style={{
-          background: "radial-gradient(ellipse 80% 60% at 50% 0%, rgba(79, 70, 229, 0.15), transparent 70%), radial-gradient(circle at 20% 80%, rgba(124, 58, 237, 0.1), transparent 50%), radial-gradient(circle at 80% 20%, rgba(34, 211, 238, 0.08), transparent 60%)",
+          background: "radial-gradient(125% 125% at 50% 90%, #fff 40%, #475569 100%)",
         }}
       />
       
