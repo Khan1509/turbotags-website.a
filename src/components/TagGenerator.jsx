@@ -140,26 +140,27 @@ const TagGenerator = ({ initialTab = 'youtube', initialTask = 'tags_and_hashtags
       <form onSubmit={handleSubmit} className="space-y-6">
         {/* Settings Section - Clearly separated */}
         <motion.div 
-          className="relative p-5 rounded-xl transition-all duration-300"
+          className="relative p-5 rounded-xl transition-all duration-300 z-50"
           style={{
             background: 'rgba(255, 255, 255, 0.8)',
             border: '1px solid rgba(209, 213, 219, 0.5)',
             boxShadow: '0 4px 15px rgba(0, 0, 0, 0.06)',
-            backdropFilter: 'blur(10px)'
+            backdropFilter: 'blur(10px)',
+            zIndex: 50
           }}
           whileHover={{
             boxShadow: '0 8px 25px rgba(0, 0, 0, 0.15), 0 0 20px rgba(255, 255, 255, 0.2)',
           }}
         >
-          <h3 className="text-lg font-bold mb-4 relative z-10" style={{color: '#1f2937'}}>Content Settings</h3>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 relative z-10">
+          <h3 className="text-lg font-bold mb-4 relative z-50" style={{color: '#1f2937'}}>Content Settings</h3>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 relative z-50">
             <ContentFormatSelector platform={activeTab} value={contentFormat} onChange={setContentFormat} showDropdown={openDropdown === 'format'} setShowDropdown={(show) => setOpenDropdown(show ? 'format' : null)} />
             <LanguageSelector value={language} onChange={setLanguage} showDropdown={openDropdown === 'language'} setShowDropdown={(show) => setOpenDropdown(show ? 'language' : null)} />
             <RegionSelector value={region} onChange={setRegion} showDropdown={openDropdown === 'region'} setShowDropdown={(show) => setOpenDropdown(show ? 'region' : null)} />
           </div>
         </motion.div>
 
-        <div>
+        <div className="relative z-10">
           <label htmlFor="prompt-input" className="block text-base font-bold mb-3" style={{color: '#1f2937'}}>
             Enter your content topic or keywords
           </label>
@@ -169,13 +170,14 @@ const TagGenerator = ({ initialTab = 'youtube', initialTask = 'tags_and_hashtags
             value={prompt}
             onChange={(e) => setPrompt(e.target.value)}
             placeholder="e.g., 'unboxing the new iPhone' or 'vegan chocolate cake recipe'"
-            className="w-full p-4 rounded-lg focus:outline-none transition-all duration-300"
+            className="w-full p-4 rounded-lg focus:outline-none transition-all duration-300 relative z-10"
             style={{
               background: 'rgba(255, 255, 255, 0.9)',
               border: '1px solid rgba(209, 213, 219, 0.6)',
               backdropFilter: 'blur(10px)',
               color: '#1f2937',
-              boxShadow: '0 2px 8px rgba(0, 0, 0, 0.06)'
+              boxShadow: '0 2px 8px rgba(0, 0, 0, 0.06)',
+              zIndex: 10
             }}
             required
           />
@@ -183,12 +185,13 @@ const TagGenerator = ({ initialTab = 'youtube', initialTask = 'tags_and_hashtags
         
         {/* Content Type Selection - Clearly separated */}
         <motion.div 
-          className="relative p-5 rounded-xl transition-all duration-300"
+          className="relative p-5 rounded-xl transition-all duration-300 z-10"
           style={{
             background: 'rgba(255, 255, 255, 0.8)',
             border: '1px solid rgba(209, 213, 219, 0.5)',
             boxShadow: '0 4px 15px rgba(0, 0, 0, 0.06)',
-            backdropFilter: 'blur(10px)'
+            backdropFilter: 'blur(10px)',
+            zIndex: 10
           }}
           whileHover={{
             boxShadow: '0 8px 25px rgba(0, 0, 0, 0.15), 0 0 20px rgba(255, 255, 255, 0.2)',

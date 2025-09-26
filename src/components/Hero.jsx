@@ -12,11 +12,12 @@ const Hero = React.memo(() => {
         role="list"
         aria-label="Key features"
       >
-        <span className="inline-flex items-center px-4 py-2 rounded-full text-sm font-semibold text-white shadow-lg transition-all duration-300 hover:scale-105 hover:-translate-y-1 hover:shadow-xl border border-opacity-30" role="listitem"
+        <span className="inline-flex items-center px-4 py-2 rounded-full text-sm font-semibold shadow-lg transition-all duration-300 hover:scale-105 hover:-translate-y-1 hover:shadow-xl border border-opacity-30" role="listitem"
           style={{
-            background: 'linear-gradient(135deg, #162059 0%, #192340 100%)',
-            borderColor: '#4a90e2',
-            boxShadow: '0 8px 20px rgba(22, 32, 89, 0.2), 0 2px 10px rgba(0, 0, 0, 0.1)'
+            background: 'rgba(255, 255, 255, 0.7)',
+            color: '#6b7280',
+            borderColor: 'rgba(107, 114, 128, 0.3)',
+            boxShadow: '0 8px 20px rgba(107, 114, 128, 0.15), 0 2px 10px rgba(0, 0, 0, 0.1)'
           }}>
           <Globe className="w-4 h-4 mr-2" aria-hidden="true" />
           30+ Regions Supported

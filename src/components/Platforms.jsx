@@ -25,9 +25,10 @@ const Platforms = () => {
             key={platform.name} 
             className="platform-card rounded-lg p-6 text-center"
             style={{
-              background: 'rgba(255, 255, 255, 0.2)',
-              border: '1px solid rgba(255, 255, 255, 0.25)',
-              backdropFilter: 'blur(10px)'
+              background: 'rgba(255, 255, 255, 0.7)',
+              border: '1px solid rgba(107, 114, 128, 0.3)',
+              backdropFilter: 'blur(10px)',
+              boxShadow: '0 8px 20px rgba(107, 114, 128, 0.15), 0 2px 10px rgba(0, 0, 0, 0.1)'
             }}
             whileHover={{ 
               boxShadow: "0 8px 25px rgba(0, 0, 0, 0.15), 0 0 20px rgba(255, 255, 255, 0.2)",
