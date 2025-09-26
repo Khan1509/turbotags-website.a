@@ -78,8 +78,8 @@ const TargetCursor = () => {
       <motion.div
         className="fixed top-0 left-0 pointer-events-none z-[9999]"
         style={{
-          x: mousePosition.x - 6,
-          y: mousePosition.y - 6,
+          x: mousePosition.x - 5,
+          y: mousePosition.y - 5,
         }}
         animate={{
           scale: isClicking ? 1.2 : isHovering ? 1.4 : 1.1,
@@ -91,13 +91,13 @@ const TargetCursor = () => {
         }}
       >
         <motion.div
-          className="w-3 h-3 rounded-full shadow-lg"
+          className="w-2 h-2 rounded-full shadow-md"
           style={{ 
-            background: 'radial-gradient(circle, #ffffff 0%, #e5e7eb 100%)',
+            background: 'radial-gradient(circle, #475569 0%, #334155 100%)',
             boxShadow: `
-              0 0 8px rgba(0, 0, 0, 0.08),
-              0 0 16px rgba(0, 0, 0, 0.05),
-              inset 0 0 4px rgba(0, 0, 0, 0.06)
+              0 0 8px rgba(71, 85, 105, 0.35),
+              0 0 16px rgba(51, 65, 85, 0.25),
+              inset 0 0 4px rgba(0, 0, 0, 0.2)
             `
           }}
           animate={{
@@ -107,6 +107,31 @@ const TargetCursor = () => {
             duration: 3,
             repeat: Infinity,
             ease: "linear",
+          }}
+        />
+      </motion.div>
+
+      {/* Pointer triangle */}
+      <motion.div
+        className="fixed top-0 left-0 pointer-events-none z-[9998]"
+        style={{
+          x: mousePosition.x + 6,
+          y: mousePosition.y + 6,
+        }}
+        animate={{
+          opacity: isHovering ? 0.95 : 0.8,
+          scale: isClicking ? 0.9 : 1,
+          rotate: isHovering ? 5 : 0,
+        }}
+        transition={{ type: 'spring', stiffness: 500, damping: 30 }}
+      >
+        <div
+          style={{
+            width: 8,
+            height: 8,
+            clipPath: 'polygon(0 0, 100% 50%, 0 100%)',
+            background: 'linear-gradient(135deg, #475569 0%, #334155 100%)',
+            boxShadow: '0 0 8px rgba(51, 65, 85, 0.35)'
           }}
         />
       </motion.div>
@@ -130,20 +155,20 @@ const TargetCursor = () => {
         }}
       >
         <motion.div
-          className="w-10 h-10 rounded-full border-2"
+          className="w-7 h-7 rounded-full border-2"
           style={{ 
-            borderColor: '#e5e7eb',
+            borderColor: '#475569',
             background: `
               radial-gradient(circle,
                 transparent 50%,
-                rgba(0, 0, 0, 0.06) 70%,
-                rgba(0, 0, 0, 0.04) 100%
+                rgba(71, 85, 105, 0.15) 70%,
+                rgba(51, 65, 85, 0.12) 100%
               )
             `,
             filter: 'blur(0.5px)',
             boxShadow: `
-              0 0 12px rgba(0, 0, 0, 0.08),
-              inset 0 0 10px rgba(0, 0, 0, 0.05)
+              0 0 10px rgba(51, 65, 85, 0.25),
+              inset 0 0 8px rgba(71, 85, 105, 0.2)
             `
           }}
           animate={{
@@ -178,9 +203,9 @@ const TargetCursor = () => {
             style={{
               background: `
                 radial-gradient(circle,
-                  rgba(0, 0, 0, 0.12) 0%,
-                  rgba(0, 0, 0, 0.08) 40%,
-                  rgba(0, 0, 0, 0.05) 70%,
+                  rgba(71, 85, 105, 0.22) 0%,
+                  rgba(51, 65, 85, 0.12) 40%,
+                  rgba(51, 65, 85, 0.08) 70%,
                   transparent 100%
                 )
               `,
