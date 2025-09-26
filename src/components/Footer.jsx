@@ -73,10 +73,10 @@ const Footer = () => {
             <Link2 className="h-3 w-3 mr-1" /> Link to Us
           </button>
           <p className="mb-2 text-xs">&copy; {new Date().getFullYear()} TurboTags. All rights reserved.</p>
-          <p className="text-xs text-gray-500">
-            Powered by AI
+          <p className="text-sm text-brand-dark-grey">
+            <span className="font-semibold">Powered by AI</span>
             <span className="mx-2">•</span>
-            <Link to="/legal#disclaimer" className="hover:text-brand-blue transition focus:outline-none focus:ring-2 focus:ring-brand-blue rounded-md px-1 py-1">Legal Disclaimer</Link>
+            <Link to="/legal#disclaimer" className="underline text-brand-dark-grey hover:text-brand-blue transition focus:outline-none focus:ring-2 focus:ring-brand-blue rounded-md px-1 py-1">Legal Disclaimer</Link>
           </p>
         </div>
       </footer>
