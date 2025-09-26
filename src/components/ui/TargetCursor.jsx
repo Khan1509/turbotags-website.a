@@ -74,7 +74,7 @@ const TargetCursor = () => {
 
   return (
     <div className="cursor-3d">
-      {/* Indigo center dot */}
+      {/* Enhanced futuristic center core */}
       <motion.div
         className="fixed top-0 left-0 pointer-events-none z-[9999]"
         style={{
@@ -82,32 +82,36 @@ const TargetCursor = () => {
           y: mousePosition.y - 6,
         }}
         animate={{
-          scale: isClicking ? 0.8 : isHovering ? 1.2 : 1,
+          scale: isClicking ? 1.2 : isHovering ? 1.4 : 1.1,
         }}
         transition={{
           type: "spring",
-          stiffness: 500,
-          damping: 28,
+          stiffness: 600,
+          damping: 25,
         }}
       >
         <motion.div
           className="w-3 h-3 rounded-full shadow-lg"
           style={{ 
-            backgroundColor: '#a78bfa', // indigo-300 for visibility
-            boxShadow: '0 0 12px rgba(167, 139, 250, 0.6)'
+            background: 'radial-gradient(circle, #4a90e2 0%, #344973 100%)',
+            boxShadow: `
+              0 0 15px rgba(74, 144, 226, 0.8),
+              0 0 25px rgba(52, 73, 115, 0.6),
+              inset 0 0 8px rgba(22, 32, 89, 0.4)
+            `
           }}
           animate={{
             rotate: [0, 360],
           }}
           transition={{
-            duration: 4,
+            duration: 3,
             repeat: Infinity,
             ease: "linear",
           }}
         />
       </motion.div>
 
-      {/* Cyan ring */}
+      {/* Enhanced futuristic ring */}
       <motion.div
         className="fixed top-0 left-0 pointer-events-none z-[9998]"
         style={{
@@ -115,53 +119,81 @@ const TargetCursor = () => {
           y: mousePosition.y - 20,
         }}
         animate={{
-          scale: isClicking ? 0.6 : isHovering ? 1.6 : 1.0,
-          opacity: isHovering ? 0.8 : 0.25,
+          scale: isClicking ? 0.8 : isHovering ? 1.8 : 1.1,
+          opacity: isHovering ? 0.9 : 0.3,
+          rotate: isHovering ? 45 : 0,
         }}
         transition={{
           type: "spring",
-          stiffness: 300,
-          damping: 25,
+          stiffness: 400,
+          damping: 20,
         }}
       >
         <motion.div
           className="w-10 h-10 rounded-full border-2"
           style={{ 
-            borderColor: '#22d3ee',
-            background: 'radial-gradient(circle, transparent 60%, rgba(34, 211, 238, 0.1) 100%)',
-            filter: 'blur(0.5px)'
+            borderColor: '#344973',
+            background: `
+              radial-gradient(circle, 
+                transparent 50%, 
+                rgba(52, 73, 115, 0.15) 70%, 
+                rgba(74, 144, 226, 0.1) 100%
+              )
+            `,
+            filter: 'blur(0.5px)',
+            boxShadow: `
+              0 0 20px rgba(52, 73, 115, 0.4),
+              inset 0 0 15px rgba(74, 144, 226, 0.2)
+            `
           }}
           animate={{
             rotate: [0, -360],
           }}
           transition={{
-            duration: 6,
+            duration: 5,
             repeat: Infinity,
             ease: "linear",
           }}
         />
       </motion.div>
       
-      {/* Outer glow on hover */}
+      {/* Enhanced outer pulse on hover */}
       {isHovering && (
         <motion.div
           className="fixed top-0 left-0 pointer-events-none z-[9997]"
           style={{
-            x: mousePosition.x - 30,
-            y: mousePosition.y - 30,
+            x: mousePosition.x - 35,
+            y: mousePosition.y - 35,
           }}
-          initial={{ opacity: 0, scale: 0.8 }}
-          animate={{ opacity: 0.3, scale: 1 }}
-          exit={{ opacity: 0, scale: 0.8 }}
+          initial={{ opacity: 0, scale: 0.6 }}
+          animate={{ opacity: 0.4, scale: 1.2 }}
+          exit={{ opacity: 0, scale: 0.6 }}
           transition={{
-            duration: 0.2,
+            duration: 0.3,
+            ease: "easeOut",
           }}
         >
-          <div
-            className="w-15 h-15 rounded-full"
+          <motion.div
+            className="w-18 h-18 rounded-full"
             style={{
-              background: 'radial-gradient(circle, rgba(34, 211, 238, 0.2) 0%, transparent 70%)',
-              filter: 'blur(8px)',
+              background: `
+                radial-gradient(circle, 
+                  rgba(74, 144, 226, 0.25) 0%, 
+                  rgba(52, 73, 115, 0.15) 40%, 
+                  rgba(22, 32, 89, 0.1) 70%, 
+                  transparent 100%
+                )
+              `,
+              filter: 'blur(12px)',
+            }}
+            animate={{
+              scale: [1, 1.2, 1],
+              opacity: [0.4, 0.6, 0.4],
+            }}
+            transition={{
+              duration: 2,
+              repeat: Infinity,
+              ease: "easeInOut",
             }}
           />
         </motion.div>

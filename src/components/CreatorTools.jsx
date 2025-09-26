@@ -19,36 +19,54 @@ const CharacterCounter = () => {
   const isOverLimit = charCount > limit;
 
   return (
-    <div className="bg-white p-6 rounded-xl shadow-lg border border-gray-200">
+    <div className="rounded-xl shadow-lg border border-opacity-30 p-6" style={{
+      background: 'linear-gradient(135deg, rgba(15, 23, 42, 0.8), rgba(30, 41, 59, 0.8))',
+      borderColor: '#344973',
+      boxShadow: '0 10px 25px rgba(22, 32, 89, 0.3), 0 0 15px rgba(52, 73, 115, 0.1)'
+    }}>
       <div className="flex items-center mb-4">
-        <Hash className="h-6 w-6 text-blue-500 mr-3" />
-        <h3 className="text-xl font-bold">Character Counter</h3>
+        <Hash className="h-6 w-6 mr-3" style={{ color: '#4a90e2' }} />
+        <h3 className="text-xl font-bold" style={{ color: '#e5e7eb' }}>Character Counter</h3>
       </div>
-      <p className="text-gray-600 mb-4">Count characters for different platforms with their limits</p>
+      <p className="mb-4" style={{ color: '#cbd5e1' }}>Count characters for different platforms with their limits</p>
       
       <textarea
-        className="w-full p-3 border border-gray-300 rounded-lg mb-4 resize-none"
+        className="w-full p-3 rounded-lg mb-4 resize-none border border-opacity-30 focus:outline-none focus:ring-2"
         rows="4"
         placeholder="Paste your text here"
         value={text}
         onChange={(e) => setText(e.target.value)}
+        style={{
+          background: 'rgba(30, 41, 59, 0.6)',
+          borderColor: '#344973',
+          color: '#e5e7eb',
+          focusRingColor: '#4a90e2'
+        }}
       />
       
       <div className="mb-4">
         <select
-          className="w-full p-2 border border-gray-300 rounded-lg"
+          className="w-full p-2 rounded-lg border border-opacity-30 focus:outline-none focus:ring-2"
           value={selectedPlatform}
           onChange={(e) => setSelectedPlatform(e.target.value)}
+          style={{
+            background: 'rgba(30, 41, 59, 0.8)',
+            borderColor: '#344973',
+            color: '#e5e7eb',
+            focusRingColor: '#4a90e2'
+          }}
         >
           {Object.keys(platformLimits).map(platform => (
-            <option key={platform} value={platform}>{platform}</option>
+            <option key={platform} value={platform} style={{ background: '#1e293b', color: '#e5e7eb' }}>{platform}</option>
           ))}
         </select>
       </div>
       
-      <div className={`text-lg font-semibold ${isOverLimit ? 'text-red-500' : 'text-green-500'}`}>
+      <div className="text-lg font-semibold" style={{
+        color: isOverLimit ? '#ef4444' : '#10b981'
+      }}>
         {charCount}/{limit} characters
-        {isOverLimit && <span className="block text-sm font-normal">⚠️ Over limit by {charCount - limit}</span>}
+        {isOverLimit && <span className="block text-sm font-normal" style={{ color: '#ef4444' }}>⚠️ Over limit by {charCount - limit}</span>}
       </div>
     </div>
   );

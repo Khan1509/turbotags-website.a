@@ -236,8 +236,16 @@ const TagGenerator = ({ initialTab = 'youtube', initialTask = 'tags_and_hashtags
               Reset Form
             </button>
           </div>
-          <p className="text-center text-xs text-slate-600 mt-2">
-            100% Free & Unlimited Generations
+          <p className="text-center text-xs mt-2" style={{
+            color: '#cbd5e1',
+            textShadow: '0 0 10px rgba(74, 144, 226, 0.3)',
+            padding: '8px 16px',
+            border: '1px solid rgba(52, 73, 115, 0.4)',
+            borderRadius: '12px',
+            background: 'linear-gradient(135deg, rgba(22, 32, 89, 0.1), rgba(52, 73, 115, 0.1))',
+            boxShadow: '0 4px 12px rgba(22, 32, 89, 0.2), inset 0 1px 0 rgba(74, 144, 226, 0.1)'
+          }}>
+            ✨ 100% Free & Unlimited Generations ✨
           </p>
         </div>
       </form>

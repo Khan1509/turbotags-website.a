@@ -8,21 +8,31 @@ export default {
   theme: {
     extend: {
       colors: {
-        // Updated color palette based on Realtime Colors reference
+        // Enhanced Futuristic Color Palette
         'brand': {
           'text': '#070304',       // Almost black for main text
           'background': '#e2e2f3', // Light lavender background  
-          'primary': '#15143e',    // Dark navy for primary elements
-          'secondary': '#5c6284',  // Medium blue-gray for secondary elements
-          'accent': '#282e43',     // Dark blue-gray for accents
+          'primary': '#162059',    // Deep navy primary
+          'secondary': '#192340',  // Dark navy secondary
+          'accent': '#344973',     // Steel blue accent
+        },
+        
+        // Futuristic palette integration
+        'futuristic': {
+          'primary': '#162059',    // Deep navy
+          'secondary': '#192340',  // Dark navy
+          'accent': '#344973',     // Steel blue
+          'glow': '#4a90e2',       // Light blue glow
+          'text-light': '#e5e7eb', // Light text
+          'text-muted': '#cbd5e1', // Muted text
         },
         
         // Keep old names for backward compatibility (mapped to new colors)
-        'brand-dark-blue': '#15143e',  // Maps to primary
-        'brand-blue': '#5c6284',       // Maps to secondary
+        'brand-dark-blue': '#162059',  // Maps to new primary
+        'brand-blue': '#192340',       // Maps to new secondary
         'brand-light-grey': '#e2e2f3', // Maps to background
         'brand-dark-grey': '#070304',  // Maps to text
-        'brand-medium-grey': '#5c6284',// Maps to secondary
+        'brand-medium-grey': '#344973',// Maps to new accent
         
         // Functional colors
         'tt-success': '#10b981',
