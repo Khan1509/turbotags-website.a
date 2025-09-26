@@ -26,11 +26,11 @@ const HowToUse = () => {
       <div className="container mx-auto max-w-7xl px-4">
         <div className="text-center mb-12">
           <h2 className="h2 font-extrabold text-brand-dark-blue">How It Works</h2>
-          <p className="text-lg text-brand-medium-grey mt-2">Our advanced AI analyzes billions of data points to generate perfectly optimized content.</p>
+          <p className="text-lg text-brand-dark-grey mt-2">Our advanced AI analyzes billions of data points to generate perfectly optimized content.</p>
           <div className="mt-6 max-w-4xl mx-auto">
             <div className="bg-white p-6 rounded-xl border border-gray-200">
               <h3 className="text-xl font-bold text-brand-dark-grey mb-3">🚀 Advanced AI Technology</h3>
-              <p className="text-brand-medium-grey mb-4">
+              <p className="text-brand-dark-grey mb-4">
                 TurboTags uses cutting-edge language models including Mistral, Gemini, and Claude to analyze trending patterns, 
                 viral content, and platform-specific algorithms across YouTube, Instagram, TikTok, and Facebook.
               </p>
@@ -69,7 +69,7 @@ const HowToUse = () => {
                 <step.icon className="h-8 w-8" />
               </div>
               <h3 className="text-xl font-bold text-brand-dark-grey mb-2">{step.title}</h3>
-              <p className="text-brand-medium-grey">{step.description}</p>
+              <p className="text-brand-dark-grey">{step.description}</p>
             </motion.div>
           ))}
         </div>
