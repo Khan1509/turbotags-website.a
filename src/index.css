@@ -34,6 +34,11 @@
     min-height: 100vh;
   }
   
+  /* Custom cursor styling using Start Generating Now button colors */
+  * {
+    cursor: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20"><circle cx="10" cy="10" r="8" fill="%23475569" stroke="%23334155" stroke-width="2"/></svg>') 10 10, auto;
+  }
+  
   /* Only hide cursor when custom cursor is supported and active */
   body.has-custom-cursor {
     cursor: none;

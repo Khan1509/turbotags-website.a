@@ -23,19 +23,19 @@ const Hero = React.memo(() => {
         </span>
         <span className="inline-flex items-center px-4 py-2 rounded-full text-sm font-semibold text-white shadow-xl transition-all duration-300 hover:scale-105 hover:-translate-y-1 hover:shadow-2xl border border-opacity-40" role="listitem"
           style={{
-            background: 'linear-gradient(135deg, #192340 0%, #344973 100%)',
-            borderColor: '#4a90e2',
-            boxShadow: '0 10px 25px rgba(25, 35, 64, 0.3), 0 4px 15px rgba(74, 144, 226, 0.2)'
+            background: 'linear-gradient(135deg, #475569, #334155)',
+            borderColor: 'rgba(51, 65, 85, 0.3)',
+            boxShadow: '0 8px 20px rgba(51, 65, 85, 0.25), 0 4px 8px rgba(0, 0, 0, 0.2)'
           }}>
           <Bot className="w-4 h-4 mr-2" aria-hidden="true" />
           AI Title & Tag Generation
         </span>
         <span className="inline-flex items-center px-4 py-2 rounded-full text-sm font-semibold border-2 shadow-lg transition-all duration-300 hover:scale-105 hover:-translate-y-1 hover:shadow-xl" role="listitem"
           style={{
-            background: 'linear-gradient(135deg, rgba(22, 32, 89, 0.08), rgba(74, 144, 226, 0.08))',
+            background: 'radial-gradient(125% 125% at 50% 90%, #fff 40%, #475569 100%)',
             color: '#1f2937',
-            borderColor: '#4a90e2',
-            boxShadow: '0 8px 20px rgba(22, 32, 89, 0.15), inset 0 1px 0 rgba(74, 144, 226, 0.1)'
+            borderColor: 'rgba(51, 65, 85, 0.3)',
+            boxShadow: '0 8px 20px rgba(51, 65, 85, 0.25), 0 4px 8px rgba(0, 0, 0, 0.2)'
           }}>
           <BarChart className="w-4 h-4 mr-2" aria-hidden="true" />
           SEO Optimized
@@ -78,7 +78,7 @@ const Hero = React.memo(() => {
       >
         <a
           href="#tag-generator"
-          className="btn btn-secondary focus:outline-none focus:ring-2 focus:ring-[#6366f1] focus:ring-offset-2"
+          className="btn btn-secondary focus:outline-none focus:ring-2 focus:ring-gray-400 focus:ring-offset-2"
           aria-label="Start generating tags and hashtags now"
         >
           Start Generating Now <Zap className="ml-2 h-5 w-5" aria-hidden="true" />

@@ -4,10 +4,8 @@ import TagGenerator from '../components/TagGenerator';
 import Platforms from '../components/Platforms';
 import Faq from '../components/Faq';
 import LazySection from '../components/utils/LazySection';
-import TrendingTopics from '../components/TrendingTopics';
 import HowToUse from '../components/HowToUse';
 import CreatorGrowthTips from '../components/CreatorGrowthTips';
-import CreatorTools from '../components/CreatorTools';
 import usePageMeta from '../hooks/usePageMeta';
 
 function HomePage() {
@@ -28,12 +26,6 @@ function HomePage() {
       <div className="container mx-auto max-w-7xl px-4 sm:px-6 md:px-8">
         <LazySection><Platforms /></LazySection>
       </div>
-      
-      <div className="container mx-auto max-w-7xl px-4 sm:px-6 md:px-8">
-        <LazySection><TrendingTopics /></LazySection>
-      </div>
-      
-      <LazySection><CreatorTools /></LazySection>
       
       <LazySection><CreatorGrowthTips /></LazySection>
       
