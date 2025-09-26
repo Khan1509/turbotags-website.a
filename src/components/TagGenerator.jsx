@@ -94,10 +94,10 @@ const TagGenerator = ({ initialTab = 'youtube', initialTask = 'tags_and_hashtags
 
   return (
     <section id="tag-generator" className="relative p-4 sm:p-6 rounded-2xl" style={{
-      background: 'rgba(255, 255, 255, 0.15)',
+      background: 'linear-gradient(135deg, rgba(255, 255, 255, 0.95), rgba(248, 250, 252, 0.95))',
       backdropFilter: 'blur(10px)',
-      border: '1px solid rgba(255, 255, 255, 0.2)',
-      boxShadow: '0 8px 32px rgba(0, 0, 0, 0.1)'
+      border: '1px solid rgba(229, 231, 235, 0.5)',
+      boxShadow: '0 8px 32px rgba(0, 0, 0, 0.08)'
     }}>
       <div className="relative z-10">
       {error && <MessageBox message={error} type="error" onDismiss={() => setError(null)} />}
@@ -142,9 +142,9 @@ const TagGenerator = ({ initialTab = 'youtube', initialTask = 'tags_and_hashtags
         <motion.div 
           className="relative p-5 rounded-xl transition-all duration-300"
           style={{
-            background: 'rgba(255, 255, 255, 0.2)',
-            border: '1px solid rgba(255, 255, 255, 0.25)',
-            boxShadow: '0 4px 15px rgba(0, 0, 0, 0.1)',
+            background: 'rgba(255, 255, 255, 0.8)',
+            border: '1px solid rgba(209, 213, 219, 0.5)',
+            boxShadow: '0 4px 15px rgba(0, 0, 0, 0.06)',
             backdropFilter: 'blur(10px)'
           }}
           whileHover={{
@@ -171,11 +171,11 @@ const TagGenerator = ({ initialTab = 'youtube', initialTask = 'tags_and_hashtags
             placeholder="e.g., 'unboxing the new iPhone' or 'vegan chocolate cake recipe'"
             className="w-full p-4 rounded-lg focus:outline-none transition-all duration-300"
             style={{
-              background: 'rgba(255, 255, 255, 0.2)',
-              border: '1px solid rgba(255, 255, 255, 0.3)',
+              background: 'rgba(255, 255, 255, 0.9)',
+              border: '1px solid rgba(209, 213, 219, 0.6)',
               backdropFilter: 'blur(10px)',
               color: '#1f2937',
-              boxShadow: '0 2px 8px rgba(0, 0, 0, 0.1)'
+              boxShadow: '0 2px 8px rgba(0, 0, 0, 0.06)'
             }}
             required
           />
@@ -185,9 +185,9 @@ const TagGenerator = ({ initialTab = 'youtube', initialTask = 'tags_and_hashtags
         <motion.div 
           className="relative p-5 rounded-xl transition-all duration-300"
           style={{
-            background: 'rgba(255, 255, 255, 0.2)',
-            border: '1px solid rgba(255, 255, 255, 0.25)',
-            boxShadow: '0 4px 15px rgba(0, 0, 0, 0.1)',
+            background: 'rgba(255, 255, 255, 0.8)',
+            border: '1px solid rgba(209, 213, 219, 0.5)',
+            boxShadow: '0 4px 15px rgba(0, 0, 0, 0.06)',
             backdropFilter: 'blur(10px)'
           }}
           whileHover={{

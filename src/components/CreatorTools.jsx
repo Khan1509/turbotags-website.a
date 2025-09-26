@@ -20,15 +20,15 @@ const CharacterCounter = () => {
 
   return (
     <div className="rounded-xl shadow-lg border border-opacity-30 p-6" style={{
-      background: 'linear-gradient(135deg, rgba(15, 23, 42, 0.8), rgba(30, 41, 59, 0.8))',
-      borderColor: '#344973',
-      boxShadow: '0 10px 25px rgba(22, 32, 89, 0.3), 0 0 15px rgba(52, 73, 115, 0.1)'
+      background: 'linear-gradient(135deg, rgba(255, 255, 255, 0.95), rgba(248, 250, 252, 0.95))',
+      borderColor: '#e5e7eb',
+      boxShadow: '0 10px 25px rgba(0, 0, 0, 0.08), 0 4px 15px rgba(22, 32, 89, 0.05)'
     }}>
       <div className="flex items-center mb-4">
         <Hash className="h-6 w-6 mr-3" style={{ color: '#4a90e2' }} />
-        <h3 className="text-xl font-bold" style={{ color: '#e5e7eb' }}>Character Counter</h3>
+        <h3 className="text-xl font-bold" style={{ color: '#1f2937' }}>Character Counter</h3>
       </div>
-      <p className="mb-4" style={{ color: '#cbd5e1' }}>Count characters for different platforms with their limits</p>
+      <p className="mb-4" style={{ color: '#6b7280' }}>Count characters for different platforms with their limits</p>
       
       <textarea
         className="w-full p-3 rounded-lg mb-4 resize-none border border-opacity-30 focus:outline-none focus:ring-2"
@@ -37,9 +37,9 @@ const CharacterCounter = () => {
         value={text}
         onChange={(e) => setText(e.target.value)}
         style={{
-          background: 'rgba(30, 41, 59, 0.6)',
-          borderColor: '#344973',
-          color: '#e5e7eb',
+          background: 'rgba(255, 255, 255, 0.8)',
+          borderColor: '#d1d5db',
+          color: '#1f2937',
           focusRingColor: '#4a90e2'
         }}
       />
@@ -50,14 +50,14 @@ const CharacterCounter = () => {
           value={selectedPlatform}
           onChange={(e) => setSelectedPlatform(e.target.value)}
           style={{
-            background: 'rgba(30, 41, 59, 0.8)',
-            borderColor: '#344973',
-            color: '#e5e7eb',
+            background: 'rgba(255, 255, 255, 0.9)',
+            borderColor: '#d1d5db',
+            color: '#1f2937',
             focusRingColor: '#4a90e2'
           }}
         >
           {Object.keys(platformLimits).map(platform => (
-            <option key={platform} value={platform} style={{ background: '#1e293b', color: '#e5e7eb' }}>{platform}</option>
+            <option key={platform} value={platform} style={{ background: '#ffffff', color: '#1f2937' }}>{platform}</option>
           ))}
         </select>
       </div>
@@ -97,15 +97,15 @@ const HashtagCleaner = () => {
 
   return (
     <div className="rounded-xl shadow-lg border border-opacity-30 p-6" style={{
-      background: 'linear-gradient(135deg, rgba(15, 23, 42, 0.8), rgba(30, 41, 59, 0.8))',
-      borderColor: '#344973',
-      boxShadow: '0 10px 25px rgba(22, 32, 89, 0.3), 0 0 15px rgba(52, 73, 115, 0.1)'
+      background: 'linear-gradient(135deg, rgba(255, 255, 255, 0.95), rgba(248, 250, 252, 0.95))',
+      borderColor: '#e5e7eb',
+      boxShadow: '0 10px 25px rgba(0, 0, 0, 0.08), 0 4px 15px rgba(22, 32, 89, 0.05)'
     }}>
       <div className="flex items-center mb-4">
         <Scissors className="h-6 w-6 mr-3" style={{ color: '#10b981' }} />
-        <h3 className="text-xl font-bold" style={{ color: '#e5e7eb' }}>Hashtag Cleaner</h3>
+        <h3 className="text-xl font-bold" style={{ color: '#1f2937' }}>Hashtag Cleaner</h3>
       </div>
-      <p className="mb-4" style={{ color: '#cbd5e1' }}>Remove duplicate hashtags and format properly</p>
+      <p className="mb-4" style={{ color: '#6b7280' }}>Remove duplicate hashtags and format properly</p>
       
       <textarea
         className="w-full p-3 rounded-lg mb-4 resize-none border border-opacity-30 focus:outline-none focus:ring-2"
@@ -114,9 +114,9 @@ const HashtagCleaner = () => {
         value={inputTags}
         onChange={(e) => setInputTags(e.target.value)}
         style={{
-          background: 'rgba(30, 41, 59, 0.6)',
-          borderColor: '#344973',
-          color: '#e5e7eb',
+          background: 'rgba(255, 255, 255, 0.8)',
+          borderColor: '#d1d5db',
+          color: '#1f2937',
           focusRingColor: '#4a90e2'
         }}
       />
@@ -131,11 +131,11 @@ const HashtagCleaner = () => {
       {cleanedTags && (
         <div className="space-y-3">
           <div className="p-3 rounded-lg border border-opacity-30" style={{
-            background: 'rgba(30, 41, 59, 0.4)',
-            borderColor: '#344973'
+            background: 'rgba(248, 250, 252, 0.8)',
+            borderColor: '#d1d5db'
           }}>
             <div className="flex justify-between items-start mb-2">
-              <span className="text-sm font-semibold" style={{ color: '#cbd5e1' }}>Clean Hashtags</span>
+              <span className="text-sm font-semibold" style={{ color: '#6b7280' }}>Clean Hashtags</span>
               <button
                 onClick={copyToClipboard}
                 className="flex items-center text-sm hover:opacity-80 transition-opacity"
@@ -145,9 +145,9 @@ const HashtagCleaner = () => {
                 {copied ? 'Copied!' : 'Copy'}
               </button>
             </div>
-            <p style={{ color: '#e5e7eb' }}>{cleanedTags}</p>
+            <p style={{ color: '#1f2937' }}>{cleanedTags}</p>
           </div>
-          <p className="text-sm" style={{ color: '#94a3b8' }}>
+          <p className="text-sm" style={{ color: '#6b7280' }}>
             {cleanedTags.split(' ').length} unique hashtags
           </p>
         </div>
@@ -166,28 +166,28 @@ const BestPostingTimes = () => {
 
   return (
     <div className="rounded-xl shadow-lg border border-opacity-30 p-6" style={{
-      background: 'linear-gradient(135deg, rgba(15, 23, 42, 0.8), rgba(30, 41, 59, 0.8))',
-      borderColor: '#344973',
-      boxShadow: '0 10px 25px rgba(22, 32, 89, 0.3), 0 0 15px rgba(52, 73, 115, 0.1)'
+      background: 'linear-gradient(135deg, rgba(255, 255, 255, 0.95), rgba(248, 250, 252, 0.95))',
+      borderColor: '#e5e7eb',
+      boxShadow: '0 10px 25px rgba(0, 0, 0, 0.08), 0 4px 15px rgba(22, 32, 89, 0.05)'
     }}>
       <div className="flex items-center mb-4">
         <Clock className="h-6 w-6 mr-3" style={{ color: '#a855f7' }} />
-        <h3 className="text-xl font-bold" style={{ color: '#e5e7eb' }}>Best Posting Times</h3>
+        <h3 className="text-xl font-bold" style={{ color: '#1f2937' }}>Best Posting Times</h3>
       </div>
-      <p className="mb-6" style={{ color: '#cbd5e1' }}>Optimal times to post on different platforms</p>
+      <p className="mb-6" style={{ color: '#6b7280' }}>Optimal times to post on different platforms</p>
       
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
         {Object.entries(postingTimes).map(([platform, times]) => (
           <div key={platform} className="p-4 rounded-lg border border-opacity-30" style={{
-            background: 'rgba(30, 41, 59, 0.4)',
-            borderColor: '#344973'
+            background: 'rgba(248, 250, 252, 0.8)',
+            borderColor: '#d1d5db'
           }}>
-            <h4 className="font-semibold mb-2" style={{ color: '#e5e7eb' }}>{platform}</h4>
+            <h4 className="font-semibold mb-2" style={{ color: '#1f2937' }}>{platform}</h4>
             <div className="space-y-1">
               {times.map((time, index) => (
                 <div key={index} className="text-sm px-2 py-1 rounded" style={{
-                  color: '#cbd5e1',
-                  background: 'rgba(52, 73, 115, 0.3)'
+                  color: '#1f2937',
+                  background: 'rgba(22, 32, 89, 0.1)'
                 }}>
                   {time}
                 </div>
@@ -197,7 +197,7 @@ const BestPostingTimes = () => {
         ))}
       </div>
       
-      <p className="text-xs mt-4 text-center" style={{ color: '#94a3b8' }}>
+      <p className="text-xs mt-4 text-center" style={{ color: '#6b7280' }}>
         * Times shown in EST. Adjust for your target audience timezone.
       </p>
     </div>
@@ -209,8 +209,8 @@ const CreatorTools = () => {
     <section id="creator-tools" className="py-12">
       <div className="container mx-auto max-w-7xl px-4">
         <div className="text-center mb-12">
-          <h2 className="text-3xl font-extrabold mb-4" style={{ color: '#e5e7eb' }}>Free Creator Tools</h2>
-          <p className="text-lg" style={{ color: '#cbd5e1' }}>Additional tools to help with your content creation</p>
+          <h2 className="text-3xl font-extrabold mb-4" style={{ color: '#1f2937' }}>Free Creator Tools</h2>
+          <p className="text-lg" style={{ color: '#6b7280' }}>Additional tools to help with your content creation</p>
         </div>
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
           <CharacterCounter />
