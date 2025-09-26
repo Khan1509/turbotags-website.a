@@ -2,18 +2,18 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Futuristic Navy Color System */
+/* Light Professional Color System */
 :root {
-  --color-bg: #0b1120;
-  --color-surface: rgba(15, 23, 42, 0.72);
-  --color-primary: #475569;
-  --color-primary-2: #334155;
+  --color-bg: #f8fafc;
+  --color-surface: rgba(255, 255, 255, 0.9);
+  --color-primary: #162059;
+  --color-primary-2: #192340;
   --color-accent: #344973;
   --color-glow: #4a90e2;
-  --color-text: #e5e7eb;
-  --color-text-muted: #cbd5e1;
-  --color-border: rgba(148, 163, 184, 0.25);
-  --color-glass: rgba(15, 23, 42, 0.6);
+  --color-text: #1f2937;
+  --color-text-muted: #6b7280;
+  --color-border: rgba(31, 41, 55, 0.15);
+  --color-glass: rgba(255, 255, 255, 0.8);
 }
 
 @layer base {
@@ -39,7 +39,7 @@
     cursor: none;
   }
   
-  /* Enhanced futuristic gradient background */
+  /* Enhanced professional gradient background */
   body::before {
     content: '';
     position: fixed;
@@ -47,9 +47,9 @@
     left: 0;
     width: 100vw;
     height: 100vh;
-    background: radial-gradient(circle at 30% 40%, rgba(22, 32, 89, 0.15) 0%, transparent 50%),
-                radial-gradient(circle at 80% 10%, rgba(25, 35, 64, 0.15) 0%, transparent 50%),
-                radial-gradient(circle at 40% 80%, rgba(52, 73, 115, 0.12) 0%, transparent 50%);
+    background: radial-gradient(circle at 30% 40%, rgba(22, 32, 89, 0.05) 0%, transparent 50%),
+                radial-gradient(circle at 80% 10%, rgba(25, 35, 64, 0.05) 0%, transparent 50%),
+                radial-gradient(circle at 40% 80%, rgba(52, 73, 115, 0.03) 0%, transparent 50%);
     animation: gradientShift 20s ease-in-out infinite;
     z-index: -1;
     pointer-events: none;
@@ -120,16 +120,16 @@
 
   .btn-primary {
     @apply btn text-white hover:bg-opacity-90 shadow-lg hover:shadow-xl;
-    background: linear-gradient(135deg, rgba(71, 85, 105, 0.8), rgba(51, 65, 85, 0.8));
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1), 0 6px 15px rgba(255, 255, 255, 0.1);
+    background: linear-gradient(135deg, #162059, #192340);
+    border: 1px solid rgba(22, 32, 89, 0.2);
+    box-shadow: 0 10px 25px rgba(22, 32, 89, 0.2), 0 6px 15px rgba(0, 0, 0, 0.1);
     backdrop-filter: blur(10px);
   }
   
   .btn-primary:hover {
-    background: linear-gradient(135deg, rgba(51, 65, 85, 0.9), rgba(52, 73, 115, 0.9));
-    border-color: rgba(255, 255, 255, 0.3);
-    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15), 0 0 25px rgba(255, 255, 255, 0.2);
+    background: linear-gradient(135deg, #192340, #344973);
+    border-color: rgba(52, 73, 115, 0.3);
+    box-shadow: 0 15px 35px rgba(22, 32, 89, 0.3), 0 0 25px rgba(74, 144, 226, 0.2);
     transform: translateY(-4px) scale(1.03);
   }
   

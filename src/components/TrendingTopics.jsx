@@ -51,9 +51,9 @@ const TrendingTopics = () => {
   if (isLoading) {
     return (
       <div className="p-6 rounded-xl shadow-md min-h-[300px] flex items-center justify-center border border-opacity-30" style={{
-        background: 'linear-gradient(135deg, rgba(15, 23, 42, 0.85), rgba(30, 41, 59, 0.85))',
-        borderColor: '#344973',
-        boxShadow: '0 10px 25px rgba(22, 32, 89, 0.3), 0 0 15px rgba(52, 73, 115, 0.1)'
+        background: 'linear-gradient(135deg, rgba(255, 255, 255, 0.95), rgba(248, 250, 252, 0.95))',
+        borderColor: '#e5e7eb',
+        boxShadow: '0 10px 25px rgba(0, 0, 0, 0.08), 0 4px 15px rgba(22, 32, 89, 0.05)'
       }}>
         <LoadingSpinner />
       </div>
@@ -63,11 +63,11 @@ const TrendingTopics = () => {
   if (error || !topicsData) {
     return (
       <div className="p-6 rounded-xl shadow-md text-center border border-opacity-30" style={{
-        background: 'linear-gradient(135deg, rgba(15, 23, 42, 0.85), rgba(30, 41, 59, 0.85))',
-        borderColor: '#344973',
-        boxShadow: '0 10px 25px rgba(22, 32, 89, 0.3), 0 0 15px rgba(52, 73, 115, 0.1)'
+        background: 'linear-gradient(135deg, rgba(255, 255, 255, 0.95), rgba(248, 250, 252, 0.95))',
+        borderColor: '#e5e7eb',
+        boxShadow: '0 10px 25px rgba(0, 0, 0, 0.08), 0 4px 15px rgba(22, 32, 89, 0.05)'
       }}>
-        <h2 className="h2 font-bold mb-2" style={{ color: '#e5e7eb' }}>Trending Topics</h2>
+        <h2 className="h2 font-bold mb-2" style={{ color: '#1f2937' }}>Trending Topics</h2>
         <p style={{ color: '#ef4444' }}>{error || 'No topics available.'}</p>
       </div>
     );
@@ -75,11 +75,11 @@ const TrendingTopics = () => {
 
   return (
     <section id="trending-topics" className="p-6 rounded-xl shadow-md border border-opacity-30" style={{
-      background: 'linear-gradient(135deg, rgba(15, 23, 42, 0.85), rgba(30, 41, 59, 0.85))',
-      borderColor: '#344973',
-      boxShadow: '0 10px 25px rgba(22, 32, 89, 0.3), 0 0 15px rgba(52, 73, 115, 0.1)'
+      background: 'linear-gradient(135deg, rgba(255, 255, 255, 0.95), rgba(248, 250, 252, 0.95))',
+      borderColor: '#e5e7eb',
+      boxShadow: '0 10px 25px rgba(0, 0, 0, 0.08), 0 4px 15px rgba(22, 32, 89, 0.05)'
     }}>
-      <h2 className="h2 font-bold mb-6 text-center" style={{ color: '#e5e7eb' }}>Trending Topics to Inspire You</h2>
+      <h2 className="h2 font-bold mb-6 text-center" style={{ color: '#1f2937' }}>Trending Topics to Inspire You</h2>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
         {topicsData.map((platformData, index) => {
           const Icon = platformIcons[platformData.platform];
@@ -88,9 +88,9 @@ const TrendingTopics = () => {
               key={platformData.platform}
               className="p-4 rounded-lg border border-opacity-30 hover:border-opacity-50 transition-all duration-300"
               style={{
-                background: 'linear-gradient(135deg, rgba(30, 41, 59, 0.6), rgba(52, 73, 115, 0.4))',
-                borderColor: '#344973',
-                boxShadow: '0 4px 15px rgba(22, 32, 89, 0.2), inset 0 1px 0 rgba(74, 144, 226, 0.1)'
+                background: 'linear-gradient(135deg, rgba(255, 255, 255, 0.8), rgba(248, 250, 252, 0.8))',
+                borderColor: '#d1d5db',
+                boxShadow: '0 4px 15px rgba(0, 0, 0, 0.06), inset 0 1px 0 rgba(22, 32, 89, 0.05)'
               }}
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
@@ -100,15 +100,15 @@ const TrendingTopics = () => {
                 boxShadow: '0 8px 25px rgba(22, 32, 89, 0.3), 0 0 20px rgba(74, 144, 226, 0.15)'
               }}
             >
-              <h3 className="font-bold text-lg mb-4 flex items-center" style={{ color: '#e5e7eb' }}>
+              <h3 className="font-bold text-lg mb-4 flex items-center" style={{ color: '#1f2937' }}>
                 {Icon && <Icon className="h-6 w-6 mr-2" style={{ color: '#4a90e2' }} />}
                 {platformData.platform}
               </h3>
               <ul className="space-y-3">
                 {platformData.topics.map((topic) => (
                   <li key={topic.title} className="text-sm">
-                    <p className="font-semibold" style={{ color: '#e5e7eb' }}>{topic.title}</p>
-                    <p style={{ color: '#cbd5e1' }}>{topic.description}</p>
+                    <p className="font-semibold" style={{ color: '#1f2937' }}>{topic.title}</p>
+                    <p style={{ color: '#6b7280' }}>{topic.description}</p>
                   </li>
                 ))}
               </ul>
