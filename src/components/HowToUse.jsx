@@ -25,7 +25,7 @@ const HowToUse = () => {
     <section id="how-to-use" className="py-12">
       <div className="container mx-auto max-w-7xl px-4">
         <div className="text-center mb-12">
-          <h2 className="h2 font-extrabold text-brand-dark-blue">How It Works</h2>
+          <h2 className="h2 font-extrabold bg-clip-text text-transparent" style={{background: 'linear-gradient(135deg, #475569 0%, #334155 100%)'}}>How It Works</h2>
           <p className="text-lg text-brand-dark-grey mt-2">Our advanced AI analyzes billions of data points to generate perfectly optimized content.</p>
           <div className="mt-6 max-w-4xl mx-auto">
             <div className="bg-[var(--color-bg)] p-6 rounded-xl border border-gray-200">
