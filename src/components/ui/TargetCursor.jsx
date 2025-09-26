@@ -93,11 +93,11 @@ const TargetCursor = () => {
         <motion.div
           className="w-3 h-3 rounded-full shadow-lg"
           style={{ 
-            background: 'radial-gradient(circle, #4a90e2 0%, #344973 100%)',
+            background: 'radial-gradient(circle, #ffffff 0%, #e5e7eb 100%)',
             boxShadow: `
-              0 0 15px rgba(74, 144, 226, 0.8),
-              0 0 25px rgba(52, 73, 115, 0.6),
-              inset 0 0 8px rgba(22, 32, 89, 0.4)
+              0 0 8px rgba(0, 0, 0, 0.08),
+              0 0 16px rgba(0, 0, 0, 0.05),
+              inset 0 0 4px rgba(0, 0, 0, 0.06)
             `
           }}
           animate={{
@@ -132,18 +132,18 @@ const TargetCursor = () => {
         <motion.div
           className="w-10 h-10 rounded-full border-2"
           style={{ 
-            borderColor: '#344973',
+            borderColor: '#e5e7eb',
             background: `
-              radial-gradient(circle, 
-                transparent 50%, 
-                rgba(52, 73, 115, 0.15) 70%, 
-                rgba(74, 144, 226, 0.1) 100%
+              radial-gradient(circle,
+                transparent 50%,
+                rgba(0, 0, 0, 0.06) 70%,
+                rgba(0, 0, 0, 0.04) 100%
               )
             `,
             filter: 'blur(0.5px)',
             boxShadow: `
-              0 0 20px rgba(52, 73, 115, 0.4),
-              inset 0 0 15px rgba(74, 144, 226, 0.2)
+              0 0 12px rgba(0, 0, 0, 0.08),
+              inset 0 0 10px rgba(0, 0, 0, 0.05)
             `
           }}
           animate={{
@@ -177,10 +177,10 @@ const TargetCursor = () => {
             className="w-18 h-18 rounded-full"
             style={{
               background: `
-                radial-gradient(circle, 
-                  rgba(74, 144, 226, 0.25) 0%, 
-                  rgba(52, 73, 115, 0.15) 40%, 
-                  rgba(22, 32, 89, 0.1) 70%, 
+                radial-gradient(circle,
+                  rgba(0, 0, 0, 0.12) 0%,
+                  rgba(0, 0, 0, 0.08) 40%,
+                  rgba(0, 0, 0, 0.05) 70%,
                   transparent 100%
                 )
               `,
