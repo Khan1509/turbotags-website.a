@@ -5,11 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
     <title>TurboTags: Free AI Tag &amp; Hashtag Generator</title>
     
-    <!-- Font optimization for performance -->
+    <!-- Optimized font loading for CLS performance -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'" />
-    <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" /></noscript>
 
     <!-- Critical CSS inlined for performance + Tailwind fallback -->
     <style>
@@ -94,7 +92,7 @@
     
     <!-- Additional SEO Meta Tags -->
     <meta name="theme-color" content="#0A1B36">
-    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="format-detection" content="telephone=no">
     <link rel="canonical" href="https://turbotags.app">
@@ -108,19 +106,14 @@
     <link rel="manifest" href="/site.webmanifest">
 
 
-    <!-- Critical font preloading for LCP text (H1 uses Inter 800) -->
-    <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin>
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <!-- Optimized font loading to prevent CLS -->
     <link rel="preload" href="https://fonts.gstatic.com/s/inter/v13/UcCO3FwrK3iLTeHuS_fvQtMwCp50KnMw2boKoduKmMEVuLyfAZ9hiJ-Ek-_EeA.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" media="print" onload="this.media='all';this.onload=null;">
+    <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"></noscript>
     
-    <!-- Preload critical assets -->
-    <link rel="preload" href="/favicon_darknavy_thick.svg" as="image" type="image/svg+xml">
+    <!-- DNS prefetch for performance -->
     <link rel="dns-prefetch" href="//www.googletagmanager.com">
     <link rel="dns-prefetch" href="//pagead2.googlesyndication.com">
-    
-    <!-- Optimized font loading for performance -->
-    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
-    <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap"></noscript>
 
     <!-- JSON-LD Structured Data for SEO -->
     <script type="application/ld+json">

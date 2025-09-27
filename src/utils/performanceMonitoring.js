@@ -128,25 +128,71 @@ export function initPerformanceMonitoring() {
     console.warn('FCP monitoring not supported');
   }
   
-  // Monitor Cumulative Layout Shift (CLS)
+  // Monitor Cumulative Layout Shift (CLS) with proper session windowing
   try {
-    let clsValue = 0;
+    let clsValue = 0; // Maximum CLS value across all sessions
+    let sessionValue = 0; // Current session value
+    let sessionEntries = [];
+    let lastReportTime = 0;
+    
     const clsObserver = new PerformanceObserver((list) => {
       for (const entry of list.getEntries()) {
+        // Only count layout shifts not caused by user input
         if (!entry.hadRecentInput) {
-          clsValue += entry.value;
+          // Session window: max 5 seconds, max 1 second gap
+          const isNewSession = sessionEntries.length === 0 || 
+                               entry.startTime - sessionEntries[sessionEntries.length - 1].startTime > 1000 ||
+                               entry.startTime - sessionEntries[0].startTime > 5000;
+          
+          if (isNewSession) {
+            // Update max CLS before starting new session
+            if (sessionEntries.length > 0) {
+              clsValue = Math.max(clsValue, sessionValue);
+            }
+            // Start new session
+            sessionValue = entry.value;
+            sessionEntries = [entry];
+          } else {
+            // Add to current session
+            sessionValue += entry.value;
+            sessionEntries.push(entry);
+          }
+          
+          // Update current maximum and report it
+          const currentMax = Math.max(clsValue, sessionValue);
+          const rating = getPerformanceRating(currentMax, THRESHOLDS.CLS);
+          
+          // Report the maximum CLS value (not just session value)
+          if (Date.now() - lastReportTime > 500) {
+            sendToAnalytics({
+              name: 'CLS',
+              value: currentMax,
+              rating,
+              delta: currentMax,
+              navigationType: 'navigate'
+            });
+            lastReportTime = Date.now();
+          }
         }
       }
-      const rating = getPerformanceRating(clsValue, THRESHOLDS.CLS);
-      sendToAnalytics({
-        name: 'CLS',
-        value: clsValue,
-        rating,
-        delta: clsValue,
-        navigationType: 'navigate'
-      });
     });
     clsObserver.observe({ entryTypes: ['layout-shift'] });
+    
+    // Report final CLS value when page is about to unload
+    window.addEventListener('beforeunload', () => {
+      // Make sure we have the final maximum value
+      const finalCLS = Math.max(clsValue, sessionValue);
+      if (finalCLS > 0) {
+        const rating = getPerformanceRating(finalCLS, THRESHOLDS.CLS);
+        sendToAnalytics({
+          name: 'CLS',
+          value: finalCLS,
+          rating,
+          delta: finalCLS,
+          navigationType: 'navigate'
+        });
+      }
+    });
   } catch (e) {
     console.warn('CLS monitoring not supported');
   }
