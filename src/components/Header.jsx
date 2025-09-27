@@ -9,7 +9,7 @@ const CustomNavLink = React.memo(({ to, children, ariaLabel, ...props }) => {
     <NavLink
       to={to}
       className={({ isActive }) =>
-        `relative z-10 transition-colors duration-300 font-medium focus:outline-none focus:ring-2 focus:ring-[#6366f1] focus:ring-offset-2 rounded-md px-4 py-2 ${
+        `relative z-10 transition-colors duration-300 font-medium focus:outline-none focus:ring-2 focus:ring-[#6366f1] focus:ring-offset-2 rounded-full px-4 py-2 ${
           isActive ? 'nav-active' : ''
         } ${isHome ? 'text-white' : ''}`
       }
@@ -32,7 +32,7 @@ const MobileNavLink = React.memo(({ to, children, onClick, ariaLabel }) => (
   <Link
     to={to}
     onClick={onClick}
-    className="block w-full py-4 text-center text-xl text-white transition hover:bg-white/10 focus:outline-none focus:ring-2 focus:ring-[#6366f1] focus:ring-offset-2 rounded-md"
+    className="block w-full py-4 text-center text-xl text-white transition hover:bg-white/10 focus:outline-none focus:ring-2 focus:ring-[#6366f1] focus:ring-offset-2 rounded-full"
     aria-label={ariaLabel || children}
   >
     {children}
@@ -125,12 +125,12 @@ const Header = () => {
             <CustomNavLink to="/" ariaLabel="Go to homepage">Home</CustomNavLink>
             <CustomNavLink to="/features" ariaLabel="Go to Features page">Features</CustomNavLink>
             <CustomNavLink to="/blog" ariaLabel="Go to Blog">Blog</CustomNavLink>
-            <a href="https://ko-fi.com/turbotags1509" target="_blank" rel="noopener noreferrer" className="relative z-10 text-white px-4 py-2 ml-3 rounded-lg flex items-center hover:opacity-90 transition focus:outline-none focus:ring-2 focus:ring-offset-2" style={{background: 'linear-gradient(135deg, #475569 0%, #334155 100%)', boxShadow: '0 4px 15px rgba(71, 85, 105, 0.3)', '--tw-ring-color': '#4a90e2', '--tw-ring-offset-color': 'black'}} aria-label="Support TurboTags on Ko-fi - Opens in new tab">
+            <a href="https://ko-fi.com/turbotags1509" target="_blank" rel="noopener noreferrer" className="relative z-10 text-white px-4 py-2 ml-3 rounded-full flex items-center hover:opacity-90 transition focus:outline-none focus:ring-2 focus:ring-offset-2" style={{background: 'linear-gradient(135deg, #475569 0%, #334155 100%)', boxShadow: '0 4px 15px rgba(71, 85, 105, 0.3)', '--tw-ring-color': '#4a90e2', '--tw-ring-offset-color': 'black'}} aria-label="Support TurboTags on Ko-fi - Opens in new tab">
               <Heart className="mr-2 h-4 w-4" aria-hidden="true" /> Support
             </a>
           </nav>
 
-          <button onClick={() => setIsMenuOpen(true)} className="lg:hidden p-2 rounded-md focus:outline-none focus:ring-2 focus:ring-[#6366f1] focus:ring-offset-2" style={{color: '#1f2937'}} aria-label="Open navigation menu" aria-expanded={isMenuOpen}>
+          <button onClick={() => setIsMenuOpen(true)} className="lg:hidden p-2 rounded-full focus:outline-none focus:ring-2 focus:ring-[#6366f1] focus:ring-offset-2" style={{color: '#1f2937'}} aria-label="Open navigation menu" aria-expanded={isMenuOpen}>
             <Menu size={32} aria-hidden="true" />
           </button>
         </div>
@@ -141,7 +141,7 @@ const Header = () => {
           className={`fixed top-0 left-0 h-full w-full text-white z-50 flex flex-col items-center justify-center transition-transform duration-300 ease-out ${isMenuOpen ? 'translate-x-0' : '-translate-x-full'}`}
           style={{background: 'radial-gradient(60% 50% at 50% 0%, rgba(99,102,241,0.25), transparent), rgba(2,6,23,0.98)'}}
         >
-          <button onClick={closeMenu} className="absolute top-5 right-5 p-2 rounded-md focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2" style={{'--tw-ring-offset-color': '#334155'}} aria-label="Close navigation menu">
+          <button onClick={closeMenu} className="absolute top-5 right-5 p-2 rounded-full focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2" style={{'--tw-ring-offset-color': '#334155'}} aria-label="Close navigation menu">
             <X size={40} aria-hidden="true" />
           </button>
           <nav className="flex flex-col items-center w-full space-y-4" role="navigation" aria-label="Mobile navigation">
@@ -149,7 +149,7 @@ const Header = () => {
             <MobileNavLink to="/features" onClick={closeMenu} ariaLabel="Go to Features page">Features</MobileNavLink>
             <MobileNavLink to="/blog" onClick={closeMenu} ariaLabel="Go to Blog">Blog</MobileNavLink>
             <MobileNavLink to="/#faq" onClick={closeMenu} ariaLabel="Go to FAQ section">FAQ</MobileNavLink>
-            <a href="https://ko-fi.com/turbotags1509" onClick={closeMenu} target="_blank" rel="noopener noreferrer" className="block w-full py-4 text-center text-xl text-slate-100 transition hover:bg-white/10 focus:outline-none focus:ring-2 focus:ring-[#6366f1] focus:ring-offset-2 rounded-md" style={{'--tw-ring-offset-color': 'black'}} aria-label="Support TurboTags on Ko-fi - Opens in new tab">
+            <a href="https://ko-fi.com/turbotags1509" onClick={closeMenu} target="_blank" rel="noopener noreferrer" className="block w-full py-4 text-center text-xl text-slate-100 transition hover:bg-white/10 focus:outline-none focus:ring-2 focus:ring-[#6366f1] focus:ring-offset-2 rounded-full" style={{'--tw-ring-offset-color': 'black'}} aria-label="Support TurboTags on Ko-fi - Opens in new tab">
               Support Us
             </a>
           </nav>
