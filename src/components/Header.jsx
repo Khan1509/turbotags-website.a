@@ -91,12 +91,15 @@ const Header = () => {
               <source media="(min-width: 768px)" srcSet="/turbotags_header_logo_500x160_thick.svg" />
               <img
                 src="/turbotags_header_logo_250x80_thick.svg"
-                alt="TurboTags Logo"
+                alt="TT Logo"
                 className="h-6 md:h-8 lg:h-10 w-auto"
                 loading="eager"
                 decoding="async"
               />
             </picture>
+            <span className="font-bold text-lg md:text-xl lg:text-2xl" style={{color: '#475569'}}>
+              TurboTags
+            </span>
           </Link>
 
           <nav ref={navRef} className="hidden lg:flex items-center space-x-1 relative rounded-full p-1" style={{
