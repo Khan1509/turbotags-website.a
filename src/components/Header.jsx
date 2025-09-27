@@ -87,10 +87,10 @@ const Header = () => {
         <div className="flex justify-between items-center">
           <Link to="/" className="flex items-center gap-3 focus:outline-none focus:ring-2 focus:ring-[#6366f1] focus:ring-offset-2 rounded-lg p-2" aria-label="TurboTags - Go to homepage">
             <picture className="transition-transform hover:scale-110">
-              <source media="(min-width: 1024px)" srcSet={`/turbotags_header_logo_1000x320_thick.svg?t=${Date.now()}`} />
-              <source media="(min-width: 768px)" srcSet={`/turbotags_header_logo_500x160_thick.svg?t=${Date.now()}`} />
+              <source media="(min-width: 1024px)" srcSet="/turbotags_header_logo_1000x320_thick.svg" />
+              <source media="(min-width: 768px)" srcSet="/turbotags_header_logo_500x160_thick.svg" />
               <img
-                src={`/turbotags_header_logo_250x80_thick.svg?t=${Date.now()}`}
+                src="/turbotags_header_logo_250x80_thick.svg"
                 alt="TurboTags Logo"
                 className="h-6 md:h-8 lg:h-10 w-auto"
                 loading="eager"
