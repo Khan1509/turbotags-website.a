@@ -86,21 +86,17 @@ const Header = () => {
       <div className="container mx-auto max-w-7xl">
         <div className="flex justify-between items-center">
           <Link to="/" className="flex items-center gap-3 focus:outline-none focus:ring-2 focus:ring-[#6366f1] focus:ring-offset-2 rounded-lg p-2" aria-label="TurboTags - Go to homepage">
-            <img
-              src="/turbotags_header_logo_500x160.png"
-              alt="TurboTags Logo"
-              className="h-8 md:h-10 w-auto transition-transform hover:scale-110"
-              loading="eager"
-              decoding="async"
-            />
-            <div className="text-4xl md:text-5xl font-extrabold leading-tight transition-transform hover:scale-105 bg-gradient-to-r bg-clip-text text-transparent" style={{
-              background: 'linear-gradient(135deg, #475569 0%, #334155 100%)',
-              WebkitBackgroundClip: 'text',
-              WebkitTextFillColor: 'transparent',
-              backgroundClip: 'text'
-            }}>
-              TurboTags
-            </div>
+            <picture className="transition-transform hover:scale-110">
+              <source media="(min-width: 1024px)" srcSet="/turbotags_header_logo_1000x320.svg" />
+              <source media="(min-width: 768px)" srcSet="/turbotags_header_logo_500x160.svg" />
+              <img
+                src="/turbotags_header_logo_250x80.svg"
+                alt="TurboTags Logo"
+                className="h-6 md:h-8 lg:h-10 w-auto"
+                loading="eager"
+                decoding="async"
+              />
+            </picture>
           </Link>
 
           <nav ref={navRef} className="hidden lg:flex items-center space-x-1 relative rounded-full p-1" style={{

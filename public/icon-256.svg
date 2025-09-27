@@ -1,0 +1,22 @@
+<svg width="256" height="256" viewBox="0 0 256 256" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="iconGradient256" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#475569"/>
+      <stop offset="100%" style="stop-color:#334155"/>
+    </linearGradient>
+  </defs>
+  
+  <!-- Background -->
+  <rect width="256" height="256" fill="white" rx="32"/>
+  
+  <!-- TT Logo -->
+  <g transform="translate(48, 64)">
+    <!-- First T -->
+    <rect x="0" y="0" width="60" height="16" fill="url(#iconGradient256)" rx="6"/>
+    <rect x="22" y="0" width="16" height="128" fill="url(#iconGradient256)" rx="6"/>
+    
+    <!-- Second T -->
+    <rect x="100" y="0" width="60" height="16" fill="url(#iconGradient256)" rx="6"/>
+    <rect x="122" y="0" width="16" height="128" fill="url(#iconGradient256)" rx="6"/>
+  </g>
+</svg>
