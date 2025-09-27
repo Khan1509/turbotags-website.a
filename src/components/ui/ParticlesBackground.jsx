@@ -62,8 +62,8 @@ const ParticlesBackground = ({
         particle.x, particle.y, 0,
         particle.x, particle.y, particle.size * 2
       );
-      gradient.addColorStop(0, '#94a3b8'); // slate-300 glow
-      gradient.addColorStop(0.5, '#4a90e2'); // soft blue accent
+      gradient.addColorStop(0, '#475569'); // Support button gradient color
+      gradient.addColorStop(0.5, '#334155'); // Support button gradient color
       gradient.addColorStop(1, 'transparent');
       
       ctx.fillStyle = gradient;
