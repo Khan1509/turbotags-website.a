@@ -51,7 +51,7 @@ const usePageMeta = (title, description, imageUrl) => {
         document.querySelector('meta[name="twitter:image"]')?.setAttribute('content', imageUrl);
     } else {
         // SEO: Set a default image if none is provided for a page
-        const defaultImageUrl = 'https://turbotags.app/screenshots/desktop.png';
+        const defaultImageUrl = 'https://turbotags.app/turbotags_header_logo_1000x320_thick.svg';
         document.querySelector('meta[property="og:image"]')?.setAttribute('content', defaultImageUrl);
         document.querySelector('meta[name="twitter:image"]')?.setAttribute('content', defaultImageUrl);
     }

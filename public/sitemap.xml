@@ -4,88 +4,194 @@
         xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9
         http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
   
+  <!-- Homepage -->
   <url>
     <loc>https://turbotags.app/</loc>
-    <lastmod>2025-08-15</lastmod>
+    <lastmod>2025-09-27</lastmod>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
   </url>
   
+  <!-- Core Tool Pages (High Priority - Main User Value) -->
+  <url>
+    <loc>https://turbotags.app/youtube-hashtag-generator</loc>
+    <lastmod>2025-09-27</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  
+  <url>
+    <loc>https://turbotags.app/instagram-hashtag-generator</loc>
+    <lastmod>2025-09-27</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  
+  <url>
+    <loc>https://turbotags.app/tiktok-hashtag-generator</loc>
+    <lastmod>2025-09-27</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  
+  <url>
+    <loc>https://turbotags.app/facebook-hashtag-generator</loc>
+    <lastmod>2025-09-27</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  
+  <url>
+    <loc>https://turbotags.app/ai-title-generator</loc>
+    <lastmod>2025-09-27</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  
+  <url>
+    <loc>https://turbotags.app/free-hashtag-generator</loc>
+    <lastmod>2025-09-27</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  
+  <!-- Blog Section -->
+  <url>
+    <loc>https://turbotags.app/blog</loc>
+    <lastmod>2025-09-27</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  
+  <!-- Specialized Content Pages -->
+  <url>
+    <loc>https://turbotags.app/how-hashtags-work</loc>
+    <lastmod>2025-09-27</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>https://turbotags.app/instagram-reels-hashtags</loc>
+    <lastmod>2025-09-27</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>https://turbotags.app/tiktok-viral-hashtags</loc>
+    <lastmod>2025-09-27</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  
+  <!-- Information Pages -->
   <url>
     <loc>https://turbotags.app/about</loc>
-    <lastmod>2025-08-15</lastmod>
+    <lastmod>2025-09-27</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   
   <url>
     <loc>https://turbotags.app/features</loc>
-    <lastmod>2025-08-15</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
+    <lastmod>2025-09-27</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
   </url>
   
+  <!-- Legal Pages -->
   <url>
     <loc>https://turbotags.app/legal</loc>
-    <lastmod>2025-08-15</lastmod>
+    <lastmod>2025-09-27</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.3</priority>
   </url>
   
-  <url>
-    <loc>https://turbotags.app/blog</loc>
-    <lastmod>2025-08-15</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.9</priority>
-  </url>
-  
-  <url>
-    <loc>https://medium.com/@sayeed.1143/turbotags-free-ai-powered-tags-hashtags-generator-for-youtube-tiktok-instagram-more-df0263a58ac2</loc>
-    <lastmod>2025-08-15</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
+  <!-- Blog Posts -->
   <url>
     <loc>https://turbotags.app/blog/best-youtube-seo-and-title-hashtag-generator-2025</loc>
-    <lastmod>2025-08-15</lastmod>
+    <lastmod>2025-09-27</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
+    <priority>0.7</priority>
   </url>
   
   <url>
     <loc>https://turbotags.app/blog/best-youtube-tag-generator-2025</loc>
-    <lastmod>2025-08-15</lastmod>
+    <lastmod>2025-09-27</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
+    <priority>0.7</priority>
   </url>
   
   <url>
     <loc>https://turbotags.app/blog/instagram-trending-hashtag-generator-2025</loc>
-    <lastmod>2025-08-15</lastmod>
+    <lastmod>2025-09-27</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
+    <priority>0.7</priority>
   </url>
   
   <url>
     <loc>https://turbotags.app/blog/best-tiktok-hashtag-generator-2025</loc>
-    <lastmod>2025-08-15</lastmod>
+    <lastmod>2025-09-27</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
+    <priority>0.7</priority>
   </url>
   
   <url>
     <loc>https://turbotags.app/blog/best-facebook-hashtag-generator-2025</loc>
-    <lastmod>2025-08-15</lastmod>
+    <lastmod>2025-09-27</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
+    <priority>0.7</priority>
   </url>
   
   <url>
     <loc>https://turbotags.app/blog/turbotags-rapidtags-tubebuddy-tag-generator-2025</loc>
-    <lastmod>2025-08-15</lastmod>
+    <lastmod>2025-09-27</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
+    <priority>0.7</priority>
+  </url>
+  
+  <url>
+    <loc>https://turbotags.app/blog/how-to-get-1m-views-with-turbotags</loc>
+    <lastmod>2025-09-27</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  
+  <url>
+    <loc>https://turbotags.app/blog/instagram-hashtag-strategy-for-fashion-brazil</loc>
+    <lastmod>2025-09-27</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  
+  <url>
+    <loc>https://turbotags.app/blog/tiktok-seo-guide-2025</loc>
+    <lastmod>2025-09-27</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  
+  <url>
+    <loc>https://turbotags.app/blog/youtube-seo-for-indian-gamers-2025</loc>
+    <lastmod>2025-09-27</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  
+  <url>
+    <loc>https://turbotags.app/blog/facebook-for-creators-2025</loc>
+    <lastmod>2025-09-27</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  
+  <!-- External Content -->
+  <url>
+    <loc>https://medium.com/@sayeed.1143/turbotags-free-ai-powered-tags-hashtags-generator-for-youtube-tiktok-instagram-more-df0263a58ac2</loc>
+    <lastmod>2025-09-27</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
   </url>
   
 </urlset>

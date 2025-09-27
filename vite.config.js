@@ -10,7 +10,7 @@ export default defineConfig({
     strictPort: true,
     allowedHosts: true,
     hmr: {
-      clientPort: 443,
+      port: 5001,
     },
     headers: {
       'Access-Control-Allow-Origin': '*',
