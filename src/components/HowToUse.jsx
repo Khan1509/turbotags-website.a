@@ -28,35 +28,47 @@ const HowToUse = () => {
           <h2 className="h2 font-extrabold text-black">How It Works</h2>
           <p className="text-lg text-brand-dark-grey mt-2">Our advanced AI analyzes billions of data points to generate perfectly optimized content.</p>
           <div className="mt-6 max-w-4xl mx-auto">
-            <div className="p-6 rounded-xl border border-opacity-30 shadow-lg" style={{
-              background: 'radial-gradient(125% 125% at 50% 90%, #fff 40%, #475569 100%)',
-              borderColor: 'rgba(51, 65, 85, 0.3)',
-              boxShadow: '0 8px 20px rgba(51, 65, 85, 0.25), 0 4px 8px rgba(0, 0, 0, 0.2)'
-            }}>
-              <h3 className="text-xl font-bold text-brand-dark-grey mb-3">🚀 Advanced AI Technology</h3>
-              <p className="text-brand-dark-grey mb-4">
+            <motion.div 
+              className="p-6 rounded-xl"
+              style={{
+                background: 'linear-gradient(135deg, #475569 0%, #334155 100%)',
+                border: '1px solid rgba(71, 85, 105, 0.3)',
+                backdropFilter: 'blur(10px)',
+                boxShadow: '0 8px 20px rgba(71, 85, 105, 0.25), 0 2px 10px rgba(0, 0, 0, 0.1)'
+              }}
+              whileHover={{ 
+                boxShadow: "0 8px 25px rgba(0, 0, 0, 0.15), 0 0 20px rgba(255, 255, 255, 0.2)",
+                y: -5
+              }}
+              transition={{ type: "spring", stiffness: 400, damping: 25 }}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, amount: 0.3 }}
+            >
+              <h3 className="text-xl font-bold mb-3" style={{color: 'white'}}>🚀 Advanced AI Technology</h3>
+              <p className="mb-4" style={{color: 'rgba(255, 255, 255, 0.8)'}}>
                 TurboTags uses cutting-edge language models including Mistral, Gemini, and Claude to analyze trending patterns, 
                 viral content, and platform-specific algorithms across YouTube, Instagram, TikTok, and Facebook.
               </p>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
                 <div className="flex items-center space-x-2">
-                  <span className="w-2 h-2 bg-green-500 rounded-full"></span>
-                  <span>20+ Languages Supported</span>
+                  <span className="w-2 h-2 bg-green-400 rounded-full"></span>
+                  <span style={{color: 'rgba(255, 255, 255, 0.9)'}}>20+ Languages Supported</span>
                 </div>
                 <div className="flex items-center space-x-2">
-                  <span className="w-2 h-2 bg-blue-500 rounded-full"></span>
-                  <span>Real-time Trend Analysis</span>
+                  <span className="w-2 h-2 bg-blue-400 rounded-full"></span>
+                  <span style={{color: 'rgba(255, 255, 255, 0.9)'}}>Real-time Trend Analysis</span>
                 </div>
                 <div className="flex items-center space-x-2">
-                  <span className="w-2 h-2 bg-purple-500 rounded-full"></span>
-                  <span>Platform-Specific Optimization</span>
+                  <span className="w-2 h-2 bg-purple-400 rounded-full"></span>
+                  <span style={{color: 'rgba(255, 255, 255, 0.9)'}}>Platform-Specific Optimization</span>
                 </div>
                 <div className="flex items-center space-x-2">
-                  <span className="w-2 h-2 bg-orange-500 rounded-full"></span>
-                  <span>70-100% Trend Accuracy</span>
+                  <span className="w-2 h-2 bg-orange-400 rounded-full"></span>
+                  <span style={{color: 'rgba(255, 255, 255, 0.9)'}}>70-100% Trend Accuracy</span>
                 </div>
               </div>
-            </div>
+            </motion.div>
           </div>
         </div>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
