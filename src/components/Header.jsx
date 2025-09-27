@@ -3,23 +3,30 @@ import { NavLink, Link, useLocation } from 'react-router-dom';
 import { Menu, X, Heart } from 'lucide-react';
 import { motion } from 'framer-motion';
 
-const CustomNavLink = React.memo(({ to, children, ariaLabel, ...props }) => (
-  <NavLink
-    to={to}
-    className={({ isActive }) =>
-      `relative z-10 transition-colors duration-300 font-medium focus:outline-none focus:ring-2 focus:ring-[#6366f1] focus:ring-offset-2 rounded-md px-4 py-2 ${
-        isActive ? 'nav-active' : ''
-      }`
-    }
-    style={{
-      color: '#1f2937'
-    }}
-    aria-label={ariaLabel || children}
-    {...props}
-  >
-    {children}
-  </NavLink>
-));
+const CustomNavLink = React.memo(({ to, children, ariaLabel, ...props }) => {
+  const isHome = to === '/';
+  return (
+    <NavLink
+      to={to}
+      className={({ isActive }) =>
+        `relative z-10 transition-colors duration-300 font-medium focus:outline-none focus:ring-2 focus:ring-[#6366f1] focus:ring-offset-2 rounded-md px-4 py-2 ${
+          isActive ? 'nav-active' : ''
+        } ${isHome ? 'text-white' : ''}`
+      }
+      style={isHome ? {
+        background: 'linear-gradient(135deg, #475569 0%, #334155 100%)',
+        boxShadow: '0 4px 15px rgba(71, 85, 105, 0.3)',
+        color: 'white'
+      } : {
+        color: '#1f2937'
+      }}
+      aria-label={ariaLabel || children}
+      {...props}
+    >
+      {children}
+    </NavLink>
+  );
+});
 
 const MobileNavLink = React.memo(({ to, children, onClick, ariaLabel }) => (
   <Link
@@ -97,7 +104,7 @@ const Header = () => {
                 decoding="async"
               />
             </picture>
-            <span className="font-bold text-lg md:text-xl lg:text-2xl" style={{color: '#475569'}}>
+            <span className="font-bold text-xl md:text-2xl lg:text-3xl" style={{color: '#475569'}}>
               TurboTags
             </span>
           </Link>

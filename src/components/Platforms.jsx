@@ -4,10 +4,10 @@ import TikTokIcon from './icons/TikTokIcon';
 import { motion } from 'framer-motion';
 
 const platformData = [
-  { name: 'YouTube', icon: Youtube, color: 'text-red-500', description: 'Tags & Hashtags for video discoverability' },
-  { name: 'Instagram', icon: Instagram, color: 'text-pink-500', description: 'Hashtag optimization for better reach' },
-  { name: 'TikTok', icon: TikTokIcon, color: 'text-black', description: 'Viral hashtags for maximum engagement' },
-  { name: 'Facebook', icon: Facebook, color: 'text-blue-600', description: 'Content tags for better visibility' },
+  { name: 'YouTube', icon: Youtube, color: 'text-white', description: 'Tags & Hashtags for video discoverability' },
+  { name: 'Instagram', icon: Instagram, color: 'text-white', description: 'Hashtag optimization for better reach' },
+  { name: 'TikTok', icon: TikTokIcon, color: 'text-white', description: 'Viral hashtags for maximum engagement' },
+  { name: 'Facebook', icon: Facebook, color: 'text-white', description: 'Content tags for better visibility' },
 ];
 
 const Platforms = () => {
@@ -25,10 +25,10 @@ const Platforms = () => {
             key={platform.name} 
             className="platform-card rounded-lg p-6 text-center"
             style={{
-              background: 'rgba(255, 255, 255, 0.7)',
-              border: '1px solid rgba(107, 114, 128, 0.3)',
+              background: 'linear-gradient(135deg, #475569 0%, #334155 100%)',
+              border: '1px solid rgba(71, 85, 105, 0.3)',
               backdropFilter: 'blur(10px)',
-              boxShadow: '0 8px 20px rgba(107, 114, 128, 0.15), 0 2px 10px rgba(0, 0, 0, 0.1)'
+              boxShadow: '0 8px 20px rgba(71, 85, 105, 0.25), 0 2px 10px rgba(0, 0, 0, 0.1)'
             }}
             whileHover={{ 
               boxShadow: "0 8px 25px rgba(0, 0, 0, 0.15), 0 0 20px rgba(255, 255, 255, 0.2)",
@@ -39,8 +39,8 @@ const Platforms = () => {
             animate={{ opacity: 1, y: 0, transition: { delay: index * 0.1 } }}
           >
             <platform.icon className={`h-10 w-10 mx-auto mb-3 ${platform.color}`} />
-            <h3 className="text-xl font-bold mb-1" style={{color: '#1f2937'}}>{platform.name}</h3>
-            <p className="text-sm" style={{color: '#4b5563'}}>{platform.description}</p>
+            <h3 className="text-xl font-bold mb-1" style={{color: 'white'}}>{platform.name}</h3>
+            <p className="text-sm" style={{color: 'rgba(255, 255, 255, 0.8)'}}>{platform.description}</p>
           </motion.div>
         ))}
       </div>
