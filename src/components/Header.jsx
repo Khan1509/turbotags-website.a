@@ -99,12 +99,12 @@ const Header = () => {
               <img
                 src="/turbotags_header_logo_250x80_thick.svg"
                 alt="TT Logo"
-                className="h-6 md:h-8 lg:h-10 w-auto"
+                className="h-8 md:h-12 lg:h-16 w-auto"
                 loading="eager"
                 decoding="async"
               />
             </picture>
-            <span className="font-bold text-2xl md:text-3xl lg:text-4xl" style={{color: '#475569'}}>
+            <span className="font-bold text-3xl md:text-4xl lg:text-5xl" style={{color: '#475569'}}>
               TurboTags
             </span>
           </Link>

@@ -7,13 +7,13 @@
   </defs>
   
   <!-- Horizontal TT Logo - Side by Side -->
-  <g transform="translate(16, 10)">
-    <!-- First T - Horizontal and thick, even bigger -->
-    <rect x="0" y="0" width="76" height="16" fill="url(#horizontalGradient)" rx="4"/>
-    <rect x="31" y="0" width="14" height="60" fill="url(#horizontalGradient)" rx="4"/>
+  <g transform="translate(10, 6)">
+    <!-- First T - Horizontal and thick, much bigger -->
+    <rect x="0" y="0" width="88" height="20" fill="url(#horizontalGradient)" rx="4"/>
+    <rect x="36" y="0" width="16" height="68" fill="url(#horizontalGradient)" rx="4"/>
     
     <!-- Second T - Horizontal and thick, positioned closer to first T -->
-    <rect x="66" y="0" width="76" height="16" fill="url(#horizontalGradient)" rx="4"/>
-    <rect x="97" y="0" width="14" height="60" fill="url(#horizontalGradient)" rx="4"/>
+    <rect x="76" y="0" width="88" height="20" fill="url(#horizontalGradient)" rx="4"/>
+    <rect x="112" y="0" width="16" height="68" fill="url(#horizontalGradient)" rx="4"/>
   </g>
 </svg>
