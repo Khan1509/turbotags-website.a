@@ -13,11 +13,9 @@ const ParticlesBackground = ({
 
   useEffect(() => {
     // Check if particles should be enabled
-    const isDesktop = window.innerWidth >= 1024;
     const hasReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    const hasTouch = 'ontouchstart' in window;
     
-    setIsSupported(isDesktop && !hasReducedMotion && !hasTouch);
+    setIsSupported(!hasReducedMotion);
     
     if (!isSupported) return;
 
@@ -44,8 +42,8 @@ const ParticlesBackground = ({
           y: Math.random() * height,
           vx: (Math.random() - 0.5) * speed,
           vy: (Math.random() - 0.5) * speed,
-          size: Math.random() * 2 + 1,
-          opacity: Math.random() * 0.5 + 0.1,
+          size: Math.random() * 4 + 3,
+          opacity: Math.random() * 0.6 + 0.4,
           life: Math.random() * 100
         });
       }
@@ -63,7 +61,8 @@ const ParticlesBackground = ({
         particle.x, particle.y, particle.size * 2
       );
       gradient.addColorStop(0, '#475569'); // Support button gradient color
-      gradient.addColorStop(0.5, '#334155'); // Support button gradient color
+      gradient.addColorStop(0.3, '#334155'); // Support button gradient color
+      gradient.addColorStop(0.7, '#64748b'); // Lighter variant for visibility
       gradient.addColorStop(1, 'transparent');
       
       ctx.fillStyle = gradient;
@@ -110,7 +109,7 @@ const ParticlesBackground = ({
         if (particle.y > height) particle.y = 0;
 
         // Subtle opacity animation
-        particle.opacity = 0.1 + Math.sin(particle.life * 0.01) * 0.05;
+        particle.opacity = 0.4 + Math.sin(particle.life * 0.01) * 0.2;
       });
     };
 
@@ -162,8 +161,7 @@ const ParticlesBackground = ({
       ref={canvasRef}
       className="fixed inset-0 pointer-events-none z-0"
       style={{
-        background: 'transparent',
-        mixBlendMode: 'screen'
+        background: 'transparent'
       }}
       aria-hidden="true"
     />
