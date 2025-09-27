@@ -34,8 +34,8 @@ const BlogIndexPage = () => {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
         >
-          <h1 className="text-5xl font-extrabold text-tt-dark-violet mb-4">The TurboTags Blog</h1>
-          <p className="text-xl text-gray-600">Creator tips, SEO insights, and growth strategies.</p>
+          <h1 className="text-5xl font-extrabold mb-4" style={{color: '#475569'}}>The TurboTags Blog</h1>
+          <p className="text-xl" style={{color: '#475569'}}>Creator tips, SEO insights, and growth strategies.</p>
         </motion.div>
 
         <motion.div 
