@@ -87,9 +87,9 @@ const Header = () => {
         <div className="flex justify-between items-center">
           <Link to="/" className="flex items-center gap-3 focus:outline-none focus:ring-2 focus:ring-[#6366f1] focus:ring-offset-2 rounded-lg p-2" aria-label="TurboTags - Go to homepage">
             <img
-              src="/favicon.svg"
+              src="/turbotags_header_logo_500x160.png"
               alt="TurboTags Logo"
-              className="w-10 h-10 md:w-12 md:h-12 transition-transform hover:rotate-180 hover:scale-110"
+              className="h-8 md:h-10 w-auto transition-transform hover:scale-110"
               loading="eager"
               decoding="async"
             />
