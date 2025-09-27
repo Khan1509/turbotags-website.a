@@ -1,0 +1,96 @@
+🚀 [Performance] CLS: 
+Object {value: 0, rating: "poor", delta: 0, navigationType: "navigate"}
+🚀 [Performance] CLS: 
+Object {value: 0, rating: "poor", delta: 0, navigationType: "navigate"}
+🚀 [Performance] CLS: 
+Object {value: 0, rating: "poor", delta: 0, navigationType: "navigate"}
+🚀 [Performance] CLS: 
+Object {value: 1, rating: "poor", delta: 1, navigationType: "navigate"}
+🚀 [Performance] CLS: 
+Object {value: 1, rating: "poor", delta: 1, navigationType: "navigate"}
+🚀 [Performance] CLS: 
+Object {value: 1, rating: "poor", delta: 1, navigationType: "navigate"}
+🚀 [Performance] CLS: 
+Object {value: 1, rating: "poor", delta: 1, navigationType: "navigate"}
+🚀 [Performance] CLS: 
+Object {value: 1, rating: "poor", delta: 1, navigationType: "navigate"}
+🚀 [Performance] CLS: 
+Object {value: 1, rating: "poor", delta: 1, navigationType: "navigate"}
+🚀 [Performance] CLS: 
+Object {value: 1, rating: "poor", delta: 1, navigationType: "navigate"}
+🚀 [Performance] CLS: 
+Object {value: 1, rating: "poor", delta: 1, navigationType: "navigate"}
+🚀 [Performance] CLS: 
+Object {value: 1, rating: "poor", delta: 1, navigationType: "navigate"}
+🚀 [Performance] CLS: 
+Object {value: 1, rating: "poor", delta: 1, navigationType: "navigate"}
+🚀 [Performance] CLS: 
+Object {value: 1, rating: "poor", delta: 1, navigationType: "navigate"}
+🚀 [Performance] CLS: 
+Object {value: 1, rating: "poor", delta: 1, navigationType: "navigate"}
+🚀 [Performance] CLS: 
+Object {value: 1, rating: "poor", delta: 1, navigationType: "navigate"}
+🚀 [Performance] CLS: 
+Object {value: 1, rating: "poor", delta: 1, navigationType: "navigate"}
+🚀 [Performance] CLS: 
+Object {value: 1, rating: "poor", delta: 1, navigationType: "navigate"}
+🚀 [Performance] CLS: 
+Object {value: 1, rating: "poor", delta: 1, navigationType: "navigate"}
+🚀 [Performance] CLS: 
+Object {value: 1, rating: "poor", delta: 1, navigationType: "navigate"}
+🚀 [Performance] CLS: 
+Object {value: 1, rating: "poor", delta: 1, navigationType: "navigate"}
+🚀 [Performance] CLS: 
+Object {value: 1, rating: "poor", delta: 1, navigationType: "navigate"}
+🚀 [Performance] CLS: 
+Object {value: 1, rating: "poor", delta: 1, navigationType: "navigate"}
+🚀 [Performance] CLS: 
+Object {value: 1, rating: "poor", delta: 1, navigationType: "navigate"}
+🚀 [Performance] CLS: 
+Object {value: 1, rating: "poor", delta: 1, navigationType: "navigate"}
+🚀 [Performance] CLS: 
+Object {value: 1, rating: "poor", delta: 1, navigationType: "navigate"}
+🚀 [Performance] CLS: 
+Object {value: 1, rating: "poor", delta: 1, navigationType: "navigate"}
+🚀 [Performance] CLS: 
+Object {value: 1, rating: "poor", delta: 1, navigationType: "navigate"}
+🚀 [Performance] CLS: 
+Object {value: 1, rating: "poor", delta: 1, navigationType: "navigate"}
+🚀 [Performance] CLS: 
+Object {value: 1, rating: "poor", delta: 1, navigationType: "navigate"}
+🚀 [Performance] CLS: 
+Object {value: 1, rating: "poor", delta: 1, navigationType: "navigate"}
+🚀 [Performance] CLS: 
+Object {value: 1, rating: "poor", delta: 1, navigationType: "navigate"}
+🚀 [Performance] CLS: 
+Object {value: 1, rating: "poor", delta: 1, navigationType: "navigate"}
+🚀 [Performance] CLS: 
+Object {value: 1, rating: "poor", delta: 1, navigationType: "navigate"}
+🚀 [Performance] CLS: 
+Object {value: 1, rating: "poor", delta: 1, navigationType: "navigate"}
+🚀 [Performance] CLS: 
+Object {value: 1, rating: "poor", delta: 1, navigationType: "navigate"}
+🚀 [Performance] CLS: 
+Object {value: 1, rating: "poor", delta: 1, navigationType: "navigate"}
+🚀 [Performance] CLS: 
+Object {value: 1, rating: "poor", delta: 1, navigationType: "navigate"}
+🚀 [Performance] CLS: 
+Object {value: 1, rating: "poor", delta: 1, navigationType: "navigate"}
+🚀 [Performance] CLS: 
+Object {value: 1, rating: "poor", delta: 1, navigationType: "navigate"}
+🚀 [Performance] CLS: 
+Object {value: 1, rating: "poor", delta: 1, navigationType: "navigate"}
+🚀 [Performance] CLS: 
+Object {value: 1, rating: "poor", delta: 1, navigationType: "navigate"}
+🚀 [Performance] CLS: 
+Object {value: 1, rating: "poor", delta: 1, navigationType: "navigate"}
+🚀 [Performance] CLS: 
+Object {value: 1, rating: "poor", delta: 1, navigationType: "navigate"}
+🚀 [Performance] CLS: 
+Object {value: 1, rating: "poor", delta: 1, navigationType: "navigate"}
+🚀 [Performance] CLS: 
+Object {value: 1, rating: "poor", delta: 1, navigationType: "navigate"}
+🚀 [Performance] FID: 
+Object {value: 3, rating: "good", delta: 3, navigationType: "navigate"}
+🚀 [Performance] CLS: 
+Object {value: 1, rating: "poor", delta: 1, navigationType: "navigate"}
