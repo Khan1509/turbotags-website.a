@@ -17,7 +17,6 @@
     <rect x="37" y="0" width="8" height="60" fill="url(#thickGradient)" rx="2"/>
   </g>
   
-  <!-- TurboTags Text - Bolder -->
-  <text x="70" y="40" font-family="Inter, system-ui, sans-serif" font-size="18" font-weight="800" fill="url(#thickGradient)">TurboTags</text>
-  <text x="70" y="55" font-family="Inter, system-ui, sans-serif" font-size="10" font-weight="600" fill="#64748b">AI Tag Generation</text>
+  <!-- TurboTags Text Only - No tagline -->
+  <text x="70" y="45" font-family="Inter, system-ui, sans-serif" font-size="18" font-weight="800" fill="url(#thickGradient)">TurboTags</text>
 </svg>
