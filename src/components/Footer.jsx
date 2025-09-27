@@ -20,8 +20,13 @@ const Footer = () => {
       <footer className="text-center text-brand-medium-grey text-sm mt-8 border-t border-gray-200 pt-8 pb-8 container mx-auto max-w-7xl px-4 sm:px-6 md:px-8">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8 text-left">
           <div>
-            <h3 className="font-bold text-brand-dark-grey mb-4 flex items-center">
-              <img src="/favicon.svg" alt="TurboTags Logo" className="w-6 h-6 mr-2" />
+            <h3 className="font-bold mb-4 flex items-center" style={{
+              background: 'linear-gradient(135deg, #475569 0%, #334155 100%)',
+              WebkitBackgroundClip: 'text',
+              WebkitTextFillColor: 'transparent',
+              backgroundClip: 'text'
+            }}>
+              <img src="/favicon_darknavy.svg" alt="TurboTags Logo" className="w-6 h-6 mr-2" />
               TurboTags
             </h3>
             <p className="text-xs text-brand-medium-grey leading-relaxed">
@@ -33,7 +38,12 @@ const Footer = () => {
           </div>
 
           <div>
-            <h4 className="font-semibold text-brand-dark-grey mb-4">Quick Links</h4>
+            <h4 className="font-semibold mb-4" style={{
+              background: 'linear-gradient(135deg, #475569 0%, #334155 100%)',
+              WebkitBackgroundClip: 'text',
+              WebkitTextFillColor: 'transparent',
+              backgroundClip: 'text'
+            }}>Quick Links</h4>
             <ul className="space-y-2 text-xs" role="list">
               <li><Link to="/" className="text-brand-medium-grey hover:text-brand-blue transition focus:outline-none focus:ring-2 focus:ring-brand-blue rounded-md px-1 py-1">Home</Link></li>
               <li><Link to="/about" className="text-brand-medium-grey hover:text-brand-blue transition focus:outline-none focus:ring-2 focus:ring-brand-blue rounded-md px-1 py-1">About Us</Link></li>
@@ -44,7 +54,12 @@ const Footer = () => {
           </div>
 
           <div>
-            <h4 className="font-semibold text-brand-dark-grey mb-4">Legal</h4>
+            <h4 className="font-semibold mb-4" style={{
+              background: 'linear-gradient(135deg, #475569 0%, #334155 100%)',
+              WebkitBackgroundClip: 'text',
+              WebkitTextFillColor: 'transparent',
+              backgroundClip: 'text'
+            }}>Legal</h4>
             <ul className="space-y-2 text-xs" role="list">
               <li><Link to="/legal#privacy" className="text-brand-medium-grey hover:text-brand-blue transition focus:outline-none focus:ring-2 focus:ring-brand-blue rounded-md px-1 py-1">Privacy Policy</Link></li>
               <li><Link to="/legal#terms" className="text-brand-medium-grey hover:text-brand-blue transition focus:outline-none focus:ring-2 focus:ring-brand-blue rounded-md px-1 py-1">Terms of Service</Link></li>
@@ -54,7 +69,12 @@ const Footer = () => {
           </div>
 
           <div>
-            <h4 className="font-semibold text-brand-dark-grey mb-4">Connect & Support</h4>
+            <h4 className="font-semibold mb-4" style={{
+              background: 'linear-gradient(135deg, #475569 0%, #334155 100%)',
+              WebkitBackgroundClip: 'text',
+              WebkitTextFillColor: 'transparent',
+              backgroundClip: 'text'
+            }}>Connect & Support</h4>
             <ul className="space-y-3 text-xs" role="list">
               <li><a href={contactEmail} className="text-brand-medium-grey hover:text-brand-blue transition flex items-center focus:outline-none focus:ring-2 focus:ring-brand-blue rounded-md px-1 py-1"><Mail className="h-4 w-4 mr-2" />Contact Support</a></li>
               <li><a href="https://twitter.com/TurboTagsApp" target="_blank" rel="noopener noreferrer" className="text-brand-medium-grey hover:text-brand-blue transition flex items-center focus:outline-none focus:ring-2 focus:ring-brand-blue rounded-md px-1 py-1"><Twitter className="h-4 w-4 mr-2" />Follow on Twitter</a></li>
@@ -73,10 +93,20 @@ const Footer = () => {
             <Link2 className="h-3 w-3 mr-1" /> Link to Us
           </button>
           <p className="mb-2 text-xs">&copy; {new Date().getFullYear()} TurboTags. All rights reserved.</p>
-          <p className="text-sm text-brand-dark-grey">
+          <p className="text-sm" style={{
+            background: 'linear-gradient(135deg, #475569 0%, #334155 100%)',
+            WebkitBackgroundClip: 'text',
+            WebkitTextFillColor: 'transparent',
+            backgroundClip: 'text'
+          }}>
             <span className="font-semibold">Powered by AI</span>
             <span className="mx-2">•</span>
-            <Link to="/legal#disclaimer" className="underline text-brand-dark-grey hover:text-brand-blue transition focus:outline-none focus:ring-2 focus:ring-brand-blue rounded-md px-1 py-1">Legal Disclaimer</Link>
+            <Link to="/legal#disclaimer" className="underline hover:text-brand-blue transition focus:outline-none focus:ring-2 focus:ring-brand-blue rounded-md px-1 py-1" style={{
+              background: 'linear-gradient(135deg, #475569 0%, #334155 100%)',
+              WebkitBackgroundClip: 'text',
+              WebkitTextFillColor: 'transparent',
+              backgroundClip: 'text'
+            }}>Legal Disclaimer</Link>
           </p>
         </div>
       </footer>
