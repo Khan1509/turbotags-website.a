@@ -1,15 +1,15 @@
 // **STABLE RELEASE**: Network-First, with robust error handling.
-// v2.6.4-stable: Ignores cross-origin requests to prevent CSP/fetch errors.
-const CACHE_NAME = 'turbotags-v2.6.4-stable';
+// v2.6.5-stable: Fixed service worker origin check and ignores cross-origin requests to prevent CSP/fetch errors.
+const CACHE_NAME = 'turbotags-v2.6.5-stable';
 
 // Essential assets to pre-cache for the app shell to work offline.
 const PRECACHE_ASSETS = [
   '/',
   '/index.html',
-  '/manifest.json',
-  '/favicon.svg',
-  '/icon-192x192.png',
-  '/icon-512x512.png',
+  '/site.webmanifest',
+  '/favicon_darknavy_thick.svg',
+  '/icon-192.svg',
+  '/icon-512.svg',
 ];
 
 // On install, pre-cache the app shell.
@@ -41,7 +41,8 @@ self.addEventListener('fetch', (event) => {
 
   // **CRITICAL FIX**: Ignore requests for non-http/https schemes AND all cross-origin requests.
   // This prevents errors with browser extensions and third-party scripts (like Google's CSP reporter).
-  if (!request.url.startsWith('http') || new URL(request.url).origin !== self.origin) {
+  const isCrossOrigin = new URL(request.url).origin !== self.location.origin;
+  if (!request.url.startsWith('http') || isCrossOrigin) {
     return; // Let the browser handle these requests natively.
   }
 
