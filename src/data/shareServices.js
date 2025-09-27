@@ -1,7 +1,7 @@
 const shareUrl = 'https://turbotags.app/';
 const shareTitle = 'TurboTags - #1 FREE AI Tag & Hashtag Generator';
 const shareText = 'Check out TurboTags! A free AI-powered tag and hashtag generator for creators. #TurboTags #AI #ContentCreator';
-const shareMedia = 'https://turbotags.app/screenshots/desktop.png'; // A default image for services like Pinterest
+const shareMedia = 'https://turbotags.app/og-image.jpg'; // A default image for services like Pinterest
 
 const urlReplacer = (template, data) => {
   return template
