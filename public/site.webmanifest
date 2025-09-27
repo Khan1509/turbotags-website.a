@@ -1,6 +1,8 @@
 {
-  "name": "TurboTags",
+  "name": "TurboTags - AI Hashtag Generator",
   "short_name": "TurboTags",
+  "description": "Free AI generator for YouTube tags, TikTok hashtags, Instagram hashtags, and Facebook tags",
+  "start_url": "/",
   "icons": [
     {
       "src": "/icon-192.svg",
@@ -27,13 +29,14 @@
       "purpose": "any maskable"
     },
     {
-      "src": "/icon-1024.svg",
-      "sizes": "1024x1024",
+      "src": "/favicon_darknavy_thick.svg",
+      "sizes": "32x32",
       "type": "image/svg+xml",
-      "purpose": "any maskable"
+      "purpose": "any"
     }
   ],
   "theme_color": "#475569",
   "background_color": "#ffffff",
-  "display": "standalone"
+  "display": "standalone",
+  "orientation": "portrait"
 }

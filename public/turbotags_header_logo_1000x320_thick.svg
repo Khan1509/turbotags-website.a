@@ -1,0 +1,23 @@
+<svg width="1000" height="320" viewBox="0 0 1000 320" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="largeGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#475569"/>
+      <stop offset="100%" style="stop-color:#334155"/>
+    </linearGradient>
+  </defs>
+  
+  <!-- Large Thick TT Logo -->
+  <g transform="translate(40, 40)">
+    <!-- First T - Very thick -->
+    <rect x="0" y="0" width="88" height="20" fill="url(#largeGradient)" rx="4"/>
+    <rect x="34" y="0" width="20" height="240" fill="url(#largeGradient)" rx="4"/>
+    
+    <!-- Second T - Very thick -->
+    <rect x="120" y="0" width="88" height="20" fill="url(#largeGradient)" rx="4"/>
+    <rect x="154" y="0" width="20" height="240" fill="url(#largeGradient)" rx="4"/>
+  </g>
+  
+  <!-- TurboTags Text - Extra Bold -->
+  <text x="280" y="160" font-family="Inter, system-ui, sans-serif" font-size="72" font-weight="800" fill="url(#largeGradient)">TurboTags</text>
+  <text x="280" y="220" font-family="Inter, system-ui, sans-serif" font-size="36" font-weight="600" fill="#64748b">AI Tag Generation</text>
+</svg>
