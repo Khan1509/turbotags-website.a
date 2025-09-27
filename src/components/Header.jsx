@@ -104,7 +104,7 @@ const Header = () => {
                 decoding="async"
               />
             </picture>
-            <span className="font-bold text-xl md:text-2xl lg:text-3xl" style={{color: '#475569'}}>
+            <span className="font-bold text-2xl md:text-3xl lg:text-4xl" style={{color: '#475569'}}>
               TurboTags
             </span>
           </Link>

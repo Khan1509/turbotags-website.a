@@ -6,14 +6,14 @@
     </linearGradient>
   </defs>
   
-  <!-- Horizontal TT for favicon - compact and visible -->
-  <g transform="translate(2, 8)">
-    <!-- First T - Horizontal and ultra thick with longer top bar -->
-    <rect x="0" y="0" width="14" height="4" fill="url(#faviconGradient)" rx="1"/>
-    <rect x="5" y="0" width="4" height="16" fill="url(#faviconGradient)" rx="1"/>
+  <!-- Horizontal TT for favicon - compact and visible, bigger -->
+  <g transform="translate(1, 7)">
+    <!-- First T - Horizontal and ultra thick with longer top bar, bigger -->
+    <rect x="0" y="0" width="16" height="5" fill="url(#faviconGradient)" rx="1"/>
+    <rect x="5.5" y="0" width="5" height="18" fill="url(#faviconGradient)" rx="1"/>
     
-    <!-- Second T - Horizontal and ultra thick, positioned beside first T with longer top bar -->
-    <rect x="14" y="0" width="14" height="4" fill="url(#faviconGradient)" rx="1"/>
-    <rect x="19" y="0" width="4" height="16" fill="url(#faviconGradient)" rx="1"/>
+    <!-- Second T - Horizontal and ultra thick, positioned beside first T with longer top bar, bigger -->
+    <rect x="15" y="0" width="16" height="5" fill="url(#faviconGradient)" rx="1"/>
+    <rect x="20.5" y="0" width="5" height="18" fill="url(#faviconGradient)" rx="1"/>
   </g>
 </svg>
