@@ -43,7 +43,7 @@ const AboutSection = () => {
           <div>
             <h3 className="text-2xl font-bold mb-2" style={{color: '#475569'}}>Our Commitment to Privacy</h3>
             <p className="text-gray-700 leading-relaxed">
-              We are creators ourselves, and we value privacy. TurboTags requires no sign-up or personal information. Your content ideas are sent to our API for processing and are never stored or logged. Your creative strategy remains yours alone. For more details, read our full <Link to="/legal#privacy" className="text-tt-medium-violet hover:underline font-medium">Privacy Policy</Link>.
+              We are creators ourselves, and we value privacy. TurboTags requires no sign-up or personal information. Your content ideas are sent to our API for processing and are never stored or logged. Your creative strategy remains yours alone. For more details, read our full <Link to="/legal/privacy" className="text-tt-medium-violet hover:underline font-medium">Privacy Policy</Link>.
             </p>
           </div>
         </div>

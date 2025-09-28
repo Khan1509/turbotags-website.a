@@ -1,19 +1,11 @@
 import React, { useState } from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { Mail, Heart, Twitter, Linkedin, Link2 } from 'lucide-react';
 import LinkToUsModal from './LinkToUsModal';
 
 const Footer = () => {
   const contactEmail = 'mailto:helloturbotags@gmail.com';
   const [isLinkModalOpen, setIsLinkModalOpen] = useState(false);
-  const location = useLocation();
-
-  const handleFaqClick = (e) => {
-    if (location.pathname === '/') {
-      e.preventDefault();
-      document.getElementById('faq')?.scrollIntoView({ behavior: 'smooth' });
-    }
-  };
 
   return (
     <>
@@ -26,7 +18,7 @@ const Footer = () => {
               WebkitTextFillColor: 'transparent',
               backgroundClip: 'text'
             }}>
-              <img src="/favicon_darknavy.svg" alt="TurboTags Logo" className="w-6 h-6 mr-2" />
+              <img src="/favicon_darknavy_thick.svg" alt="TurboTags Logo" className="w-6 h-6 mr-2" />
               TurboTags
             </h3>
             <p className="text-xs text-brand-medium-grey leading-relaxed">
@@ -49,7 +41,7 @@ const Footer = () => {
               <li><Link to="/about" className="text-brand-medium-grey hover:text-brand-blue transition focus:outline-none focus:ring-2 focus:ring-brand-blue rounded-md px-1 py-1">About Us</Link></li>
               <li><Link to="/features" className="text-brand-medium-grey hover:text-brand-blue transition focus:outline-none focus:ring-2 focus:ring-brand-blue rounded-md px-1 py-1">Features</Link></li>
               <li><Link to="/blog" className="text-brand-medium-grey hover:text-brand-blue transition focus:outline-none focus:ring-2 focus:ring-brand-blue rounded-md px-1 py-1">Blog</Link></li>
-              <li><Link to="/#faq" onClick={handleFaqClick} className="text-brand-medium-grey hover:text-brand-blue transition focus:outline-none focus:ring-2 focus:ring-brand-blue rounded-md px-1 py-1">FAQ</Link></li>
+              <li><Link to="/faq" className="text-brand-medium-grey hover:text-brand-blue transition focus:outline-none focus:ring-2 focus:ring-brand-blue rounded-md px-1 py-1">FAQ</Link></li>
             </ul>
           </div>
 
@@ -61,10 +53,10 @@ const Footer = () => {
               backgroundClip: 'text'
             }}>Legal</h4>
             <ul className="space-y-2 text-xs" role="list">
-              <li><Link to="/legal#privacy" className="text-brand-medium-grey hover:text-brand-blue transition focus:outline-none focus:ring-2 focus:ring-brand-blue rounded-md px-1 py-1">Privacy Policy</Link></li>
-              <li><Link to="/legal#terms" className="text-brand-medium-grey hover:text-brand-blue transition focus:outline-none focus:ring-2 focus:ring-brand-blue rounded-md px-1 py-1">Terms of Service</Link></li>
-              <li><Link to="/legal#disclaimer" className="text-brand-medium-grey hover:text-brand-blue transition focus:outline-none focus:ring-2 focus:ring-brand-blue rounded-md px-1 py-1">Disclaimer</Link></li>
-              <li><Link to="/legal#cookies" className="text-brand-medium-grey hover:text-brand-blue transition focus:outline-none focus:ring-2 focus:ring-brand-blue rounded-md px-1 py-1">Cookie Policy</Link></li>
+              <li><Link to="/legal/privacy" className="text-brand-medium-grey hover:text-brand-blue transition focus:outline-none focus:ring-2 focus:ring-brand-blue rounded-md px-1 py-1">Privacy Policy</Link></li>
+              <li><Link to="/legal/terms" className="text-brand-medium-grey hover:text-brand-blue transition focus:outline-none focus:ring-2 focus:ring-brand-blue rounded-md px-1 py-1">Terms of Service</Link></li>
+              <li><Link to="/legal/disclaimer" className="text-brand-medium-grey hover:text-brand-blue transition focus:outline-none focus:ring-2 focus:ring-brand-blue rounded-md px-1 py-1">Disclaimer</Link></li>
+              <li><Link to="/legal/cookies" className="text-brand-medium-grey hover:text-brand-blue transition focus:outline-none focus:ring-2 focus:ring-brand-blue rounded-md px-1 py-1">Cookie Policy</Link></li>
             </ul>
           </div>
 
@@ -101,7 +93,7 @@ const Footer = () => {
           }}>
             <span className="font-semibold">Powered by AI</span>
             <span className="mx-2">•</span>
-            <Link to="/legal#disclaimer" className="underline hover:text-brand-blue transition focus:outline-none focus:ring-2 focus:ring-brand-blue rounded-md px-1 py-1" style={{
+            <Link to="/legal/disclaimer" className="underline hover:text-brand-blue transition focus:outline-none focus:ring-2 focus:ring-brand-blue rounded-md px-1 py-1" style={{
               background: 'linear-gradient(135deg, #475569 0%, #334155 100%)',
               WebkitBackgroundClip: 'text',
               WebkitTextFillColor: 'transparent',

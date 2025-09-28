@@ -2,7 +2,6 @@ import React from 'react';
 import Hero from '../components/Hero';
 import TagGenerator from '../components/TagGenerator';
 import Platforms from '../components/Platforms';
-import Faq from '../components/Faq';
 import LazySection from '../components/utils/LazySection';
 import HowToUse from '../components/HowToUse';
 import CreatorGrowthTips from '../components/CreatorGrowthTips';
@@ -30,10 +29,6 @@ function HomePage() {
       <LazySection><CreatorGrowthTips /></LazySection>
       
       <LazySection><HowToUse /></LazySection>
-
-      <div className="container mx-auto max-w-7xl px-4 sm:px-6 md:px-8">
-        <LazySection><Faq /></LazySection>
-      </div>
     </div>
   );
 }

@@ -62,7 +62,7 @@ const FeaturesSection = () => {
                 <p>Your creative strategy is your most valuable asset. We protect it by building privacy into the core of our service.</p>
                 <ul className="list-disc list-inside pl-4 space-y-1">
                     <li><strong>No Sign-Up Required:</strong> Use the tool instantly without creating an account.</li>
-                    <li><strong>No Prompts Stored:</strong> Your content ideas are sent to the AI for processing and are never logged or saved on our servers. Read our full <Link to="/legal#privacy" className="text-slate-700 font-semibold hover:underline">Privacy Policy</Link>.</li>
+                    <li><strong>No Prompts Stored:</strong> Your content ideas are sent to the AI for processing and are never logged or saved on our servers. Read our full <Link to="/legal/privacy" className="text-slate-700 font-semibold hover:underline">Privacy Policy</Link>.</li>
                 </ul>
             </FeatureDetailCard>
 

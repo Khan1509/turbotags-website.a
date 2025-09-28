@@ -9,10 +9,17 @@ import HomePage from './pages/HomePage';
 // Lazy load all other pages for better code splitting
 const AboutPage = React.lazy(() => import('./pages/AboutPage'));
 const FeaturesPage = React.lazy(() => import('./pages/FeaturesPage'));
+const FaqPage = React.lazy(() => import('./pages/FaqPage'));
 const LegalPage = React.lazy(() => import('./pages/LegalPage'));
 const BlogIndexPage = React.lazy(() => import('./pages/BlogIndexPage'));
 const BlogPostPage = React.lazy(() => import('./pages/BlogPostPage'));
 const NotFoundPage = React.lazy(() => import('./pages/NotFoundPage'));
+
+// Individual legal pages
+const TermsPage = React.lazy(() => import('./pages/legal/Terms'));
+const PrivacyPage = React.lazy(() => import('./pages/legal/Privacy'));
+const DisclaimerPage = React.lazy(() => import('./pages/legal/Disclaimer'));
+const CookiePolicyPage = React.lazy(() => import('./pages/legal/CookiePolicy'));
 
 // Tool pages (likely heavy with TagGenerator components)
 const YouTubeHashtagGeneratorPage = React.lazy(() => import('./pages/tools/YouTubeHashtagGeneratorPage'));
@@ -50,9 +57,34 @@ function App() {
               <FeaturesPage />
             </Suspense>
           } />
+          <Route path="/faq" element={
+            <Suspense fallback={<RouteLoadingFallback />}>
+              <FaqPage />
+            </Suspense>
+          } />
           <Route path="/legal" element={
             <Suspense fallback={<RouteLoadingFallback />}>
               <LegalPage />
+            </Suspense>
+          } />
+          <Route path="/legal/terms" element={
+            <Suspense fallback={<RouteLoadingFallback />}>
+              <TermsPage />
+            </Suspense>
+          } />
+          <Route path="/legal/privacy" element={
+            <Suspense fallback={<RouteLoadingFallback />}>
+              <PrivacyPage />
+            </Suspense>
+          } />
+          <Route path="/legal/disclaimer" element={
+            <Suspense fallback={<RouteLoadingFallback />}>
+              <DisclaimerPage />
+            </Suspense>
+          } />
+          <Route path="/legal/cookies" element={
+            <Suspense fallback={<RouteLoadingFallback />}>
+              <CookiePolicyPage />
             </Suspense>
           } />
           <Route path="/blog" element={

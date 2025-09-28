@@ -148,7 +148,7 @@ const Header = () => {
             <MobileNavLink to="/" onClick={closeMenu} ariaLabel="Go to homepage">Home</MobileNavLink>
             <MobileNavLink to="/features" onClick={closeMenu} ariaLabel="Go to Features page">Features</MobileNavLink>
             <MobileNavLink to="/blog" onClick={closeMenu} ariaLabel="Go to Blog">Blog</MobileNavLink>
-            <MobileNavLink to="/#faq" onClick={closeMenu} ariaLabel="Go to FAQ section">FAQ</MobileNavLink>
+            <MobileNavLink to="/faq" onClick={closeMenu} ariaLabel="Go to FAQ section">FAQ</MobileNavLink>
             <a href="https://ko-fi.com/turbotags1509" onClick={closeMenu} target="_blank" rel="noopener noreferrer" className="block w-full py-4 text-center text-xl text-slate-100 transition hover:bg-white/10 focus:outline-none focus:ring-2 focus:ring-[#6366f1] focus:ring-offset-2 rounded-full" style={{'--tw-ring-offset-color': 'black'}} aria-label="Support TurboTags on Ko-fi - Opens in new tab">
               Support Us
             </a>
