@@ -1,14 +1,18 @@
 // **STABLE RELEASE**: Network-First, with robust error handling.
-// v2.6.5-stable: Fixed service worker origin check and ignores cross-origin requests to prevent CSP/fetch errors.
-const CACHE_NAME = 'turbotags-v2.6.5-stable';
+// v2.6.6-stable: Updated favicon cache with consistent slate theme and cleared old purple favicon cache.
+const CACHE_NAME = 'turbotags-v2.6.6-stable';
 
 // Essential assets to pre-cache for the app shell to work offline.
 const PRECACHE_ASSETS = [
   '/',
   '/index.html',
   '/site.webmanifest',
+  '/favicon_darknavy.ico',
+  '/favicon_darknavy.svg',
   '/favicon_darknavy_thick.svg',
   '/icon-192.svg',
+  '/icon-256.svg',
+  '/icon-384.svg',
   '/icon-512.svg',
 ];
 

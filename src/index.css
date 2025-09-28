@@ -306,8 +306,9 @@
 .theme-indigo .text-brand-dark-blue .h-6 { color: #c7d2fe !important; }
 
 /* Provide fallback classes for tt-* utilities used across pages */
-.text-tt-dark-violet { color: #c7d2fe; }
-.text-tt-medium-violet { color: #a78bfa; }
+.text-tt-dark-violet { color: #475569; }
+.text-tt-medium-violet { color: #334155; }
+.text-tt-light-violet { color: #64748b; }
 .text-tt-primary { color: #93c5fd; }
 .text-tt-primary-dark { color: #60a5fa; }
 .bg-tt-dark-violet { background-color: #1e1b4b; }
