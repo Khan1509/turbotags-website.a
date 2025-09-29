@@ -5,13 +5,10 @@
       "runtime": "edge"
     }
   },
-  "routes": [
+  "rewrites": [
     {
-      "handle": "filesystem"
-    },
-    {
-      "src": "/.*",
-      "dest": "/"
+      "source": "/(.*)",
+      "destination": "/index.html"
     }
   ],
   "headers": [
