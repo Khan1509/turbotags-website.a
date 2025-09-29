@@ -5,6 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
     <title>TurboTags: Free AI Tag &amp; Hashtag Generator</title>
     
+    <!-- Google AdSense Auto Ads - Load in head for better performance -->
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7231854986385753" crossorigin="anonymous"></script>
+    
     <!-- Optimized font loading for CLS performance -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -104,7 +107,6 @@
 
     <!-- Web App Manifest (for PWA support) -->
     <link rel="manifest" href="/site.webmanifest">
-
 
     <!-- Optimized font loading to prevent CLS -->
     <link rel="preload" href="https://fonts.gstatic.com/s/inter/v13/UcCO3FwrK3iLTeHuS_fvQtMwCp50KnMw2boKoduKmMEVuLyfAZ9hiJ-Ek-_EeA.woff2" as="font" type="font/woff2" crossorigin>
@@ -234,7 +236,7 @@
     
     <script type="module" src="/src/main.jsx"></script>
     
-    <!-- Load third-party scripts after React to prevent DOM conflicts -->
+    <!-- Load Google Tag Manager after React to prevent DOM conflicts -->
     <script>
       window.addEventListener('load', function() {
         // Google Tag Manager - Load after page loads
@@ -253,13 +255,6 @@
             transport_type: 'beacon'
           });
         };
-        
-        // Google AdSense - Load after page loads
-        const adScript = document.createElement('script');
-        adScript.async = true;
-        adScript.src = 'https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7231854986385753';
-        adScript.crossOrigin = 'anonymous';
-        document.head.appendChild(adScript);
       });
     </script>
   </body>
