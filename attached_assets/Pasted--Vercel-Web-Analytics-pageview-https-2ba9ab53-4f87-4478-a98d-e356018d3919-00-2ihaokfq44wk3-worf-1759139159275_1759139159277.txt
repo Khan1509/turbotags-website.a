@@ -1,0 +1,75 @@
+[Vercel Web Analytics] [pageview] https://2ba9ab53-4f87-4478-a98d-e356018d3919-00-2ihaokfq44wk3.worf.replit.dev/ 
+Object {o: "https://2ba9ab53-4f87-4478-a98d-e356018d3919-00-2ihaokfq44wk3.worf.replit.dev/", sv: "0.1.3", sdkn: "@vercel/analytics/react", sdkv: "1.5.0", ts: 1759138770794, …}
+🚀 [Performance] FCP: 
+Object {value: 24080, rating: "poor", delta: 24080, navigationType: "navigate"}
+🚀 [Performance] LCP: 
+Object {value: 24080, rating: "poor", delta: 24080, navigationType: "navigate"}
+[vite] server connection lost. polling for restart...
+Failed to fetch
+at window.fetch (https://2ba9ab53-4f87-4478-a98d-e356018d3919-00-2ihaokfq44wk3.worf.replit.dev/__replco/static/devtools/eruda/3.2.3/eruda.js:2:218642)
+at Object.apply (https://2ba9ab53-4f87-4478-a98d-e356018d3919-00-2ihaokfq44wk3.worf.replit.dev/__replco/static/devtools/injected.js:278:39)
+at ping (https://2ba9ab53-4f87-4478-a98d-e356018d3919-00-2ihaokfq44wk3.worf.replit.dev/@vite/client:484:19)
+at waitForSuccessfulPing (https://2ba9ab53-4f87-4478-a98d-e356018d3919-00-2ihaokfq44wk3.worf.replit.dev/@vite/client:497:15)
+at WebSocket.<anonymous> (https://2ba9ab53-4f87-4478-a98d-e356018d3919-00-2ihaokfq44wk3.worf.replit.dev/@vite/client:289:15)
+Failed to fetch
+at window.fetch (https://2ba9ab53-4f87-4478-a98d-e356018d3919-00-2ihaokfq44wk3.worf.replit.dev/__replco/static/devtools/eruda/3.2.3/eruda.js:2:218642)
+at Object.apply (https://2ba9ab53-4f87-4478-a98d-e356018d3919-00-2ihaokfq44wk3.worf.replit.dev/__replco/static/devtools/injected.js:278:39)
+at ping (https://2ba9ab53-4f87-4478-a98d-e356018d3919-00-2ihaokfq44wk3.worf.replit.dev/@vite/client:484:19)
+at waitForSuccessfulPing (https://2ba9ab53-4f87-4478-a98d-e356018d3919-00-2ihaokfq44wk3.worf.replit.dev/@vite/client:504:23)
+at async WebSocket.<anonymous> (https://2ba9ab53-4f87-4478-a98d-e356018d3919-00-2ihaokfq44wk3.worf.replit.dev/@vite/client:289:9)
+Failed to fetch
+at window.fetch (https://2ba9ab53-4f87-4478-a98d-e356018d3919-00-2ihaokfq44wk3.worf.replit.dev/__replco/static/devtools/eruda/3.2.3/eruda.js:2:218642)
+at Object.apply (https://2ba9ab53-4f87-4478-a98d-e356018d3919-00-2ihaokfq44wk3.worf.replit.dev/__replco/static/devtools/injected.js:278:39)
+at ping (https://2ba9ab53-4f87-4478-a98d-e356018d3919-00-2ihaokfq44wk3.worf.replit.dev/@vite/client:484:19)
+at waitForSuccessfulPing (https://2ba9ab53-4f87-4478-a98d-e356018d3919-00-2ihaokfq44wk3.worf.replit.dev/@vite/client:504:23)
+at async WebSocket.<anonymous> (https://2ba9ab53-4f87-4478-a98d-e356018d3919-00-2ihaokfq44wk3.worf.replit.dev/@vite/client:289:9)
+Failed to fetch
+at window.fetch (https://2ba9ab53-4f87-4478-a98d-e356018d3919-00-2ihaokfq44wk3.worf.replit.dev/__replco/static/devtools/eruda/3.2.3/eruda.js:2:218642)
+at Object.apply (https://2ba9ab53-4f87-4478-a98d-e356018d3919-00-2ihaokfq44wk3.worf.replit.dev/__replco/static/devtools/injected.js:278:39)
+at ping (https://2ba9ab53-4f87-4478-a98d-e356018d3919-00-2ihaokfq44wk3.worf.replit.dev/@vite/client:484:19)
+at waitForSuccessfulPing (https://2ba9ab53-4f87-4478-a98d-e356018d3919-00-2ihaokfq44wk3.worf.replit.dev/@vite/client:504:23)
+at async WebSocket.<anonymous> (https://2ba9ab53-4f87-4478-a98d-e356018d3919-00-2ihaokfq44wk3.worf.replit.dev/@vite/client:289:9)
+Failed to fetch
+at window.fetch (https://2ba9ab53-4f87-4478-a98d-e356018d3919-00-2ihaokfq44wk3.worf.replit.dev/__replco/static/devtools/eruda/3.2.3/eruda.js:2:218642)
+at Object.apply (https://2ba9ab53-4f87-4478-a98d-e356018d3919-00-2ihaokfq44wk3.worf.replit.dev/__replco/static/devtools/injected.js:278:39)
+at ping (https://2ba9ab53-4f87-4478-a98d-e356018d3919-00-2ihaokfq44wk3.worf.replit.dev/@vite/client:484:19)
+at waitForSuccessfulPing (https://2ba9ab53-4f87-4478-a98d-e356018d3919-00-2ihaokfq44wk3.worf.replit.dev/@vite/client:504:23)
+at async WebSocket.<anonymous> (https://2ba9ab53-4f87-4478-a98d-e356018d3919-00-2ihaokfq44wk3.worf.replit.dev/@vite/client:289:9)
+Failed to fetch
+at window.fetch (https://2ba9ab53-4f87-4478-a98d-e356018d3919-00-2ihaokfq44wk3.worf.replit.dev/__replco/static/devtools/eruda/3.2.3/eruda.js:2:218642)
+at Object.apply (https://2ba9ab53-4f87-4478-a98d-e356018d3919-00-2ihaokfq44wk3.worf.replit.dev/__replco/static/devtools/injected.js:278:39)
+at ping (https://2ba9ab53-4f87-4478-a98d-e356018d3919-00-2ihaokfq44wk3.worf.replit.dev/@vite/client:484:19)
+at waitForSuccessfulPing (https://2ba9ab53-4f87-4478-a98d-e356018d3919-00-2ihaokfq44wk3.worf.replit.dev/@vite/client:504:23)
+at async WebSocket.<anonymous> (https://2ba9ab53-4f87-4478-a98d-e356018d3919-00-2ihaokfq44wk3.worf.replit.dev/@vite/client:289:9)
+Failed to fetch
+at window.fetch (https://2ba9ab53-4f87-4478-a98d-e356018d3919-00-2ihaokfq44wk3.worf.replit.dev/__replco/static/devtools/eruda/3.2.3/eruda.js:2:218642)
+at Object.apply (https://2ba9ab53-4f87-4478-a98d-e356018d3919-00-2ihaokfq44wk3.worf.replit.dev/__replco/static/devtools/injected.js:278:39)
+at ping (https://2ba9ab53-4f87-4478-a98d-e356018d3919-00-2ihaokfq44wk3.worf.replit.dev/@vite/client:484:19)
+at waitForSuccessfulPing (https://2ba9ab53-4f87-4478-a98d-e356018d3919-00-2ihaokfq44wk3.worf.replit.dev/@vite/client:504:23)
+at async WebSocket.<anonymous> (https://2ba9ab53-4f87-4478-a98d-e356018d3919-00-2ihaokfq44wk3.worf.replit.dev/@vite/client:289:9)
+🚀 [Performance] CLS: 
+Object {value: 0, rating: "good", delta: 0, navigationType: "navigate"}
+🚀 [Performance] CLS: 
+Object {value: 0, rating: "good", delta: 0, navigationType: "navigate"}
+🚀 [Performance] CLS: 
+Object {value: 0, rating: "good", delta: 0, navigationType: "navigate"}
+🚀 [Performance] FID: 
+Object {value: 3, rating: "good", delta: 3, navigationType: "navigate"}
+🚀 [Performance] CLS: 
+Object {value: 0, rating: "good", delta: 0, navigationType: "navigate"}
+Failed to fetch
+at window.fetch (https://2ba9ab53-4f87-4478-a98d-e356018d3919-00-2ihaokfq44wk3.worf.replit.dev/__replco/static/devtools/eruda/3.2.3/eruda.js:2:218642)
+at Object.apply (https://2ba9ab53-4f87-4478-a98d-e356018d3919-00-2ihaokfq44wk3.worf.replit.dev/__replco/static/devtools/injected.js:278:39)
+at ping (https://2ba9ab53-4f87-4478-a98d-e356018d3919-00-2ihaokfq44wk3.worf.replit.dev/@vite/client:484:19)
+at waitForSuccessfulPing (https://2ba9ab53-4f87-4478-a98d-e356018d3919-00-2ihaokfq44wk3.worf.replit.dev/@vite/client:504:23)
+at async WebSocket.<anonymous> (https://2ba9ab53-4f87-4478-a98d-e356018d3919-00-2ihaokfq44wk3.worf.replit.dev/@vite/client:289:9)
+Failed to fetch
+at window.fetch (https://2ba9ab53-4f87-4478-a98d-e356018d3919-00-2ihaokfq44wk3.worf.replit.dev/__replco/static/devtools/eruda/3.2.3/eruda.js:2:218642)
+at Object.apply (https://2ba9ab53-4f87-4478-a98d-e356018d3919-00-2ihaokfq44wk3.worf.replit.dev/__replco/static/devtools/injected.js:278:39)
+at ping (https://2ba9ab53-4f87-4478-a98d-e356018d3919-00-2ihaokfq44wk3.worf.replit.dev/@vite/client:484:19)
+at waitForSuccessfulPing (https://2ba9ab53-4f87-4478-a98d-e356018d3919-00-2ihaokfq44wk3.worf.replit.dev/@vite/client:504:23)
+at async WebSocket.<anonymous> (https://2ba9ab53-4f87-4478-a98d-e356018d3919-00-2ihaokfq44wk3.worf.replit.dev/@vite/client:289:9)
+🚀 [Performance] CLS: 
+Object {value: 0, rating: "good", delta: 0, navigationType: "navigate"}
+🚀 [Performance] CLS: 
+Object {value: 0, rating: "good", delta: 0, navigationType: "navigate"}
