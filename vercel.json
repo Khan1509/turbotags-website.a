@@ -5,10 +5,13 @@
       "runtime": "edge"
     }
   },
-  "rewrites": [
+  "routes": [
     {
-      "source": "/((?!api/|assets/|icons?/|data/|favicon|.*\\.(ico|png|jpg|jpeg|gif|svg|webp|js|css|woff|woff2|ttf|eot|json|xml|txt|webmanifest)$|sitemap\\.xml$|robots\\.txt$|manifest\\.json$|sw\\.js$|.*\\.html$).*)",
-      "destination": "/api/404-handler"
+      "handle": "filesystem"
+    },
+    {
+      "src": "/.*",
+      "dest": "/"
     }
   ],
   "headers": [

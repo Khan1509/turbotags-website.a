@@ -3,12 +3,12 @@ import Hero from '../components/Hero';
 import Platforms from '../components/Platforms';
 import LazySection from '../components/utils/LazySection';
 import HowToUse from '../components/HowToUse';
-import CreatorGrowthTips from '../components/CreatorGrowthTips';
 import LoadingSpinner from '../components/ui/LoadingSpinner';
 import usePageMeta from '../hooks/usePageMeta';
 
-// Lazy load the heavy TagGenerator component for better FCP/LCP
+// Lazy load heavy components with animations for better FCP/LCP
 const TagGenerator = React.lazy(() => import('../components/TagGenerator'));
+const CreatorGrowthTips = React.lazy(() => import('../components/CreatorGrowthTips'));
 
 function HomePage() {
   usePageMeta(
@@ -37,7 +37,15 @@ function HomePage() {
         <LazySection><Platforms /></LazySection>
       </div>
       
-      <LazySection><CreatorGrowthTips /></LazySection>
+      <LazySection>
+        <Suspense fallback={
+          <div className="min-h-96 flex items-center justify-center">
+            <LoadingSpinner size="large" ariaLabel="Loading growth tips..." />
+          </div>
+        }>
+          <CreatorGrowthTips />
+        </Suspense>
+      </LazySection>
       
       <LazySection><HowToUse /></LazySection>
     </div>

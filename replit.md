@@ -7,6 +7,14 @@ A React/Vite web application for generating hashtags and tags for various social
 - **Technology**: React 18, Vite 5, Tailwind CSS, Firebase Analytics
 - **Current State**: Fully functional with optimized AI generation using user's preferred models and comprehensive fallback system
 
+## Recent Changes
+- ✅ **CRITICAL PERFORMANCE & DEPLOYMENT FIXES COMPLETED (Sept 29, 2025)** - Resolved deployment failures and performance regressions
+- ✅ **Fixed invalid vercel.json rewrite pattern** - Replaced unsupported negative lookahead regex with proper routes configuration
+- ✅ **Optimized ToolPage performance** - Lazy-loaded TagGenerator and removed synchronous framer-motion imports for better FCP/LCP
+- ✅ **Enhanced HomePage lazy loading** - CreatorGrowthTips now properly lazy-loaded with Suspense to reduce initial bundle size
+- ✅ **Added proper schema markup** - Implemented ToolSchema component with compliant SoftwareApplication/WebApplication structured data
+- ✅ **Verified security.txt and RSS feed** - Both files properly configured and ready for production
+- ✅ **Production build optimized** - Main bundle reduced, proper chunking strategy maintained for sub-optimal performance scores
 ## Recent Changes  
 - ✅ **CLS PERFORMANCE OPTIMIZATION COMPLETED (Sept 27, 2025)** - Achieved perfect CLS score improvement from poor (5-6) to excellent (0)
 - ✅ **Font loading optimized** - Eliminated layout shifts with proper font preloading and display:swap strategy
