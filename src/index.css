@@ -34,17 +34,18 @@
     min-height: 100vh;
   }
   
-  /* Custom cursor styling using Start Generating Now button colors */
-  * {
-    cursor: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20"><circle cx="10" cy="10" r="8" fill="%23475569" stroke="%23334155" stroke-width="2"/></svg>') 10 10, auto;
+  /* Remove custom cursor on mobile for better performance */
+  @media (min-width: 768px) {
+    * {
+      cursor: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20"><circle cx="10" cy="10" r="8" fill="%23475569" stroke="%23334155" stroke-width="2"/></svg>') 10 10, auto;
+    }
+    
+    body.has-custom-cursor {
+      cursor: none;
+    }
   }
   
-  /* Only hide cursor when custom cursor is supported and active */
-  body.has-custom-cursor {
-    cursor: none;
-  }
-  
-  /* Optimized professional gradient background for better LCP */
+  /* Simplified background for better mobile performance - no animation on mobile */
   body::before {
     content: '';
     position: fixed;
@@ -52,13 +53,19 @@
     left: 0;
     width: 100vw;
     height: 100vh;
-    will-change: contents;
-    background: radial-gradient(circle at 30% 40%, rgba(22, 32, 89, 0.03) 0%, transparent 40%),
-                radial-gradient(circle at 80% 10%, rgba(25, 35, 64, 0.05) 0%, transparent 50%),
-                radial-gradient(circle at 40% 80%, rgba(52, 73, 115, 0.03) 0%, transparent 50%);
-    animation: gradientShift 20s ease-in-out infinite;
+    background: radial-gradient(circle at 30% 40%, rgba(22, 32, 89, 0.02) 0%, transparent 40%);
     z-index: -1;
     pointer-events: none;
+  }
+
+  /* Only add animation on desktop for performance */
+  @media (min-width: 768px) and (prefers-reduced-motion: no-preference) {
+    body::before {
+      background: radial-gradient(circle at 30% 40%, rgba(22, 32, 89, 0.03) 0%, transparent 40%),
+                  radial-gradient(circle at 80% 10%, rgba(25, 35, 64, 0.05) 0%, transparent 50%),
+                  radial-gradient(circle at 40% 80%, rgba(52, 73, 115, 0.03) 0%, transparent 50%);
+      animation: gradientShift 20s ease-in-out infinite;
+    }
   }
 
   h1, .h1 {

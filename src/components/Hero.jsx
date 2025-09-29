@@ -12,7 +12,7 @@ const Hero = React.memo(() => {
         role="list"
         aria-label="Key features"
       >
-        <span className="inline-flex items-center px-4 py-2 rounded-full text-sm font-semibold shadow-lg transition-all duration-300 hover:scale-105 hover:-translate-y-1 hover:shadow-xl border border-opacity-30" role="listitem"
+        <span className="inline-flex items-center px-4 py-2 rounded-full text-sm font-semibold shadow-lg border border-opacity-30" role="listitem"
           style={{
             background: 'rgba(255, 255, 255, 0.7)',
             color: '#6b7280',
@@ -22,7 +22,7 @@ const Hero = React.memo(() => {
           <Globe className="w-4 h-4 mr-2" aria-hidden="true" />
           30+ Regions Supported
         </span>
-        <span className="inline-flex items-center px-4 py-2 rounded-full text-sm font-semibold text-white shadow-xl transition-all duration-300 hover:scale-105 hover:-translate-y-1 hover:shadow-2xl border border-opacity-40" role="listitem"
+        <span className="inline-flex items-center px-4 py-2 rounded-full text-sm font-semibold text-white shadow-xl border border-opacity-40" role="listitem"
           style={{
             background: 'linear-gradient(135deg, #475569, #334155)',
             borderColor: 'rgba(51, 65, 85, 0.3)',
@@ -31,7 +31,7 @@ const Hero = React.memo(() => {
           <Bot className="w-4 h-4 mr-2" aria-hidden="true" />
           AI Title & Tag Generation
         </span>
-        <span className="inline-flex items-center px-4 py-2 rounded-full text-sm font-semibold border-2 shadow-lg transition-all duration-300 hover:scale-105 hover:-translate-y-1 hover:shadow-xl" role="listitem"
+        <span className="inline-flex items-center px-4 py-2 rounded-full text-sm font-semibold border-2 shadow-lg" role="listitem"
           style={{
             background: 'radial-gradient(125% 125% at 50% 90%, #fff 40%, #475569 100%)',
             color: '#1f2937',

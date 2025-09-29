@@ -35,43 +35,67 @@ export default defineConfig({
   },
   base: './',
   build: {
-    // Optimize bundle size and splitting
+    // Optimize bundle size and splitting with improved chunking strategy
     rollupOptions: {
       output: {
         manualChunks: (id) => {
-          // Vendor chunks for better caching
-          if (id.includes('react') || id.includes('react-dom') || id.includes('react-router-dom')) {
-            return 'react-vendor';
+          // Critical React chunks - keep minimal for initial load
+          if (id.includes('react/jsx-runtime') || id.includes('react-dom/client')) {
+            return 'react-critical';
           }
+          if (id.includes('react-router-dom')) {
+            return 'react-router';
+          }
+          
+          // Heavy animation libraries - defer loading
           if (id.includes('framer-motion')) {
-            return 'animation-vendor';
+            return 'framer-motion';
           }
+          
+          // Icon libraries - large bundle, defer loading  
           if (id.includes('lucide-react')) {
-            return 'icons-vendor';
+            return 'lucide-icons';
           }
-          if (id.includes('firebase')) {
-            return 'firebase-vendor';
+          
+          // Analytics - non-critical
+          if (id.includes('@vercel/analytics') || id.includes('firebase')) {
+            return 'analytics';
           }
-          if (id.includes('node_modules')) {
+          
+          // Utilities - small but separate
+          if (id.includes('clsx') || id.includes('tailwind-merge')) {
+            return 'ui-utils';
+          }
+          
+          // Only group remaining small vendors together
+          if (id.includes('node_modules') && 
+              !id.includes('react') && 
+              !id.includes('framer-motion') && 
+              !id.includes('lucide-react') &&
+              !id.includes('firebase') &&
+              !id.includes('@vercel/analytics')) {
             return 'vendor';
           }
         },
-        // Better file naming for caching
+        // Optimized file naming for better caching
         entryFileNames: 'assets/[name]-[hash].js',
         chunkFileNames: 'assets/[name]-[hash].js',
         assetFileNames: 'assets/[name]-[hash].[ext]'
       }
     },
-    // Reduce chunk size warnings threshold
-    chunkSizeWarningLimit: 500,
+    // Reduce chunk size warnings threshold for mobile optimization
+    chunkSizeWarningLimit: 300,
     // Disable source maps for production performance
     sourcemap: false,
-    // Use esbuild for faster builds and better tree shaking
+    // Use esbuild for faster builds and smaller bundles
     minify: 'esbuild',
-    // Target modern browsers for smaller bundles
+    // Target modern browsers for maximum optimization
     target: ['es2020', 'chrome80', 'firefox78', 'safari14', 'edge88'],
     // Enable aggressive tree shaking
-    treeShake: true
+    treeShake: true,
+    // Additional optimizations for mobile
+    cssCodeSplit: true,
+    assetsInlineLimit: 2048, // Inline smaller assets to reduce requests
   },
   // Alias for shorter imports
   resolve: {

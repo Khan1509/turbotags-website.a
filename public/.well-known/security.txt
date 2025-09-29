@@ -1,0 +1,16 @@
+Contact: helloturbotags@gmail.com
+Expires: 2026-09-29T23:59:59.000Z
+Encryption: https://turbotags.app/pgp-key.txt
+Preferred-Languages: en
+Canonical: https://turbotags.app/.well-known/security.txt
+Policy: https://turbotags.app/security-policy
+
+# Security Policy
+# 
+# We take security seriously at TurboTags. If you discover a security
+# vulnerability, please report it responsibly by emailing us directly.
+#
+# Please do not publicly disclose security issues until we have had
+# a chance to address them.
+#
+# We appreciate your help in keeping TurboTags secure!

@@ -1,11 +1,14 @@
-import React from 'react';
+import React, { Suspense } from 'react';
 import Hero from '../components/Hero';
-import TagGenerator from '../components/TagGenerator';
 import Platforms from '../components/Platforms';
 import LazySection from '../components/utils/LazySection';
 import HowToUse from '../components/HowToUse';
 import CreatorGrowthTips from '../components/CreatorGrowthTips';
+import LoadingSpinner from '../components/ui/LoadingSpinner';
 import usePageMeta from '../hooks/usePageMeta';
+
+// Lazy load the heavy TagGenerator component for better FCP/LCP
+const TagGenerator = React.lazy(() => import('../components/TagGenerator'));
 
 function HomePage() {
   usePageMeta(
@@ -19,7 +22,15 @@ function HomePage() {
       </div>
 
       <div className="container mx-auto max-w-7xl px-4 sm:px-6 md:px-8">
-        <TagGenerator />
+        <LazySection threshold={0.1}>
+          <Suspense fallback={
+            <div className="min-h-96 flex items-center justify-center">
+              <LoadingSpinner size="large" ariaLabel="Loading tag generator..." />
+            </div>
+          }>
+            <TagGenerator />
+          </Suspense>
+        </LazySection>
       </div>
       
       <div className="container mx-auto max-w-7xl px-4 sm:px-6 md:px-8">
