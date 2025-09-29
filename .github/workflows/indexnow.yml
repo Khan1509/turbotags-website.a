@@ -18,8 +18,13 @@ jobs:
       - name: Auto-Detect Changed URLs
         id: url-detector
         run: |
-          # Get modified files
-          CHANGED_FILES=$(git diff --name-only HEAD^ HEAD)
+          # Get modified files - handle case where there's no previous commit
+          if git rev-parse --verify HEAD^ >/dev/null 2>&1; then
+            CHANGED_FILES=$(git diff --name-only HEAD^ HEAD)
+          else
+            # First commit or no previous commit - check all files
+            CHANGED_FILES=$(git ls-files)
+          fi
           
           # Convert file paths to URLs
           URLS=()
