@@ -1,3 +1,8 @@
+// Runtime configuration for Edge Runtime
+export const config = {
+  runtime: 'edge',
+};
+
 // Define all valid static routes
 const VALID_STATIC_ROUTES = new Set([
   '/',

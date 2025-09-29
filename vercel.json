@@ -1,13 +1,8 @@
 {
   "version": 2,
-  "functions": {
-    "api/404-handler.js": {
-      "runtime": "edge"
-    }
-  },
   "rewrites": [
     {
-      "source": "/(.*)",
+      "source": "/((?!api/).*)",
       "destination": "/index.html"
     }
   ],
