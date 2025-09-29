@@ -39,41 +39,45 @@ export default defineConfig({
     rollupOptions: {
       output: {
         manualChunks: (id) => {
-          // Critical React chunks - keep minimal for initial load
-          if (id.includes('react/jsx-runtime') || id.includes('react-dom/client')) {
-            return 'react-critical';
+          // Core React runtime only - minimal for initial load
+          if (id.includes('react/jsx-runtime')) {
+            return 'react-core';
           }
-          if (id.includes('react-router-dom')) {
-            return 'react-router';
+          if (id.includes('react-dom/client')) {
+            return 'react-dom';
           }
           
-          // Heavy animation libraries - defer loading
+          // React ecosystem - separate from core
+          if (id.includes('react-router-dom') || id.includes('react-router')) {
+            return 'react-router';
+          }
+          if (id.includes('node_modules/react/') && !id.includes('jsx-runtime')) {
+            return 'react-lib';
+          }
+          if (id.includes('node_modules/react-dom/') && !id.includes('client')) {
+            return 'react-dom-lib';
+          }
+          
+          // Heavy libraries - defer completely
           if (id.includes('framer-motion')) {
             return 'framer-motion';
           }
-          
-          // Icon libraries - large bundle, defer loading  
           if (id.includes('lucide-react')) {
             return 'lucide-icons';
           }
           
-          // Analytics - non-critical
+          // Analytics and tracking - non-critical
           if (id.includes('@vercel/analytics') || id.includes('firebase')) {
             return 'analytics';
           }
           
-          // Utilities - small but separate
+          // Small utilities
           if (id.includes('clsx') || id.includes('tailwind-merge')) {
             return 'ui-utils';
           }
           
-          // Only group remaining small vendors together
-          if (id.includes('node_modules') && 
-              !id.includes('react') && 
-              !id.includes('framer-motion') && 
-              !id.includes('lucide-react') &&
-              !id.includes('firebase') &&
-              !id.includes('@vercel/analytics')) {
+          // Everything else in vendor
+          if (id.includes('node_modules')) {
             return 'vendor';
           }
         },
