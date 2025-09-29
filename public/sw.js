@@ -1,19 +1,13 @@
 // **STABLE RELEASE**: Network-First, with robust error handling.
-// v2.6.6-stable: Updated favicon cache with consistent slate theme and cleared old purple favicon cache.
-const CACHE_NAME = 'turbotags-v2.6.6-stable';
+// v2.6.7-stable: Force complete favicon cache invalidation and remove all old favicon references.
+const CACHE_NAME = 'turbotags-v2.6.7-stable';
 
 // Essential assets to pre-cache for the app shell to work offline.
+// Note: Favicons excluded to honor no-cache headers from server
 const PRECACHE_ASSETS = [
   '/',
   '/index.html',
   '/site.webmanifest',
-  '/favicon_darknavy.ico',
-  '/favicon_darknavy.svg',
-  '/favicon_darknavy_thick.svg',
-  '/icon-192.svg',
-  '/icon-256.svg',
-  '/icon-384.svg',
-  '/icon-512.svg',
 ];
 
 // On install, pre-cache the app shell.
@@ -58,6 +52,13 @@ self.addEventListener('fetch', (event) => {
 
   event.respondWith(
     (async () => {
+      // Check if this is a favicon/icon request - if so, bypass caching to honor no-cache headers
+      const isFaviconRequest = /\/(favicon.*|.*\.ico$|icon-\d+\.svg$)/i.test(request.url);
+      
+      if (isFaviconRequest) {
+        return fetch(request);
+      }
+
       // 1. Try the network first.
       try {
         const networkResponse = await fetch(request);

@@ -1,9 +1,14 @@
 {
   "version": 2,
+  "functions": {
+    "api/404-handler.js": {
+      "runtime": "edge"
+    }
+  },
   "rewrites": [
     {
-      "source": "/((?!api/|assets/|icons/|data/|sitemap.xml|robots.txt|manifest.json|favicon.svg|sw.js|.*\\.html$|.*\\.txt$|.*\\.xml$).*)",
-      "destination": "/index.html"
+      "source": "/((?!api/|assets/|icons?/|data/|favicon|.*\\.(ico|png|jpg|jpeg|gif|svg|webp|js|css|woff|woff2|ttf|eot|json|xml|txt|webmanifest)$|sitemap\\.xml$|robots\\.txt$|manifest\\.json$|sw\\.js$|.*\\.html$).*)",
+      "destination": "/api/404-handler"
     }
   ],
   "headers": [
@@ -20,6 +25,14 @@
         { "key": "Referrer-Policy", "value": "strict-origin-when-cross-origin" },
         { "key": "Strict-Transport-Security", "value": "max-age=31536000; includeSubDomains; preload" },
         { "key": "Permissions-Policy", "value": "camera=(), microphone=(), geolocation=(), payment=()" }
+      ]
+    },
+    {
+      "source": "/(favicon.*|.*\\.ico|icon-.*\\.svg)",
+      "headers": [
+        { "key": "Cache-Control", "value": "no-cache, no-store, must-revalidate" },
+        { "key": "Pragma", "value": "no-cache" },
+        { "key": "Expires", "value": "0" }
       ]
     }
   ]
